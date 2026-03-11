@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Apprentices Act, 1961 — Complete Notes</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root {
     --ink: #1a1a2e;
@@ -379,10 +380,69 @@
     .penalty-grid { grid-template-columns: 1fr; }
     #mindmap-canvas { height: 400px; }
   }
+
+  /* ═══ DHRUV HEADER OVERRIDE ═══ */
+  .dhruv-bar {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(7,7,12,0.97); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 0.75rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .dhruv-bar::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, #ff3c1f, #f5a623);
+  }
+  .dhruv-left { display: flex; align-items: center; gap: 0.85rem; }
+  .dhruv-logo {
+    width: 38px; height: 38px; background: linear-gradient(135deg, #ff3c1f, #f5a623);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; box-shadow: 0 0 18px rgba(255,60,31,0.4); flex-shrink: 0;
+  }
+  .dhruv-brand {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.07em;
+    background: linear-gradient(130deg, #fff 25%, #ffc96b 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1;
+  }
+  .dhruv-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.07); }
+  .dhruv-doc-badge {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.22rem 0.65rem; border-radius: 100px;
+    background: rgba(255,60,31,0.12); border: 1px solid rgba(255,60,31,0.3); color: #ff6b4a;
+  }
+  .dhruv-doc-title { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.88rem; color: #f0f0f8; line-height: 1.3; }
+  .dhruv-doc-sub { font-size: 0.65rem; color: #64647a; font-weight: 300; margin-top: 0.1rem; }
+  .dhruv-back {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.45rem 1rem; border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.04);
+    color: #64647a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600;
+    text-decoration: none; transition: all 0.2s; cursor: pointer; white-space: nowrap;
+  }
+  .dhruv-back:hover { border-color: rgba(255,60,31,0.4); color: #ff6b4a; }
+  /* ═══ END DHRUV HEADER ═══ */
+
 </style>
 </head>
 <body>
 
+<div class="dhruv-bar">
+  <div class="dhruv-left">
+    <div class="dhruv-logo">📋</div>
+    <div class="dhruv-brand">DHRUV</div>
+    <div class="dhruv-divider"></div>
+    <div>
+      <div style="display:flex;align-items:center;gap:0.55rem">
+        <span class="dhruv-doc-badge">Acts &amp; Law</span>
+        <div class="dhruv-doc-title">Apprentices Act 1961</div>
+      </div>
+      <div class="dhruv-doc-sub">MPSC Exam Preparation · Complete Study Notes</div>
+    </div>
+  </div>
+  <a class="dhruv-back" href="index.html">← Back to DHRUV</a>
+</div>
 <header>
   <div class="header-label">Comprehensive Study Notes · Labour Law</div>
   <h1>The Apprentices Act, <span>1961</span></h1>
