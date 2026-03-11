@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Planning & Implementation — Ignite Academy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --card: #1c2330;
+  --border: #2d3748;
+  --text: #e2e8f0;
+  --muted: #8b9abf;
+  --gold: #f5a623;
+  --teal: #38b2ac;
+  --rose: #f56565;
+  --violet: #805ad5;
+  --sky: #4299e1;
+  --green: #48bb78;
+  --orange: #ed8936;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.header {
+  background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.hbadge {
+  background: var(--gold);
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  flex: 1;
+}
+.header h1 span { color: var(--gold); }
+
+.tabs {
+  display: flex;
+  gap: 0;
+  padding: 14px 32px 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 9px 16px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.content { display: none; padding: 28px 32px; max-width: 1200px; margin: 0 auto; }
+.content.active { display: block; }
+
+/* MIND MAP */
+#mm-wrap {
+  width: 100%;
+  height: 580px;
+  background: radial-gradient(ellipse at 50% 50%, #151c2e 0%, #0a0d13 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+  user-select: none;
+}
+#mm-wrap:active { cursor: grabbing; }
+#mmsvg { width: 100%; height: 100%; }
+.mm-tip {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #4a5568;
+  pointer-events: none;
+}
+
+/* SECTIONS */
+.stitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 22px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.stitle span { color: var(--gold); }
+
+.sub {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sky);
+  margin: 26px 0 12px;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin-bottom: 14px;
+  border-left: 3px solid var(--gold);
+}
+.card.tc { border-left-color: var(--teal); }
+.card.rc { border-left-color: var(--rose); }
+.card.vc { border-left-color: var(--violet); }
+.card.sc { border-left-color: var(--sky); }
+.card.gc { border-left-color: var(--green); }
+.card.oc { border-left-color: var(--orange); }
+
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 9px;
+  color: var(--text);
+}
+.card ul { list-style: none; }
+.card ul li {
+  padding: 4px 0 4px 18px;
+  position: relative;
+  color: #c4cfe0;
+  font-size: 14px;
+}
+.card ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 10px;
+  top: 7px;
+}
+
+p { color: #c4cfe0; margin-bottom: 10px; font-size: 14px; }
+
+/* TAG */
+.tag {
+  display: inline-block;
+  background: rgba(245,166,35,0.12);
+  color: var(--gold);
+  border: 1px solid rgba(245,166,35,0.28);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  padding: 1px 7px;
+  margin: 2px 2px;
+}
+.tag.t { background: rgba(56,178,172,0.12); color: var(--teal); border-color: rgba(56,178,172,0.28); }
+.tag.r { background: rgba(245,101,101,0.12); color: var(--rose); border-color: rgba(245,101,101,0.28); }
+.tag.s { background: rgba(66,153,225,0.12); color: var(--sky); border-color: rgba(66,153,225,0.28); }
+.tag.g { background: rgba(72,187,120,0.12); color: var(--green); border-color: rgba(72,187,120,0.28); }
+.tag.v { background: rgba(128,90,213,0.12); color: var(--violet); border-color: rgba(128,90,213,0.28); }
+
+/* TABLE */
+.dt {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 13px;
+}
+.dt th {
+  background: rgba(245,166,35,0.08);
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  padding: 9px 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.dt td {
+  padding: 9px 13px;
+  border-bottom: 1px solid rgba(45,55,72,0.4);
+  color: #c4cfe0;
+  vertical-align: top;
+}
+.dt tr:hover td { background: rgba(255,255,255,0.018); }
+
+/* GRID */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+@media(max-width:740px) { .g2,.g3 { grid-template-columns: 1fr; } }
+
+/* HIGHLIGHT BOX */
+.hl {
+  background: rgba(245,166,35,0.06);
+  border: 1px solid rgba(245,166,35,0.18);
+  border-radius: 7px;
+  padding: 14px 18px;
+  margin: 14px 0;
+}
+.hl.t { background: rgba(56,178,172,0.06); border-color: rgba(56,178,172,0.18); }
+.hl.r { background: rgba(245,101,101,0.06); border-color: rgba(245,101,101,0.18); }
+.hl.s { background: rgba(66,153,225,0.06); border-color: rgba(66,153,225,0.18); }
+.hl-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--gold);
+  margin-bottom: 7px;
+}
+.hl.t .hl-title { color: var(--teal); }
+.hl.r .hl-title { color: var(--rose); }
+.hl.s .hl-title { color: var(--sky); }
+
+/* STEPS */
+.steps { counter-reset: st; list-style: none; }
+.steps li {
+  counter-increment: st;
+  padding: 8px 14px 8px 48px;
+  position: relative;
+  border-left: 1px solid var(--border);
+  margin-left: 16px;
+  margin-bottom: 5px;
+  color: #c4cfe0;
+  font-size: 14px;
+}
+.steps li::before {
+  content: counter(st);
+  position: absolute;
+  left: -16px;
+  top: 7px;
+  width: 28px; height: 28px;
+  background: var(--gold);
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* Q&A */
+.qa {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  margin-bottom: 9px;
+  overflow: hidden;
+}
+.qa-q {
+  padding: 13px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text);
+}
+.qa-q:hover { background: rgba(255,255,255,0.025); }
+.qa-arr { color: var(--gold); flex-shrink: 0; transition: transform 0.18s; font-size: 11px; margin-top: 2px; }
+.qa.open .qa-arr { transform: rotate(90deg); }
+.qa-a { display: none; padding: 0 16px 12px; font-size: 13.5px; color: #c4cfe0; }
+.qa.open .qa-a { display: block; }
+.ans {
+  display: inline-block;
+  background: rgba(72,187,120,0.12);
+  color: var(--green);
+  border: 1px solid rgba(72,187,120,0.28);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  margin-top: 7px;
+}
+
+strong { color: var(--text); }
+.divider { height: 1px; background: var(--border); margin: 22px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="hbadge">Ignite Academy</div>
+  <h1>Training Planning <span>&</span> Implementation</h1>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a5568">उपसंचालक | प्राचार्य | निरीक्षक</span>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('mm',this)">🗺 Mind Map</button>
+  <button class="tab" onclick="showTab('tr',this)">📚 Training Basics</button>
+  <button class="tab" onclick="showTab('cu',this)">📋 Curriculum & Media</button>
+  <button class="tab" onclick="showTab('in',this)">🏭 Industry Linkage</button>
+  <button class="tab" onclick="showTab('en',this)">💼 Entrepreneurship</button>
+  <button class="tab" onclick="showTab('sa',this)">🦺 Safety & First Aid</button>
+  <button class="tab" onclick="showTab('te',this)">👩‍🏫 Teacher Training</button>
+  <button class="tab" onclick="showTab('qa',this)">✏️ Practice Q&A</button>
+</div>
+
+<!-- MIND MAP -->
+<div id="tab-mm" class="content active">
+  <h2 class="stitle">Interactive <span>Mind Map</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Drag to pan · Scroll/pinch to zoom · All major topics at a glance</p>
+  <div id="mm-wrap">
+    <svg id="mmsvg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="rg-center" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f5a62322"/>
+          <stop offset="100%" stop-color="#f5a62308"/>
+        </radialGradient>
+        <filter id="fg">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="fs">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g id="mm-g"></g>
+    </svg>
+    <div class="mm-tip">drag to pan · scroll to zoom</div>
+  </div>
+</div>
+
+<!-- TRAINING BASICS -->
+<div id="tab-tr" class="content">
+  <h2 class="stitle">Training <span>Basics</span></h2>
+
+  <div class="card">
+    <h3>Training Coordinator — Role</h3>
+    <ul>
+      <li>Creates training schedules; tracks outcomes; maintains records</li>
+      <li>Trains new hires on company policies; uses best training methods</li>
+      <li>Gathers feedback from employees/management; identifies weaknesses</li>
+      <li>Attends seminars to learn new techniques; coordinates future sessions</li>
+      <li>Recruits & trains new Trainers; manages training budget</li>
+    </ul>
+  </div>
+
+  <div class="sub">Types of Training — By Structure</div>
+  <div class="g3">
+    <div class="card">
+      <h3 style="color:var(--gold)">Structured</h3>
+      <p>Designed by training institution in advance; covered within stipulated time; planned via expert group meetings</p>
+    </div>
+    <div class="card tc">
+      <h3 style="color:var(--teal)">Semi-structured</h3>
+      <p>Curriculum may change to suit trainee needs mid-program; trainees react when training gains momentum</p>
+    </div>
+    <div class="card rc">
+      <h3 style="color:var(--rose)">Unstructured</h3>
+      <p>Trainees structure schedule with trainer; objective must be clear; only for manageable groups</p>
+    </div>
+  </div>
+
+  <div class="sub">Types of Training — By Context</div>
+  <table class="dt">
+    <thead><tr><th>Type</th><th>Key Points</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Orientation/Induction</strong></td><td>General info: org structure, service rules, code of conduct; prepares employee for job</td></tr>
+      <tr><td><strong>Refresher</strong></td><td>Periodic; keeps employees updated in professional knowledge/skills; improves output quality</td></tr>
+      <tr><td><strong>Direct Contact</strong></td><td>One-on-one; on-campus or classroom; limits participant numbers</td></tr>
+      <tr><td><strong>Distance</strong></td><td>Reaches large numbers; learners work at own pace; enables inter-organizational collaboration</td></tr>
+      <tr><td><strong>Formal</strong></td><td>Strict structured time and curriculum; most visible in labour market</td></tr>
+      <tr><td><strong>Non-formal</strong></td><td>Open environment; avoids classroom rigidities</td></tr>
+      <tr><td><strong>Centralized</strong></td><td>One institute plans, funds and runs programs; predominates in developing countries</td></tr>
+      <tr><td><strong>Dispersed</strong></td><td>Activities spread over time and location; flexible; adaptable</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sub">6 Components of Training</div>
+  <div class="hl">
+    <div class="hl-title">Training Components (circular cycle)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span class="tag s">Goal</span>→<span class="tag s">Motivation</span>→<span class="tag s">Opportunity to Learn</span>→<span class="tag s">Opportunity to Practice</span>→<span class="tag s">Follow-up</span>→<span class="tag s">Retraining</span>
+    </div>
+  </div>
+
+  <div class="sub">Generations of Distance Education</div>
+  <table class="dt">
+    <thead><tr><th>Gen</th><th>Model</th><th>Technology</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">1st</span></td><td>Correspondence Model</td><td>Print</td></tr>
+      <tr><td><span class="tag">2nd</span></td><td>Multimedia Model</td><td>Print, Audio/Video Tapes</td></tr>
+      <tr><td><span class="tag">3rd</span></td><td>Telelearning Model</td><td>Audioconferencing, Videoconferencing, Broadcasting</td></tr>
+      <tr><td><span class="tag">4th</span></td><td>Flexible Learning Model</td><td>Interactive Multimedia, <strong>CMC</strong> (Computer-Mediated Communication)</td></tr>
+    </tbody>
+  </table>
+  <p><strong>CMC</strong> — any communication between individuals interacting via separate computers through internet/network using software.</p>
+</div>
+
+<!-- CURRICULUM & MEDIA -->
+<div id="tab-cu" class="content">
+  <h2 class="stitle">Curriculum, Media <span>&</span> Assessment</h2>
+
+  <div class="hl">
+    <div class="hl-title">Curriculum vs Syllabus</div>
+    <table class="dt" style="margin:8px 0 0">
+      <thead><tr><th>Curriculum</th><th>Syllabus</th></tr></thead>
+      <tbody>
+        <tr><td>Latin "currere" = to run</td><td>Greek origin</td></tr>
+        <tr><td>Overall content of educational system/course</td><td>Concepts covered in a subject</td></tr>
+        <tr><td>Set for a course/programme</td><td>Set for a subject</td></tr>
+        <tr><td>Broad scope</td><td>Narrow scope</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub">9-Step Curriculum Development</div>
+  <ol class="steps">
+    <li><strong>Identification of training needs</strong></li>
+    <li><strong>Defining learning objectives</strong> — SMART (Specific, Measurable, Achievable, Relevant, Time-bound)</li>
+    <li><strong>Selection of training methods</strong> — Lecture, Discussion, Seminar, Conference</li>
+    <li><strong>Design curriculum content</strong> — core content & learning materials</li>
+    <li><strong>Creation of learning resources</strong> — textbooks, handouts, slideshows, videos, online modules</li>
+    <li><strong>Design learning activities</strong> — group discussions, case studies, role-playing, hands-on projects</li>
+    <li><strong>Development of assessment methods</strong></li>
+    <li><strong>Pilot test</strong> — trial run with small group; identify issues</li>
+    <li><strong>Finalization & Implementation</strong></li>
+  </ol>
+
+  <div class="sub">Key Pedagogical Approaches</div>
+  <div class="g3">
+    <div class="card tc"><h3>Problem-Based Learning (PBL)</h3><p>Engage actively with meaningful problems. Collaborative; self-directed. No single defined solution.</p></div>
+    <div class="card vc"><h3>Constructivism</h3><p>Learner actively constructs own knowledge. Uses prior knowledge as foundation. Learner = active cognizing subject.</p></div>
+    <div class="card sc"><h3>Flipped Classroom</h3><p>Readings at home; problem-solving in class. Students watch online lectures at home; engage with mentor in class.</p></div>
+  </div>
+
+  <div class="sub">Instructional Media — Learner Control Spectrum</div>
+  <div class="hl">
+    <div class="hl-title">Level of Learner Control</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span class="tag r">1 — No Control<br>TV, Radio</span>
+      <span style="color:var(--muted)">→</span>
+      <span class="tag">2 — Projected Media</span>
+      <span style="color:var(--muted)">→</span>
+      <span class="tag t">3 — Non-projected Media</span>
+      <span style="color:var(--muted)">→</span>
+      <span class="tag g">4 — High Control<br>Computer, Tape</span>
+    </div>
+  </div>
+
+  <div class="sub">Programmed Learning Material</div>
+  <div class="card oc">
+    <ul>
+      <li>Material presented in small steps called <strong>frames</strong></li>
+      <li>Each frame: small info + question/activity calling for <strong>overt response</strong></li>
+      <li>Learner informed if response correct/incorrect before next frame</li>
+      <li>Frames prepared so <strong>95% responses are correct</strong></li>
+      <li>Immediate feedback and reinforcement</li>
+    </ul>
+  </div>
+
+  <div class="sub">CAI (Computer-Assisted Instruction) Modes</div>
+  <div class="g3">
+    <div class="card"><h3>Drill & Practice</h3><p>Computer presents exercises; feedback = congratulatory or corrective; learner-controlled pace.</p></div>
+    <div class="card tc"><h3>Tutorial</h3><p>Info in small bits followed by questions; computer analyses response; appropriate feedback given.</p></div>
+    <div class="card vc"><h3>Simulation</h3><p>Real-life systems/phenomena — Gaseous Laws, Nitrogen Cycle, Ecological system.</p></div>
+    <div class="card sc"><h3>Discovery</h3><p>Inductive approach — problems presented; learner solves via trial and error.</p></div>
+    <div class="card gc"><h3>Gaming</h3><p>Teaching through play or game; boosts engagement.</p></div>
+    <div class="card rc">
+      <h3>Inductive vs Deductive</h3>
+      <p><strong>Inductive:</strong> Specific examples → general principles<br><strong>Deductive:</strong> General principles → specific applications</p>
+    </div>
+  </div>
+
+  <div class="sub">Technology-Enhanced Learning</div>
+  <div class="g2">
+    <div class="card rc">
+      <h3>Augmented Reality (AR)</h3>
+      <ul>
+        <li>Blending digital elements with real-world environment</li>
+        <li>Ex: Pokémon Go, PUBG, Iron Man, Mission Impossible</li>
+        <li><strong>Sixth Sense</strong> — Pranav Mistry (MIT Labs)</li>
+        <li>India's 1st AR education institute — <strong>Varanasi</strong> (Eon Reality, US)</li>
+      </ul>
+    </div>
+    <div class="card tc">
+      <h3>Swayam Prabha</h3>
+      <ul>
+        <li>Initiative of <strong>Ministry of Education</strong></li>
+        <li><strong>40 DTH channels</strong> — 24×7</li>
+        <li>Uses <strong>GSAT-15 satellite</strong></li>
+        <li>Covers: Higher Education + School Education</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">Types of Assessment</div>
+  <table class="dt">
+    <thead><tr><th>Type</th><th>Purpose</th><th>When</th><th>Stakes</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag g">Formative</span></td><td>Ongoing feedback to guide instruction</td><td><strong>Midway during training</strong> ← exam answer</td><td>Low</td></tr>
+      <tr><td><span class="tag r">Summative</span></td><td>Evaluate learning outcomes</td><td>End of course/programme</td><td>High</td></tr>
+      <tr><td><span class="tag s">Diagnostic</span></td><td>Identify strengths/weaknesses before instruction</td><td>Before training begins (pre-test)</td><td>Low</td></tr>
+      <tr><td><span class="tag v">Peer</span></td><td>Peers evaluate each other's work</td><td>During training</td><td>Low</td></tr>
+    </tbody>
+  </table>
+  <div class="hl r">
+    <div class="hl-title">Key Exam Answers</div>
+    Formative = <strong>midway (Ans. 3)</strong> | Most useful for improvement = <strong>Formative (Ans. 1)</strong> | Primary purpose = <strong>Ongoing feedback (Ans. C)</strong>
+  </div>
+</div>
+
+<!-- INDUSTRY -->
+<div id="tab-in" class="content">
+  <h2 class="stitle">Industry <span>Linkage</span></h2>
+
+  <div class="hl r">
+    <div class="hl-title">Key Answer — ITI Principal 2014</div>
+    Linkages with industries are mainly developed for: <strong>Providing OJT and absorbing in wage/self-employment</strong><div class="ans">Ans: 4</div>
+  </div>
+  <div class="hl">
+    <div class="hl-title">Key Answer — Deputy Director 2016</div>
+    Total involvement = (a) Utilization of facilities + (b) Utilization of Technicians + (c) Evaluation & placement<div class="ans">Ans: 2 — (a)(b)(c) correct</div>
+  </div>
+
+  <div class="sub">Factors Inhibiting Industry–Institute Linkage</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+    <span class="tag r">Curriculum</span><span class="tag r">Teachers</span><span class="tag r">Contact With Industry</span><span class="tag r">Innovation & Development</span><span class="tag r">Leadership</span>
+  </div>
+
+  <div class="sub">Dual System of Training (DST) Scheme</div>
+  <div class="card sc">
+    <ul>
+      <li>Introduced: <strong>2016</strong> | Revised guidelines: <strong>Feb 2019</strong> | Effective: <strong>AY 2019</strong></li>
+      <li>OJT in industry + theory in ITI; applicable in all affiliated ITIs</li>
+      <li>Certificate: <strong>E-NTC (E-National Trade Certificate)</strong></li>
+      <li>Covers all existing trades under Craftsmen Training Scheme (CTS)</li>
+    </ul>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="sub" style="margin-top:0">Duration Table</div>
+      <table class="dt">
+        <thead><tr><th>Course Duration</th><th>Old OJT</th><th>New OJT</th></tr></thead>
+        <tbody>
+          <tr><td>6 months</td><td>Not defined</td><td>1–3 months</td></tr>
+          <tr><td>1 year</td><td>5 months</td><td>3–6 months</td></tr>
+          <tr><td>2 years</td><td>9 months</td><td>6–12 months</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">Eligibility (Industries)</div>
+      <table class="dt">
+        <thead><tr><th>Parameter</th><th>Old</th><th>New Eng.</th><th>New Non-Eng.</th></tr></thead>
+        <tbody>
+          <tr><td>Min. Employees</td><td>200</td><td>40</td><td>6</td></tr>
+          <tr><td>Min. Turnover (3 yr avg)</td><td>₹10 Cr/yr</td><td>₹1 Cr/yr</td><td>₹10 L/yr</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sub">Benefits of Industry–Institute Interaction</div>
+  <div class="g3">
+    <div class="card gc"><h3>For Institute</h3><ul><li>Greater resource generation</li><li>Improved faculty quality</li><li>More relevant curriculum</li><li>Better student placement</li></ul></div>
+    <div class="card tc"><h3>For Industry</h3><ul><li>Workforce updated via refresher courses</li><li>R&D through institutions (saves cost)</li><li>Better academic communication</li><li>Collaborative research</li></ul></div>
+    <div class="card vc"><h3>For Students</h3><ul><li>Real-life experience</li><li>Apply theoretical knowledge</li><li>Career decision-making</li><li>Access to sophisticated equipment</li><li>Understand industry work culture</li></ul></div>
+  </div>
+</div>
+
+<!-- ENTREPRENEURSHIP -->
+<div id="tab-en" class="content">
+  <h2 class="stitle"><span>Entrepreneurship</span> Development</h2>
+
+  <div class="g2">
+    <div class="card">
+      <h3>Core Definitions</h3>
+      <ul>
+        <li><strong>Entrepreneur</strong> — French "entreprendre" = to undertake; innovative person maximizing profits via new strategies/products</li>
+        <li><strong>Enterprise</strong> — entity/business initiated by entrepreneur</li>
+        <li><strong>Entrepreneurship</strong> — process of entrepreneur; creating value via business opportunity</li>
+      </ul>
+    </div>
+    <div class="card tc">
+      <h3>Schumpeter's 4 Forms</h3>
+      <ul><li>The Achiever</li><li>The Sales Person</li><li>The Manager</li><li>The Inventor</li></ul>
+      <p style="font-size:13px;margin-top:8px">SVO Analogy: Entrepreneur (Subject) → Entrepreneurship (Verb) → Enterprise (Object)</p>
+    </div>
+  </div>
+
+  <div class="sub">Types of Entrepreneurship</div>
+  <div class="g2">
+    <div class="card sc"><h3>Opportunity-based</h3><p>Self-initiated; innovative; creative thinking; real entrepreneurship.</p></div>
+    <div class="card rc"><h3>Necessity-based</h3><p>Career as last resort due to family circumstances or past job disappointment; compulsion not choice.</p></div>
+    <div class="card vc"><h3>Technological</h3><p>Introduces new technology. Ex: solar-dried fish (new process, existing product).</p></div>
+    <div class="card gc"><h3>Geographical</h3><p>Distributes across regions. Must analyze consumer demand. Ex: Kerala fish sold in UP.</p></div>
+  </div>
+
+  <div class="sub">Classification of Entrepreneurs</div>
+  <table class="dt">
+    <thead><tr><th>Basis</th><th>Types</th><th>Key Points</th></tr></thead>
+    <tbody>
+      <tr><td>Expertise</td><td>Technical / Non-technical / Professional</td><td>Technical = craftsmanship strength; Professional = establishes not operates</td></tr>
+      <tr><td>Motivation</td><td>Pure / Induced / Motivated / Spontaneous</td><td>Induced = govt policy; Pure = personal satisfaction/ego</td></tr>
+      <tr><td>Business Type</td><td>Business / Trading / Industrial / Corporate / Agricultural</td><td>Industrial = manufacturers; Trading = no manufacturing</td></tr>
+      <tr><td>Organization</td><td>Sole Proprietor / Partnership / Co-operative</td><td>Co-op = collective ownership; consensus difficult</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sub">Key Qualities & Concepts</div>
+  <div class="g2">
+    <div class="card">
+      <h3>Essential Qualities (6)</h3>
+      <ul><li><strong>Strong desire</strong> — achieve higher goal</li><li><strong>Consistency</strong> — not deterred by problems</li><li><strong>Moderate risk-taking</strong> — not wild speculation</li><li><strong>Opportunity analysis</strong> — quick to spot & grab</li><li><strong>Feedback</strong> — immediate & accurate</li><li><strong>Planning</strong> — systematic, time-bound</li></ul>
+    </div>
+    <div>
+      <div class="hl" style="margin-bottom:12px">
+        <div class="hl-title">6 Cs — Ans. a</div>
+        Change · Challenge · Creativity · Control · Curiosity · Cash
+      </div>
+      <div class="hl t">
+        <div class="hl-title">3 I's</div>
+        Initiative · Independence · Ideas
+      </div>
+      <div class="hl s" style="margin-top:12px">
+        <div class="hl-title">Intrapreneurship</div>
+        Employee acts like entrepreneur; failure absorbed by org; form = <strong>semi-autonomous group</strong> <span class="ans">Ans: A</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">Measuring Entrepreneurship</div>
+  <div class="g3">
+    <div class="card"><h3>Individual</h3><p>Innovativeness, positive attitude, risk-taking, team building, problem-solving, enthusiasm</p></div>
+    <div class="card tc"><h3>National (India)</h3><p><strong>TEA Index</strong> — Total Entrepreneurial Activity; adult population survey</p></div>
+    <div class="card sc"><h3>Global</h3><p><strong>GEM</strong> — Global Entrepreneurship Monitor; non-profit consortium; collects data from countries</p></div>
+  </div>
+
+  <div class="sub">MSME Classification (Effective April 1, 2025)</div>
+  <table class="dt">
+    <thead><tr><th>Category</th><th>Investment</th><th>Turnover</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag g">Micro</span></td><td>≤ ₹2.5 Cr <em>(prev ₹1 Cr)</em></td><td>≤ ₹10 Cr <em>(prev ₹5 Cr)</em></td></tr>
+      <tr><td><span class="tag s">Small</span></td><td>≤ ₹25 Cr <em>(prev ₹10 Cr)</em></td><td>≤ ₹100 Cr <em>(prev ₹50 Cr)</em></td></tr>
+      <tr><td><span class="tag v">Medium</span></td><td>≤ ₹125 Cr <em>(prev ₹50 Cr)</em></td><td>≤ ₹500 Cr <em>(prev ₹250 Cr)</em></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sub">Key Schemes</div>
+  <table class="dt">
+    <thead><tr><th>Scheme</th><th>Year / Est.</th><th>Key Facts</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SSIB</strong></td><td>1954</td><td>Apex advisory body = Central Small Industries Board</td></tr>
+      <tr><td><strong>PMEGP</strong></td><td>2008-09</td><td>KVIC nodal agency; max ₹25L (mfg) / ₹10L (service); age ≥18</td></tr>
+      <tr><td><strong>CGTMSE</strong></td><td>—</td><td>Collateral-free ≤₹100L; MoMSME + SIDBI jointly</td></tr>
+      <tr><td><strong>ESDP</strong></td><td>—</td><td>IMC (2d) / EAP (2wk) / E-SDP (6wk) / MDP (1wk)</td></tr>
+      <tr><td><strong>SFURTI</strong></td><td>—</td><td>Max ₹8 Cr; Soft + Hard + Thematic interventions; traditional industries</td></tr>
+      <tr><td><strong>ASPIRE</strong></td><td>2015</td><td>TBI + LBI; agro-industry; Fund of Funds via SIDBI</td></tr>
+      <tr><td><strong>Startup India</strong></td><td>Jan 16, 2016</td><td>MoCI; Fund of Funds ₹10,000 Cr managed by SIDBI</td></tr>
+      <tr><td><strong>Stand Up India</strong></td><td>—</td><td>SC/ST + Women; ₹10L–₹1Cr greenfield; DFS, Min. of Finance</td></tr>
+      <tr><td><strong>National SC-ST Hub</strong></td><td>Oct 18, 2016</td><td>NSIC, Delhi; supports SC/ST entrepreneurs</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2" style="margin-top:14px">
+    <div class="card sc">
+      <h3>MUDRA Bank</h3>
+      <ul>
+        <li>Est: <strong>April 8, 2015</strong> | HQ: Mumbai</li>
+        <li>Shishu ≤₹50,000 | Kishor ≤₹5L | Tarun ≤₹10L | Tarun Plus ≤₹20L</li>
+      </ul>
+    </div>
+    <div class="card gc">
+      <h3>SIDBI <span class="ans">Ans: a — IDBI</span></h3>
+      <ul>
+        <li>Subsidiary of <strong>IDBI</strong> | Est: <strong>April 2, 1990</strong></li>
+        <li>HQ: <strong>Lucknow, Uttar Pradesh</strong></li>
+        <li>Under <strong>Ministry of Finance</strong></li>
+        <li>Portal: <strong>Udyami Mitra</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">Key Institutes</div>
+  <div class="g3">
+    <div class="card"><h3>EDI (1983)</h3><p>Ahmedabad, Gujarat. Sponsored by IDBI, IFCI, ICICI, SBI. Autonomous not-for-profit. FPM + PGDM-BE (120 seats each).</p></div>
+    <div class="card tc"><h3>MDI (1973)</h3><p>Gurugram, Haryana. Sponsored by IFCI. Programs for IAS, IES, BHEL, ONGC, PSU officers.</p></div>
+    <div class="card vc"><h3>NIESBUD (1983)</h3><p>New Delhi. Apex supervisory for EDP agencies. Society Act 1860. Standardizes model syllabi, tools, manuals.</p></div>
+  </div>
+</div>
+
+<!-- SAFETY -->
+<div id="tab-sa" class="content">
+  <h2 class="stitle">Safety, Fire <span>&</span> First Aid</h2>
+
+  <div class="g2">
+    <div class="card rc">
+      <h3>National Safety Council (NSC)</h3>
+      <ul>
+        <li>Set up: Ministry of Labour, <strong>4th March 1966</strong></li>
+        <li>Apex <strong>not-for-profit tripartite body</strong></li>
+        <li>Registered: Societies Act <strong>1860</strong> + Bombay Public Trust Act <strong>1950</strong></li>
+        <li>Provides guidelines for ITI workshop safety <span class="ans">Ans: 2</span></li>
+      </ul>
+    </div>
+    <div class="card sc">
+      <h3>OSH Code 2020</h3>
+      <ul>
+        <li>Subsumes <strong>13 Acts</strong> (incl. Factories Act 1948)</li>
+        <li>Applies: ≥20 workers (with power) / ≥40 workers (without power)</li>
+        <li>Does NOT apply to Central/State Govt offices or warships</li>
+        <li>Register within <strong>60 days</strong> electronically</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sub">Safety Committees — Worker Thresholds</div>
+  <table class="dt">
+    <thead><tr><th>Establishment</th><th>Min. Workers</th></tr></thead>
+    <tbody>
+      <tr><td>Factory (general)</td><td><strong>500</strong></td></tr>
+      <tr><td>Factory (hazardous process)</td><td><strong>250</strong></td></tr>
+      <tr><td>Building/Construction work</td><td><strong>250</strong></td></tr>
+      <tr><td>Mine</td><td><strong>100</strong></td></tr>
+    </tbody>
+  </table>
+  <p>National OSH Advisory Board — Ex-officio Chairperson: <strong>Secretary, MoLE</strong>. Member term: <strong>3 years</strong>.</p>
+
+  <div class="sub">Fire Classes</div>
+  <table class="dt">
+    <thead><tr><th>Class</th><th>Fire Type</th><th>Examples</th><th>Extinguisher</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">A</span></td><td>Solid materials</td><td>Wood, paper, fabric, plastics</td><td>Water / Dry powder</td></tr>
+      <tr><td><span class="tag s">B</span></td><td>Liquids/gas</td><td>Alcohol, ether, gasoline, grease</td><td>CO₂ / Dry powder / Halon</td></tr>
+      <tr><td><span class="tag r">C</span></td><td>Electrical <span class="ans">Ans: C</span></td><td>Appliances, equipment, wiring</td><td>CO₂ / Halon</td></tr>
+      <tr><td><span class="tag v">D</span></td><td>Metallic substances</td><td>Sodium, titanium, magnesium</td><td>Special dry powder</td></tr>
+      <tr><td><span class="tag t">K</span></td><td>Cooking grease/oil</td><td>Kitchen fires</td><td>Wet chemical</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2">
+    <div class="hl r"><div class="hl-title">Fire Triangle</div><span class="tag r">Oxygen</span> + <span class="tag r">Heat</span> + <span class="tag r">Fuel</span></div>
+    <div class="hl t"><div class="hl-title">Fire Tetrahedron (adds 4th element)</div><span class="tag t">Oxygen</span> + <span class="tag t">Heat</span> + <span class="tag t">Fuel</span> + <span class="tag t">Chemical Chain Reaction</span></div>
+  </div>
+
+  <div class="sub">Fire Response Acronyms</div>
+  <div class="g2">
+    <div class="hl">
+      <div class="hl-title">PASS — Fire Extinguisher Use — Ans. A</div>
+      <strong style="color:var(--gold)">P</strong>ull pin → <strong style="color:var(--gold)">A</strong>im at base → <strong style="color:var(--gold)">S</strong>queeze handle → <strong style="color:var(--gold)">S</strong>weep side-to-side
+    </div>
+    <div class="hl r">
+      <div class="hl-title">RACE — Fire Emergency — Ans. B</div>
+      <strong style="color:var(--rose)">R</strong>emove all → <strong style="color:var(--rose)">A</strong>larm (activate) → <strong style="color:var(--rose)">C</strong>onfine (close door) → <strong style="color:var(--rose)">E</strong>xtinguish
+    </div>
+  </div>
+  <p><strong>Smoke detectors:</strong> near ceiling <span class="tag g">Ans. c</span> | <strong>Inflammable storage:</strong> ventilated area <span class="tag g">Ans. 3</span></p>
+
+  <div class="sub">First Aid</div>
+  <div class="g2">
+    <div class="card gc">
+      <h3>Purpose of First Aid (6)</h3>
+      <ul><li>Preserve life</li><li>Promote recovery</li><li>Prevent further injury</li><li>Prevent complications</li><li>Maintain comfort</li><li>Help reach medical care</li></ul>
+    </div>
+    <div class="card rc">
+      <h3>Burns — 3 Types</h3>
+      <ul>
+        <li><strong>Superficial</strong> — outer epidermis only</li>
+        <li><strong>Partial thickness</strong> — very painful; destroys epidermis; fatal if >20% body</li>
+        <li><strong>Full thickness</strong> — <span style="color:var(--rose)">NOT painful ⚠</span> — misleads first-aider; needs immediate attention</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hl s"><div class="hl-title">Burn First Aid — Key Steps</div>Cool with cold water <strong>≥10 minutes</strong> → Remove rings/jewelry → Cover with sterile dressing → Do NOT cover face burns → Keep cooling till doctor arrives</div>
+
+  <div class="sub">RICE — Strains/Sprains/Contusions</div>
+  <div class="hl t">
+    <div class="hl-title">RICE</div>
+    <strong style="color:var(--teal)">R</strong>est (stop using injured part) → <strong style="color:var(--teal)">I</strong>ce (max 20 min/hr; contracts blood vessels) → <strong style="color:var(--teal)">C</strong>ompression (elasticised bandage) → <strong style="color:var(--teal)">E</strong>levation (above heart level)
+    <div style="margin-top:9px;font-size:13px"><strong>Strain</strong> = muscle/tendon | <strong>Sprain</strong> = ligament | <strong>Contusion</strong> = bruise from direct blow</div>
+  </div>
+
+  <div class="sub">CPR — DRSABCD</div>
+  <div class="hl r">
+    <div class="hl-title">Steps</div>
+    <strong style="color:var(--rose)">D</strong>anger → <strong style="color:var(--rose)">R</strong>esponse (ask name, squeeze shoulders) → <strong style="color:var(--rose)">S</strong>end for help → <strong style="color:var(--rose)">A</strong>irway (open mouth) → <strong style="color:var(--rose)">B</strong>reathing → <strong style="color:var(--rose)">C</strong>PR (compressions + rescue breathing) → <strong style="color:var(--rose)">D</strong>efibrillator
+  </div>
+
+  <div class="sub">Dressings & Bandages</div>
+  <div class="g2">
+    <div class="card">
+      <h3>Types of Dressing</h3>
+      <ul>
+        <li><strong>Gauze</strong> — most common; loosely woven cotton; air circulation</li>
+        <li><strong>Adhesive (Band-Aid)</strong> — minor cuts/scrapes; adhesive backing</li>
+        <li><strong>Hydrocolloid</strong> — gel-forming; waterproof; shallow wounds</li>
+        <li><strong>Foam</strong> — cushioning; ulcers, burns, surgical wounds</li>
+        <li><strong>Alginate</strong> — seaweed-derived; heavily exuding wounds</li>
+        <li><strong>Transparent Film</strong> — waterproof; easy monitoring without removal</li>
+      </ul>
+    </div>
+    <div class="card tc">
+      <h3>Types of Bandage</h3>
+      <ul>
+        <li><strong>Crepe/Roller</strong> — versatile; holds dressing, compression, joint</li>
+        <li><strong>Compression</strong> — stretchable; soft tissue injury</li>
+        <li><strong>Snake Bite</strong> — special tension indicator markings</li>
+        <li><strong>Triangular</strong> — right-angle triangle; slings, limb support</li>
+        <li><strong>Tubular</strong> — elasticated circle; arms/legs/wrists/ankles</li>
+        <li><strong>Cohesive</strong> — sticks to itself NOT to skin</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER TRAINING -->
+<div id="tab-te" class="content">
+  <h2 class="stitle">Teacher <span>Training</span> Programmes</h2>
+
+  <div class="card">
+    <h3>Historical Commissions & Policies Timeline</h3>
+    <table class="dt" style="margin-top:8px">
+      <thead><tr><th>Commission/Policy</th><th>Year</th><th>Key Contribution</th></tr></thead>
+      <tbody>
+        <tr><td>Secondary Education Commission (Mudaliyar)</td><td>1952–53</td><td>Highlighted in-service training role; refresher & intensive courses</td></tr>
+        <tr><td>Education Commission</td><td>1964–66</td><td>"School complexes" with nodal school for continuous professional development</td></tr>
+        <tr><td>National Commission of Teachers-I</td><td>1983–85</td><td>3 weeks in-service training per 5-year block; linked to career promotion</td></tr>
+        <tr><td>NPE (National Policy of Education)</td><td>1986</td><td>"Pre-service and in-service components are inseparable"</td></tr>
+        <tr><td>Ramamurthi Review Committee</td><td>1990</td><td>Needs-specific; evaluation + follow-up must be part of scheme</td></tr>
+        <tr><td>National Knowledge Commission (NKC)</td><td>2006–09</td><td>Criticised: inadequate quantity, uneven quality, outdated syllabi, poor management</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub">Continuous Professional Development (CPD)</div>
+  <div class="card tc">
+    <p>Ongoing process by which teachers acquire, develop and strengthen skills to become more effective. Responds to ever-changing professional environment.</p>
+    <ul><li>Updating knowledge</li><li>Improving classroom practices</li><li>Dealing with emerging challenges</li><li>Professional networking — ICT-based</li></ul>
+  </div>
+
+  <div class="sub">Microteaching</div>
+  <div class="card sc">
+    <ul>
+      <li>Introduced by <strong>Dr. Dwight W. Allen, Stanford University, 1960s</strong></li>
+      <li>Mini-lesson: <strong>10–15 minutes</strong> <span class="ans">Ans: C</span> | Pupils: <strong>5–7</strong></li>
+      <li>Video recorded; self-reflection + peer feedback</li>
+      <li>Components: teacher, pupils (5–7), brief lesson, objectives, feedback (audio/video/CCTV)</li>
+    </ul>
+  </div>
+
+  <div class="sub">9-Step Microteaching Procedure</div>
+  <ol class="steps">
+    <li><strong>Define</strong> skill — in terms of teaching behaviors</li>
+    <li><strong>Demonstrate</strong> skill — by experts or via videotape</li>
+    <li><strong>Plan</strong> the lesson — with supervisor's help</li>
+    <li><strong>Teach</strong> the lesson — small group 5–10 pupils; observed/videotaped</li>
+    <li><strong>Discussion</strong> — feedback provided to trainee</li>
+    <li><strong>Re-plan</strong> — revise lesson based on feedback/suggestions</li>
+    <li><strong>Re-teach</strong> — revised lesson to another small group (same class)</li>
+    <li><strong>Re-discuss</strong> — feedback again; encouraging suggestions</li>
+    <li><strong>Repeat</strong> — 'teach–reteach' cycle until desired skill level achieved</li>
+  </ol>
+
+  <div class="sub">New Trends in Training</div>
+  <div class="g3">
+    <div class="card"><h3>AI</h3><p>Personalized learning tools; training programmes designed per employee needs.</p></div>
+    <div class="card tc"><h3>Gamification</h3><p>Game concepts in training; boosts motivation, participation, engagement.</p></div>
+    <div class="card vc"><h3>Personalized Training</h3><p>Individualized programmes customized to each employee's learning requirements.</p></div>
+    <div class="card sc"><h3>Mentoring</h3><p>One-on-one guidance from experienced professionals.</p></div>
+    <div class="card gc"><h3>VR / AR</h3><p>Immersive interactive training; particularly for complex/hazardous skills.</p></div>
+    <div class="card rc"><h3>Need-based</h3><p>Training specifically designed around identified gaps and requirements.</p></div>
+  </div>
+
+  <div class="sub">Impact of Globalization on Training</div>
+  <div class="card">
+    <ul>
+      <li>More diverse workforces → cultural awareness components in programs</li>
+      <li>Standardization + local adaptation — balance required globally</li>
+      <li>E-learning, VR, AR enable remote/interactive training for dispersed teams</li>
+      <li>Digital literacy, language proficiency, cross-cultural communication skills needed</li>
+      <li>Continuous learning/lifelong development now emphasized</li>
+      <li>Outsourcing of training to specialized firms globally</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Q&A -->
+<div id="tab-qa" class="content">
+  <h2 class="stitle">Practice <span>Q&A</span></h2>
+  <p style="color:var(--muted);margin-bottom:22px;font-size:13px">Click any question to reveal the answer and explanation.</p>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Linkages with industries are mainly developed for ___</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Financial support (2) Specialist guest lecturers (3) Tracer study support (4) Providing OJT and absorbing in wage/self-employment<div class="ans">Ans: 4</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Industry–institute linkage as total involvement means ___ (Deputy Director 2016)</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(a) Utilization of facilities (b) Utilization of Technicians (c) Evaluation & placement of students<br>(1) a&amp;c (2) a,b&amp;c correct (3) a&amp;b (4) Only d<div class="ans">Ans: 2 — (a), (b) and (c) are correct</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Which statement about media for instruction is absolutely true? (DD 2016)</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Single media suitable for all trainees (2) Media substitutes trainer (3) Media raises attention level of trainees (4) Media needs no equipment<div class="ans">Ans: 3</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Formative evaluation of a training programme ___ (MPSC Principal 2014)</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) At end of training (2) Built of implementation process (3) At midway during training (4) During inspection team visit<div class="ans">Ans: 3 — midway during training</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Most useful evaluation for decision making to improve training programme?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Formative Evaluation (2) Summative Evaluation (3) Feedback from employers (4) Inspection reports<div class="ans">Ans: 1 — Formative Evaluation</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Primary purpose of formative assessment?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">A. Rank students based on performance<br>B. Evaluate learning outcomes at end of course<br>C. Provide ongoing feedback during learning process<br>D. Compare individual performance to group<div class="ans">Ans: C</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Safety in skill development training mainly refers to ___ (DD 2016)</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Safety of tools/machines during training (2) Safety of workplace/training site (3) Safety from health hazards (4) All the above<div class="ans">Ans: 4</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Storage of inflammable materials should be done in ___ (ITI Principal 2014)</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Closed area (2) Sunlit area (3) Ventilated area (4) Common area<div class="ans">Ans: 3 — Ventilated area</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>In context of ITI workshop, which provides guidelines for safety? (ITI Principal 2014)</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Industrial Safety Council (2) National Safety Council (3) State Government Rules (4) DGET<div class="ans">Ans: 2 — National Safety Council</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Entrepreneurs are ___</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Moderate risk takers (2) High risk takers (3) Small risk takers (4) No risk takers<div class="ans">Ans: 1 — Moderate risk takers</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>6 Cs that motivate entrepreneurs are ___</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">a. Change, Challenge, Creativity, Control, Curiosity, Cash<br>b. Customer, Challenge, Creation, Control, Curiosity, Cash<br>c. Contact, Connect, Conversation, Consideration, Consumption, Community<br>d. Commitment, Culture, Continuous, Cooperation, Customer, Control<div class="ans">Ans: a</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>MUDRA Yojana gives loans upto ___</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">(1) Between ₹10,000 to ₹10 lakh &nbsp; (2) ₹50,000 &nbsp; (3) Upto ₹50 lakh &nbsp; (4) None of these<div class="ans">Ans: 1 — ₹10,000 to ₹10 lakh (Shishu to Tarun)</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>SIDBI was set up as a subsidiary of ___</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">a) IDBI &nbsp; b) IFCI &nbsp; c) ICICI &nbsp; d) SFC<div class="ans">Ans: a — IDBI; established April 2, 1990</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Fire extinguisher suitable for electrical fires?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">a) Class A &nbsp; b) Class B &nbsp; c) Class C &nbsp; d) Class D<div class="ans">Ans: c — Class C (CO₂ or Halon extinguisher)</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>What does PASS stand for in fire extinguisher use?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">a) Pull, Aim, Squeeze, Sweep<br>b) Point, Assess, Secure, Stop<br>c) Prepare, Assess, Strike, Secure<br>d) Press, Activate, Stream, Spray<div class="ans">Ans: A — Pull, Aim, Squeeze, Sweep</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>What does RACE stand for in fire emergency?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">a) Rescue, Assess, Contain, Evacuate<br>b) Remove, Alarm, Confine, Extinguish<br>c) Run, Avoid, Cover, Escape<br>d) Reach, Analyze, Cooperate, Engage<div class="ans">Ans: B — Remove, Alarm, Confine, Extinguish</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Typical duration of mini-lesson in microteaching?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">A. 30–45 min &nbsp; B. 20–30 min &nbsp; C. 10–15 min &nbsp; D. 60 min<div class="ans">Ans: C — 10–15 minutes</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Intrapreneurship often takes the form of ___</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">A. Semi-autonomous group (internal venture team) within parent org's structure<br>B. Spinout venture from a university<br>C. Subsidiary of large corporation<br>D. Semi-autonomous group OUTSIDE parent org<div class="ans">Ans: A — semi-autonomous internal venture team</div></div></div>
+
+  <div class="qa" onclick="toggleQ(this)"><div class="qa-q"><span>Which does NOT clearly distinguish entrepreneurship from management?</span><span class="qa-arr">▶</span></div>
+  <div class="qa-a">a. Entrepreneurs found; managers operate<br>b. Entrepreneurs own; managers are employees<br>c. Entrepreneurs earn profits; managers earn salaries<br>d. Entrepreneurship is once-for-all; management is continuous<div class="ans">Ans: d — Both are actually ongoing activities</div></div></div>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleQ(el) { el.classList.toggle('open'); }
+
+// MIND MAP
+(function() {
+  const svg = document.getElementById('mmsvg');
+  const g = document.getElementById('mm-g');
+  const W = 1200, H = 580;
+  const CX = W / 2, CY = H / 2;
+
+  const ns = 'http://www.w3.org/2000/svg';
+
+  const nodes = [
+    { label: ['Training', 'Planning &', 'Implementation'], color: '#f5a623', r: 56, cx: CX, cy: CY, center: true },
+    { label: ['Training', 'Basics'], color: '#4299e1', r: 44, angle: 270, dist: 175, subs: ['Coordinator Roles', 'S / SS / US Types', '6 Components', '4 Gen. Dist. Ed.'] },
+    { label: ['Curriculum', '& Media'], color: '#38b2ac', r: 44, angle: 330, dist: 185, subs: ['9-Step Dev.', 'CAI 5 Modes', 'AR / Swayam', 'Assessment Types'] },
+    { label: ['Industry', 'Linkage'], color: '#f56565', r: 44, angle: 30, dist: 185, subs: ['DST Scheme 2016', 'OJT / E-NTC', 'Duration Table', 'Revised Eligibility'] },
+    { label: ['Entrepreneur-', 'ship Dev.'], color: '#805ad5', r: 44, angle: 90, dist: 175, subs: ['Types / Classes', '6Cs · 3Is · TEA/GEM', 'MSME Apr 2025', 'Schemes / MUDRA'] },
+    { label: ['Safety &', 'First Aid'], color: '#ed8936', r: 44, angle: 150, dist: 185, subs: ['NSC / OSH 2020', 'Fire Classes A–K', 'PASS · RACE', 'CPR · RICE · Burns'] },
+    { label: ['Teacher', 'Training'], color: '#48bb78', r: 44, angle: 210, dist: 175, subs: ['Mudaliyar→NKC', 'CPD (Ongoing)', 'Microteaching 9-Steps', 'AI · Gamification'] },
+  ];
+
+  function mk(tag) { return document.createElementNS(ns, tag); }
+  function pos(n) {
+    if (n.center) return { x: CX, y: CY };
+    const rad = (n.angle - 90) * Math.PI / 180;
+    return { x: CX + Math.cos(rad) * n.dist, y: CY + Math.sin(rad) * n.dist };
+  }
+
+  // Draw edges first
+  nodes.filter(n => !n.center).forEach(n => {
+    const p = pos(n);
+    const path = mk('path');
+    const cp1x = (CX + p.x) / 2, cp1y = CY;
+    path.setAttribute('d', `M${CX},${CY} Q${cp1x},${cp1y} ${p.x},${p.y}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', n.color + '45');
+    path.setAttribute('stroke-width', '2');
+    g.appendChild(path);
+  });
+
+  // Draw sub-nodes
+  nodes.filter(n => !n.center && n.subs).forEach(n => {
+    const p = pos(n);
+    const offsets = [-28, -9, 9, 28];
+    n.subs.forEach((sub, i) => {
+      const sa = (n.angle - 90 + offsets[i]) * Math.PI / 180;
+      const sd = 118;
+      const sx = p.x + Math.cos(sa) * sd;
+      const sy = p.y + Math.sin(sa) * sd;
+
+      const line = mk('line');
+      line.setAttribute('x1', p.x); line.setAttribute('y1', p.y);
+      line.setAttribute('x2', sx); line.setAttribute('y2', sy);
+      line.setAttribute('stroke', n.color + '35'); line.setAttribute('stroke-width', '1.2');
+      g.appendChild(line);
+
+      const rw = 94, rh = 19;
+      const rect = mk('rect');
+      rect.setAttribute('x', sx - rw/2); rect.setAttribute('y', sy - rh/2);
+      rect.setAttribute('width', rw); rect.setAttribute('height', rh);
+      rect.setAttribute('rx', '4');
+      rect.setAttribute('fill', n.color + '12');
+      rect.setAttribute('stroke', n.color + '45'); rect.setAttribute('stroke-width', '1');
+      g.appendChild(rect);
+
+      const t = mk('text');
+      t.setAttribute('x', sx); t.setAttribute('y', sy);
+      t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle');
+      t.setAttribute('fill', n.color + 'bb'); t.setAttribute('font-size', '9');
+      t.setAttribute('font-family', "'Source Sans 3', sans-serif"); t.setAttribute('font-weight', '600');
+      t.textContent = sub;
+      g.appendChild(t);
+    });
+  });
+
+  // Draw main nodes
+  nodes.forEach(n => {
+    const p = pos(n);
+    const circle = mk('circle');
+    circle.setAttribute('cx', p.x); circle.setAttribute('cy', p.y); circle.setAttribute('r', n.r);
+    circle.setAttribute('fill', n.center ? n.color + '20' : n.color + '15');
+    circle.setAttribute('stroke', n.color);
+    circle.setAttribute('stroke-width', n.center ? '2.5' : '1.8');
+    if (n.center) circle.setAttribute('filter', 'url(#fg)');
+    g.appendChild(circle);
+
+    const lines = n.label;
+    const lineH = 14;
+    const yStart = p.y - (lines.length - 1) * lineH / 2;
+    lines.forEach((line, i) => {
+      const t = mk('text');
+      t.setAttribute('x', p.x); t.setAttribute('y', yStart + i * lineH);
+      t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle');
+      t.setAttribute('fill', n.color);
+      t.setAttribute('font-size', n.center ? '12' : '10.5');
+      t.setAttribute('font-family', "'Playfair Display', serif");
+      t.setAttribute('font-weight', n.center ? '700' : '600');
+      t.textContent = line;
+      g.appendChild(t);
+    });
+  });
+
+  // Set viewBox
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  // Pan & zoom
+  const wrap = document.getElementById('mm-wrap');
+  let vx = 0, vy = 0, vz = 1, dragging = false, lx, ly;
+
+  function applyT() {
+    g.setAttribute('transform', `translate(${vx},${vy}) scale(${vz})`);
+  }
+
+  wrap.addEventListener('mousedown', e => {
+    dragging = true; lx = e.clientX; ly = e.clientY;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    vx += e.clientX - lx; vy += e.clientY - ly;
+    lx = e.clientX; ly = e.clientY;
+    applyT();
+  });
+  window.addEventListener('mouseup', () => dragging = false);
+  wrap.addEventListener('wheel', e => {
+    e.preventDefault();
+    const f = e.deltaY < 0 ? 1.1 : 0.91;
+    vz = Math.max(0.3, Math.min(3.5, vz * f));
+    applyT();
+  }, { passive: false });
+
+  let ltd = null;
+  wrap.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) { dragging = true; lx = e.touches[0].clientX; ly = e.touches[0].clientY; }
+  }, { passive: true });
+  wrap.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (e.touches.length === 1 && dragging) {
+      vx += e.touches[0].clientX - lx; vy += e.touches[0].clientY - ly;
+      lx = e.touches[0].clientX; ly = e.touches[0].clientY; applyT();
+    } else if (e.touches.length === 2) {
+      const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      if (ltd) { vz = Math.max(0.3, Math.min(3.5, vz * (d / ltd))); applyT(); }
+      ltd = d;
+    }
+  }, { passive: false });
+  wrap.addEventListener('touchend', () => { dragging = false; ltd = null; });
+})();
+</script>
+</body>
+</html>

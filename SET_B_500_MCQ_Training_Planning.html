@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SET B — Training Planning & Implementation | 500 MCQs</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4ff;--surface:#ffffff;--card:#ffffff;--border:#dde3f0;
+  --accent:#1d4ed8;--accent2:#0891b2;--text:#1e293b;--muted:#94a3b8;
+  --correct:#16a34a;--wrong:#dc2626;--hover:#f1f5ff;--dark:#0f172a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.header{background:var(--dark);border-bottom:3px solid var(--accent);padding:18px 24px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.badge{background:var(--accent);color:#fff;font-family:'Exo 2',sans-serif;font-weight:800;font-size:13px;padding:4px 12px;border-radius:2px;letter-spacing:2px}
+.title{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:800;color:#fff}
+.subtitle{font-size:12px;color:#94a3b8;margin-top:2px}
+.stats-bar{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-val{font-family:'Exo 2',sans-serif;font-size:22px;font-weight:700;line-height:1;color:#60a5fa}
+.stat-lbl{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px}
+.controls{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.btn{font-family:'Exo 2',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;padding:7px 18px;border:none;border-radius:4px;cursor:pointer;transition:all .15s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#1e40af}
+.btn-secondary{background:var(--border);color:var(--text)}
+.btn-secondary:hover{background:#c7d2e8}
+.btn-teal{background:var(--accent2);color:#fff}
+.btn-teal:hover{background:#0e7490}
+select{background:var(--surface);color:var(--text);border:1px solid var(--border);padding:7px 12px;border-radius:4px;font-size:13px;font-family:'DM Sans',sans-serif}
+.search-box{background:var(--surface);color:var(--text);border:1px solid var(--border);padding:7px 12px;border-radius:4px;font-size:13px;width:220px}
+.search-box::placeholder{color:var(--muted)}
+.progress-wrap{background:var(--surface);padding:10px 24px;border-bottom:1px solid var(--border)}
+.progress-info{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.progress-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .3s}
+.score-panel{background:var(--dark);border:1px solid #1e3a6e;margin:16px 24px;border-radius:8px;padding:16px;display:none;justify-content:space-around;flex-wrap:wrap;gap:12px}
+.score-item{text-align:center}
+.score-big{font-family:'Exo 2',sans-serif;font-size:32px;font-weight:800;line-height:1;color:#e2e8f0}
+.score-big.green{color:#4ade80}
+.score-big.red{color:#f87171}
+.score-big.blue{color:#60a5fa}
+.score-big.cyan{color:#22d3ee}
+main{padding:16px 24px;max-width:960px;margin:0 auto}
+.section-divider{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);padding:14px 0 6px;border-bottom:2px solid var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-divider::before{content:'';display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.qcard:hover{box-shadow:0 4px 12px rgba(29,78,216,.1);border-color:#a5b4fc}
+.qcard.answered-correct{border-left:4px solid var(--correct);background:#f0fdf4}
+.qcard.answered-wrong{border-left:4px solid var(--wrong);background:#fff5f5}
+.qhead{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer}
+.qnum{font-family:'Exo 2',sans-serif;font-weight:800;font-size:13px;color:var(--accent);min-width:36px;padding-top:1px}
+.qtext{font-size:14px;color:var(--text);line-height:1.6;flex:1;font-weight:500}
+.opts{padding:0 16px 14px 64px;display:none}
+.opt{display:flex;align-items:center;gap:10px;padding:9px 12px;margin-bottom:5px;border-radius:6px;cursor:pointer;border:1.5px solid var(--border);font-size:13.5px;transition:all .15s;color:var(--text)}
+.opt:hover{background:var(--hover);border-color:#93c5fd}
+.opt.selected{background:#eff6ff;border-color:var(--accent)}
+.opt.correct{background:#f0fdf4;border-color:var(--correct);color:var(--correct)}
+.opt.wrong{background:#fff5f5;border-color:var(--wrong);color:var(--wrong)}
+.opt-letter{font-family:'Exo 2',sans-serif;font-weight:800;font-size:13px;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:4px;background:var(--border);color:var(--muted)}
+.opt.correct .opt-letter{background:var(--correct);color:#fff}
+.opt.wrong .opt-letter{background:var(--wrong);color:#fff}
+.opt.selected .opt-letter{background:var(--accent);color:#fff}
+.ans-reveal{display:none;padding:8px 12px;margin-top:6px;border-radius:6px;font-size:12.5px;font-weight:600}
+.ans-reveal.correct-msg{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.ans-reveal.wrong-msg{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.chip{display:inline-block;font-size:10px;padding:2px 8px;border-radius:10px;font-family:'Exo 2',sans-serif;font-weight:700;letter-spacing:0.5px;margin-left:8px;vertical-align:middle}
+.chip-tc{background:#dbeafe;color:#1d4ed8}
+.chip-tm{background:#cffafe;color:#0e7490}
+.chip-tt{background:#ede9fe;color:#6d28d9}
+.chip-il{background:#dcfce7;color:#166534}
+.chip-cd{background:#fee2e2;color:#991b1b}
+.chip-im{background:#ffedd5;color:#c2410c}
+.chip-as{background:#e0e7ff;color:#3730a3}
+.chip-en{background:#ccfbf1;color:#0f766e}
+.chip-is{background:#fce7f3;color:#9d174d}
+.chip-fp{background:#fef9c3;color:#854d0e}
+.chip-fa{background:#ecfccb;color:#3f6212}
+.chip-tt2{background:#f3e8ff;color:#6b21a8}
+.chip-nt{background:#dbeafe;color:#1e40af}
+@media(max-width:600px){
+  main{padding:10px 12px}
+  .controls{padding:10px 12px}
+  .header{padding:12px 14px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="badge">SET B</span>
+      <div class="title">Training Planning & Implementation</div>
+    </div>
+    <div class="subtitle">MPSC | उपसंचालक / प्राचार्य / उप प्राचार्य / निरीक्षक Exam Preparation</div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-val" id="totalQ">500</div><div class="stat-lbl">Questions</div></div>
+    <div class="stat"><div class="stat-val" id="answeredCount">0</div><div class="stat-lbl">Answered</div></div>
+    <div class="stat"><div class="stat-val" id="correctCount" style="color:#4ade80">0</div><div class="stat-lbl">Correct</div></div>
+    <div class="stat"><div class="stat-val" id="scorePercent" style="color:#22d3ee">0%</div><div class="stat-lbl">Score</div></div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn btn-primary" onclick="showAll()">All Questions</button>
+  <select id="sectionFilter" onchange="filterSection()">
+    <option value="all">All Sections</option>
+    <option value="Training Coordinator">Training Coordinator</option>
+    <option value="Training Meaning">Training Meaning</option>
+    <option value="Types of Training">Types of Training</option>
+    <option value="Industry Institute Linkage">Industry-Institute Linkage</option>
+    <option value="Curriculum Development">Curriculum Development</option>
+    <option value="Instructional Media">Instructional Media</option>
+    <option value="Assessment">Assessment</option>
+    <option value="Entrepreneurship">Entrepreneurship</option>
+    <option value="Industrial Safety">Industrial Safety</option>
+    <option value="Fire Protection">Fire Protection</option>
+    <option value="First Aid">First Aid</option>
+    <option value="Teacher Training">Teacher Training</option>
+    <option value="New Trends">New Trends & Globalization</option>
+  </select>
+  <input class="search-box" type="text" id="searchBox" placeholder="🔍 Search questions..." oninput="searchQ()">
+  <button class="btn btn-secondary" onclick="resetAll()">Reset All</button>
+  <button class="btn btn-teal" onclick="showScore()">View Score</button>
+  <button class="btn btn-secondary" onclick="revealAll()">Reveal All Answers</button>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-info">
+    <span id="progressText">0 of 500 answered</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="score-panel" id="scorePanel">
+  <div class="score-item"><div class="score-big blue" id="sp-total">0</div><div class="stat-lbl" style="color:#94a3b8">Answered</div></div>
+  <div class="score-item"><div class="score-big green" id="sp-correct">0</div><div class="stat-lbl" style="color:#94a3b8">Correct</div></div>
+  <div class="score-item"><div class="score-big red" id="sp-wrong">0</div><div class="stat-lbl" style="color:#94a3b8">Wrong</div></div>
+  <div class="score-item"><div class="score-big cyan" id="sp-pct">0%</div><div class="stat-lbl" style="color:#94a3b8">Accuracy</div></div>
+  <div class="score-item"><div class="score-big" id="sp-grade" style="color:#a78bfa">—</div><div class="stat-lbl" style="color:#94a3b8">Grade</div></div>
+</div>
+
+<main id="mainContent"></main>
+
+<script>
+const SECTIONS={
+  "Training Coordinator":"chip-tc","Training Meaning":"chip-tm","Types of Training":"chip-tt",
+  "Industry Institute Linkage":"chip-il","Curriculum Development":"chip-cd","Instructional Media":"chip-im",
+  "Assessment":"chip-as","Entrepreneurship":"chip-en","Industrial Safety":"chip-is",
+  "Fire Protection":"chip-fp","First Aid":"chip-fa","Teacher Training":"chip-tt2","New Trends":"chip-nt"
+};
+
+const Q=[
+// ── TEACHER TRAINING (1–60) ──
+{s:"Teacher Training",q:"Micro-teaching was introduced by Dr. Dwight W. Allen at:",a:1,o:["Harvard University","Stanford University","MIT","Yale University"]},
+{s:"Teacher Training",q:"Micro-teaching was developed in the:",a:2,o:["1940s","1950s","1960s","1970s"]},
+{s:"Teacher Training",q:"A micro-teaching mini-lesson lasts approximately:",a:0,o:["10–15 minutes","30 minutes","5 minutes","20 minutes"]},
+{s:"Teacher Training",q:"Micro-teaching involves practicing with:",a:3,o:["A full class of 40 students","Only the trainer","An empty classroom","5–7 pupils/peer trainees"]},
+{s:"Teacher Training",q:"Feedback in micro-teaching is provided via:",a:1,o:["Only written reports","Audio/video recording or CCTV","Only verbal feedback","Only peer feedback"]},
+{s:"Teacher Training",q:"The Mudaliyar Commission of 1952-53 is formally known as the:",a:2,o:["Education Commission","National Commission on Teachers","Secondary Education Commission","National Knowledge Commission"]},
+{s:"Teacher Training",q:"The Education Commission of 1964-66 was chaired by:",a:0,o:["D.S. Kothari","Mudaliyar","Ramamurthi","Yashpal"]},
+{s:"Teacher Training",q:"Which commission recommended 'school complexes' with a nodal school?",a:3,o:["Mudaliyar Commission","National Commission on Teachers","NPE 1986","Education Commission 1964–66"]},
+{s:"Teacher Training",q:"National Commission of Teachers-I (1983-85) was titled:",a:1,o:["Teacher and Nation","Teacher and Society","Education for All","School Teachers India"]},
+{s:"Teacher Training",q:"NCT-I recommended in-service training of 3 weeks once every ________ years.",a:2,o:["Three","Four","Five","Ten"]},
+{s:"Teacher Training",q:"National Policy on Education (NPE) 1986 described teacher training as a:",a:0,o:["Continuous process","Annual requirement","One-time event","Optional activity"]},
+{s:"Teacher Training",q:"Ramamurthi Committee reviewed NPE in:",a:3,o:["1988","1989","1991","1990"]},
+{s:"Teacher Training",q:"National Knowledge Commission (NKC) was active during:",a:1,o:["2003–06","2006–09","2009–12","2012–15"]},
+{s:"Teacher Training",q:"CPD stands for in teacher development:",a:2,o:["Certified Professional Development","Career Planning Development","Continuing Professional Development","Central Professional Development"]},
+{s:"Teacher Training",q:"CPD is described as an ________ process.",a:0,o:["Ongoing","Occasional","Annual","One-time"]},
+{s:"Teacher Training",q:"CPD helps teachers in dealing with:",a:3,o:["Only financial challenges","Only administrative challenges","Only technical challenges","Emerging challenges in education"]},
+{s:"Teacher Training",q:"CPD involves ICT networking, which helps teachers to:",a:1,o:["Only use computers","Connect with peers for knowledge sharing and professional growth","Only deliver online classes","Only manage records"]},
+{s:"Teacher Training",q:"Pre-service teacher training occurs:",a:2,o:["During employment","After retirement","Before a person begins teaching professionally","Only during probation"]},
+{s:"Teacher Training",q:"In-service teacher training occurs:",a:0,o:["While the person is already employed as a teacher","Before joining the profession","Only during leave","Only for promotions"]},
+{s:"Teacher Training",q:"Mudaliyar Commission recommended short intensive courses in:",a:3,o:["Physical education only","Only administrative skills","Only pedagogy","Special subjects"]},
+{s:"Teacher Training",q:"UGC components of micro-teaching include all EXCEPT:",a:1,o:["5–7 pupils","A full semester project","Brief lesson with specific objectives","Audio/video feedback"]},
+{s:"Teacher Training",q:"The 9-step micro-teaching procedure begins with:",a:2,o:["Teach the lesson","Plan the lesson","Define the skill to be practiced","Discuss feedback"]},
+{s:"Teacher Training",q:"After the initial teach step in micro-teaching, what comes next?",a:0,o:["Discuss/feedback session","Re-teach","Re-plan","Define new skill"]},
+{s:"Teacher Training",q:"The cycle in micro-teaching after Discuss is:",a:3,o:["Teach again","Define skill again","Only evaluate","Re-plan and Re-teach"]},
+{s:"Teacher Training",q:"Micro-teaching's primary purpose is to develop:",a:1,o:["Only subject knowledge","Specific teaching skills in a controlled, low-risk environment","Only classroom management","Only assessment skills"]},
+{s:"Teacher Training",q:"Which commission first highlighted in-service training as professional development in India?",a:2,o:["Education Commission 1964-66","NKC","Secondary Education Commission (Mudaliyar) 1952-53","NPE 1986"]},
+{s:"Teacher Training",q:"CPD improves teachers' practices by encouraging:",a:0,o:["Reflection, experimentation, and adoption of new teaching methodologies","Only traditional methods","Only examination-focused teaching","Only administrative tasks"]},
+{s:"Teacher Training",q:"Micro-teaching is described as a 'safe practice environment' because:",a:3,o:["It is cheap","It requires no preparation","It takes less time","It uses small groups so mistakes have low consequences"]},
+{s:"Teacher Training",q:"The Education Commission 1964-66 recommended school complexes to ensure:",a:1,o:["Only resource efficiency","Resource sharing, improved teacher quality, and holistic community education","Only financial management","Only administrative efficiency"]},
+{s:"Teacher Training",q:"In-service training linked to career advancement motivates teachers to:",a:2,o:["Only complete paperwork","Only attend seminars","Continuously update skills and seek professional growth","Only take more leaves"]},
+{s:"Teacher Training",q:"Pre-service training institutes are generally called:",a:0,o:["Colleges of Education or Teacher Training Institutes","Only universities","Only schools","Only workshops"]},
+{s:"Teacher Training",q:"Which key skill does micro-teaching specifically develop?",a:3,o:["Subject content knowledge","Financial management","Administrative skills","Specific teaching skills like explanation, questioning, and classroom management"]},
+{s:"Teacher Training",q:"The primary benefit of CPD through ICT networking is:",a:1,o:["Only online gaming","Access to global knowledge sharing, best practices, and peer support","Only social media use","Only email communication"]},
+{s:"Teacher Training",q:"Micro-teaching helps teacher trainees to:",a:2,o:["Only practice lecturing","Only manage time","Receive targeted feedback on specific teaching skills and improve iteratively","Only assess students"]},
+{s:"Teacher Training",q:"Which approach in micro-teaching allows for improvement through repetition?",a:0,o:["The Teach → Discuss → Re-plan → Re-teach cycle","One-time teaching","Only feedback without re-teaching","Only observation"]},
+{s:"Teacher Training",q:"Ramamurthi Committee (1990) reviewed the implementation of:",a:3,o:["Mudaliyar Commission recommendations","Education Commission recommendations","NKC recommendations","NPE 1986"]},
+{s:"Teacher Training",q:"In-service training should be linked with teacher career advancement according to:",a:1,o:["Only government policy","NCT-I (National Commission of Teachers, 1983-85)","Only NKC","Only Mudaliyar Commission"]},
+{s:"Teacher Training",q:"CPD for teachers is important because education is a:",a:2,o:["Static field","Fixed curriculum","Dynamic field requiring continuous updating","Only administrative field"]},
+{s:"Teacher Training",q:"The '3 weeks every 5 years' in-service training was recommended by:",a:0,o:["NCT-I (1983-85)","Mudaliyar Commission","Education Commission 1964-66","NPE 1986"]},
+{s:"Teacher Training",q:"Micro-teaching video feedback helps teachers to:",a:3,o:["Only show trainees their appearance","Only record lessons for archives","Only track attendance","Objectively evaluate their own teaching behavior and improve"]},
+{s:"Teacher Training",q:"The key outcome of a successful CPD programme for teachers is:",a:1,o:["Only salary increment","Improved teaching quality and better student learning outcomes","Only promotion","Only certification"]},
+{s:"Teacher Training",q:"What makes micro-teaching 'micro'?",a:2,o:["Low cost","Only digital format","Reduced class size, lesson duration, and focused practice on single skills","Only short preparation time"]},
+{s:"Teacher Training",q:"Post-independence, in India teacher training gained systematic attention from which commission onward?",a:0,o:["Mudaliyar Commission 1952-53","NKC 2006","NCT-I 1983","NPE 1986"]},
+{s:"Teacher Training",q:"The concept of 'school complex' under Education Commission 1964-66 was aimed at:",a:3,o:["Only reducing number of schools","Only financial consolidation","Only teacher transfers","Improving rural education quality through resource pooling"]},
+{s:"Teacher Training",q:"Micro-teaching works best because teaching is treated as a set of:",a:1,o:["Complex, untanable skills","Identifiable, practicable sub-skills that can be learned separately","Random behaviors","Only personality traits"]},
+{s:"Teacher Training",q:"CPD activities include all EXCEPT:",a:2,o:["Workshops and seminars","Action research","Annual salary review","Peer observation and coaching"]},
+{s:"Teacher Training",q:"In-service teacher training directly impacts:",a:0,o:["Classroom teaching quality and ultimately student outcomes","Only teacher promotions","Only institutional reputation","Only examination results"]},
+{s:"Teacher Training",q:"Which step comes after 'Re-Teach' in the 9-step micro-teaching procedure?",a:3,o:["Define new skill","Plan again","Teach again","Re-Discuss (second feedback)"]},
+{s:"Teacher Training",q:"The 9-step micro-teaching cycle ends with:",a:1,o:["Final examination","Continuing the cycle to master more teaching skills","Only peer evaluation","Only written assessment"]},
+{s:"Teacher Training",q:"Teacher training in India is addressed at two levels:",a:2,o:["Only national level","Only state level","Both national (pre-service) and institutional (in-service) levels","Only district level"]},
+{s:"Teacher Training",q:"Education Commission 1964-66 is also called the ________ Commission.",a:0,o:["Kothari","Mudaliyar","Ramamurthi","Yashpal"]},
+{s:"Teacher Training",q:"CPD helps teachers deal with ICT by:",a:3,o:["Only using email","Only managing records","Only teaching online","Integrating technology effectively in teaching and learning"]},
+{s:"Teacher Training",q:"The major contribution of micro-teaching to teacher education is:",a:1,o:["Reducing training costs","Providing a structured, scientific, and iterative method for developing teaching competence","Eliminating the need for practice teaching","Only providing theory"]},
+{s:"Teacher Training",q:"Mudaliyar Commission (1952-53) recommended training colleges provide:",a:2,o:["Only pre-service training","Only theory courses","Pre-service training, refresher courses, short intensive courses, and practical workshops","Only practical training"]},
+{s:"Teacher Training",q:"Under NCT-I recommendations, in-service training should be linked to teacher's:",a:0,o:["Career and professional advancement","Only subject specialization","Only administrative duties","Only personal development"]},
+{s:"Teacher Training",q:"Which is NOT a feature of micro-teaching?",a:3,o:["Small group of 5–7 students","Brief 10–15 minute lesson","Targeted feedback on specific skills","Regular full-year classroom observation"]},
+{s:"Teacher Training",q:"The purpose of the 'Discuss' step in micro-teaching is to:",a:1,o:["Grade the teacher","Analyze the teaching and provide constructive feedback for improvement","Only record the session","Only critique the lesson plan"]},
+{s:"Teacher Training",q:"The key advantage of micro-teaching over traditional practice teaching is:",a:2,o:["Only lower cost","Only shorter duration","Immediate targeted feedback on specific skills in a low-stakes environment","Only easier to organize"]},
+{s:"Teacher Training",q:"Which body promoted CPD through ICT networking in India?",a:0,o:["NKC (National Knowledge Commission 2006-09)","Only NCERT","Only UGC","Only Ministry of Education"]},
+{s:"Teacher Training",q:"The overall aim of teacher professional development is to:",a:3,o:["Only improve teacher salaries","Only increase teachers' qualifications","Only ensure compliance","Continuously improve teaching effectiveness and student learning outcomes"]},
+
+// ── NEW TRENDS & GLOBALIZATION (61–120) ──
+{s:"New Trends",q:"Which new trend uses personalized learning pathways based on learner data?",a:2,o:["Gamification","Micro-teaching","Artificial Intelligence in training","Only online learning"]},
+{s:"New Trends",q:"Gamification in training involves:",a:0,o:["Using game elements like points, badges, and leaderboards to motivate learning","Only video gaming","Only competitive exams","Only playing games"]},
+{s:"New Trends",q:"Personalized training means:",a:3,o:["Same training for everyone","Only individual coaching","Only online modules","Tailoring training content, pace, and style to individual learner needs"]},
+{s:"New Trends",q:"Mentoring as a training trend involves:",a:1,o:["Only classroom teaching","Experienced individuals guiding less experienced learners for professional development","Only online guidance","Only written feedback"]},
+{s:"New Trends",q:"Need-based training is a trend that emphasizes:",a:2,o:["Training everyone regardless of need","Only mandatory compliance training","Designing training based on specific, identified performance gaps","Only technical training"]},
+{s:"New Trends",q:"Globalization has created ________ workforces requiring cultural training.",a:0,o:["Diverse","Smaller","Less skilled","Only local"]},
+{s:"New Trends",q:"E-learning and VR/AR adoption in training increased due to:",a:3,o:["Only financial reasons","Only regulatory pressure","Only trainer preferences","Globalization requiring efficient knowledge transfer across locations"]},
+{s:"New Trends",q:"Globalization increased demand for ________ training.",a:1,o:["Only technical","Digital literacy","Only physical skills","Only local language"]},
+{s:"New Trends",q:"Which globalization impact requires standardized training across global offices?",a:2,o:["Only financial compliance","Only recruitment","Standardization vs local adaptation dilemma","Only marketing alignment"]},
+{s:"New Trends",q:"Outsourcing training due to globalization means:",a:0,o:["Companies hire external training providers for specialized needs","Companies eliminate training departments","Companies only train internally","Companies stop training altogether"]},
+{s:"New Trends",q:"Industrialization shifted training from ________ to factory-based skills.",a:3,o:["Online skills","Academic skills","Only practical skills","Craftsmanship-based apprenticeships"]},
+{s:"New Trends",q:"Industrialization led to the emergence of:",a:1,o:["Only university education","Technical schools, vocational centres, and on-the-job training","Only apprenticeships","Only online learning"]},
+{s:"New Trends",q:"Standardized training programmes emerged due to:",a:2,o:["Only government mandates","Only technology advances","Industrialization requiring consistent skill levels across large workforces","Only globalization"]},
+{s:"New Trends",q:"Company training departments emerged as a result of:",a:0,o:["Industrialization creating need for in-house workforce development","Only government requirements","Only university partnerships","Only online training"]},
+{s:"New Trends",q:"Worker safety awareness became important because of:",a:3,o:["Only government regulations","Only employee demands","Only insurance requirements","Industrial growth and the increased risks in factory environments"]},
+{s:"New Trends",q:"AI in training provides:",a:1,o:["Only automated testing","Personalized learning experiences based on individual performance data","Only content delivery","Only record-keeping"]},
+{s:"New Trends",q:"The trend of 'micro-learning' involves:",a:2,o:["Only micro-teaching","Only very small classes","Delivering training in short, focused bursts","Only 5-minute videos only"]},
+{s:"New Trends",q:"Compliance training increased globally because:",a:0,o:["Globalization brought diverse legal, regulatory, and ethical requirements across countries","Only for financial reasons","Only for documentation","Only management preference"]},
+{s:"New Trends",q:"Continuous learning is a trend driven by:",a:3,o:["Only financial incentives","Only employee requests","Only government mandates","Rapid technological change requiring constant skill updating"]},
+{s:"New Trends",q:"Globalization created need for ________ skills training in the workplace.",a:1,o:["Only technical","Soft skills (communication, collaboration, cultural intelligence)","Only physical","Only administrative"]},
+{s:"New Trends",q:"VR (Virtual Reality) in training provides:",a:2,o:["Only entertainment","Only theoretical knowledge","Immersive simulation of real-world scenarios for safe practice","Only gaming"]},
+{s:"New Trends",q:"The globalization impact of 'standardization vs local adaptation' means organizations must:",a:0,o:["Balance globally consistent training with locally relevant content","Only use standardized training","Only use local training","Avoid globalized training"]},
+{s:"New Trends",q:"Which training trend uses points, levels, and rewards to engage learners?",a:3,o:["Mentoring","AI-powered training","Personalized training","Gamification"]},
+{s:"New Trends",q:"Industrialization's impact on training included:",a:1,o:["Only agricultural skill development","Shift from individual craftsmanship to mass production skills training","Only academic training growth","Only online training emergence"]},
+{s:"New Trends",q:"The need for 'digital literacy' training in modern organizations is driven by:",a:2,o:["Only personal preference","Only cost reduction","Increasing digitization of all industries due to globalization and industrialization","Only entertainment needs"]},
+{s:"New Trends",q:"Mentoring differs from coaching in that mentoring is typically:",a:0,o:["Long-term, relationship-based, and developmental","Short-term and performance-focused only","Only for new employees","Only for technical skills"]},
+{s:"New Trends",q:"Which trend specifically addresses training delivery in small, digestible units?",a:3,o:["Gamification","AI training","Mentoring","Micro-learning"]},
+{s:"New Trends",q:"Globalization impacts training by requiring organizations to manage:",a:1,o:["Only domestic regulations","Cross-cultural communication and multi-language training content","Only financial reporting","Only product standardization"]},
+{s:"New Trends",q:"The emergence of e-learning as a dominant training method is most directly attributed to:",a:2,o:["Only financial savings","Only trainee preferences","Globalization enabling internet access and technology tools across geographies","Only government initiatives"]},
+{s:"New Trends",q:"Need-based training avoids:",a:0,o:["Wasteful training programmes that do not address actual performance gaps","All theory training","Group training","Formal certification"]},
+{s:"New Trends",q:"AI personalizes training by analyzing:",a:3,o:["Only attendance records","Only financial data","Only HR records","Learner performance data, learning patterns, and preferences"]},
+{s:"New Trends",q:"On-the-job training (OJT) as a structured training trend ensures:",a:1,o:["Only classroom learning","Learning happens within the actual work context for immediate application","Only theory application","Only certificate awards"]},
+{s:"New Trends",q:"Industrialization created company training departments to address:",a:2,o:["Only management development","Only financial skills","The growing need for consistent, scalable workforce training","Only leadership development"]},
+{s:"New Trends",q:"The 'continuous learning' trend in organizations creates a culture of:",a:0,o:["Lifelong learning and ongoing skill development","Only mandatory training compliance","Only annual reviews","Only certification accumulation"]},
+{s:"New Trends",q:"Globalization requires training to address:",a:3,o:["Only domestic market needs","Only language barriers","Only regulatory compliance","Cultural diversity, global regulations, digital tools, and soft skills"]},
+{s:"New Trends",q:"Which new trend creates healthy competition among trainees to motivate engagement?",a:1,o:["Mentoring","Gamification with leaderboards","AI personalization","Micro-learning"]},
+{s:"New Trends",q:"The rise of VR/AR in training is particularly valuable for:",a:2,o:["Only administrative training","Only language training","Dangerous, high-risk, or complex scenarios where real practice would be unsafe","Only documentation training"]},
+{s:"New Trends",q:"Training outsourcing as a globalization impact means:",a:0,o:["External specialist providers deliver training, allowing organizations to access broader expertise","All training moves to universities","Training is eliminated","Only government agencies provide training"]},
+{s:"New Trends",q:"The impact of industrialization on vocational training was:",a:3,o:["Reduction in technical training needs","Shift to only academic education","Elimination of skill-based training","Growth of technical schools, ITIs, and vocational training centres"]},
+{s:"New Trends",q:"AI-driven personalized training can recommend:",a:1,o:["Only one course for all learners","Specific content, resources, and activities based on individual learner gaps","Only classroom training","Only assessments"]},
+{s:"New Trends",q:"Which globalization impact directly affects the language in which training is delivered?",a:2,o:["Standardization requirement","Financial compliance","Need for multi-language training to serve diverse global workforces","Only digital tools"]},
+{s:"New Trends",q:"Mentoring in the modern training context often involves:",a:0,o:["Both face-to-face and digital mentoring relationships","Only face-to-face mentoring","Only group mentoring","Only formal mentoring programmes"]},
+{s:"New Trends",q:"The trend of 'personalized training' is made possible primarily by:",a:3,o:["Only increased budgets","Only management preference","Only government mandates","Technology — LMS, AI, and data analytics enabling individual learning tracks"]},
+{s:"New Trends",q:"Worker safety training became standardized due to:",a:1,o:["Only employee unions","Industrial regulations and the recognition that safety training reduces accidents and liability","Only government pressure","Only financial incentives"]},
+{s:"New Trends",q:"A key challenge of globalization for training teams is:",a:2,o:["Only financial management","Only physical logistics","Balancing global consistency with local relevance in training content","Only language translation"]},
+{s:"New Trends",q:"Gamification increases training engagement because it:",a:0,o:["Taps into intrinsic and extrinsic motivations through game mechanics","Only makes training fun","Only provides competition","Only gives rewards"]},
+{s:"New Trends",q:"The shift from traditional apprenticeship to factory training due to industrialization mainly affected:",a:3,o:["Only management roles","Only white-collar jobs","Only agricultural workers","Artisans and craftspeople transitioning to factory work"]},
+{s:"New Trends",q:"Which new training trend is MOST effective for developing leadership skills?",a:1,o:["Gamification","Mentoring","AI-personalization","Micro-learning"]},
+{s:"New Trends",q:"Micro-learning is effective because:",a:2,o:["It replaces all training","It is the cheapest option","It aligns with modern learners' shorter attention spans and busy schedules","It requires no technology"]},
+{s:"New Trends",q:"The globalization impact on training that involves following local labor laws globally is:",a:0,o:["Compliance training","Only soft skills training","Only technical training","Only digital literacy training"]},
+{s:"New Trends",q:"Industrialization made ________ training a core business function.",a:3,o:["Only agricultural","Only academic","Only financial","Workforce or employee development"]},
+{s:"New Trends",q:"AI's role in adaptive learning means the training system:",a:1,o:["Delivers the same content to all","Automatically adjusts content and difficulty based on learner performance","Only tracks attendance","Only provides certificates"]},
+{s:"New Trends",q:"VR/AR training provides the advantage of:",a:2,o:["Only cost reduction","Only technical training","Repeatable, safe practice in realistic simulated environments","Only entertainment"]},
+{s:"New Trends",q:"The role of 'need-based training' in the modern organization is to ensure:",a:0,o:["Training resources are directed only where genuine performance gaps exist","All employees attend all training","Only new employees get training","Training is always classroom-based"]},
+{s:"New Trends",q:"Globalization has made ________ an essential training component in multinational companies.",a:3,o:["Only language training","Only legal training","Only financial training","Cross-cultural competence training"]},
+{s:"New Trends",q:"The biggest advantage of AI in training is:",a:1,o:["Only automation of administration","Scalable personalization — delivering unique learning paths to millions simultaneously","Only content creation","Only cost reduction"]},
+
+// ── FIRST AID (121–200) ──
+{s:"First Aid",q:"The acronym RICE in first aid stands for:",a:2,o:["Run, Ice, Compress, Elevate","Rest, Immobilize, Cool, Elevate","Rest, Ice, Compression, Elevation","Relax, Ice, Cover, Elevate"]},
+{s:"First Aid",q:"A strain is an injury to a:",a:0,o:["Muscle or tendon","Ligament","Bone","Joint capsule"]},
+{s:"First Aid",q:"A sprain is caused by violent overstretching of a:",a:3,o:["Muscle","Tendon","Bone","Ligament of a joint"]},
+{s:"First Aid",q:"A contusion is:",a:1,o:["A muscle tear","A bruise (blue/brown/purple mark) from a direct blow","A bone fracture","A ligament tear"]},
+{s:"First Aid",q:"Ice in RICE should be applied for ________ minutes at a time.",a:2,o:["5–10","10–15","15–20","20–30"]},
+{s:"First Aid",q:"In RICE, ice application contracts blood vessels, thereby:",a:0,o:["Reducing blood flow, swelling, and pain","Increasing blood flow","Warming the injury","Relaxing muscles"]},
+{s:"First Aid",q:"'E' in RICE means elevating the injury:",a:3,o:["Below heart level","At heart level","At any level","Above heart level using pillows or objects"]},
+{s:"First Aid",q:"'C' in RICE (Compression) applies pressure using:",a:1,o:["Only ice packs","Bandages to reduce swelling and support the injury","Only hot packs","Only splints"]},
+{s:"First Aid",q:"If a RICE compression bandage is too tight, it should be:",a:2,o:["Left alone","Removed immediately","Loosened slightly","Replaced with tighter bandage"]},
+{s:"First Aid",q:"DRSABCD is used in:",a:0,o:["CPR assessment and response procedure","Only burn treatment","Only fracture management","Only wound dressing"]},
+{s:"First Aid",q:"In DRSABCD, 'D' — Danger step means:",a:3,o:["Diagnose the patient","Defibrillate immediately","Direct others for help","Assess the scene for danger to self, bystanders, and patient"]},
+{s:"First Aid",q:"In DRSABCD, 'R' — Response means:",a:1,o:["Resuscitate the patient","Ask the patient their name and squeeze their shoulders to check responsiveness","Remove clothing","Report to authorities"]},
+{s:"First Aid",q:"In DRSABCD, 'S' — Send means:",a:2,o:["Start CPR","Stay with the patient","Send for help or call emergency services","Stabilize the patient"]},
+{s:"First Aid",q:"In DRSABCD, 'A' — Airway means:",a:0,o:["Open the patient's mouth and tilt head to open airway","Alert bystanders","Apply pressure","Assess injuries"]},
+{s:"First Aid",q:"In DRSABCD, 'B' — Breathing means:",a:3,o:["Bandage wounds","Begin CPR","Block airway","Check for normal breathing (look, listen, feel)"]},
+{s:"First Aid",q:"In DRSABCD, 'C' — CPR means:",a:1,o:["Call emergency services","Begin 30 chest compressions followed by 2 rescue breaths","Check vital signs","Continue observation"]},
+{s:"First Aid",q:"In DRSABCD, final 'D' — Defibrillator means:",a:2,o:["Diagnose further","Discharge the patient","Attach and use an AED (Automated External Defibrillator) if available","Document findings"]},
+{s:"First Aid",q:"CPR is most effective when given within ________ minutes of cardiac arrest.",a:0,o:["First few minutes","30 minutes","1 hour","2 hours"]},
+{s:"First Aid",q:"Gauze dressings are made of loosely woven cotton fabric and allow:",a:3,o:["No air circulation","Only absorption","Only compression","Air circulation while absorbing wound exudate"]},
+{s:"First Aid",q:"Hydrocolloid dressings create a ________ wound environment.",a:1,o:["Dry","Moist","Cold","Hot"]},
+{s:"First Aid",q:"Alginate dressings are derived from:",a:2,o:["Cotton","Synthetic fibers","Seaweed (algae)","Plastic"]},
+{s:"First Aid",q:"Alginate dressings are MOST suitable for:",a:0,o:["Heavily exuding wounds, leg ulcers, and cavity wounds","Only minor cuts","Only superficial burns","Only abrasions"]},
+{s:"First Aid",q:"Transparent film dressings allow:",a:3,o:["Only oxygen to pass through","Only moisture to escape","No gas exchange","Easy wound monitoring without removal"]},
+{s:"First Aid",q:"Band-Aid is a type of ________ dressing.",a:1,o:["Hydrocolloid","Adhesive (for minor cuts and abrasions)","Alginate","Foam"]},
+{s:"First Aid",q:"Foam dressings are used for:",a:2,o:["Only minor cuts","Only burns","Ulcers, burns, and surgical wounds requiring absorbency","Only abrasions"]},
+{s:"First Aid",q:"A crepe/roller bandage is used to:",a:0,o:["Support and immobilize strains, sprains, and fractures","Only cover wounds","Only stop bleeding","Only provide warmth"]},
+{s:"First Aid",q:"Triangular bandages are:",a:3,o:["Only for leg injuries","Only for arm injuries","Only for head injuries","Multi-purpose, made in the shape of a right-angled triangle"]},
+{s:"First Aid",q:"A snake bite bandage has indicator markings to show:",a:1,o:["The type of bandage","Correct tension when wrapping","The length used","The age of the bandage"]},
+{s:"First Aid",q:"Tubular bandages are applied to:",a:2,o:["Only the head","Only the torso","Arms, legs, ankles, and wrists for uniform compression","Only surgical wounds"]},
+{s:"First Aid",q:"Cohesive bandages are unique because they:",a:0,o:["Stick to themselves but NOT to skin or hair","Stick to skin and wound","Never stick to anything","Stick only to clothing"]},
+{s:"First Aid",q:"Compression bandages apply pressure to:",a:3,o:["Only broken bones","Only cuts","Only burns","Soft tissue injuries to reduce swelling and provide support"]},
+{s:"First Aid",q:"A superficial burn affects:",a:1,o:["Full depth of skin","Only the outermost layer (epidermis)","Underlying muscle","Subcutaneous tissue"]},
+{s:"First Aid",q:"A partial thickness burn:",a:2,o:["Only affects the epidermis","Is not painful","Destroys the epidermis; is fatal if covering more than 20% of body","Affects muscle tissue"]},
+{s:"First Aid",q:"A full thickness burn:",a:0,o:["Is often NOT painful (nerve endings destroyed) and requires immediate medical attention","Is always very painful","Only affects epidermis","Heals on its own without treatment"]},
+{s:"First Aid",q:"In first aid for burns, cold water should be applied for at least:",a:3,o:["5 minutes","8 minutes","12 minutes","15–20 minutes"]},
+{s:"First Aid",q:"In burn first aid, jewellery should be removed:",a:1,o:["After swelling subsides","Before tissues begin to swell","Only if the patient requests","After hospital treatment"]},
+{s:"First Aid",q:"For burns covering the face, you should:",a:2,o:["Cover the face with bandages immediately","Apply cream immediately","NOT cover as it may obstruct breathing; keep cooling until doctor arrives","Apply ice pack"]},
+{s:"First Aid",q:"The First Aid Box should NOT be turned into:",a:0,o:["A general medicine box for multiple uses","An emergency kit","A supply box","A documentation centre"]},
+{s:"First Aid",q:"A burn wound should be covered with a ________ dressing.",a:3,o:["Wet cloth","Ordinary bandage","Paper towel","Sterile/clean non-stick dressing"]},
+{s:"First Aid",q:"Good Samaritan Laws protect:",a:1,o:["Only professional doctors","People who provide first aid to strangers in emergency situations","Only trained nurses","Only paramedics"]},
+{s:"First Aid",q:"The scope of first aid INCLUDES:",a:2,o:["Replacing hospital treatment","Only providing water to injured person","Finding the nature of the situation, applying first aid, and shifting to hospital","Only calling ambulance"]},
+{s:"First Aid",q:"A defibrillator treats cardiac arrest by:",a:0,o:["Analyzing abnormal heart rhythms and delivering an electric shock to restore normal rhythm","Only providing oxygen","Only monitoring heart rate","Only delivering medications"]},
+{s:"First Aid",q:"In first aid for severe burns, the patient should:",a:3,o:["Stand upright","Sit in a chair","Only apply cream","Lie down with the injury not touching the ground"]},
+{s:"First Aid",q:"RICE is used for which type of injuries?",a:1,o:["Only fractures","Strains, sprains, and contusions","Only burns","Only head injuries"]},
+{s:"First Aid",q:"The purpose of first aid is to:",a:2,o:["Replace all medical care","Only provide pain relief","Preserve life, prevent deterioration, and promote recovery","Only call emergency services"]},
+{s:"First Aid",q:"In CPR, rescue breathing is also called:",a:0,o:["Mouth-to-mouth resuscitation","Only chest compressions","Only defibrillation","Only airway management"]},
+{s:"First Aid",q:"Which dressing is BEST for a deep cavity wound with heavy discharge?",a:3,o:["Adhesive dressing","Transparent film dressing","Only gauze","Alginate dressing"]},
+{s:"First Aid",q:"Applying ice in RICE should NOT exceed ________ minutes at a time to avoid frostbite.",a:1,o:["5","15–20","30","10"]},
+{s:"First Aid",q:"In DRSABCD, after 'Send', the next step is:",a:2,o:["Start CPR","Check breathing","Airway — open the patient's airway","Defibrillate"]},
+{s:"First Aid",q:"Partial thickness burn treatment requires:",a:0,o:["Immediate medical attention; fatal if covering more than 20% of body","Only home treatment","Only cold water","No treatment needed"]},
+{s:"First Aid",q:"The goal of compression in RICE is to:",a:3,o:["Increase blood flow","Warm the injury","Reduce mobility permanently","Reduce swelling by applying pressure to the affected site"]},
+{s:"First Aid",q:"Which type of bandage prevents the dressing from moving and keeps it sterile?",a:1,o:["Elastic bandage only","Roller/crepe bandage holding dressings in place","Only tape","Only triangular bandage"]},
+{s:"First Aid",q:"A first aid provider who helps a stranger in an emergency is protected by:",a:2,o:["Criminal law","Civil law only","Good Samaritan Laws","Only company policy"]},
+{s:"First Aid",q:"In CPR, chest compressions should be performed at a depth of:",a:0,o:["At least 5 cm (about 2 inches) for an adult","Only 1–2 cm","Only 3 cm","More than 8 cm"]},
+{s:"First Aid",q:"Dry burns occur when skin comes in direct contact with:",a:3,o:["Hot water","Chemicals","Steam","Fire"]},
+{s:"First Aid",q:"Wet burns occur when skin comes in contact with:",a:1,o:["Dry heat","Hot liquids like boiling water or steam","Only fire","Only chemicals"]},
+{s:"First Aid",q:"The first aid box should be stored:",a:2,o:["In the manager's office only","In the kitchen","Safe from children but accessible for adults in an emergency","In a locked room at all times"]},
+{s:"First Aid",q:"In severe burn first aid, Step 6 involves:",a:0,o:["Seeking immediate medical help","Applying ice","Removing clothing only","Applying ointment"]},
+{s:"First Aid",q:"A foam dressing is characterized by:",a:3,o:["Thin and transparent","Only adhesive","Only absorbs water","Soft, cushioning material highly absorbent for moderate to heavy exudate"]},
+{s:"First Aid",q:"In RICE, 'Rest' means:",a:1,o:["Sleep for 8 hours","Stop using the injured area to prevent further damage","Only reduce work pace","Only take pain medication"]},
+{s:"First Aid",q:"Elevation in RICE works by:",a:2,o:["Warming the injury","Compressing the injury","Using gravity to reduce blood pooling and swelling in the injured area","Cooling the injury"]},
+{s:"First Aid",q:"Which DRSABCD step focuses on bystander safety?",a:0,o:["D — Danger","R — Response","S — Send","A — Airway"]},
+{s:"First Aid",q:"First Aid is defined as the ________ assistance given to any person suffering from illness or injury.",a:3,o:["Last","Delayed","Only professional","First and immediate"]},
+{s:"First Aid",q:"When cooling a burn with cold water, the water should be:",a:1,o:["Ice cold","Gently running cold water (not ice cold)","Hot water","Only sterile water"]},
+{s:"First Aid",q:"Hydrocolloid dressings are MOST suitable for:",a:2,o:["Heavily exuding wounds","Only surgical wounds","Light to moderately exuding wounds, pressure ulcers, and minor burns","Only abrasions"]},
+{s:"First Aid",q:"The CORRECT sequence for using PASS in fire extinguisher use is:",a:0,o:["Pull pin → Aim → Squeeze handle → Sweep side to side","Press → Aim → Squeeze → Spread","Point → Activate → Squeeze → Spray","Push → Apply → Start → Stop"]},
+{s:"First Aid",q:"Cohesive bandages are particularly useful because:",a:3,o:["They stick to skin","They are the cheapest option","They require no fasteners","They adhere to themselves without needing clips or fasteners and do not damage skin"]},
+
+// ── INDUSTRIAL SAFETY ADVANCED (201–240) ──
+{s:"Industrial Safety",q:"Which ILO Convention establishes minimum working age?",a:1,o:["Convention 29","Convention 138","Convention 155","Convention 182"]},
+{s:"Industrial Safety",q:"ILO Convention 155 addresses:",a:2,o:["Forced Labour","Child Labour","Occupational Safety and Health","Minimum Age"]},
+{s:"Industrial Safety",q:"A 'Serious Incident' in industrial safety is:",a:0,o:["A major injury requiring significant medical care or causing serious property damage","A near miss","A minor injury","A fatal accident"]},
+{s:"Industrial Safety",q:"What is the difference between a 'serious' and 'fatal' incident?",a:3,o:["There is no difference","Only the cost of treatment differs","Only the machinery involved differs","Fatal involves loss of life; serious involves major injury without death"]},
+{s:"Industrial Safety",q:"'Mechanical causes' of industrial accidents include:",a:1,o:["Employee negligence","Equipment failures, poor machine design, lack of guards","Environmental hazards","Only electrical faults"]},
+{s:"Industrial Safety",q:"'Environmental causes' of industrial accidents include:",a:2,o:["Only weather","Only chemical spills","Poor lighting, extreme temperatures, noise, and hazardous substances in environment","Only natural disasters"]},
+{s:"Industrial Safety",q:"Arms and hand protection PPE guards against:",a:0,o:["Chemical burns, cuts, abrasions, heat, and electrical hazards","Only heat hazards","Only chemical spills","Only cuts"]},
+{s:"Industrial Safety",q:"Foot protection PPE is needed in industries with risk of:",a:3,o:["Only electrical hazards","Only noise hazards","Only heat hazards","Heavy objects, sharp materials, chemicals, and electrical hazards to the feet"]},
+{s:"Industrial Safety",q:"OSH Code 2020 requires employers to issue ________ to all appointed employees.",a:1,o:["Only salary slips","Appointment letters","Only ID cards","Only training certificates"]},
+{s:"Industrial Safety",q:"The National OSH Advisory Board has the Secretary, Ministry of Labour as Ex-officio ______.",a:2,o:["Secretary","Vice-Chairperson","Chairperson","Member"]},
+{s:"Industrial Safety",q:"Members of the National OSH Advisory Board are appointed for ________ years.",a:0,o:["Three","Five","Two","One"]},
+{s:"Industrial Safety",q:"The National OSH Advisory Board advises the Central Government on policy issues related to:",a:3,o:["Only salaries","Only finance","Only recruitment","Occupational Safety, Health, and Working Conditions"]},
+{s:"Industrial Safety",q:"The Factories Act, 1948 was consolidated into which code?",a:1,o:["Labour Wages Code","OSH Code 2020","Industrial Relations Code","Code on Social Security"]},
+{s:"Industrial Safety",q:"Under OSH Code 2020, which entities are exempt from coverage?",a:2,o:["Private factories with 20+ workers","All factories","Central and State Government offices and warships","Small enterprises only"]},
+{s:"Industrial Safety",q:"An employee's duty under OSH Code 2020 includes NOT:",a:0,o:["Ignoring unsafe conditions and failing to report them","Reporting unsafe situations","Following safety procedures","Using PPE properly"]},
+{s:"Industrial Safety",q:"The NSC (National Safety Council) aims to eliminate:",a:3,o:["Only financial risks","Only production inefficiencies","Only administrative issues","Preventable deaths, injuries, and illnesses at work"]},
+{s:"Industrial Safety",q:"Near misses in industry are important to document because:",a:1,o:["They are legally required only","They are indicators of potential accidents and allow preventive action","They count as accidents","Only for insurance purposes"]},
+{s:"Industrial Safety",q:"In industrial safety, 'Human causes' of accidents include:",a:2,o:["Only mechanical failures","Only environmental factors","Unsafe acts, negligence, lack of training, and fatigue","Only poor infrastructure"]},
+{s:"Industrial Safety",q:"The National Policy on Safety, Health, and Environment at Workplace 2009 aims for:",a:0,o:["Continuous reduction in work-related injuries, improved coverage, and community awareness","Only financial compliance","Only machinery inspections","Only chemical safety"]},
+{s:"Industrial Safety",q:"OSH as a multidisciplinary field covers:",a:3,o:["Only engineering","Only medicine","Only law","Engineering, medicine, occupational hygiene, law, and behavioral science"]},
+{s:"Industrial Safety",q:"A Safety Committee's main function is to:",a:1,o:["Only report accidents","Develop and recommend measures for improving safety, health, and working conditions","Only provide PPE","Only conduct drills"]},
+{s:"Industrial Safety",q:"Which PPE is specifically designed for work involving heights?",a:2,o:["Gloves only","Foot protection only","Fall arrest systems (harnesses and lanyards)","Only hard hats"]},
+{s:"Industrial Safety",q:"'Industrial safety management' helps businesses avoid:",a:0,o:["Unscheduled downtime, legal liabilities, and financial losses from accidents","Only regulatory non-compliance","Only media criticism","Only employee complaints"]},
+{s:"Industrial Safety",q:"The objective of providing free health examinations to workers under OSH Code 2020 is to:",a:3,o:["Only comply with regulations","Only reduce costs","Only document health status","Detect occupational health hazards early and protect workers"]},
+{s:"Industrial Safety",q:"Under OSH Code 2020, which establishments must register electronically within 60 days?",a:1,o:["Only government establishments","All covered establishments (factories, mines, construction sites, etc.)","Only large multinational companies","Only private sector companies"]},
+{s:"Industrial Safety",q:"Which of the following represents the HIERARCHY of hazard control before PPE?",a:2,o:["PPE first, then engineering controls","Only PPE is needed","Elimination → Substitution → Engineering controls → Administrative controls → PPE","Only administrative controls"]},
+{s:"Industrial Safety",q:"The tripartite nature of NSC means it consists of representatives from:",a:0,o:["Government, employers, and workers","Only government","Only industry","Only workers' unions"]},
+{s:"Industrial Safety",q:"Safety training in industries is classified as a type of:",a:3,o:["Only regulatory compliance","Only technical training","Only refresher training","Preventive measure to avoid accidents and protect lives"]},
+{s:"Industrial Safety",q:"The OSH Code 2020 replaced/subsumed 13 separate Acts to:",a:1,o:["Increase complexity","Simplify compliance and create a unified framework for worker safety","Reduce worker protections","Only reduce government workload"]},
+{s:"Industrial Safety",q:"Industrial safety directly contributes to ________ of the organization.",a:2,o:["Only reputation","Only financial performance","Productivity, morale, and sustainability","Only legal compliance"]},
+{s:"Industrial Safety",q:"ILO Convention No. 182 on Worst Forms of Child Labour was adopted in:",a:0,o:["1999","1990","2000","2005"]},
+{s:"Industrial Safety",q:"Under OSH Code 2020, the employer must ensure the workplace is free from:",a:3,o:["Only noise","Only dust","Only chemical hazards","All identifiable hazards that could cause injury or illness"]},
+{s:"Industrial Safety",q:"The importance of safety committees in factories is to ensure:",a:1,o:["Only accident documentation","Continuous monitoring, evaluation, and improvement of safety practices at floor level","Only PPE distribution","Only safety training delivery"]},
+{s:"Industrial Safety",q:"In an ITI workshop context, which act/code primarily governs safety?",a:2,o:["Only MSME Act","Only Factories Act 1948 alone","OSH Code 2020 (which subsumed Factories Act 1948)","Only Industrial Relations Code"]},
+{s:"Industrial Safety",q:"Why must establishments register within 60 days under OSH Code 2020?",a:0,o:["To ensure regulatory oversight and worker safety coverage from the start","Only for tax purposes","Only for insurance","Only for inspection scheduling"]},
+{s:"Industrial Safety",q:"The OSH Code applies to 'principal employers' including:",a:3,o:["Only factory owners","Only mining companies","Only construction companies","Central and State Government as principal employer for contract labour"]},
+{s:"Industrial Safety",q:"Which type of accident cause involves poor ventilation, extreme temperatures, and poor lighting?",a:1,o:["Human causes","Environmental causes","Mechanical causes","Financial causes"]},
+{s:"Industrial Safety",q:"Which safety measure protects an organization from legal liability after an industrial accident?",a:2,o:["Only insurance","Only media management","Proper documentation, hazard control, safety training, and regulatory compliance","Only financial reserves"]},
+{s:"Industrial Safety",q:"OSH multidisciplinary field includes the study of:",a:0,o:["Occupational medicine, hygiene, ergonomics, psychology, and engineering safety","Only occupational medicine","Only engineering safety","Only psychology"]},
+{s:"Industrial Safety",q:"The role of PPE in the hierarchy of hazard control is:",a:3,o:["The first and most preferred control","The second choice","The third choice","The last resort when higher-level controls cannot adequately reduce risk"]},
+{s:"Industrial Safety",q:"OSH Code 2020 specifically provides rights to workers including:",a:1,o:["Only salary rights","Right to know about hazards, right to participate in safety management, and right to refuse unsafe work","Only leave rights","Only promotion rights"]},
+
+// ── FIRE PROTECTION ADVANCED (241–280) ──
+{s:"Fire Protection",q:"A Pressurized Water fire extinguisher is suitable for:",a:2,o:["Class B fires","Class C fires","Class A fires only","Class D fires"]},
+{s:"Fire Protection",q:"A CO2 fire extinguisher is suitable for:",a:0,o:["Class B and C fires","Class A fires","Class D fires","Class K fires"]},
+{s:"Fire Protection",q:"A Dry Powder extinguisher is suitable for:",a:3,o:["Only Class A","Only Class B","Only Class C","Class A, B, and C fires"]},
+{s:"Fire Protection",q:"A Halon extinguisher is suitable for:",a:1,o:["Class A fires","Class B and C fires","Class D fires","Class K fires"]},
+{s:"Fire Protection",q:"A Wet Chemical extinguisher is suitable for:",a:2,o:["Class A fires","Class B fires","Class K fires (cooking grease)","Class D fires"]},
+{s:"Fire Protection",q:"In RACE, 'E' (Extinguish) should be attempted only when:",a:0,o:["The fire is small and you have the proper extinguisher and training","Always — never evacuate","Only after the fire department arrives","The building is fully evacuated first"]},
+{s:"Fire Protection",q:"Foam suppression systems work by:",a:3,o:["Absorbing heat only","Using only CO2","Only triggering alarms","Creating a foam layer that cuts off oxygen supply and cools the fire"]},
+{s:"Fire Protection",q:"Dry pipe sprinkler systems differ from wet pipe systems because:",a:1,o:["They use water all the time","Pipes are filled with pressurized air or nitrogen until a fire activates the sprinkler","They don't use water","They work only in hot climates"]},
+{s:"Fire Protection",q:"Gaseous fire suppression systems are used in areas where water damage must be avoided, like:",a:2,o:["Factories","Outdoor areas","Data centres, server rooms, and archives","Only kitchens"]},
+{s:"Fire Protection",q:"Which fire extinguisher is NEVER used on electrical (Class C) fires?",a:0,o:["Pressurized Water extinguisher","CO2 extinguisher","Dry powder extinguisher","Halon extinguisher"]},
+{s:"Fire Protection",q:"The Fire Triangle shows that removing any ONE element will:",a:3,o:["Make the fire bigger","Have no effect","Only slow the fire","Extinguish the fire"]},
+{s:"Fire Protection",q:"Adding a Chemical Chain Reaction to the Fire Triangle creates the:",a:1,o:["Fire Square","Fire Tetrahedron","Fire Pentagon","Fire Hexagon"]},
+{s:"Fire Protection",q:"The 'Smothering' fire extinguishing method involves:",a:2,o:["Adding more fuel","Cooling the fuel","Cutting off the oxygen supply to the fire","Chemical reaction interruption"]},
+{s:"Fire Protection",q:"A fire involving magnesium requires which type of extinguisher?",a:0,o:["Class D extinguisher","Class A extinguisher","CO2 extinguisher","Water extinguisher"]},
+{s:"Fire Protection",q:"Why should water NEVER be used on electrical (Class C) fires?",a:3,o:["Water is too expensive","Water makes too much mess","Water doesn't reach the fire source","Water conducts electricity, creating electrocution hazard"]},
+{s:"Fire Protection",q:"The correct technique when using PASS is to aim the nozzle at:",a:1,o:["The top of the flames","The base of the fire","Midpoint of the flames","The surrounding area"]},
+{s:"Fire Protection",q:"In RACE, the 'A' (Alarm) step means:",a:2,o:["Analyze the fire","Alert only senior staff","Activate the nearest fire alarm and call emergency services","Only notify management"]},
+{s:"Fire Protection",q:"Passive fire protection includes:",a:0,o:["Fire-resistant walls, floors, and doors that slow fire spread without activation","Only fire alarms","Only sprinkler systems","Only fire extinguishers"]},
+{s:"Fire Protection",q:"Wet pipe sprinkler systems have ________ in the pipes at all times.",a:3,o:["Only CO2","Only nitrogen","Only air","Water, which discharges immediately when a sprinkler activates"]},
+{s:"Fire Protection",q:"Fire detection systems are part of ________ fire protection.",a:1,o:["Passive","Active","Neither","Both equally"]},
+{s:"Fire Protection",q:"The chemical chain reaction in the Fire Tetrahedron represents:",a:2,o:["Only smoke production","Only heat generation","The self-sustaining molecular reactions that keep combustion going","Only fuel consumption"]},
+{s:"Fire Protection",q:"Which fire class is most common in offices (paper, wood, fabric)?",a:0,o:["Class A","Class B","Class C","Class D"]},
+{s:"Fire Protection",q:"CO2 extinguishers work by:",a:3,o:["Adding water","Adding foam","Only cooling the fire","Displacing oxygen and cooling the fire simultaneously"]},
+{s:"Fire Protection",q:"Halon fire extinguishers work by:",a:1,o:["Only cooling the fire","Interrupting the chemical chain reaction in combustion","Only smothering the fire","Only cooling and smothering"]},
+{s:"Fire Protection",q:"In fire safety planning, 'RACE' is specifically designed for:",a:2,o:["Using fire extinguishers","Only for trained firefighters","Emergency response in buildings, especially healthcare and workplace settings","Only outdoor fire situations"]},
+{s:"Fire Protection",q:"Fire protection measures serve to:",a:0,o:["Prevent fires, reduce their impact, and ensure safe evacuation and suppression","Only extinguish fires","Only detect fires","Only train employees"]},
+{s:"Fire Protection",q:"A grease fire in a commercial kitchen is classified as:",a:3,o:["Class A","Class B","Class C","Class K"]},
+{s:"Fire Protection",q:"Which fire class requires metallic fire suppression agents?",a:1,o:["Class A","Class D","Class B","Class C"]},
+{s:"Fire Protection",q:"The best practice for a small waste paper basket fire in an office is:",a:2,o:["Use a CO2 extinguisher","Leave the building immediately","Use a Class A extinguisher (water-based) or dry powder","Call the fire department first"]},
+{s:"Fire Protection",q:"Activating a fire alarm is the ________ step in RACE.",a:0,o:["Second (A — Alarm)","First","Third","Fourth"]},
+{s:"Fire Protection",q:"Fire suppression vs fire protection: suppression focuses on ________, while protection is broader.",a:3,o:["Detection only","Prevention only","Alarm systems only","Actively controlling or extinguishing an active fire"]},
+{s:"Fire Protection",q:"The 'Sweep' in PASS means:",a:1,o:["Run away from fire","Move nozzle from side to side across the base of the fire","Only spray upward","Only spray in one direction"]},
+{s:"Fire Protection",q:"Why must you 'Aim low' (at base) when using a fire extinguisher?",a:2,o:["To avoid disturbing the flame","To reduce noise","The base is where the fuel is — extinguishing agent stops fuel from combusting","Only for safety"]},
+{s:"Fire Protection",q:"Dry pipe sprinkler systems are used in areas where:",a:0,o:["Pipes may freeze (cold environments)","Only hot environments","Only outdoor use","Only data centres"]},
+{s:"Fire Protection",q:"Water mist fire suppression systems use fine droplets to:",a:3,o:["Only cool the air","Only create fog","Only suppress electrical fires","Cool the fire, displace oxygen, and suppress fire simultaneously"]},
+{s:"Fire Protection",q:"In RACE, 'R — Remove' involves removing:",a:1,o:["Only property","People from immediate danger area first, then property if safe","Only files and documents","Only expensive equipment"]},
+{s:"Fire Protection",q:"Which class of fire specifically involves cooking oils and fats?",a:2,o:["Class B","Class A","Class K","Class C"]},
+{s:"Fire Protection",q:"A CO2 extinguisher should NOT be used in:",a:0,o:["Confined spaces without ventilation (CO2 can asphyxiate)","Open spaces","Large buildings","Only outdoors"]},
+{s:"Fire Protection",q:"The fire tetrahedron model is more complete than the triangle because it explains:",a:3,o:["Only heat production","Only fuel consumption","Only oxygen depletion","Why fires are sometimes hard to extinguish — the self-sustaining chain reaction"]},
+{s:"Fire Protection",q:"Which is the FIRST action in the RACE procedure?",a:1,o:["Activate the alarm","Remove people from immediate danger","Confine the fire","Extinguish the fire"]},
+
+// ── CURRICULUM & ASSESSMENT ADVANCED (281–340) ──
+{s:"Curriculum Development",q:"The key difference between PBL and traditional instruction is that PBL uses:",a:2,o:["Only textbooks","Only lectures","Real, complex problems as the primary vehicle for learning","Only written assessments"]},
+{s:"Curriculum Development",q:"Constructivism in education suggests that knowledge is:",a:0,o:["Actively constructed by learners based on experience","Passively received from teachers","Only from books","Only from observation"]},
+{s:"Curriculum Development",q:"In the 9-step curriculum development, Step 7 involves:",a:3,o:["Identifying training needs","Defining objectives","Piloting the curriculum","Assessment methods development"]},
+{s:"Curriculum Development",q:"The flipped classroom reverses traditional learning by:",a:1,o:["Eliminating homework","Moving lectures outside the classroom and practice/application inside","Making class optional","Only using online content"]},
+{s:"Curriculum Development",q:"PBL encourages students to develop ________ alongside subject knowledge.",a:2,o:["Only financial skills","Only memorization","21st century skills like critical thinking, collaboration, and communication","Only technical skills"]},
+{s:"Curriculum Development",q:"In constructivism, the learner's role is to:",a:0,o:["Actively make meaning from experiences","Only receive information","Only memorize","Only repeat teacher's words"]},
+{s:"Curriculum Development",q:"The benefit of curriculum pilot testing is:",a:3,o:["Only reducing costs","Only testing venues","Only testing trainers","Identifying flaws and refining before full implementation"]},
+{s:"Curriculum Development",q:"Which step in curriculum development involves choosing lectures, discussions, and seminars?",a:1,o:["Step 2 — Define objectives","Step 3 — Selection of training methods","Step 5 — Create learning resources","Step 7 — Assessment methods"]},
+{s:"Curriculum Development",q:"The 'Latin origin' of curriculum relates to education because:",a:2,o:["Latin is the language of science","Latin is the language of religion","A course of study is metaphorically a 'path to run' toward educational goals","Latin is the language of law"]},
+{s:"Curriculum Development",q:"PBL requires the instructor to shift from:",a:0,o:["Sage on the stage to guide on the side","Guide to assessor","Only an evaluator","Only a lecturer"]},
+{s:"Curriculum Development",q:"When designing a curriculum, Step 6 — 'Design Learning Activities' should ensure:",a:3,o:["Only individual activities","Only group activities","Only technology-based activities","Varied activities addressing different learning styles"]},
+{s:"Curriculum Development",q:"The constructivist principle 'reality is determined by your experience' means:",a:1,o:["There is only one truth","Different learners may construct different valid understandings from the same content","Only textbooks define reality","Only teachers define reality"]},
+{s:"Curriculum Development",q:"In flipped classroom, class time is primarily used for:",a:2,o:["Watching lectures","Only testing","Active learning — problem solving, discussion, and application with instructor guidance","Only note-taking"]},
+{s:"Curriculum Development",q:"Curriculum is described as a 'course to be run' — this metaphor implies:",a:0,o:["Learning is a journey with a clear starting point, path, and destination","Learning is only for physically active people","Only competitive learning","Only structured exams"]},
+{s:"Curriculum Development",q:"Which curriculum approach integrates real industry problems into the learning process?",a:3,o:["Traditional lecture-based","Only textbook-based","Only online","Problem-Based Learning (PBL)"]},
+{s:"Curriculum Development",q:"The constructivist classroom is characterized by:",a:1,o:["Passive listening and memorization","Active discussion, exploration, and creation of knowledge","Only standardized tests","Only teacher-centered instruction"]},
+{s:"Curriculum Development",q:"Step 8 in curriculum development is:",a:2,o:["Define objectives","Design content","Pilot testing with small group","Assessment methods development"]},
+{s:"Curriculum Development",q:"A curriculum for vocational training (like ITI) should primarily align with:",a:0,o:["Industry standards and actual job requirements","Only government syllabi","Only academic theory","Only examination patterns"]},
+{s:"Curriculum Development",q:"The final step (Step 9) in curriculum development is:",a:3,o:["Pilot testing","Assessment methods","Learning resources creation","Finalization of curriculum and implementation planning"]},
+{s:"Curriculum Development",q:"PBL's 'collaborative setting' means students must develop:",a:1,o:["Only individual research skills","Teamwork, communication, and negotiation alongside content knowledge","Only presentation skills","Only competition skills"]},
+{s:"Assessment",q:"Which assessment type would a trainer use BEFORE starting a training programme?",a:3,o:["Summative","Peer","Formative","Diagnostic"]},
+{s:"Assessment",q:"A post-test given at the end of a training module is an example of:",a:0,o:["Summative assessment","Formative assessment","Diagnostic assessment","Peer assessment"]},
+{s:"Assessment",q:"360-degree feedback as an assessment method is closest to:",a:3,o:["Summative assessment","Diagnostic assessment","Formative assessment","Peer assessment (extended to multi-rater feedback)"]},
+{s:"Assessment",q:"Formative assessment data should be used to:",a:1,o:["Only document performance","Adjust teaching strategies during the training programme","Only certify trainees","Only rank trainees"]},
+{s:"Assessment",q:"Which assessment type has the HIGHEST stakes?",a:2,o:["Diagnostic","Formative","Summative","Peer"]},
+{s:"Assessment",q:"Peer assessment contributes to higher-order thinking because:",a:0,o:["Evaluating others requires understanding, analysis, and judgment","It is easier than self-assessment","It reduces trainer workload","It is faster than formal testing"]},
+{s:"Assessment",q:"A trainer uses quizzes after each topic during training. This is:",a:3,o:["Summative","Diagnostic","Peer","Formative assessment"]},
+{s:"Assessment",q:"Baseline evaluation at the start of training is an example of:",a:1,o:["Summative","Diagnostic","Formative","Peer"]},
+{s:"Assessment",q:"Summative assessments provide a ________ of overall learning achievement.",a:2,o:["Preview","Diagnostic analysis","Final measure","Daily monitoring"]},
+{s:"Assessment",q:"The advantage of combining diagnostic + formative + summative assessments is:",a:0,o:["Comprehensive understanding of learning — before, during, and after instruction","Only regulatory compliance","Only documenting results","Only ranking trainees"]},
+{s:"Assessment",q:"Which assessment type is LEAST likely to be graded on a point scale?",a:3,o:["Summative","Diagnostic","Peer","Formative (often ungraded or low stakes)"]},
+{s:"Assessment",q:"Diagnostic assessment in training helps trainers to:",a:1,o:["Only give grades","Identify existing knowledge and tailor training to fill only the actual gaps","Only assess final performance","Only compare trainees"]},
+{s:"Assessment",q:"Peer assessment fosters ________ among learners.",a:2,o:["Only competition","Only dependence on trainer","Collaboration, critical thinking, and diverse perspectives","Only comparison"]},
+{s:"Assessment",q:"The MPSC 2014 question: 'Formative evaluation is most useful for' — the answer is:",a:0,o:["Decision making to improve the training programme","Certifying trainees","Ranking trainees","Only regulatory compliance"]},
+{s:"Assessment",q:"The MPSC 2014 question: 'Formative evaluation is carried out' — the answer is:",a:3,o:["At the end of training","Before training","During inspection visit","As part of the implementation process"]},
+{s:"Assessment",q:"Which combination best represents the CORRECT use of assessment types?",a:1,o:["Only summative for all purposes","Diagnostic before → Formative during → Summative after training","Only formative throughout","Only peer assessment"]},
+{s:"Assessment",q:"A readiness assessment before training serves to:",a:2,o:["Only rank candidates","Only select participants","Identify prerequisite knowledge and tailor training to address gaps","Only document attendance"]},
+{s:"Assessment",q:"Which assessment provides actionable feedback for trainers to IMPROVE the training programme?",a:0,o:["Formative assessment","Summative assessment","Only diagnostic","Only peer assessment"]},
+{s:"Assessment",q:"An end-of-year certification examination for ITI trainees is an example of:",a:3,o:["Formative","Diagnostic","Peer","Summative assessment"]},
+{s:"Assessment",q:"Peer review in a training setting improves learning because:",a:1,o:["Only because it is required","Learners must deeply understand content to evaluate it in others, reinforcing their own learning","Only to reduce costs","Only because trainers prefer it"]},
+{s:"Assessment",q:"The PRIMARY purpose of DIAGNOSTIC assessment is NOT to:",a:2,o:["Identify prior knowledge","Guide instructional planning","Grade or certify learners","Identify knowledge gaps"]},
+
+// ── ENTREPRENEURSHIP ADVANCED (341–420) ──
+{s:"Entrepreneurship",q:"Which form of DST provides help in modernization and diversification of enterprise?",a:0,o:["Sustaining assistance","Stimulating assistance","Supportive assistance","None of the above"]},
+{s:"Entrepreneurship",q:"The Entrepreneurial Development Cycle 'Supportive' phase includes:",a:3,o:["Motivational training","Help in modernization","Entrepreneurial education","Arranging finance and helping in getting licenses"]},
+{s:"Entrepreneurship",q:"In partnership, 'dominating character of partners' is:",a:1,o:["An advantage","A disadvantage","Neutral","Not relevant"]},
+{s:"Entrepreneurship",q:"Co-operative enterprises face the disadvantage of:",a:2,o:["Too few members","Excess resources","Group co-operation difficulty and inconvenience for members","Too much profit"]},
+{s:"Entrepreneurship",q:"An agricultural entrepreneur undertakes activities including:",a:0,o:["Raising and marketing of crops, fertilizers, and agriculture inputs","Only manufacturing","Only trading","Only services"]},
+{s:"Entrepreneurship",q:"A trading entrepreneur is concerned with:",a:3,o:["Manufacturing only","Agriculture only","IT services only","Trading activities, buying and selling goods without manufacturing"]},
+{s:"Entrepreneurship",q:"Business entrepreneurs utilize both production and ________ resources.",a:1,o:["Only natural","Marketing","Only financial","Only human"]},
+{s:"Entrepreneurship",q:"Motivated entrepreneurs are influenced by:",a:2,o:["Government policy","Natural talent","Possibility of making and marketing a new product or service","Only competition"]},
+{s:"Entrepreneurship",q:"Spontaneous entrepreneurs are driven by:",a:0,o:["Natural talent and self-motivation","Government schemes","Competition pressure","Family pressure"]},
+{s:"Entrepreneurship",q:"Which type of entrepreneur has the specific quality of 'not managing or operating' the business?",a:3,o:["Technical","Non-technical","Industrial","Professional"]},
+{s:"Entrepreneurship",q:"Non-technical entrepreneurs focus primarily on:",a:1,o:["Production techniques","Marketing and distribution strategies","Product design and engineering","Only financial management"]},
+{s:"Entrepreneurship",q:"Under ESDP (Entrepreneurship and Skill Development Programme), stages in order are:",a:2,o:["EAP → IMC → MDP → E-SDP","MDP → EAP → IMC → E-SDP","IMC (2 days) → EAP (2 weeks) → E-SDP (6 weeks) → MDP (1 week)","E-SDP → EAP → IMC → MDP"]},
+{s:"Entrepreneurship",q:"Intrapreneurship enables companies to:",a:0,o:["Foster innovation while retaining talented entrepreneurially-minded employees","Only reduce employee benefits","Only save costs","Only outsource innovation"]},
+{s:"Entrepreneurship",q:"The SVO analogy in entrepreneurship: Entrepreneurship (Verb) represents:",a:3,o:["The person who starts a business","The business itself","The funding for the business","The process and activity of creating enterprise"]},
+{s:"Entrepreneurship",q:"An entrepreneur who starts 3 different businesses in sequence, selling each before starting the next, is a:",a:1,o:["Corporate entrepreneur","Professional entrepreneur","Industrial entrepreneur","Technical entrepreneur"]},
+{s:"Entrepreneurship",q:"MUDRA Bank is a subsidiary of:",a:2,o:["SIDBI","IDBI","SIDBI (Small Industries Development Bank of India)","RBI"]},
+{s:"Entrepreneurship",q:"The Udyami Mitra Portal by SIDBI improves:",a:0,o:["Accessibility of credit for MSMEs","Only employment listings","Only government documentation","Only export services"]},
+{s:"Entrepreneurship",q:"CGTMSE was set up jointly by Ministry of MSME and:",a:3,o:["NABARD","KVIC","RBI","SIDBI"]},
+{s:"Entrepreneurship",q:"Stand Up India's minimum age for eligibility is:",a:1,o:["16 years","18 years","21 years","25 years"]},
+{s:"Entrepreneurship",q:"For an individual enterprise under Stand Up India, the borrower must be:",a:2,o:["Any Indian citizen","Only from general category","A woman, or SC/ST individual","Only from rural areas"]},
+{s:"Entrepreneurship",q:"Startup India defines an eligible startup as less than ________ years old.",a:0,o:["10 years","5 years","3 years","15 years"]},
+{s:"Entrepreneurship",q:"Under PMEGP, educated unemployed youth means those who have passed:",a:3,o:["Only graduate level","Only post-graduate level","Only class 10","Class 8 standard"]},
+{s:"Entrepreneurship",q:"ASPIRE scheme focuses on establishing:",a:1,o:["Only financial institutions","TBIs (Technology Business Incubators) and LBIs (Livelihood Business Incubators)","Only banks","Only training centres"]},
+{s:"Entrepreneurship",q:"MDI (Management Development Institute) is sponsored by:",a:2,o:["SIDBI","IDBI","IFCI (Industrial Finance Corporation of India)","NABARD"]},
+{s:"Entrepreneurship",q:"NIESBUD stands for:",a:0,o:["National Institute for Entrepreneurship and Small Business Development","National Index for Enterprise and Small Business Dynamics","National Institution for Entrepreneurship and Skill Business Development","National Institute for Enterprise and Skill-Based Development"]},
+{s:"Entrepreneurship",q:"EDI (Entrepreneurship Development Institute of India) was sponsored by IDBI Bank, IFCI, ICICI Bank, and:",a:3,o:["NABARD","RBI","Ministry of MSME","SBI"]},
+{s:"Entrepreneurship",q:"'Opportunities Analysis' as an entrepreneurial quality means:",a:1,o:["Waiting for opportunities","Being quick to see opportunities and converting difficulties into opportunities","Only analyzing competition","Only market research"]},
+{s:"Entrepreneurship",q:"'Consistency' as an entrepreneurial quality means:",a:2,o:["Always agreeing with others","Never changing decisions","Being consistent in decisions and follow-up, not deterred by difficulties","Always changing strategies"]},
+{s:"Entrepreneurship",q:"The 3 I's of entrepreneurship — 'Ideas' specifically refers to:",a:0,o:["New, creative ideas that make products unique and popular","Only business plans","Only financial ideas","Only marketing ideas"]},
+{s:"Entrepreneurship",q:"'Cash' in the 6 Cs motivating entrepreneurs refers to:",a:3,o:["Only spending money","Only profit","Only investment","Financial freedom and reward as a motivator for entrepreneurial activity"]},
+{s:"Entrepreneurship",q:"'Control' in the 6 Cs motivating entrepreneurs means:",a:1,o:["Only controlling employees","The motivation of having autonomy and control over one's own business decisions","Only controlling costs","Only controlling products"]},
+{s:"Entrepreneurship",q:"The Entrepreneurial Development Cycle begins with ________ assistance.",a:2,o:["Supportive","Sustaining","Stimulating","Financial"]},
+{s:"Entrepreneurship",q:"A key difference between a pure entrepreneur and induced entrepreneur is:",a:0,o:["Pure is self-motivated; induced is motivated by government policy and incentives","Pure takes more risk; induced takes less","Pure is technical; induced is non-technical","Pure is younger; induced is older"]},
+{s:"Entrepreneurship",q:"The 'Change' in 6 Cs means entrepreneurs are motivated by:",a:3,o:["Avoiding change","Only gradual change","Only technological change","Being agents of change and disrupting the status quo"]},
+{s:"Entrepreneurship",q:"A geographical entrepreneur's primary business strategy is based on:",a:1,o:["Only technology innovation","Geographic arbitrage — producing where it's cheap/abundant and selling where demand/price is high","Only trading","Only manufacturing"]},
+{s:"Entrepreneurship",q:"Which government scheme specifically aims at providing first-time enterprise loans to SC/ST entrepreneurs?",a:2,o:["PMEGP","ASPIRE","Stand Up India","Startup India"]},
+{s:"Entrepreneurship",q:"Corporate entrepreneurs demonstrate the skill of:",a:0,o:["Organizing and managing corporate undertakings with entrepreneurial thinking","Only production management","Only financial management","Only marketing management"]},
+{s:"Entrepreneurship",q:"Under MSME revised definition (2025), a Medium enterprise has turnover up to:",a:3,o:["₹100 crore","₹200 crore","₹300 crore","₹500 crore"]},
+{s:"Entrepreneurship",q:"MSME Ministry was formed by merging the Ministry of Small Scale Industries and the Ministry of:",a:1,o:["Finance","Agro and Rural Industries","Commerce","Labour"]},
+{s:"Entrepreneurship",q:"The minimum project cost ratio for subsidy eligibility under PMEGP requires a margin money contribution from:",a:2,o:["100% bank loan","Only government subsidy","Beneficiary (10% for general, 5% for special categories) plus bank loan and subsidy","Only NGO support"]},
+{s:"Entrepreneurship",q:"Which aspect of entrepreneurship is most directly linked to 'value creation'?",a:0,o:["Converting resources into products/services that meet needs and generate economic and social value","Only generating profit","Only employing people","Only reducing costs"]},
+{s:"Entrepreneurship",q:"The impact of SIDBI on Indian MSME ecosystem is primarily through:",a:3,o:["Direct retail banking","Only policy making","Only skill development","Providing financial support, refinancing banks, and developing MSME sector infrastructure"]},
+{s:"Entrepreneurship",q:"PMEGP beneficiaries from general categories must contribute ________ of project cost.",a:1,o:["5%","10%","15%","20%"]},
+{s:"Entrepreneurship",q:"PMEGP beneficiaries from special categories (SC/ST/OBC/women) must contribute ________ of project cost.",a:2,o:["10%","8%","5%","3%"]},
+{s:"Entrepreneurship",q:"Under MUDRA, loans for trading, service, and manufacturing activities to non-farm small enterprises are provided through:",a:0,o:["Scheduled commercial banks, RRBs, MFIs, and NBFCs","Only government banks","Only SIDBI directly","Only MFIs"]},
+{s:"Entrepreneurship",q:"The 'Change, Challenge, Creativity, Control, Curiosity, Cash' (6 Cs) are:",a:3,o:["Only required for large entrepreneurs","Only for corporate entrepreneurs","Only for technical entrepreneurs","Core motivational factors applicable to all types of entrepreneurs"]},
+{s:"Entrepreneurship",q:"SSIB advises government on all aspects of small-scale industries policy because it is the:",a:1,o:["State-level regulatory body","Apex advisory body (Central Small Industries Board) for small-scale industries","Only financial body","Only training body"]},
+
+// ── INDUSTRY INSTITUTE LINKAGE ADVANCED (421–460) ──
+{s:"Industry Institute Linkage",q:"The linkage between institute and industry ensures alignment of training with:",a:2,o:["Only government policies","Only academic theories","Actual industry needs and modern technologies","Only budget requirements"]},
+{s:"Industry Institute Linkage",q:"Under DST, the e-NTC certificate gives students an advantage specifically in:",a:0,o:["Industry employment over regular ITI graduates","Only academic progression","Only government jobs","Only self-employment"]},
+{s:"Industry Institute Linkage",q:"Which factor inhibiting I-I linkage is related to the quality of practical instruction?",a:3,o:["Curriculum","Leadership","Contact","Teachers (lacking industry experience)"]},
+{s:"Industry Institute Linkage",q:"I-I linkage helps ITI teachers through:",a:1,o:["Only salary increment","Industry exposure, updated knowledge, and access to modern equipment for teaching","Only promotions","Only academic research"]},
+{s:"Industry Institute Linkage",q:"Under DST, the responsibility for the theoretical component lies with:",a:2,o:["Industry","The government","The ITI","Only online platforms"]},
+{s:"Industry Institute Linkage",q:"DST scheme is applicable to:",a:0,o:["All affiliated ITIs covering all existing CTS trades","Only select engineering ITIs","Only government ITIs","Only private ITIs"]},
+{s:"Industry Institute Linkage",q:"Revised DST guidelines became effective from which academic year?",a:3,o:["2017","2018","2020","2019"]},
+{s:"Industry Institute Linkage",q:"The 'Innovation' factor inhibiting I-I linkage refers to:",a:1,o:["Too much innovation creating confusion","Lack of innovation culture and research in institutions and industries","Excess industry innovation","Only product innovation gaps"]},
+{s:"Industry Institute Linkage",q:"Industry-Institute linkage helps students gain access to:",a:2,o:["Only job placements","Only internship payments","Sophisticated equipment, real work culture, and practical skills","Only certificates"]},
+{s:"Industry Institute Linkage",q:"I-I interaction for institutes improves the quality of:",a:0,o:["Faculty through industry interaction, exposure, and knowledge updates","Only buildings","Only administrative systems","Only budgets"]},
+{s:"Industry Institute Linkage",q:"For a 1-year course, previous DST guidelines specified industrial exposure of:",a:3,o:["3–6 months","1–3 months","6–12 months","5 months"]},
+{s:"Industry Institute Linkage",q:"DST scheme awards students an ________ upon successful completion.",a:1,o:["University degree","e-NTC (e-National Trade Certificate) under CTS","Only a participation certificate","Diploma certificate"]},
+{s:"Industry Institute Linkage",q:"I-I interaction for industry includes benefits like:",a:2,o:["Only cheap labor","Only government grants","Collaborative research, fresher talent pipeline, and R&D cost savings","Only reduced taxes"]},
+{s:"Industry Institute Linkage",q:"Which is the CORRECT definition of OJT under DST?",a:0,o:["Practical training conducted directly in an industry environment as part of the ITI programme","Only classroom simulation","Only workshop training at ITI","Only online training"]},
+{s:"Industry Institute Linkage",q:"DST was revised in February 2019 to address:",a:3,o:["Only financial issues","Only administrative issues","Only political requirements","Practical implementation challenges and make eligibility more inclusive"]},
+{s:"Industry Institute Linkage",q:"I-I interaction helps students make better ________ decisions.",a:1,o:["Financial","Career and employment","Only academic","Only personal"]},
+{s:"Industry Institute Linkage",q:"Minimum turnover for non-engineering industry under revised DST (per year for last 2 years) is:",a:2,o:["₹1 crore","₹50 lakhs","₹10 lakhs","₹5 lakhs"]},
+{s:"Industry Institute Linkage",q:"The Sandwich Programme as an I-I linkage programme means:",a:0,o:["Alternating periods of classroom study and industry training","Only food industry training","Only management training","Only engineering training"]},
+{s:"Industry Institute Linkage",q:"The Cooperative Programme as an I-I linkage programme involves:",a:3,o:["Only agricultural cooperation","Only industrial cooperation","Only financial cooperation","Students working in industry alternating with academic study in a formal cooperative arrangement"]},
+{s:"Industry Institute Linkage",q:"Which benefit of I-I interaction directly reduces curriculum obsolescence?",a:1,o:["Only guest lectures","Industry providing input on curriculum relevance and updating it with current skill needs","Only laboratory facilities","Only placement drives"]},
+{s:"Industry Institute Linkage",q:"I-I interaction is described as 'total involvement' meaning it encompasses:",a:2,o:["Only financial support","Only placement drives","Utilization of facilities, use of technicians for skill training, evaluation, and placement","Only equipment donations"]},
+{s:"Industry Institute Linkage",q:"'Contact' as an inhibiting factor in I-I linkage refers to:",a:0,o:["Infrequent or poor quality communication between institute and industry","Excessive contact","Contact only through formal letters","Contact only at placement time"]},
+{s:"Industry Institute Linkage",q:"DST provides ITI students with ________ that regular CTS students do not receive.",a:3,o:["Only a different certificate","Only more theory","Only more workshops","Real industry OJT experience integrated into the formal qualification framework"]},
+{s:"Industry Institute Linkage",q:"Under I-I linkage, industries benefit through collaborative research with institutions by:",a:1,o:["Only getting cheaper labor","Accessing academic expertise, research infrastructure, and innovation without full R&D cost","Only getting government grants","Only getting publicity"]},
+{s:"Industry Institute Linkage",q:"DST's integration of ITI theory and industry OJT produces graduates who are:",a:2,o:["Only theoretically strong","Only practically strong","Both theoretically grounded AND industry-ready with real work experience","Only certified"]},
+{s:"Industry Institute Linkage",q:"Linkage programmes like Practice School and Cooperative Education are most common in:",a:0,o:["Engineering, technology, and professional education institutions","Only school education","Only university liberal arts","Only distance education"]},
+{s:"Industry Institute Linkage",q:"Under DST, who bears primary responsibility for OJT assessment?",a:3,o:["Only the ITI","Only the government","Only external evaluators","Both the industry and the ITI jointly"]},
+{s:"Industry Institute Linkage",q:"Which benefit of I-I interaction is MOST directly relevant to curriculum development?",a:1,o:["Only financial support","Industry inputs ensuring curriculum content matches current job roles and technologies","Only placement drives","Only equipment donations"]},
+{s:"Industry Institute Linkage",q:"The faculty development benefit from I-I interaction primarily involves:",a:2,o:["Only salary increase","Only promotion","Updated knowledge, industry visits, and use of industry resources for teaching","Only administrative training"]},
+{s:"Industry Institute Linkage",q:"DST scheme was introduced by DGT (Directorate General of Training) to promote:",a:0,o:["Quality and industry-relevance in ITI vocational training","Only increase enrollment","Only reduce training duration","Only add more ITIs"]},
+{s:"Industry Institute Linkage",q:"The role of industries in DST beyond OJT includes:",a:3,o:["Only providing workshop space","Only providing salary","Only giving lectures","Providing industry experts as guest faculty and supporting curriculum development"]},
+{s:"Industry Institute Linkage",q:"I-I interaction benefits students by exposing them to ________ before employment.",a:1,o:["Only management styles","Professional work culture, safety standards, and industry expectations","Only financial systems","Only HR policies"]},
+{s:"Industry Institute Linkage",q:"For 2-year course, previous DST industrial exposure was ________ while revised is ______.",a:2,o:["3–6 months vs 6–12 months","5 months vs 6 months","9 months vs 6–12 months","12 months vs 6 months"]},
+
+// ── TRAINING COORDINATOR ADVANCED (461–500) ──
+{s:"Training Coordinator",q:"A Training Coordinator's most critical analytical skill is the ability to:",a:0,o:["Assess training data, identify patterns, and use findings to improve future programmes","Only create schedules","Only manage budgets","Only recruit trainers"]},
+{s:"Training Coordinator",q:"Which attribute helps a Training Coordinator handle multiple simultaneous training projects?",a:3,o:["Only technical knowledge","Only financial skills","Only marketing skills","Exceptional organizational and time management skills"]},
+{s:"Training Coordinator",q:"Training Coordinators differ from HR Coordinators in that Training Coordinators have:",a:1,o:["More HR functions","Specialized focus on learning and development initiatives","More authority","Less education"]},
+{s:"Training Coordinator",q:"A Training Coordinator's relationship with the organization's goals is to:",a:2,o:["Only track attendance","Only manage costs","Align all training activities with organizational objectives and employee development needs","Only conduct assessments"]},
+{s:"Training Coordinator",q:"Which of the following best describes the Training Coordinator's role in trainer management?",a:0,o:["Recruit, train, delegate, and evaluate trainers to ensure quality delivery","Only observe trainers","Only pay trainers","Only schedule trainers"]},
+{s:"Training Coordinator",q:"Training Coordinator evaluates training effectiveness by:",a:3,o:["Only checking attendance","Only reviewing budgets","Only conducting interviews","Gathering feedback from employees and management and analyzing training outcome data"]},
+{s:"Training Coordinator",q:"A Training Coordinator stays current with new training methods by:",a:1,o:["Only reading books","Attending seminars, professional networks, and reviewing industry publications","Only using old methods","Only following government guidelines"]},
+{s:"Training Coordinator",q:"The Training Coordinator's responsibility in managing the budget involves:",a:2,o:["Only approving expenditures","Only tracking costs","Planning, allocating, and monitoring the training budget for maximum effectiveness","Only cutting costs"]},
+{s:"Training Coordinator",q:"A Training Coordinator demonstrates 'leadership skills' primarily through:",a:0,o:["Guiding and inspiring trainers and trainees to achieve learning goals","Only managing others","Only making decisions","Only controlling others"]},
+{s:"Training Coordinator",q:"The success of a Training Coordinator is measured by:",a:3,o:["Only cost savings","Only number of training sessions conducted","Only number of employees trained","Improved employee performance, skills development, and organizational effectiveness"]},
+{s:"Training Coordinator",q:"What is the Training Coordinator's primary role in company induction?",a:1,o:["Only welcoming new employees","Designing and delivering comprehensive induction to help new employees understand company policies, procedures, and culture","Only issuing ID cards","Only giving office tours"]},
+{s:"Training Coordinator",q:"A Training Coordinator uses 'word processing and presentation software' to:",a:2,o:["Only email colleagues","Only track attendance","Create professional training materials, reports, and programme documents","Only manage social media"]},
+{s:"Training Coordinator",q:"Which skill allows a Training Coordinator to connect with trainees from diverse backgrounds?",a:0,o:["Excellent interpersonal and communication skills","Only technical expertise","Only financial knowledge","Only legal knowledge"]},
+{s:"Training Coordinator",q:"A Training Coordinator's relationship with management involves:",a:3,o:["Only reporting attendance","Only managing conflicts","Only recruiting employees","Collaborating to identify training needs, reporting outcomes, and aligning training with strategy"]},
+{s:"Training Coordinator",q:"Training Coordinators 'attend seminars' primarily to:",a:1,o:["Only network socially","Learn new methodologies and keep their own skills and knowledge current","Only represent the company","Only complete requirements"]},
+{s:"Training Coordinator",q:"The Training Coordinator's role in 'follow-up' after training means:",a:2,o:["Only sending thank-you notes","Only issuing certificates","Monitoring application of learning on the job and supporting trainees in implementation","Only documenting attendance"]},
+{s:"Training Coordinator",q:"The Training Coordinator differs from a Training Manager in that Training Coordinators typically:",a:0,o:["Focus on coordinating and administering programmes while Managers set strategic direction","Have more authority","Make all training decisions","Only manage large teams"]},
+{s:"Training Coordinator",q:"A Training Coordinator creates 'reports on outcomes' to help management:",a:3,o:["Only track costs","Only count employees","Only schedule future training","Make informed decisions about training investments and programme improvements"]},
+{s:"Training Coordinator",q:"Training Coordinators maintain training records to ensure:",a:1,o:["Only compliance with regulations","Accurate documentation of who received training, outcomes, certifications, and compliance","Only financial accuracy","Only HR requirements"]},
+{s:"Training Coordinator",q:"The Training Coordinator works with the BROADER HR team to ensure training:",a:2,o:["Replaces all HR functions","Only supports recruitment","Integrates with overall talent management, performance management, and career development","Only supports payroll"]},
+{s:"Training Coordinator",q:"A Training Coordinator must evaluate the effectiveness of training by measuring:",a:0,o:["Changes in knowledge, skills, behavior, and ultimately organizational results (Kirkpatrick model)","Only satisfaction scores","Only attendance rates","Only cost efficiency"]},
+{s:"Training Coordinator",q:"Which of the following is NOT typically within a Training Coordinator's scope?",a:3,o:["Designing training schedules","Evaluating trainer performance","Maintaining training records","Making final decisions on employee compensation and benefits"]},
+{s:"Training Coordinator",q:"A Training Coordinator supports 'continuous learning culture' by:",a:1,o:["Only scheduling annual training","Promoting ongoing development, making resources available, and recognizing learning achievements","Only enforcing mandatory training","Only measuring compliance"]},
+{s:"Training Coordinator",q:"When the Training Coordinator 'recruits trainers,' they look for candidates who have:",a:2,o:["Only subject expertise","Only communication skills","Subject expertise, teaching/facilitation skills, and alignment with organizational values","Only management experience"]},
+{s:"Training Coordinator",q:"The Training Coordinator's ULTIMATE contribution to the organization is:",a:0,o:["Building a capable, skilled workforce that enables the organization to achieve its strategic goals","Only saving training costs","Only compliance with training regulations","Only reducing employee turnover"]}
+];
+
+// State
+let userAnswers = {};
+let currentFilter = 'all';
+let currentSearch = '';
+let visibleQs = [];
+
+function getFilteredIndices(){
+  return Q.map((_,i)=>i).filter(i=>{
+    const q=Q[i];
+    const sMatch=currentFilter==='all'||q.s===currentFilter;
+    const search=currentSearch.toLowerCase();
+    const tMatch=!search||q.q.toLowerCase().includes(search)||q.o.some(o=>o.toLowerCase().includes(search));
+    return sMatch&&tMatch;
+  });
+}
+
+function render(){
+  visibleQs=getFilteredIndices();
+  const main=document.getElementById('mainContent');
+  main.innerHTML='';
+  const groups={};
+  visibleQs.forEach(i=>{const s=Q[i].s;if(!groups[s])groups[s]=[];groups[s].push(i);});
+  let num=0;
+  Object.keys(groups).forEach(sec=>{
+    const div=document.createElement('div');
+    div.innerHTML=`<div class="section-divider">${sec}</div>`;
+    groups[sec].forEach(i=>{num++;div.appendChild(buildCard(i,num));});
+    main.appendChild(div);
+  });
+  document.getElementById('totalQ').textContent=visibleQs.length;
+  updateProgress();
+}
+
+function buildCard(i,num){
+  const q=Q[i];
+  const chipClass=SECTIONS[q.s]||'chip-tc';
+  const answered=userAnswers[i]!==undefined;
+  const correct=answered&&userAnswers[i]===q.a;
+  const card=document.createElement('div');
+  card.className=`qcard${answered?(correct?' answered-correct':' answered-wrong'):''}`;
+  card.id=`card-${i}`;
+  const optsHtml=q.o.map((opt,j)=>{
+    let cls='opt';
+    if(answered){if(j===q.a)cls+=' correct';else if(j===userAnswers[i])cls+=' wrong';}
+    const letter=['A','B','C','D'][j];
+    return `<div class="${cls}" onclick="answer(${i},${j})"><span class="opt-letter">${letter}</span>${opt}</div>`;
+  }).join('');
+  let revealHtml='';
+  if(answered){
+    revealHtml=`<div class="ans-reveal ${correct?'correct-msg':'wrong-msg'}" style="display:block">${correct?'✓ Correct!':'✗ Wrong.'} Answer: ${q.o[q.a]}</div>`;
+  }
+  card.innerHTML=`
+    <div class="qhead" onclick="toggleOpts(${i})">
+      <span class="qnum">Q${num}</span>
+      <span class="qtext">${q.q}<span class="chip ${chipClass}">${q.s.split(' ')[0]}</span></span>
+    </div>
+    <div class="opts" id="opts-${i}" style="${answered?'display:block':'display:none'}">${optsHtml}${revealHtml}</div>`;
+  return card;
+}
+
+function toggleOpts(i){
+  const el=document.getElementById(`opts-${i}`);
+  el.style.display=el.style.display==='none'?'block':'none';
+}
+
+function answer(i,j){
+  if(userAnswers[i]!==undefined)return;
+  userAnswers[i]=j;
+  const q=Q[i];
+  const optsEl=document.getElementById(`opts-${i}`);
+  optsEl.querySelectorAll('.opt').forEach((opt,k)=>{
+    opt.onclick=null;
+    if(k===q.a){opt.classList.add('correct');opt.querySelector('.opt-letter').style.background='var(--correct)';opt.querySelector('.opt-letter').style.color='#fff';}
+    else if(k===j){opt.classList.add('wrong');opt.querySelector('.opt-letter').style.background='var(--wrong)';opt.querySelector('.opt-letter').style.color='#fff';}
+  });
+  const isCorrect=j===q.a;
+  const reveal=document.createElement('div');
+  reveal.className=`ans-reveal ${isCorrect?'correct-msg':'wrong-msg'}`;
+  reveal.style.display='block';
+  reveal.textContent=`${isCorrect?'✓ Correct!':'✗ Wrong.'} Answer: ${q.o[q.a]}`;
+  optsEl.appendChild(reveal);
+  document.getElementById(`card-${i}`).classList.add(isCorrect?'answered-correct':'answered-wrong');
+  updateProgress();
+}
+
+function updateProgress(){
+  const ans=Object.keys(userAnswers).filter(k=>visibleQs.includes(parseInt(k))).length;
+  const cor=Object.keys(userAnswers).filter(k=>visibleQs.includes(parseInt(k))&&userAnswers[k]===Q[k].a).length;
+  const total=visibleQs.length;
+  const pct=total?Math.round(ans/total*100):0;
+  const scorePct=ans?Math.round(cor/ans*100):0;
+  document.getElementById('answeredCount').textContent=ans;
+  document.getElementById('correctCount').textContent=cor;
+  document.getElementById('scorePercent').textContent=scorePct+'%';
+  document.getElementById('progressText').textContent=`${ans} of ${total} answered`;
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+function filterSection(){currentFilter=document.getElementById('sectionFilter').value;render();}
+function searchQ(){currentSearch=document.getElementById('searchBox').value;render();}
+function showAll(){currentFilter='all';currentSearch='';document.getElementById('sectionFilter').value='all';document.getElementById('searchBox').value='';render();}
+function resetAll(){if(!confirm('Reset all answers?'))return;userAnswers={};render();document.getElementById('scorePanel').style.display='none';}
+
+function showScore(){
+  const panel=document.getElementById('scorePanel');
+  const allAns=Object.keys(userAnswers).length;
+  const allCor=Object.keys(userAnswers).filter(k=>userAnswers[k]===Q[k].a).length;
+  const allWrong=allAns-allCor;
+  const pct=allAns?Math.round(allCor/allAns*100):0;
+  let grade=pct>=90?'A+':pct>=80?'A':pct>=70?'B':pct>=60?'C':pct>=50?'D':'F';
+  document.getElementById('sp-total').textContent=allAns;
+  document.getElementById('sp-correct').textContent=allCor;
+  document.getElementById('sp-wrong').textContent=allWrong;
+  document.getElementById('sp-pct').textContent=pct+'%';
+  document.getElementById('sp-grade').textContent=grade;
+  panel.style.display=panel.style.display==='flex'?'none':'flex';
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function revealAll(){
+  if(!confirm('Reveal all correct answers?'))return;
+  visibleQs.forEach(i=>{
+    const optsEl=document.getElementById(`opts-${i}`);
+    if(!optsEl)return;
+    optsEl.style.display='block';
+    optsEl.querySelectorAll('.opt').forEach((opt,k)=>{
+      opt.onclick=null;
+      if(k===Q[i].a){opt.classList.add('correct');opt.querySelector('.opt-letter').style.background='var(--correct)';opt.querySelector('.opt-letter').style.color='#fff';}
+    });
+  });
+}
+
+render();
+</script>
+</body>
+</html>
