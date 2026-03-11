@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Development – Memory Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a23;
+    --card: #1e2433;
+    --border: #2a3045;
+    --accent1: #f4a261;  /* orange */
+    --accent2: #48cae4;  /* cyan */
+    --accent3: #a8dadc;  /* teal */
+    --accent4: #e63946;  /* red */
+    --accent5: #b5e48c;  /* green */
+    --accent6: #c77dff;  /* purple */
+    --text: #e8eaf0;
+    --muted: #8892a4;
+    --dim: #4a5568;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 60px 40px 40px;
+    text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, #1a2540 0%, var(--bg) 70%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg, transparent, transparent 80px, rgba(255,255,255,.015) 80px, rgba(255,255,255,.015) 81px
+    );
+    pointer-events: none;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp .6s .1s forwards;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    opacity: 0;
+    animation: fadeUp .6s .25s forwards;
+  }
+  h1 span { color: var(--accent1); }
+  .subtitle {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 15px;
+    opacity: 0;
+    animation: fadeUp .6s .4s forwards;
+  }
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp .6s .55s forwards;
+  }
+  .pill {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    transition: all .25s;
+    text-decoration: none;
+  }
+  .pill:hover { border-color: var(--accent1); color: var(--accent1); }
+
+  /* ── MAIN ── */
+  main { padding: 48px 24px; max-width: 1300px; margin: 0 auto; }
+
+  /* ── SECTION HEADER ── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-top: 48px;
+  }
+  .sec-head:first-child { padding-top: 0; }
+  .sec-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .sec-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .sec-head .sec-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── GRID ── */
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,.4);
+  }
+  .card.orange::before { background: var(--accent1); }
+  .card.cyan::before   { background: var(--accent2); }
+  .card.teal::before   { background: var(--accent3); }
+  .card.red::before    { background: var(--accent4); }
+  .card.green::before  { background: var(--accent5); }
+  .card.purple::before { background: var(--accent6); }
+  .card:hover.orange { border-color: var(--accent1); }
+  .card:hover.cyan   { border-color: var(--accent2); }
+  .card:hover.teal   { border-color: var(--accent3); }
+  .card:hover.red    { border-color: var(--accent4); }
+  .card:hover.green  { border-color: var(--accent5); }
+  .card:hover.purple { border-color: var(--accent6); }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #fff;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 400;
+  }
+  .badge.orange { background: rgba(244,162,97,.15); color: var(--accent1); }
+  .badge.cyan   { background: rgba(72,202,228,.15); color: var(--accent2); }
+  .badge.green  { background: rgba(181,228,140,.15); color: var(--accent5); }
+  .badge.red    { background: rgba(230,57,70,.15);  color: var(--accent4); }
+  .badge.purple { background: rgba(199,125,255,.15); color: var(--accent6); }
+
+  .card ul { list-style: none; }
+  .card ul li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li::before {
+    content: '›';
+    font-size: 16px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .card.orange ul li::before { color: var(--accent1); }
+  .card.cyan   ul li::before { color: var(--accent2); }
+  .card.teal   ul li::before { color: var(--accent3); }
+  .card.red    ul li::before { color: var(--accent4); }
+  .card.green  ul li::before { color: var(--accent5); }
+  .card.purple ul li::before { color: var(--accent6); }
+
+  .highlight { color: #fff; font-weight: 500; }
+
+  /* ── BIG CARD ── */
+  .big-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  /* ── TABLE CARD ── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--surface);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  td strong { color: var(--text); }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 36px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 6px; bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: slideIn .4s forwards;
+  }
+  .tl-item:nth-child(1) { animation-delay:.1s }
+  .tl-item:nth-child(2) { animation-delay:.2s }
+  .tl-item:nth-child(3) { animation-delay:.3s }
+  .tl-item:nth-child(4) { animation-delay:.4s }
+  .tl-dot {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent1);
+    background: var(--bg);
+  }
+  .tl-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent1);
+    margin-bottom: 4px;
+  }
+  .tl-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* ── LEVEL BAR ── */
+  .level-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .lb-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 10px;
+    align-items: center;
+    font-size: 12px;
+  }
+  .lb-label { color: var(--muted); font-family: 'DM Mono', monospace; }
+  .lb-track { height: 8px; background: var(--border); border-radius: 100px; overflow: hidden; }
+  .lb-fill { height: 100%; border-radius: 100px; }
+
+  /* ── FLOW ── */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: center;
+    margin-top: 12px;
+  }
+  .flow-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+    text-align: center;
+  }
+  .flow-arrow {
+    color: var(--accent2);
+    font-size: 18px;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ── QUIZ BOX ── */
+  .quiz-box {
+    background: rgba(72,202,228,.06);
+    border: 1px solid rgba(72,202,228,.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 12px;
+  }
+  .quiz-q { font-size: 13px; color: var(--accent2); margin-bottom: 6px; font-weight: 500; }
+  .quiz-a { font-size: 13px; color: var(--text); }
+  .quiz-a span { background: rgba(181,228,140,.15); color: var(--accent5); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+
+  /* ── KEY VALUE ── */
+  .kv-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    gap: 12px;
+  }
+  .kv-row:last-child { border-bottom: none; }
+  .kv-key { color: var(--muted); flex: 1; }
+  .kv-val { color: var(--text); font-weight: 500; text-align: right; flex-shrink: 0; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0 0;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── SECTION COLORS ── */
+  .icon-orange { background: rgba(244,162,97,.12); }
+  .icon-cyan   { background: rgba(72,202,228,.12); }
+  .icon-teal   { background: rgba(168,218,220,.12); }
+  .icon-red    { background: rgba(230,57,70,.12); }
+  .icon-green  { background: rgba(181,228,140,.12); }
+  .icon-purple { background: rgba(199,125,255,.12); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 28px; }
+    main { padding: 32px 16px; }
+    .flow { flex-direction: column; align-items: flex-start; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">Ignite Academy · Class Notes</div>
+  <h1>Concepts Related to<br><span>Skill Development</span></h1>
+  <p class="subtitle">Interactive Memory Map &nbsp;·&nbsp; DVET / Principal / MSBTE Exam Ready</p>
+  <nav class="nav-pills">
+    <a class="pill" href="#nos">NOS</a>
+    <a class="pill" href="#qp">QP & SSC</a>
+    <a class="pill" href="#skilling">Skilling Types</a>
+    <a class="pill" href="#pmkvy">PMKVY</a>
+    <a class="pill" href="#nsqf">NSQF</a>
+    <a class="pill" href="#ncrf">NCrF & ABC</a>
+    <a class="pill" href="#dst">DST & OJT</a>
+    <a class="pill" href="#nep">NEP Timeline</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ═══════════════════ 1. NOS ═══════════════════ -->
+  <div id="nos">
+    <div class="sec-head">
+      <div class="sec-icon icon-orange">📋</div>
+      <div>
+        <h2>National Occupational Standards (NOS)</h2>
+        <div class="sec-sub">Defines what a worker must DO and KNOW in a specific function</div>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card orange">
+        <div class="card-title">What is NOS? <span class="badge orange">Core</span></div>
+        <ul>
+          <li>Specifies <span class="highlight">performance standard</span> an individual must achieve at work</li>
+          <li>Each NOS = <span class="highlight">one key function</span> in a job role</li>
+          <li>Describes: Functions · Standards of Performance · Knowledge/Understanding</li>
+          <li>NOS do <strong>NOT</strong> describe procedures to perform a role</li>
+        </ul>
+      </div>
+
+      <div class="card orange">
+        <div class="card-title">N · O · S Explained</div>
+        <ul>
+          <li><span class="highlight">National</span> – Apply to whole of India; developed only by SSCs</li>
+          <li><span class="highlight">Occupational</span> – Define ALL key functions in an occupation (e.g., Mango Grower, Mason, Dialysis Technician)</li>
+          <li><span class="highlight">Standards</span> – Measurable & describe outcomes to be achieved</li>
+        </ul>
+      </div>
+
+      <div class="card orange">
+        <div class="card-title">2 Main Purposes of NOS</div>
+        <ul>
+          <li>Develop <span class="highlight">curriculum</span> for training delivery</li>
+          <li>Develop <span class="highlight">assessment instruments</span> for certification of learners</li>
+        </ul>
+        <div class="card-title" style="margin-top:14px">Also used for HR:</div>
+        <ul>
+          <li>Workforce planning & career pathways</li>
+          <li>Performance appraisal systems</li>
+          <li>Job descriptions</li>
+        </ul>
+      </div>
+
+      <div class="card orange">
+        <div class="card-title">Approval Path <span class="badge orange">Important</span></div>
+        <div class="flow" style="flex-direction:column; gap:6px; margin-top:8px;">
+          <div class="flow-item">SSC develops NOS</div>
+          <div style="color:var(--accent1); text-align:center; font-size:20px">↓</div>
+          <div class="flow-item">NSDC <strong>QRC</strong> approval<br><small style="color:var(--muted)">(CEOs of SSCs + 1 NSDC rep)</small></div>
+          <div style="color:var(--accent1); text-align:center; font-size:20px">↓</div>
+          <div class="flow-item">NSQC approval<br><small style="color:var(--muted)">(National Skills Qualifications Committee)</small></div>
+        </div>
+      </div>
+
+      <div class="card orange" style="grid-column: span 2;">
+        <div class="card-title">🎯 Exam Questions</div>
+        <div class="quiz-box">
+          <div class="quiz-q">Q. National Occupation Standards are developed by: (Deputy Director DVET 2016)</div>
+          <div class="quiz-a">Ans: <span>SSCS (Sector Skill Councils)</span></div>
+        </div>
+        <div class="quiz-box" style="margin-top:8px">
+          <div class="quiz-q">Q. Sectoral Skill Councils are incubated by: (UGC NET 2021)</div>
+          <div class="quiz-a">Ans: <span>National Skill Development Corporation (NSDC)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 2. QP & SSC ═══════════════════ -->
+  <div id="qp">
+    <div class="sec-head">
+      <div class="sec-icon icon-cyan">🗂️</div>
+      <div>
+        <h2>Qualification Pack (QP) & Sector Skill Council (SSC)</h2>
+        <div class="sec-sub">QP = bundle of NOS aligned to one Job Role</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card cyan">
+        <div class="card-title">Qualification Pack (QP)</div>
+        <ul>
+          <li>Defines set of NOS aligned to <span class="highlight">one Job Role</span></li>
+          <li>Assessment criteria created by <span class="highlight">Sector Skill Council</span></li>
+          <li>Each Performance Criteria (PC) assigned marks proportional to importance</li>
+          <li>Framework for training, assessments & certifications</li>
+        </ul>
+      </div>
+
+      <div class="card cyan">
+        <div class="card-title">Sector Skill Council (SSC)</div>
+        <ul>
+          <li>Bridges gap between <span class="highlight">industry demand</span> and skilling requirements</li>
+          <li>Operates as <span class="highlight">autonomous body</span> (Section 8 Company or Society)</li>
+          <li>NSDC gives <span class="highlight">initial seed funding</span> and incubates SSCs</li>
+        </ul>
+        <div class="card-title" style="margin-top:14px">Examples of SSCs:</div>
+        <ul>
+          <li>Aerospace & Aviation SSC</li>
+          <li>Agriculture Skill Council of India</li>
+          <li>Automotive Skill Development Council</li>
+          <li>Beauty & Wellness SSC</li>
+          <li>Electronics Sector Skill Council of India</li>
+        </ul>
+      </div>
+
+      <div class="card cyan">
+        <div class="card-title">Mandate / Functions of SSC</div>
+        <ul>
+          <li>Identify skill development needs & prepare skill catalogue</li>
+          <li>Develop sector skill plan & maintain skill inventory</li>
+          <li>Determine skills/competency standards per NSQF</li>
+          <li>Standardise affiliation, accreditation, exam & certification</li>
+          <li>Conduct skill-based assessment & certification (QP/NOS)</li>
+          <li>Plan & facilitate Training of Trainers (with NSDC & states)</li>
+          <li>Promote academies of excellence</li>
+          <li>Special attention: ST/SC, differently-abled, minority groups</li>
+          <li>Ensure trained persons get <span class="highlight">employment at decent wages</span></li>
+        </ul>
+      </div>
+
+      <div class="card cyan">
+        <div class="card-title">National Skill Development Fund (NSDF)</div>
+        <ul>
+          <li>Set up in <span class="highlight">2009</span> by Government of India</li>
+          <li>Raises funds from Govt & Non-Govt sectors for skill development</li>
+          <li>Custodian: <span class="highlight">Public Trust</span> set up by GoI</li>
+          <li>Operated by <span class="highlight">Board of Trustees</span> (Chairperson: Secretary, MSDE)</li>
+          <li>CEO is responsible for day-to-day administration</li>
+          <li>Meets objectives through <span class="highlight">NSDC</span></li>
+        </ul>
+        <div style="display:flex; gap:12px; margin-top:14px;">
+          <div style="flex:1; background:rgba(72,202,228,.08); border-radius:8px; padding:10px; font-size:13px;">
+            <strong style="color:var(--accent2)">Loan</strong><br>
+            <span style="color:var(--muted)">Must be repaid</span>
+          </div>
+          <div style="flex:1; background:rgba(181,228,140,.08); border-radius:8px; padding:10px; font-size:13px;">
+            <strong style="color:var(--accent5)">Grant</strong><br>
+            <span style="color:var(--muted)">Not repaid</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 3. SKILLING TYPES ═══════════════════ -->
+  <div id="skilling">
+    <div class="sec-head">
+      <div class="sec-icon icon-green">🔁</div>
+      <div>
+        <h2>Skilling · Upskilling · Reskilling · Cross-Skilling</h2>
+        <div class="sec-sub">PM Modi's Mantra: Skilling, Reskilling and Upskilling</div>
+      </div>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="card green">
+        <div class="card-title">⬆️ Upskilling</div>
+        <ul>
+          <li>Expand <span class="highlight">existing skill set</span></li>
+          <li>Enhances performance in <span class="highlight">current role</span></li>
+          <li>Advances career path</li>
+          <li><em>Ex: Marketing employees trained in digital ads & data analytics</em></li>
+        </ul>
+      </div>
+
+      <div class="card green">
+        <div class="card-title">🔄 Reskilling</div>
+        <ul>
+          <li>Learning <span class="highlight">new skills outside</span> current skillset</li>
+          <li>Often adjacent or entirely different path</li>
+          <li><em>Ex: Manufacturing workers reskilled to operate automated systems</em></li>
+        </ul>
+        <div class="card-title" style="margin-top:14px">Job Shadowing:</div>
+        <ul>
+          <li>On-the-job training — observe another employee performing the role</li>
+          <li>Important <span class="highlight">reskilling technique</span></li>
+          <li>Used to onboard new employees</li>
+        </ul>
+      </div>
+
+      <div class="card green">
+        <div class="card-title">↔️ Cross-Skilling</div>
+        <ul>
+          <li>Training in skills <span class="highlight">outside current expertise</span></li>
+          <li>Can take on <span class="highlight">multiple complementary roles</span></li>
+          <li>More flexible workforce</li>
+          <li><em>Ex: Software developers trained in multiple programming languages</em></li>
+        </ul>
+      </div>
+
+      <div class="card green">
+        <div class="card-title">🌍 Reskilling Revolution <span class="badge green">WEF</span></div>
+        <ul>
+          <li>Initiative of <span class="highlight">World Economic Forum</span></li>
+          <li>Launched in <span class="highlight">2020</span></li>
+          <li>Aims to empower <span class="highlight">1 billion people</span> with better education, skills & economic opportunity by 2030</li>
+          <li>India is one of the <span class="highlight">founding members</span></li>
+        </ul>
+        <div style="margin-top:12px; font-size:12px; color:var(--muted);">Top WEF Skills by 2030: AI & Big Data · Networks & Cybersecurity · Technological Literacy · Creative Thinking · Resilience</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 4. PMKVY ═══════════════════ -->
+  <div id="pmkvy">
+    <div class="sec-head">
+      <div class="sec-icon icon-red">🏛️</div>
+      <div>
+        <h2>Pradhan Mantri Kaushal Vikas Yojana (PMKVY)</h2>
+        <div class="sec-sub">India's largest Skill Certification Scheme</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom:16px;">
+
+      <div class="card red">
+        <div class="card-title">PMKVY 1.0 <span class="badge red">2015</span></div>
+        <ul>
+          <li>Launched: <span class="highlight">15th July 2015</span> (World Youth Skills Day)</li>
+          <li>Aim: Free short-duration training + monetary rewards for skill certification</li>
+          <li>Trained: <span class="highlight">19.86 lakh candidates</span></li>
+        </ul>
+        <div class="card-title" style="margin-top:12px">Key Components:</div>
+        <ul>
+          <li>Short Term Training (STT)</li>
+          <li>Special Projects</li>
+          <li>Recognition of Prior Learning (RPL)</li>
+        </ul>
+      </div>
+
+      <div class="card red">
+        <div class="card-title">PMKVY 2.0 <span class="badge red">2016-2020</span></div>
+        <ul>
+          <li>Target: <span class="highlight">10 million youth</span> over 4 years</li>
+          <li>Trained: <span class="highlight">1.10 crore candidates</span></li>
+        </ul>
+        <div style="display:flex; gap:10px; margin-top:12px;">
+          <div style="flex:1; background:rgba(230,57,70,.08); border-radius:8px; padding:10px; font-size:12px;">
+            <strong style="color:var(--accent4)">CSCM</strong><br>
+            <span style="color:var(--muted)">75% funds<br>Implemented by NSDC</span>
+          </div>
+          <div style="flex:1; background:rgba(230,57,70,.08); border-radius:8px; padding:10px; font-size:12px;">
+            <strong style="color:var(--accent4)">CSSM</strong><br>
+            <span style="color:var(--muted)">25% funds<br>Implemented by SSDMs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card red">
+        <div class="card-title">PMKVY 3.0 <span class="badge red">2021</span></div>
+        <ul>
+          <li>More <span class="highlight">decentralised</span> structure</li>
+          <li>Greater role of <span class="highlight">District Skill Committees (DSCs)</span></li>
+          <li>Shifted from supply-based → <span class="highlight">demand-based approach</span></li>
+          <li>Trained: <span class="highlight">7.37 lakh candidates</span></li>
+          <li>Aligned to <span class="highlight">Atmanirbhar Bharat</span></li>
+          <li>Target group: <span class="highlight">15–45 years</span></li>
+        </ul>
+      </div>
+
+      <div class="card red">
+        <div class="card-title">PMKVY 4.0 <span class="badge red">2022–2026</span></div>
+        <ul>
+          <li>Age group: <span class="highlight">15–45 years</span></li>
+          <li>Educational institutions (CBSE-affiliated) set up <span class="highlight">Skill Hubs</span></li>
+          <li>Greater industry involvement in curriculum & delivery</li>
+          <li>Focus on AI, Machine Learning & new age skills</li>
+          <li>Digital platforms for enrollment, monitoring, attendance, assessment</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RPL Detail -->
+    <div class="big-card" style="border-color:rgba(230,57,70,.3);">
+      <div class="card-title" style="font-size:16px; margin-bottom:16px;">📌 Recognition of Prior Learning (RPL)</div>
+      <div class="grid grid-2">
+        <div>
+          <ul class="card" style="list-style:none; border:none; background:transparent; padding:0;">
+            <li style="padding:6px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted); font-size:13px;"><span style="color:var(--accent4)">›</span>Individuals with prior learning assessed & certified under RPL</li>
+            <li style="padding:6px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted); font-size:13px;"><span style="color:var(--accent4)">›</span>Aims to align unregulated workforce competencies to <strong style="color:#fff">NSQF</strong></li>
+            <li style="padding:6px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted); font-size:13px;"><span style="color:var(--accent4)">›</span>Training/orientation duration: <strong style="color:#fff">12–80 hours</strong></li>
+            <li style="padding:6px 0; display:flex; gap:8px; align-items:flex-start; color:var(--muted); font-size:13px;"><span style="color:var(--accent4)">›</span>Age group: <strong style="color:#fff">18–59 years</strong></li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:10px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">RPL 5 Stages</div>
+          <div class="flow" style="flex-direction:column; gap:6px;">
+            <div class="flow-item" style="font-size:12px;"><strong>Stage 1</strong> – Pre Screening (Awarding Body)</div>
+            <div class="flow-item" style="font-size:12px;"><strong>Stage 2</strong> – Prior Learning Assessment (≥70% or &lt;70%)</div>
+            <div class="flow-item" style="font-size:12px;"><strong>Stage 3</strong> – Orientation (General or NOS-based, min 30 hrs)</div>
+            <div class="flow-item" style="font-size:12px;"><strong>Stage 4</strong> – Assessment (Theory + Practical)</div>
+            <div class="flow-item" style="font-size:12px;"><strong>Stage 5</strong> – Certification (min 70% marks)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PMKVY Components Table -->
+    <div class="table-wrap" style="margin-top:16px;">
+      <div class="big-card">
+        <div class="card-title" style="margin-bottom:14px; font-size:15px;">PMKVY Component Comparison</div>
+        <table>
+          <tr><th>Feature</th><th>Short Term Training (STT)</th><th>Special Projects</th><th>RPL</th></tr>
+          <tr><td><strong>Target Group</strong></td><td>School/college dropouts, unemployed</td><td>Marginalized, vulnerable groups; future-focused job roles</td><td>Candidates with prior learning experience</td></tr>
+          <tr><td><strong>Age Group</strong></td><td>15–45 years</td><td>15–45 years</td><td>18–59 years</td></tr>
+          <tr><td><strong>Duration</strong></td><td>200–600 hours</td><td>Varies</td><td>12–80 hours</td></tr>
+          <tr><td><strong>Certification</strong></td><td>After assessment by TP</td><td>As per QP/NOS</td><td>Pass with ≥70% marks</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 5. NSQF ═══════════════════ -->
+  <div id="nsqf">
+    <div class="sec-head">
+      <div class="sec-icon icon-purple">🏆</div>
+      <div>
+        <h2>National Skills Qualification Framework (NSQF)</h2>
+        <div class="sec-sub">Outcome & Competency based · 8 Levels · Notified June 6, 2023</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card purple">
+        <div class="card-title">What is NSQF?</div>
+        <ul>
+          <li>Nationally integrated <span class="highlight">education & competency-based</span> framework</li>
+          <li>Organises qualifications in <span class="highlight">8 levels</span> (1=lowest, 8=highest)</li>
+          <li>Defined by learning outcomes from <span class="highlight">formal, non-formal & informal</span> learning</li>
+          <li>Applicable from <span class="highlight">Class 9 onwards</span></li>
+          <li>Apex body: <span class="highlight">NSQC anchored in NCVET</span></li>
+          <li>NSQF Levels NOT directly related to study duration</li>
+        </ul>
+      </div>
+
+      <div class="card purple">
+        <div class="card-title">History of NSQF</div>
+        <ul>
+          <li>National Policy on Skill Development 2009 → recognized need for framework</li>
+          <li>Ministry of Labour → developed <span class="highlight">NVQF</span></li>
+          <li>Ministry of HRD → developed <span class="highlight">NVEQF</span></li>
+          <li>Both merged into <span class="highlight">NSQF</span></li>
+          <li>Originally notified: <span class="highlight">27 Dec 2013</span></li>
+          <li>Revised & notified: <span class="highlight">6 June 2023</span> (after NCrF on 10 April 2023)</li>
+          <li>Now managed by <span class="highlight">NCVET</span> (formerly NSDA)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- NSQF Levels Table -->
+    <div class="table-wrap" style="margin-top:16px;">
+      <div class="big-card">
+        <div class="card-title" style="margin-bottom:14px; font-size:15px;">NSQF Levels & Responsibilities</div>
+        <table>
+          <tr><th>Level</th><th>Role / Responsibility</th><th>Knowledge</th><th>Broad Outcomes</th></tr>
+          <tr><td><strong>Level 1</strong></td><td>Helper / Ground Level Worker</td><td>Elementary</td><td>Routine/Repetitive Tasks</td></tr>
+          <tr><td><strong>Level 2</strong></td><td>Assistant</td><td>Fundamental</td><td>Carry out predefined tasks</td></tr>
+          <tr><td><strong>Level 2.5–3</strong></td><td>Jr. Technician & Technician</td><td>Range of knowledge</td><td>Range of tasks, provide solutions</td></tr>
+          <tr><td><strong>Level 3.5–4</strong></td><td>Sr. Technician / Master Technician</td><td>Specialized</td><td>Specialized/complex jobs</td></tr>
+          <tr><td><strong>Level 4.5–5</strong></td><td>Team Leader / Jr. Technical Supervisor</td><td>Multidisciplinary</td><td>Judgement / decision making</td></tr>
+          <tr><td><strong>Level 5.5–6</strong></td><td>Manager / Senior Manager</td><td>Advanced multidisciplinary</td><td>Judgement in complex problems</td></tr>
+          <tr><td><strong>Level 6.5–7</strong></td><td>CEO / CXO / Director</td><td>Advanced + critical understanding</td><td>Apply advanced technical skills</td></tr>
+          <tr><td><strong>Level 8</strong></td><td>Board Member / CMD / Chairperson</td><td>Mastery / Innovation driven</td><td>Lead large transformational projects</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Level Descriptors -->
+    <div class="card purple" style="margin-top:16px;">
+      <div class="card-title">NSQF Level Descriptors – 5 Domains</div>
+      <div class="grid grid-3" style="margin-top:12px;">
+        <div style="background:rgba(199,125,255,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+          <div style="color:var(--accent6); font-weight:600; margin-bottom:4px;">1. Professional Theoretical Knowledge</div>
+          Elementary → Mastery / Innovation Driven
+        </div>
+        <div style="background:rgba(199,125,255,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+          <div style="color:var(--accent6); font-weight:600; margin-bottom:4px;">2. Professional & Technical Skills</div>
+          Role-confined → Most Advanced Managerial Skills
+        </div>
+        <div style="background:rgba(199,125,255,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+          <div style="color:var(--accent6); font-weight:600; margin-bottom:4px;">3. Aptitude, Soft Skills, Entrepreneurship</div>
+          Basic Employment Readiness → Transformational Leadership
+        </div>
+        <div style="background:rgba(199,125,255,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+          <div style="color:var(--accent6); font-weight:600; margin-bottom:4px;">4. Broad Learning Outcomes</div>
+          Routine Tasks → Lead Large Projects
+        </div>
+        <div style="background:rgba(199,125,255,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+          <div style="color:var(--accent6); font-weight:600; margin-bottom:4px;">5. Level of Responsibility</div>
+          Supervised → Significant Authority / Social Intelligence
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-box" style="margin-top:16px;">
+      <div class="quiz-q">Q. NSQF is an ______ and ______ based framework. (Principal Govt Polytechnic 2025)</div>
+      <div class="quiz-a">Ans: <span>Outcome and Competency</span></div>
+    </div>
+    <div class="quiz-box" style="margin-top:8px;">
+      <div class="quiz-q">Q. NSQF vocational courses introduced from class: (Deputy Director DVET 2016)</div>
+      <div class="quiz-a">Ans: <span>9th onwards</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 6. NCrF & ABC ═══════════════════ -->
+  <div id="ncrf">
+    <div class="sec-head">
+      <div class="sec-icon icon-teal">🎓</div>
+      <div>
+        <h2>National Credit Framework (NCrF) & Academic Bank of Credits (ABC)</h2>
+        <div class="sec-sub">Meta-framework for creditization of all learning · NEP 2020 enabler</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card teal">
+        <div class="card-title">What is NCrF?</div>
+        <ul>
+          <li>Developed jointly by <span class="highlight">UGC, AICTE, NCVET, NIOS, CBSE, NCERT, DGT, MoE, MSDE</span></li>
+          <li>Single credit framework: school + higher + vocational + experiential learning</li>
+          <li>Meta-framework (enabling framework) for NEP 2020</li>
+        </ul>
+        <div class="card-title" style="margin-top:14px">3 Verticals:</div>
+        <ul>
+          <li><span class="highlight">NSEQF</span> – National School Education QF</li>
+          <li><span class="highlight">NHEQF</span> – National Higher Education QF</li>
+          <li><span class="highlight">NSQF</span> – National Skills QF</li>
+        </ul>
+      </div>
+
+      <div class="card teal">
+        <div class="card-title">Credit System <span class="badge cyan">Key Numbers</span></div>
+        <div class="kv-row">
+          <div class="kv-key">1 Credit =</div>
+          <div class="kv-val">30 Notional Hours</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Notional Hours/year</div>
+          <div class="kv-val">1200 Hours</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Credits/year</div>
+          <div class="kv-val">40 (20 per semester)</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Total Schooling Credits (Class 1–12)</div>
+          <div class="kv-val">160 Credits</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">3-year Bachelor's Degree</div>
+          <div class="kv-val">220 Credits (NCrF 5.5)</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">4-year Bachelor's (Hons)</div>
+          <div class="kv-val">240 Credits (NCrF 6.0)</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Doctoral Degree</div>
+          <div class="kv-val">320 Credits (NCrF 8.0)</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">School: NCrF Levels</div>
+          <div class="kv-val">Up to Level 4</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Higher Ed: NCrF Levels</div>
+          <div class="kv-val">4.5 to 8</div>
+        </div>
+        <div class="kv-row">
+          <div class="kv-key">Vocational Ed: NCrF Levels</div>
+          <div class="kv-val">1 to 8</div>
+        </div>
+      </div>
+
+      <div class="card teal">
+        <div class="card-title">Academic Bank of Credits (ABC) <span class="badge cyan">Set up by UGC</span></div>
+        <ul>
+          <li>National-level facility per <span class="highlight">NEP 2020</span></li>
+          <li>Promotes flexibility & interdisciplinary mobility across HEIs</li>
+          <li>Repository of all credits earned by a student</li>
+          <li>Credits accumulated & redeemable (within same assessment band)</li>
+          <li>Credits have <span class="highlight">validity/expiry</span> per program</li>
+          <li>To be expanded to include school, vocational, apprenticeship, internship credits</li>
+        </ul>
+      </div>
+
+      <div class="card teal">
+        <div class="card-title">APAAR – One Nation One Student ID</div>
+        <ul>
+          <li>Full form: <span class="highlight">Automated Permanent Academic Account Registry</span></li>
+          <li>Part of 'One Nation, One Student ID' program</li>
+          <li>Unique <span class="highlight">12-digit code</span> for every student in India</li>
+          <li>Digitally stores degrees, diplomas, certificates, co-curricular achievements</li>
+          <li>Links to <span class="highlight">DigiLocker</span> for secure document storage</li>
+          <li>Linked to ABC via APAAR ID → receives credits from National Academic Depository</li>
+          <li>Streamlines authentication for admissions & jobs</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Other credit systems -->
+    <div class="grid grid-2" style="margin-top:16px;">
+      <div class="card teal">
+        <div class="card-title">Other Credit Systems</div>
+        <ul>
+          <li><span class="highlight">CBCS</span> (Choice Based Credit System) – by UGC; degree requires earning specified credits</li>
+          <li><span class="highlight">SAMVAY</span> (Skill Assessment Matrix for Vocational Advancement of Youth) – by AICTE; credit framework for vocational courses</li>
+        </ul>
+      </div>
+      <div class="quiz-box" style="margin-top:0; align-self:stretch; display:flex; flex-direction:column; justify-content:center;">
+        <div class="quiz-q">Q. As per NCrF 2023, one credit = ? (Principal Govt Polytechnic 2025)</div>
+        <div class="quiz-a">Ans: <span>30 Notional Learning Hours</span></div>
+        <div class="quiz-q" style="margin-top:10px;">Q. Total notional learning hours for 1 year (Higher Ed) = ?</div>
+        <div class="quiz-a">Ans: <span>1200 Hours</span></div>
+        <div class="quiz-q" style="margin-top:10px;">Q. What is ABC as per NEP 2020?</div>
+        <div class="quiz-a">Ans: <span>Academic Bank of Credits</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 7. DST & OJT ═══════════════════ -->
+  <div id="dst">
+    <div class="sec-head">
+      <div class="sec-icon icon-orange">⚙️</div>
+      <div>
+        <h2>Dual System of Training (DST) & On-the-Job Training (OJT)</h2>
+        <div class="sec-sub">Industry-integrated training within ITI ecosystem</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card orange">
+        <div class="card-title">Dual System of Training (DST)</div>
+        <ul>
+          <li>Launched by <span class="highlight">DGT in Feb 2019</span></li>
+          <li>Effective from academic year <span class="highlight">2019</span></li>
+          <li>Applicable in <span class="highlight">all affiliated ITIs</span>, covers all CTS trades</li>
+          <li>Admission, courses, duration, exam & certification same as <span class="highlight">Craftsmen Training Scheme (CTS)</span></li>
+          <li>OJT done in industry; theory covered in ITI</li>
+          <li>Graduates receive <span class="highlight">E-NTC (E-National Trade Certificate)</span></li>
+          <li>E-NTC holders have edge in employability over regular ITI pass-outs</li>
+        </ul>
+        <div class="card-title" style="margin-top:14px">Industry Eligibility (Revised):</div>
+        <ul>
+          <li>Engineering Trades: min <span class="highlight">40 employees</span>, ₹1 Cr/year turnover</li>
+          <li>Non-Engineering Trades: min <span class="highlight">6 employees</span>, ₹10 lakh/year turnover</li>
+        </ul>
+      </div>
+
+      <div class="card orange">
+        <div class="card-title">On-the-Job Training (OJT)</div>
+        <ul>
+          <li>Practical training at <span class="highlight">workplace premises</span></li>
+          <li>Trainee placed on regular job → taught skills to perform it</li>
+          <li>Learns under guidance/supervision of instructor</li>
+          <li>Also called <span class="highlight">"Learning by Doing"</span></li>
+        </ul>
+        <div class="card-title" style="margin-top:14px">OJT Techniques:</div>
+        <ul>
+          <li><span class="highlight">Coaching</span> – Person-to-person; identifies weaknesses; for manager-level</li>
+          <li><span class="highlight">Mentoring</span> – Juniors attached to seniors; guidance on org culture</li>
+          <li><span class="highlight">Committee Assignments</span> – Participate in decision-making</li>
+          <li><span class="highlight">Job Rotation</span> – Shift from one job to another; common for management trainees</li>
+          <li><span class="highlight">Job Instruction Technique (JIT)</span> – Step-by-step training with feedback</li>
+        </ul>
+      </div>
+
+      <div class="card orange" style="grid-column: span 2;">
+        <div class="card-title">Off-the-Job Training Methods</div>
+        <div class="grid grid-3" style="margin-top:10px;">
+          <div style="background:rgba(244,162,97,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+            <strong style="color:var(--accent1)">Vestibule Training</strong><br>
+            Simulated workplace setup ("vestibule"). Identical equipment as real workplace. Skills practised in simulation then applied on job.
+          </div>
+          <div style="background:rgba(244,162,97,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+            <strong style="color:var(--accent1)">Case Method</strong><br>
+            Job situation presented on paper. Group identifies problems & offers solutions. Trainees learn from each other.
+          </div>
+          <div style="background:rgba(244,162,97,.08); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+            <strong style="color:var(--accent1)">Incident Method</strong><br>
+            Trainees get outline of incident. Ask questions to gather info. Then attempt to solve the problem. (Similar to case method)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="quiz-box" style="margin-top:12px;">
+      <div class="quiz-q">Q. OJT of students is carried out in order to: (ITI Principal 2014)</div>
+      <div class="quiz-a">Ans: <span>Provide opportunity to learn in real work situations</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════ 8. EDUCATION POLICIES ═══════════════════ -->
+  <div id="nep">
+    <div class="sec-head">
+      <div class="sec-icon icon-cyan">📜</div>
+      <div>
+        <h2>National Education Policies – Timeline</h2>
+        <div class="sec-sub">From Kothari Commission 1964 → NEP 2020</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="big-card" style="border-color:var(--border);">
+        <div class="timeline">
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1964–66</div>
+            <div class="tl-title">Kothari Commission</div>
+            <div class="tl-desc">First comprehensive commission; covered primary to higher education. Official title: <em>"Education and National Development"</em></div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1968</div>
+            <div class="tl-title">NPE 1968</div>
+            <div class="tl-desc">First National Policy on Education. Recommended: Free & compulsory education up to age 14 · 10+2+3 structure · Three language formula · 6% of national income for education</div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1986</div>
+            <div class="tl-title">NPE 1986</div>
+            <div class="tl-desc">National System of Education (10+2+3) · Operation Blackboard · Vocational courses at +2 stage · IGNOU for distance learning · Delinking degrees from jobs</div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1990–91</div>
+            <div class="tl-title">Ramamurthy Committee</div>
+            <div class="tl-desc">Formed to review NPE 1986. Report: <em>"Towards an Enlightened and Humane Society"</em>. Recommended: Common school system · Work benches & practical schools for vocational education · ECCE · Right to Education as fundamental right</div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1992</div>
+            <div class="tl-title">Janardhana Reddy Committee (CABE)</div>
+            <div class="tl-desc">Reviewed NPE implementation post-Ramamurthy report. Recommended: Navodaya Vidyalaya in each district · Vocational stream from Class 9 · Operation Blackboard to continue · District Board of Education to be set up</div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">2020</div>
+            <div class="tl-title">NEP 2020</div>
+            <div class="tl-desc">Prepared by Kasturirangan Committee (2017). Major overhaul: 5+3+3+4 structure · Vocational education from Grade 6 · 10-day bagless period (Grades 6–8) · 6% GDP spend · MHRD renamed Ministry of Education · M.Phil discontinued</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- NPE Comparison Card -->
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="card cyan">
+          <div class="card-title">NPE 1968 – Key Recommendations</div>
+          <ul>
+            <li>Free & compulsory education up to <span class="highlight">age 14</span></li>
+            <li><span class="highlight">10+2+3</span> uniform structure</li>
+            <li><span class="highlight">Three language formula</span> (Regional + Hindi + English)</li>
+            <li>One agricultural university per state</li>
+            <li>Science education as high priority</li>
+            <li>Improve teacher status & academic freedom</li>
+            <li>Increase education spending to <span class="highlight">6% national income</span></li>
+          </ul>
+        </div>
+
+        <div class="card cyan">
+          <div class="card-title">NEP 2020 – Key Features</div>
+          <ul>
+            <li><span class="highlight">5+3+3+4</span> curricular structure</li>
+            <li>Vocational education from <span class="highlight">Grade 6 onwards</span></li>
+            <li>Mother tongue as medium till Grade 5 (preferably 8)</li>
+            <li><span class="highlight">PARAKH</span> – National Assessment Centre</li>
+            <li>GER in higher education to <span class="highlight">50%</span></li>
+            <li>By 2025: <span class="highlight">50% learners</span> exposed to vocational education</li>
+            <li>Bachelor's of Vocation (B.Voc.) degrees continue</li>
+            <li>NCrF / ABC / APAAR enabled</li>
+            <li>MHRD → <span class="highlight">Ministry of Education</span></li>
+            <li>M.Phil discontinued</li>
+          </ul>
+        </div>
+
+        <div class="card cyan">
+          <div class="card-title">Key Institutions under NEP 2020</div>
+          <ul>
+            <li><span class="highlight">PARAKH</span> – Performance Assessment, Review & Analysis of Knowledge for Holistic Development</li>
+            <li><span class="highlight">NETF</span> – National Educational Technology Forum</li>
+            <li><span class="highlight">MERU</span> – Multidisciplinary Education & Research Universities</li>
+            <li><span class="highlight">NRF</span> – National Research Foundation</li>
+            <li><span class="highlight">NCIVE</span> – National Committee for Integration of Vocational Education</li>
+            <li><span class="highlight">PSSCIVE, Bhopal</span> – Develops VET teacher training modules</li>
+            <li><span class="highlight">SSSA</span> – State School Standards Authority</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exam Quick Fire -->
+    <div class="big-card" style="margin-top:16px; border-color:rgba(72,202,228,.2);">
+      <div class="card-title" style="margin-bottom:14px; font-size:15px;">🎯 Quick Fire Exam Questions</div>
+      <div class="grid grid-2">
+        <div class="quiz-box">
+          <div class="quiz-q">First National Policy on Education year?</div>
+          <div class="quiz-a">Ans: <span>1968</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">Ramamurthy Committee was formed to?</div>
+          <div class="quiz-a">Ans: <span>Review NEP 1986</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">10+2+3 pattern accepted mainly for?</div>
+          <div class="quiz-a">Ans: <span>Preparing school leavers for different vocations</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">5+3+3+4 recommended by?</div>
+          <div class="quiz-a">Ans: <span>National Education Policy 2020</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">PSSCIVE is located at?</div>
+          <div class="quiz-a">Ans: <span>Bhopal</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">Report of Kothari Commission titled?</div>
+          <div class="quiz-a">Ans: <span>Education and National Development</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">NEP 2020 – programme discontinued?</div>
+          <div class="quiz-a">Ans: <span>M.Phil</span></div>
+        </div>
+        <div class="quiz-box">
+          <div class="quiz-q">Ramamurthy recommended work experience should be?</div>
+          <div class="quiz-a">Ans: <span>Integrally linked with subjects in content & pedagogy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer style="text-align:center; padding:32px 24px; border-top:1px solid var(--border); color:var(--dim); font-size:12px; font-family:'DM Mono',monospace;">
+  Ignite Academy · Concepts Related to Skill Development · Memory Map · For DVET / Principal / MSBTE Exams
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee's Compensation Act, 1923 — Complete Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2333;
+    --border: #30363d;
+    --accent: #e6a817;
+    --red: #e05252;
+    --green: #3fb950;
+    --blue: #58a6ff;
+    --purple: #bc8cff;
+    --teal: #39c5bb;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --ink: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #0d1117 0%, #1a1030 50%, #0d1117 100%);
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(188,140,255,0.08) 0%, transparent 60%),
+                      radial-gradient(ellipse at 80% 20%, rgba(230,168,23,0.07) 0%, transparent 50%);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--purple), var(--accent), var(--teal), transparent);
+  }
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid rgba(188,140,255,0.3);
+    background: rgba(188,140,255,0.07);
+    color: var(--purple);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .badge.gold {
+    border-color: rgba(230,168,23,0.3);
+    background: rgba(230,168,23,0.07);
+    color: var(--accent);
+  }
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+  header h1 .yr { color: var(--accent); }
+  header .sub {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+  .tl-strip {
+    margin-top: 2rem;
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .tl-item {
+    padding: 0.5rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    border-right: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+  .tl-item:last-child { border-right: none; }
+  .tl-item span { display: block; color: var(--muted); font-size: 0.58rem; margin-bottom: 0.1rem; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--surface);
+    padding: 0.7rem 2rem;
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  nav a:hover {
+    color: var(--accent);
+    background: rgba(230,168,23,0.08);
+    border-color: rgba(230,168,23,0.2);
+  }
+
+  /* ── LAYOUT ── */
+  main { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+  section { margin-bottom: 3.5rem; }
+
+  /* ── SECTION HEADERS ── */
+  .sec-hdr {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .sec-hdr::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 80px; height: 2px;
+    background: var(--accent);
+  }
+  .ch-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    background: rgba(230,168,23,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(230,168,23,0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .ch-tag.purple {
+    background: rgba(188,140,255,0.1);
+    color: var(--purple);
+    border-color: rgba(188,140,255,0.2);
+  }
+  .ch-tag.blue {
+    background: rgba(88,166,255,0.1);
+    color: var(--blue);
+    border-color: rgba(88,166,255,0.2);
+  }
+  .ch-tag.green {
+    background: rgba(63,185,80,0.1);
+    color: var(--green);
+    border-color: rgba(63,185,80,0.2);
+  }
+  .ch-tag.red {
+    background: rgba(224,82,82,0.1);
+    color: var(--red);
+    border-color: rgba(224,82,82,0.2);
+  }
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .sec-title .hl { color: var(--accent); }
+  .sec-title .hlp { color: var(--purple); }
+  .sec-title .hlb { color: var(--blue); }
+
+  /* ── MEMORY MAP ── */
+  .map-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    overflow-x: auto;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .map-wrap::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(188,140,255,0.04) 0%, transparent 70%);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .map-title {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+  }
+  .map-root-node {
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    box-shadow: 0 0 30px rgba(124,58,237,0.3);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .map-root-node::after {
+    content: '';
+    position: absolute;
+    bottom: -24px; left: 50%;
+    transform: translateX(-50%);
+    width: 2px; height: 24px;
+    background: var(--border);
+  }
+  .map-level {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+    position: relative;
+  }
+  .map-level::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 15%; right: 15%;
+    height: 1px;
+    background: var(--border);
+  }
+  .map-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+  .map-col::before {
+    content: '';
+    width: 1px; height: 22px;
+    background: var(--border);
+  }
+  .map-node {
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: default;
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 105px;
+    border: 1px solid transparent;
+    line-height: 1.4;
+  }
+  .map-node:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+  .map-node.n1 { background: rgba(124,58,237,0.15); color: #c4b5fd; border-color: rgba(124,58,237,0.3); }
+  .map-node.n2 { background: rgba(230,168,23,0.12); color: #fcd34d; border-color: rgba(230,168,23,0.25); }
+  .map-node.n3 { background: rgba(224,82,82,0.12); color: #fca5a5; border-color: rgba(224,82,82,0.25); }
+  .map-node.n4 { background: rgba(63,185,80,0.12); color: #86efac; border-color: rgba(63,185,80,0.25); }
+  .map-node.n5 { background: rgba(88,166,255,0.12); color: #93c5fd; border-color: rgba(88,166,255,0.25); }
+  .map-node.n6 { background: rgba(57,197,187,0.12); color: #5eead4; border-color: rgba(57,197,187,0.25); }
+  .map-subs {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+  }
+  .map-sub {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 115px;
+    line-height: 1.4;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(230,168,23,0.3); }
+  .card.accent { border-left: 3px solid var(--accent); }
+  .card.red { border-left: 3px solid var(--red); }
+  .card.blue { border-left: 3px solid var(--blue); }
+  .card.green { border-left: 3px solid var(--green); }
+  .card.purple { border-left: 3px solid var(--purple); }
+  .card.teal { border-left: 3px solid var(--teal); }
+  .card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    line-height: 1.2;
+  }
+  .card h3 .sn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── LISTS ── */
+  ul.sl { list-style: none; padding: 0; }
+  ul.sl li {
+    padding: 0.38rem 0 0.38rem 1.4rem;
+    position: relative;
+    font-size: 0.9rem;
+    color: #c9d1d9;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    line-height: 1.5;
+  }
+  ul.sl li:last-child { border-bottom: none; }
+  ul.sl li::before {
+    content: '›';
+    position: absolute; left: 0.2rem;
+    color: var(--accent);
+    font-size: 1rem; top: 0.35rem;
+  }
+  ul.sl li strong { color: var(--accent); font-weight: 600; }
+  ul.sl li em { color: var(--purple); font-style: normal; font-weight: 600; }
+
+  /* ── GRIDS ── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 800px) { .g2, .g3 { grid-template-columns: 1fr; } }
+  @media (min-width: 500px) and (max-width: 800px) { .g3 { grid-template-columns: 1fr 1fr; } }
+
+  /* ── NUMBER CARDS ── */
+  .nums { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 1rem; }
+  .nc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .nc:hover { transform: translateY(-2px); border-color: rgba(230,168,23,0.35); }
+  .nc .val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .nc .unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--purple);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.1rem;
+  }
+  .nc .desc { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
+  .nc .stag {
+    position: absolute; top: 0.6rem; right: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem; color: var(--muted);
+  }
+
+  /* ── COMPENSATION TABLE ── */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .comp-table th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .comp-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(48,54,61,0.7);
+    vertical-align: top;
+    color: #c9d1d9;
+    line-height: 1.5;
+  }
+  .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .comp-table td:first-child {
+    color: var(--purple);
+    font-weight: 600;
+    font-size: 0.85rem;
+    width: 28%;
+  }
+  .comp-table td .big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+  }
+  .comp-table td .min {
+    display: inline-block;
+    background: rgba(63,185,80,0.1);
+    color: var(--green);
+    border: 1px solid rgba(63,185,80,0.2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.3rem;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.3rem;
+    margin: 1rem 0;
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 6px 0 0 6px;
+    background: var(--accent);
+  }
+  .callout.red::before { background: var(--red); }
+  .callout.blue::before { background: var(--blue); }
+  .callout.green::before { background: var(--green); }
+  .callout.purple::before { background: var(--purple); }
+  .callout.teal::before { background: var(--teal); }
+  .callout .cl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .callout.red .cl { color: var(--red); }
+  .callout.blue .cl { color: var(--blue); }
+  .callout.green .cl { color: var(--green); }
+  .callout.purple .cl { color: var(--purple); }
+  .callout.teal .cl { color: var(--teal); }
+  .callout p, .callout ul { font-size: 0.9rem; color: #c9d1d9; }
+
+  /* ── FLOW ── */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 1.2rem 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .fs {
+    flex: 1;
+    min-width: 110px;
+    padding: 0.8rem 1rem;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    line-height: 1.4;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .fs:last-child { border-right: none; }
+  .fs::after {
+    content: '→';
+    position: absolute;
+    right: -10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 0.9rem;
+    z-index: 2;
+  }
+  .fs:last-child::after { display: none; }
+  .fs.f1 { background: rgba(124,58,237,0.1); color: #c4b5fd; }
+  .fs.f2 { background: rgba(230,168,23,0.1); color: #fcd34d; }
+  .fs.f3 { background: rgba(63,185,80,0.1); color: #86efac; }
+  .fs.f4 { background: rgba(224,82,82,0.1); color: #fca5a5; }
+  .fs .fl { display: block; font-size: 0.55rem; opacity: 0.6; margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── PENALTY CARDS ── */
+  .pcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .pc {
+    background: var(--surface2);
+    border: 1px solid rgba(224,82,82,0.2);
+    border-radius: 8px;
+    padding: 1.2rem;
+  }
+  .pc .off {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .pc h4 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; font-weight: 600; }
+  .pc .pun { color: var(--red); font-weight: 600; font-size: 0.9rem; }
+  .pc .note { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
+
+  /* ── SCHEDULE TABLE ── */
+  .sch-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .sch-table th {
+    background: rgba(88,166,255,0.08);
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.6rem 1rem;
+    text-align: left;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .sch-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    color: #c9d1d9;
+  }
+  .sch-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--purple);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .sr { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .sr.vis { opacity: 1; transform: translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    color: var(--muted);
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    border-top: 1px solid var(--border);
+  }
+  footer::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--purple), var(--accent), var(--teal), transparent);
+    margin-bottom: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="badge-row">
+    <div class="badge">Ignite Academy · Class Notes</div>
+    <div class="badge gold">Deputy Director Industrial Safety — 2023</div>
+  </div>
+  <h1>The Employee's Compensation Act, <span class="yr">1923</span></h1>
+  <p class="sub">Chapter-by-Chapter · Compensation Formulas · Memory Map · Quick Numbers · Procedures</p>
+  <div class="tl-strip">
+    <div class="tl-item"><span>Passed on</span>5 March 1923</div>
+    <div class="tl-item"><span>Came into Force</span>1 July 1924</div>
+    <div class="tl-item"><span>Applicable to</span>Whole of India</div>
+    <div class="tl-item"><span>Excludes</span>Indian Armed Forces</div>
+  </div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#memmap">Memory Map</a>
+  <a href="#nums">Quick Numbers</a>
+  <a href="#ch1">Ch.I Preliminary</a>
+  <a href="#ch2">Ch.II Compensation</a>
+  <a href="#compensation-calc">Compensation Calc</a>
+  <a href="#notices">Notices & Claims</a>
+  <a href="#special">Special Provisions</a>
+  <a href="#ch3">Ch.III Commissioners</a>
+  <a href="#ch4">Ch.IV Rules</a>
+  <a href="#schedules">Schedules</a>
+</nav>
+
+<main>
+
+<!-- ═══ MEMORY MAP ═══ -->
+<section id="memmap">
+  <div class="map-wrap">
+    <div class="map-title">🗺 EMPLOYEE'S COMPENSATION ACT 1923 — VISUAL MEMORY MAP</div>
+
+    <div style="text-align:center;">
+      <div class="map-root-node">THE EMPLOYEE'S COMPENSATION ACT, 1923</div>
+    </div>
+
+    <div class="map-level">
+      <div class="map-col">
+        <div class="map-node n1">CH. I<br>PRELIMINARY</div>
+        <div class="map-subs">
+          <div class="map-sub">Definitions · Employee · Employer · Minor</div>
+          <div class="map-sub">Armed forces excluded</div>
+          <div class="map-sub">Lent employee → new employer</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n2">SEC 3<br>LIABILITY</div>
+        <div class="map-subs">
+          <div class="map-sub">Injury by accident arising out of employment</div>
+          <div class="map-sub">3 exceptions (drunk, disobedience, removed guard)</div>
+          <div class="map-sub">&lt;3 days disability → no liability</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n3">SEC 4<br>COMPENSATION</div>
+        <div class="map-subs">
+          <div class="map-sub">Death → 50% wages × factor / ₹1.2L</div>
+          <div class="map-sub">Perm. Total → 60% × factor / ₹1.4L</div>
+          <div class="map-sub">Temp. → 25% wages half-monthly</div>
+          <div class="map-sub">Funeral → ₹2,500 to Commissioner</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n4">SEC 4A<br>PAYMENT</div>
+        <div class="map-subs">
+          <div class="map-sub">Pay as soon as due</div>
+          <div class="map-sub">Default → 12% simple interest</div>
+          <div class="map-sub">Unreasonable delay → 50% penalty</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n5">SEC 8<br>DISTRIBUTION</div>
+        <div class="map-subs">
+          <div class="map-sub">Death → deposit with Commissioner</div>
+          <div class="map-sub">No direct payment to family</div>
+          <div class="map-sub">Advance: max 3 months wages</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n6">SEC 10<br>NOTICE & CLAIM</div>
+        <div class="map-subs">
+          <div class="map-sub">Claim within 2 years of accident / death</div>
+          <div class="map-sub">Fatal → employer reply in 30 days</div>
+          <div class="map-sub">Report to Commissioner within 7 days</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n1">SEC 12<br>CONTRACTING</div>
+        <div class="map-subs">
+          <div class="map-sub">Principal liable for contractor's workers</div>
+          <div class="map-sub">Wages based on actual employer</div>
+          <div class="map-sub">Principal = employer for legal purposes</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n2">CH. III<br>COMMISSIONERS</div>
+        <div class="map-subs">
+          <div class="map-sub">Appointed by State Govt</div>
+          <div class="map-sub">Civil Courts excluded</div>
+          <div class="map-sub">Appeal to High Court in 60 days</div>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="map-node n3">SPECIAL<br>PROVISIONS</div>
+        <div class="map-subs">
+          <div class="map-sub">Seamen · Aircraft Crew · Workers Abroad</div>
+          <div class="map-sub">Death claim: 1 yr (ship/aircraft lost: 18 mo)</div>
+          <div class="map-sub">No double benefits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUICK NUMBERS ═══ -->
+<section id="nums" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag gold">QUICK REF</div>
+    <h2 class="sec-title">Critical <span class="hl">Numbers</span> at a Glance</h2>
+  </div>
+  <div class="nums">
+    <div class="nc">
+      <div class="stag">§ 4 Death</div>
+      <div class="val">50%</div>
+      <div class="unit">of monthly wages × factor</div>
+      <div class="desc">Compensation for death</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4 PTD</div>
+      <div class="val">60%</div>
+      <div class="unit">of monthly wages × factor</div>
+      <div class="desc">Permanent total disablement</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4 Temp</div>
+      <div class="val">25%</div>
+      <div class="unit">half-monthly payment</div>
+      <div class="desc">Temporary disablement (total or partial)</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4</div>
+      <div class="val">₹1.2L</div>
+      <div class="unit">minimum — death</div>
+      <div class="desc">Min compensation whichever is more</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4</div>
+      <div class="val">₹1.4L</div>
+      <div class="unit">minimum — PTD</div>
+      <div class="desc">Min compensation whichever is more</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4</div>
+      <div class="val">₹2,500</div>
+      <div class="unit">funeral expenses</div>
+      <div class="desc">Deposited with Commissioner on death</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 3</div>
+      <div class="val">3 days</div>
+      <div class="unit">minimum disability</div>
+      <div class="desc">Below 3 days → no compensation liability</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4A</div>
+      <div class="val">1 month</div>
+      <div class="unit">payment deadline</div>
+      <div class="desc">Pay within 1 month or interest applies</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4A</div>
+      <div class="val">12%</div>
+      <div class="unit">interest per year</div>
+      <div class="desc">Minimum simple interest on delayed payment</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 4A</div>
+      <div class="val">50%</div>
+      <div class="unit">penalty</div>
+      <div class="desc">Additional penalty for unreasonable delay</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 8</div>
+      <div class="val">3 mo</div>
+      <div class="unit">max advance</div>
+      <div class="desc">Advance to dependants on employee's death</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 10</div>
+      <div class="val">2 years</div>
+      <div class="unit">claim limitation</div>
+      <div class="desc">From accident or date of death</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 10A</div>
+      <div class="val">30 days</div>
+      <div class="unit">employer reply</div>
+      <div class="desc">Fatal accident — employer must reply to Commissioner</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 10B</div>
+      <div class="val">7 days</div>
+      <div class="unit">report to Commissioner</div>
+      <div class="desc">Fatal/serious injury report deadline</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 10B</div>
+      <div class="val">20 days</div>
+      <div class="unit">unable to attend work</div>
+      <div class="desc">Qualifies as "serious bodily injury"</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 11</div>
+      <div class="val">3 days</div>
+      <div class="unit">medical offer window</div>
+      <div class="desc">Employer must offer free medical exam within 3 days</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 3</div>
+      <div class="val">6 months</div>
+      <div class="unit">Part B service</div>
+      <div class="desc">Min service for Schedule III Part B occupational disease</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 7</div>
+      <div class="val">6 months</div>
+      <div class="unit">half-monthly</div>
+      <div class="desc">Commutation to lump-sum if continued ≥ 6 months</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 18A</div>
+      <div class="val">₹5,000</div>
+      <div class="unit">employer penalty</div>
+      <div class="desc">Fine for failing to maintain records, reports, returns</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 30</div>
+      <div class="val">60 days</div>
+      <div class="unit">appeal period</div>
+      <div class="desc">Appeal to High Court from Commissioner's order</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 30</div>
+      <div class="val">₹300</div>
+      <div class="unit">min dispute amount</div>
+      <div class="desc">Minimum amount for appeal to High Court</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 15/15A</div>
+      <div class="val">1 year</div>
+      <div class="unit">death claim</div>
+      <div class="desc">Seamen / aircraft crew death claim deadline</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 15/15A</div>
+      <div class="val">18 months</div>
+      <div class="unit">lost vessel/aircraft</div>
+      <div class="desc">If ship/aircraft lost with all crew</div>
+    </div>
+    <div class="nc">
+      <div class="stag">§ 34</div>
+      <div class="val">3 months</div>
+      <div class="unit">public notice period</div>
+      <div class="desc">Time given to public before rules are finalized</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHAPTER I ═══ -->
+<section id="ch1" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag">CHAPTER I</div>
+    <h2 class="sec-title">Preliminary — <span class="hl">Key Definitions</span></h2>
+  </div>
+
+  <div class="g2">
+    <div class="card accent">
+      <h3><span class="sn">SEC 2</span> "Employee" means</h3>
+      <ul class="sl">
+        <li>Any person employed in a listed category</li>
+        <li><em>Members of Indian Armed Forces are NOT covered</em></li>
+        <li>If employee <strong>dies from injury</strong> → "employee" includes his <strong>dependants</strong> who are entitled to compensation</li>
+      </ul>
+    </div>
+    <div class="card purple">
+      <h3><span class="sn">SEC 2</span> "Employer" means</h3>
+      <ul class="sl">
+        <li>Any group/organization — registered or not</li>
+        <li>A <strong>managing agent</strong> (manager acting on behalf of employer)</li>
+        <li>Legal representative of a <strong>deceased employer</strong></li>
+        <li>If employee is <strong>lent/sent on hire</strong> → the temporary employer becomes the "employer" for that period</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <div class="cl">Key Definitions — Quick Reference</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.8rem;margin-top:0.5rem;">
+      <div><strong style="color:var(--accent)">Commissioner</strong> <span style="color:var(--muted);font-size:0.85rem;">— Commissioner for Workmen's Compensation appointed under Section 20</span></div>
+      <div><strong style="color:var(--accent)">Minor</strong> <span style="color:var(--muted);font-size:0.85rem;">— Person who has NOT attained the age of <strong style="color:var(--purple)">18 years</strong></span></div>
+      <div><strong style="color:var(--accent)">Employer (lent employee)</strong> <span style="color:var(--muted);font-size:0.85rem;">— Person for whom employee is temporarily working</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHAPTER II — LIABILITY ═══ -->
+<section id="ch2" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag red">CHAPTER II</div>
+    <h2 class="sec-title">Workmen's <span class="hlp">Compensation</span> — Liability</h2>
+  </div>
+
+  <div class="card red">
+    <h3><span class="sn">SEC 3</span> Employer's Liability — When Payable</h3>
+    <div class="callout green" style="margin-bottom:1rem;">
+      <div class="cl">When liability arises</div>
+      <p>Personal injury caused to employee by <strong>accident arising out of and in the course of employment</strong></p>
+    </div>
+    <div class="callout red">
+      <div class="cl">Exceptions — When employer is NOT liable</div>
+      <ul class="sl" style="margin-top:0.5rem;">
+        <li>Injury does not result in total or partial disablement for a period exceeding <strong>3 days</strong></li>
+        <li>Injury (not causing death or permanent total disablement) caused when employee was <strong>under the influence of drink or drugs</strong></li>
+        <li>Injury caused by <strong>willful disobedience</strong> of an order/rule framed for safety (not resulting in death/PTD)</li>
+        <li>Injury caused by <strong>willful removal or disregard of any safety guard/device</strong> (not resulting in death/PTD)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h3><span class="sn">SEC 3(2)</span> Occupational Diseases — Schedule III</h3>
+    <table class="comp-table">
+      <thead>
+        <tr><th>Schedule Part</th><th>Job Type</th><th>Required Service Period</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Part A</td><td>Jobs in Part A of Schedule III</td><td><strong>No minimum</strong> service period needed</td></tr>
+        <tr><td>Part B</td><td>Jobs in Part B of Schedule III</td><td>Must have worked <strong>at least 6 months</strong> with same employer</td></tr>
+        <tr><td>Part C</td><td>Jobs in Part C of Schedule III</td><td>Minimum continuous period <strong>specified by Central Government</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.84rem;color:var(--muted);margin-top:0.8rem;">If conditions are met → the occupational disease is treated as an <strong style="color:var(--teal)">injury caused by an accident</strong>.</p>
+  </div>
+</section>
+
+<!-- ═══ COMPENSATION CALCULATION ═══ -->
+<section id="compensation-calc" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag">SEC 4</div>
+    <h2 class="sec-title">Compensation <span class="hl">Calculation Formula</span></h2>
+  </div>
+
+  <table class="comp-table" style="margin-bottom:1.5rem;">
+    <thead>
+      <tr><th>Type of Injury</th><th>Formula / Amount</th><th>Minimum Floor</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>⚰ Death</td>
+        <td><span class="big">50% × Monthly Wages × Relevant Factor</span>(Age-based factor from Schedule IV)</td>
+        <td><span class="min">₹1,20,000 (₹1.2 Lakh)</span></td>
+      </tr>
+      <tr>
+        <td>🦽 Permanent Total Disablement</td>
+        <td><span class="big">60% × Monthly Wages × Relevant Factor</span>(Age-based factor from Schedule IV)</td>
+        <td><span class="min">₹1,40,000 (₹1.4 Lakh)</span></td>
+      </tr>
+      <tr>
+        <td>🩹 Permanent Partial Disablement</td>
+        <td><strong>Schedule I Part II injury</strong> → % of PTD compensation as specified<br><strong>Other injuries</strong> → % proportionate to loss of earning capacity (assessed by qualified medical practitioner)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>⏱ Temporary Disablement (total or partial)</td>
+        <td><span class="big">25% of Monthly Wages</span>Paid as half-monthly payments</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>🪦 Funeral Expenses (additional)</td>
+        <td>Employer deposits <strong>₹2,500</strong> with Commissioner for payment to eldest surviving dependent</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="g2">
+    <div class="card blue">
+      <h3><span class="sn">SEC 5</span> Method of Calculating Monthly Wages</h3>
+      <ul class="sl">
+        <li><strong>12+ months service:</strong> Total wages of last 12 months ÷ 12</li>
+        <li><strong>Less than 1 month service:</strong> Average monthly wages of another employee doing same work in same area</li>
+        <li><strong>All other cases:</strong> 30 × (total wages in last continuous period) ÷ (number of days in that period)</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3><span class="sn">SEC 4A</span> Default Penalty</h3>
+      <ul class="sl">
+        <li>Compensation must be paid <strong>as soon as it falls due</strong></li>
+        <li>Non-payment within <strong>1 month</strong> → Commissioner orders <strong>simple interest @ min 12% p.a.</strong></li>
+        <li>Unreasonable delay → additional <strong>penalty up to 50%</strong> of unpaid amount</li>
+        <li>Partial liability accepted → provisional payment must be made to Commissioner or employee</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:0;">
+    <div class="card green">
+      <h3><span class="sn">SEC 6</span> Review of Half-Monthly Payments</h3>
+      <ul class="sl">
+        <li>Either party can request review; normally requires <strong>doctor's certificate</strong> of changed condition</li>
+        <li>Commissioner can continue / increase / reduce / stop the payment</li>
+        <li>If permanent disablement confirmed → can be <strong>converted to lump sum</strong> (deducting amounts already paid)</li>
+      </ul>
+    </div>
+    <div class="card purple">
+      <h3><span class="sn">SEC 7</span> Commutation of Half-Monthly Payments</h3>
+      <ul class="sl">
+        <li>Half-monthly payments can be converted to lump sum <strong>by agreement</strong></li>
+        <li>If parties disagree: after <strong>6 months</strong> of continued payments, either party can apply to Commissioner for lump-sum redemption</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DISTRIBUTION ═══ -->
+<section id="distribution" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag purple">SEC 8</div>
+    <h2 class="sec-title">Distribution of <span class="hlp">Compensation</span></h2>
+  </div>
+
+  <div class="flow">
+    <div class="fs f1"><span class="fl">Step 1</span>Employee Dies</div>
+    <div class="fs f2"><span class="fl">Step 2</span>Employer deposits with Commissioner<br>(NOT directly to family)</div>
+    <div class="fs f3"><span class="fl">Step 3</span>Commissioner identifies dependants,<br>publishes/sends notices</div>
+    <div class="fs f4"><span class="fl">Step 4</span>Compensation distributed<br>or returned if no dependants</div>
+  </div>
+
+  <div class="g2">
+    <div class="card red">
+      <h3>Critical Rule on Direct Payment</h3>
+      <ul class="sl">
+        <li>Employer <strong>cannot pay compensation directly to family</strong> in case of death</li>
+        <li>Direct payment <strong>will NOT be treated as compensation</strong></li>
+        <li>Must be deposited with Commissioner</li>
+        <li><strong>Advance allowed:</strong> max <strong>3 months' wages</strong> to dependants; advance deducted from final compensation</li>
+      </ul>
+    </div>
+    <div class="card teal">
+      <h3>After Commissioner Receives Deposit</h3>
+      <ul class="sl">
+        <li>Commissioner's <strong>receipt = proof of employer's completed payment</strong></li>
+        <li>Commissioner identifies dependants; may publish or personally send notices</li>
+        <li>If <strong>no dependant exists</strong> → money returned to employer</li>
+        <li>On employer's request → Commissioner must provide statement of distribution</li>
+        <li>Minimum ₹10 amount → may also be deposited on behalf of recipient</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOTICES & CLAIMS ═══ -->
+<section id="notices" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag blue">SEC 10–11</div>
+    <h2 class="sec-title">Notices, Claims & <span class="hlb">Medical Examination</span></h2>
+  </div>
+
+  <div class="card blue">
+    <h3><span class="sn">SEC 10</span> Notice and Claim Limitation</h3>
+    <div class="callout blue">
+      <div class="cl">Time Limit</div>
+      <p>Claim must be made within <strong>2 years</strong> of the accident <em>or</em> within <strong>2 years from the date of death</strong></p>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card accent">
+      <h3><span class="sn">SEC 10A</span> Fatal Accident — Employer's Statement</h3>
+      <ul class="sl">
+        <li>Commissioner learns of employee death → sends <strong>registered notice to employer</strong></li>
+        <li>Employer must reply within <strong>30 days</strong> in prescribed form (how accident happened, liability accepted or not)</li>
+        <li>If liable accepted → deposit compensation within <strong>30 days</strong> of receiving notice</li>
+        <li>If liability denied → must give clear <strong>reasons in writing</strong></li>
+        <li>Commissioner then makes enquiry and informs dependants of their right to claim</li>
+      </ul>
+    </div>
+    <div class="card red">
+      <h3><span class="sn">SEC 10B</span> Report of Fatal/Serious Injury</h3>
+      <ul class="sl">
+        <li>Accident causing death or serious bodily injury on employer's premises → report to Commissioner within <strong>7 days</strong></li>
+        <li><strong>Serious bodily injury</strong> means:
+          <ul style="margin-top:0.4rem;padding-left:1rem;font-size:0.85rem;color:var(--muted);">
+            <li>Permanent disability or loss of use of limb</li>
+            <li>Permanent damage/loss of sight or hearing</li>
+            <li>Fracture of any limb</li>
+            <li>Unable to attend work for <strong>more than 20 days</strong></li>
+          </ul>
+        </li>
+        <li><em>Does NOT apply to factories covered under ESI Act, 1948</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3><span class="sn">SEC 11</span> Medical Examination — Rules</h3>
+    <table class="comp-table">
+      <thead><tr><th>Situation</th><th>Consequence</th></tr></thead>
+      <tbody>
+        <tr><td>Employer offers free medical exam within 3 days</td><td>Employee <strong>must attend</strong></td></tr>
+        <tr><td>Employee refuses / obstructs examination</td><td>Right to compensation <strong>suspended</strong> during refusal period (unless valid reason)</td></tr>
+        <tr><td>Employee leaves workplace before examination</td><td>Compensation <strong>suspended until he returns</strong> and offers himself for examination</td></tr>
+        <tr><td>Employee under suspension dies without examination</td><td>Commissioner <strong>may still allow</strong> compensation to dependants</td></tr>
+        <tr><td>Employee refuses free treatment / disobeys doctor's orders</td><td>Compensation only for <strong>original injury level</strong>, not aggravated injury</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ CONTRACTING / INSOLVENCY ═══ -->
+<section id="contracting" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag">SEC 12–14A</div>
+    <h2 class="sec-title">Contracting, Insolvency & <span class="hl">Asset Protection</span></h2>
+  </div>
+
+  <div class="g3">
+    <div class="card accent">
+      <h3><span class="sn">SEC 12</span> Contracting</h3>
+      <ul class="sl">
+        <li>Principal gives work to contractor for work ordinarily part of principal's business</li>
+        <li>Contractor's employee injured → <strong>principal is liable</strong> (same as if directly employed)</li>
+        <li>Compensation calculated on <strong>wages paid by actual employer (contractor)</strong></li>
+        <li>Principal = employer for all legal purposes when claim is made against him</li>
+      </ul>
+    </div>
+    <div class="card blue">
+      <h3><span class="sn">SEC 13</span> Remedies Against Stranger</h3>
+      <ul class="sl">
+        <li>If injury was caused by a <strong>third party's fault</strong></li>
+        <li>The employer who paid compensation can <strong>recover the amount</strong> from the person truly responsible</li>
+      </ul>
+    </div>
+    <div class="card red">
+      <h3><span class="sn">SEC 14</span> Insolvency of Employer</h3>
+      <ul class="sl">
+        <li>Employer has insurance + becomes insolvent → workman gets <strong>rights against insurance company</strong></li>
+        <li>Insurer must pay workman directly (but not beyond policy limit)</li>
+        <li>Compensation due to workman gets <strong>top priority</strong> among all debts in insolvency</li>
+        <li>Policy void due to employer's fault (not premium) → workman still gets compensation from insurer</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout teal">
+    <div class="cl">Sec 14A — First Charge on Transferred Assets</div>
+    <p>If employer transfers property <strong>before paying owed compensation</strong>, the unpaid compensation becomes the <strong>first charge (top priority claim) on the immovable property</strong> transferred — must be paid before all other claims.</p>
+  </div>
+
+  <div class="callout red">
+    <div class="cl">Sec 17 — Contracting Out is INVALID</div>
+    <p>Any contract in which a worker <strong>gives up his right to compensation</strong> is void and has <strong>no legal effect</strong>. An employer cannot force a worker to sign away his compensation rights.</p>
+  </div>
+</section>
+
+<!-- ═══ SPECIAL PROVISIONS ═══ -->
+<section id="special" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag purple">SEC 15–15B</div>
+    <h2 class="sec-title">Special Provisions — <span class="hlp">Seamen, Aircraft & Abroad</span></h2>
+  </div>
+
+  <table class="sch-table">
+    <thead>
+      <tr>
+        <th>Section</th>
+        <th>Applies To</th>
+        <th>Notice Rule</th>
+        <th>Death Claim Deadline</th>
+        <th>Special Rules</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>§ 15</td>
+        <td>Masters of ships & Seamen</td>
+        <td>Seaman gives notice to <strong>master of ship</strong> (master = employer). If accident on ship → <strong>no notice needed</strong></td>
+        <td><strong>1 year</strong> from family receiving news. If ship lost with all crew → <strong>18 months</strong> from date of loss</td>
+        <td>No half-monthly payment if ship-owner already caring for seaman under merchant shipping law. No double benefits with War Pension schemes</td>
+      </tr>
+      <tr>
+        <td>§ 15A</td>
+        <td>Captains & Crew of Aircraft</td>
+        <td>Crew gives notice to <strong>captain</strong> (captain = employer). If accident on aircraft → <strong>no notice needed</strong></td>
+        <td><strong>1 year</strong> from family getting news. If aircraft lost with all crew → <strong>18 months</strong> from date of loss</td>
+        <td>Commissioner can accept late claims with good reason</td>
+      </tr>
+      <tr>
+        <td>§ 15B</td>
+        <td>Workers abroad (Indian companies & motor vehicles)</td>
+        <td>Notice to <strong>local agent</strong> of the Indian company or vehicle owner</td>
+        <td><strong>1 year</strong> from family receiving news of death</td>
+        <td>Covers drivers, helpers, cleaners, mechanics sent abroad with Indian motor vehicles</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="cl">Sec 16 — Annual Returns</div>
+    <p>State Government may require employers to submit <strong>annual reports</strong> including: number of workers injured, compensation paid, and any other required details — in the prescribed format.</p>
+  </div>
+
+  <div class="pcards" style="margin-top:1.5rem;">
+    <div class="pc">
+      <div class="off">Sec 18A — Penalty</div>
+      <h4>Failure to Maintain Records</h4>
+      <div class="pun">Fine up to ₹5,000</div>
+      <div class="note">For failing to: keep notice-book (§10(3)), send statement to Commissioner (§10A), send accident report (§10B), submit annual return (§16)</div>
+    </div>
+    <div class="pc">
+      <div class="off">Sec 8 — Advance</div>
+      <h4>Advance to Dependants</h4>
+      <div class="pun">Max 3 months' wages</div>
+      <div class="note">Employer may give advance; deducted from final compensation if within total payable amount</div>
+    </div>
+    <div class="pc">
+      <div class="off">Sec 4A — Interest</div>
+      <h4>Default in Payment</h4>
+      <div class="pun">12% interest + 50% penalty</div>
+      <div class="note">Simple interest ≥ 12% p.a. if not paid within 1 month. Additional penalty up to 50% for unreasonable delay</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHAPTER III — COMMISSIONERS ═══ -->
+<section id="ch3" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag blue">CHAPTER III</div>
+    <h2 class="sec-title"><span class="hlb">Commissioners</span> — Powers & Procedure</h2>
+  </div>
+
+  <div class="g2">
+    <div class="card blue">
+      <h3><span class="sn">SEC 19</span> Reference to Commissioner</h3>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.8rem;">Disputes referred to Commissioner (Civil Courts have NO jurisdiction):</p>
+      <ul class="sl">
+        <li>Who must pay compensation</li>
+        <li>Whether injured person is a workman or not</li>
+        <li>How much compensation should be paid</li>
+        <li>Duration of payment</li>
+        <li>Seriousness of injury/disability</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3><span class="sn">SEC 20</span> Appointment of Commissioners</h3>
+      <ul class="sl">
+        <li>Appointed by <strong>State Government</strong> by notification in Official Gazette</li>
+        <li>Multiple Commissioners in same area → State Govt regulates distribution of business</li>
+        <li>Commissioner may seek experts with <strong>special knowledge</strong> to assist in inquiry</li>
+        <li>Every Commissioner is deemed a <strong>public servant</strong> (under IPC)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h3><span class="sn">SEC 21</span> Venue of Proceedings</h3>
+    <ul class="sl">
+      <li>Proceedings handled by Commissioner of area where: <strong>accident happened</strong>, OR <strong>workman normally lives</strong>, OR <strong>employer's registered office</strong> is located</li>
+      <li>Case transfer (within/outside State) allowed — must send all documents and money to new Commissioner</li>
+      <li>If accident happened <strong>outside India</strong> → Commissioner of area where owner/agent or company's registered office is located</li>
+    </ul>
+  </div>
+
+  <div class="g3">
+    <div class="card purple">
+      <h3><span class="sn">SEC 23</span> Commissioner's Powers</h3>
+      <ul class="sl">
+        <li>Has all powers of a <strong>Civil Court</strong> under Code of Civil Procedure, 1908</li>
+      </ul>
+    </div>
+    <div class="card green">
+      <h3><span class="sn">SEC 28</span> Registration of Agreements</h3>
+      <ul class="sl">
+        <li>Lump-sum agreement (esp. for women or legally disabled) → send to Commissioner</li>
+        <li>Commissioner registers after <strong>7 days</strong> notice to both parties</li>
+        <li>Once registered → <strong>legally enforceable</strong></li>
+      </ul>
+    </div>
+    <div class="card red">
+      <h3><span class="sn">SEC 30</span> Appeals to High Court</h3>
+      <ul class="sl">
+        <li>Appeal must involve an <strong>important legal question</strong></li>
+        <li>Amount in dispute must be <strong>at least ₹300</strong></li>
+        <li>Employer must first <strong>deposit full ordered amount</strong> + get certificate</li>
+        <li>Must be filed within <strong>60 days</strong></li>
+        <li>No appeal if both parties agreed to follow Commissioner's decision</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <div class="cl">Sec 24 — Who Can Appear Before Commissioner</div>
+    <p>A lawyer · Insurance company official · Registered trade union official · Factory Inspector or Mines Inspector · Any officer authorized by State Government — must have <strong>written authorization</strong> from the party.</p>
+  </div>
+</section>
+
+<!-- ═══ CHAPTER IV ═══ -->
+<section id="ch4" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag green">CHAPTER IV</div>
+    <h2 class="sec-title">Rules & <span class="hl">Publication</span></h2>
+  </div>
+  <div class="g2">
+    <div class="card green">
+      <h3><span class="sn">SEC 32 & 34</span> State Government Rules</h3>
+      <ul class="sl">
+        <li>State Government may make rules to carry out purposes of this Act</li>
+        <li>Draft must be published <strong>at least 3 months before</strong> finalization</li>
+        <li>Once finalized and published in Official Gazette → have force of law</li>
+        <li>Rules must be laid before <strong>State Legislature</strong></li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3><span class="sn">SEC 36</span> Central Government Rules</h3>
+      <ul class="sl">
+        <li>Must be placed before both Houses of Parliament for <strong>30 days</strong></li>
+        <li>Both Houses may change or cancel the rule</li>
+        <li>Actions done before change/cancellation remain valid</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCHEDULES ═══ -->
+<section id="schedules" class="sr">
+  <div class="sec-hdr">
+    <div class="ch-tag purple">SCHEDULES</div>
+    <h2 class="sec-title">The Four <span class="hlp">Schedules</span></h2>
+  </div>
+  <table class="sch-table">
+    <thead>
+      <tr><th>Schedule</th><th>Content</th><th>Used in</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SCHEDULE I</td>
+        <td><strong>Part 1:</strong> List of injuries deemed to result in <strong>Permanent Total Disablement</strong><br><strong>Part 2:</strong> List of injuries deemed to result in <strong>Permanent Partial Disablement</strong> (with % of earning capacity loss)</td>
+        <td>Section 4(c)</td>
+      </tr>
+      <tr>
+        <td>SCHEDULE II</td>
+        <td>List of persons included in the definition of <strong>Workmen</strong> (subject to Section 2(1)(n))</td>
+        <td>Section 2</td>
+      </tr>
+      <tr>
+        <td>SCHEDULE III</td>
+        <td><strong>List of Occupational Diseases</strong> (Parts A, B, C) — disease contracted = injury by accident if service requirements are met</td>
+        <td>Section 3(2)</td>
+      </tr>
+      <tr>
+        <td>SCHEDULE IV</td>
+        <td><strong>Relevant Factors</strong> — age-based multipliers for calculating lump-sum compensation in case of permanent disablement and death</td>
+        <td>Section 4(a)(b)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:1.5rem;">
+    <div class="cl">How to Use Schedule IV — Relevant Factor</div>
+    <ul class="sl">
+      <li>Find the employee's <strong>age on his last birthday</strong> before the date compensation became due</li>
+      <li>Locate that age in <strong>Column 1</strong> of Schedule IV</li>
+      <li>The corresponding number in <strong>Column 2</strong> is the <strong>Relevant Factor</strong></li>
+      <li>Multiply: <strong>50% (death) or 60% (PTD) × Monthly Wages × Relevant Factor</strong></li>
+      <li>Compare with minimum floor (₹1.2L for death, ₹1.4L for PTD) → pay whichever is <em>more</em></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  THE EMPLOYEE'S COMPENSATION ACT, 1923 — Complete Study Notes · Prepared from Ignite Academy Class Notes · For Educational Purposes Only
+</footer>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('.sr');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  els.forEach(el => obs.observe(el));
+
+  // Nav smooth scroll
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

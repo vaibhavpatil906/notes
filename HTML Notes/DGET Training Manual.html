@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DGE&T Training Manual — ITI Administration Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f4f0;
+    --surface: #ffffff;
+    --surface2: #e8efe8;
+    --ink: #1a2e1a;
+    --accent: #2d6a2d;
+    --gold: #d4820a;
+    --red: #c0392b;
+    --blue: #1a4a8a;
+    --teal: #0a6b5e;
+    --orange: #c05c0a;
+    --border: #c8d8c8;
+    --muted: #5a7a5a;
+    --text: #1a2e1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--accent);
+    color: white;
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 18px,
+      rgba(255,255,255,0.04) 18px, rgba(255,255,255,0.04) 19px
+    );
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), #f5c842, var(--gold));
+  }
+  header .pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.3rem 1.2rem;
+    border-radius: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    color: rgba(255,255,255,0.85);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    position: relative;
+  }
+  header h1 .amp { color: var(--gold); }
+  header .tagline {
+    margin-top: 0.7rem;
+    font-size: 0.9rem;
+    opacity: 0.75;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+  .stat-row {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 0.5rem 1.3rem;
+    text-align: center;
+  }
+  .stat-pill .sv {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #f5c842;
+    display: block;
+    line-height: 1;
+  }
+  .stat-pill .sl {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--ink);
+    padding: 0.7rem 2rem;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+  nav a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  nav a:hover {
+    color: var(--gold);
+    background: rgba(212,130,10,0.12);
+    border-color: rgba(212,130,10,0.3);
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+  section { margin-bottom: 3.5rem; }
+
+  /* ── SECTION HEADER ── */
+  .sh {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+  }
+  .sh::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 60px; height: 2px;
+    background: var(--accent);
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .tag.g { background: rgba(45,106,45,0.1); color: var(--accent); border: 1px solid rgba(45,106,45,0.25); }
+  .tag.gold { background: rgba(212,130,10,0.1); color: var(--gold); border: 1px solid rgba(212,130,10,0.25); }
+  .tag.b { background: rgba(26,74,138,0.1); color: var(--blue); border: 1px solid rgba(26,74,138,0.2); }
+  .tag.r { background: rgba(192,57,43,0.1); color: var(--red); border: 1px solid rgba(192,57,43,0.2); }
+  .tag.t { background: rgba(10,107,94,0.1); color: var(--teal); border: 1px solid rgba(10,107,94,0.2); }
+  .tag.o { background: rgba(192,92,10,0.1); color: var(--orange); border: 1px solid rgba(192,92,10,0.2); }
+  .sh h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .sh h2 .hl { color: var(--accent); }
+  .sh h2 .hlg { color: var(--gold); }
+  .sh h2 .hlb { color: var(--blue); }
+
+  /* ── MEMORY MAP ── */
+  .map-box {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 3rem;
+    overflow-x: auto;
+    position: relative;
+  }
+  .map-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(45,106,45,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(212,130,10,0.08) 0%, transparent 50%);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+  .map-title {
+    font-family: 'Syne', sans-serif;
+    color: #f5c842;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+  .map-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  .map-root {
+    background: linear-gradient(135deg, #2d6a2d, #1a4a1a);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(45,106,45,0.35);
+    position: relative;
+    letter-spacing: 0.02em;
+  }
+  .map-root::after {
+    content: '';
+    position: absolute;
+    bottom: -22px; left: 50%;
+    transform: translateX(-50%);
+    width: 2px; height: 22px;
+    background: rgba(255,255,255,0.2);
+  }
+  .map-branches {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 22px;
+    position: relative;
+  }
+  .map-branches::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .map-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .map-col::before {
+    content: '';
+    width: 1px; height: 22px;
+    background: rgba(255,255,255,0.15);
+  }
+  .mn {
+    padding: 0.55rem 0.9rem;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    min-width: 105px;
+    border: 1px solid transparent;
+    line-height: 1.4;
+    transition: transform 0.2s;
+    cursor: default;
+  }
+  .mn:hover { transform: scale(1.04); }
+  .mn.g { background: rgba(45,106,45,0.2); color: #86efac; border-color: rgba(45,106,45,0.35); }
+  .mn.gold { background: rgba(212,130,10,0.2); color: #fcd34d; border-color: rgba(212,130,10,0.35); }
+  .mn.b { background: rgba(26,74,138,0.2); color: #93c5fd; border-color: rgba(26,74,138,0.3); }
+  .mn.r { background: rgba(192,57,43,0.2); color: #fca5a5; border-color: rgba(192,57,43,0.3); }
+  .mn.t { background: rgba(10,107,94,0.2); color: #5eead4; border-color: rgba(10,107,94,0.3); }
+  .mn.o { background: rgba(192,92,10,0.2); color: #fdba74; border-color: rgba(192,92,10,0.3); }
+  .ms {
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+  }
+  .ms span {
+    font-size: 0.59rem;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    max-width: 115px;
+    line-height: 1.35;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(45,106,45,0.08); border-color: rgba(45,106,45,0.3); }
+  .card.g { border-left: 4px solid var(--accent); }
+  .card.gold { border-left: 4px solid var(--gold); }
+  .card.b { border-left: 4px solid var(--blue); }
+  .card.r { border-left: 4px solid var(--red); }
+  .card.t { border-left: 4px solid var(--teal); }
+  .card.o { border-left: 4px solid var(--orange); }
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.9rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── LISTS ── */
+  ul.sl { list-style: none; padding: 0; }
+  ul.sl li {
+    padding: 0.38rem 0 0.38rem 1.5rem;
+    position: relative;
+    font-size: 0.9rem;
+    color: #2a3a2a;
+    border-bottom: 1px solid rgba(200,216,200,0.5);
+    line-height: 1.55;
+  }
+  ul.sl li:last-child { border-bottom: none; }
+  ul.sl li::before {
+    content: '▸';
+    position: absolute; left: 0.2rem;
+    color: var(--accent);
+    top: 0.45rem;
+    font-size: 0.75rem;
+  }
+  ul.sl li strong { color: var(--accent); font-weight: 700; }
+  ul.sl li em { color: var(--gold); font-style: normal; font-weight: 700; }
+
+  /* ── GRIDS ── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 800px) { .g2, .g3 { grid-template-columns: 1fr; } }
+  @media (min-width: 500px) and (max-width: 800px) { .g3 { grid-template-columns: 1fr 1fr; } }
+
+  /* ── NUMBER GRID ── */
+  .nums { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 1rem; }
+  .nc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .nc:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .nc .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .nc .unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.1rem;
+  }
+  .nc .desc { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
+  .nc .stag {
+    position: absolute; top: 0.5rem; right: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.52rem; color: rgba(90,122,90,0.6);
+  }
+
+  /* ── TABLE ── */
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .tbl th {
+    background: var(--accent);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.65rem 1rem;
+    text-align: left;
+  }
+  .tbl td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .tbl tr:nth-child(even) td { background: rgba(232,239,232,0.5); }
+  .tbl tr:hover td { background: rgba(45,106,45,0.04); }
+  .tbl td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--blue);
+    white-space: nowrap;
+  }
+  .tbl td strong { color: var(--accent); font-weight: 700; }
+
+  /* ── CALLOUT ── */
+  .co {
+    border-radius: 6px;
+    padding: 1rem 1.3rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border);
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .co::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 6px 0 0 6px;
+    background: var(--accent);
+  }
+  .co.gold { background: rgba(212,130,10,0.04); border-color: rgba(212,130,10,0.25); }
+  .co.gold::before { background: var(--gold); }
+  .co.r { background: rgba(192,57,43,0.04); border-color: rgba(192,57,43,0.2); }
+  .co.r::before { background: var(--red); }
+  .co.b { background: rgba(26,74,138,0.04); border-color: rgba(26,74,138,0.2); }
+  .co.b::before { background: var(--blue); }
+  .co.t { background: rgba(10,107,94,0.04); border-color: rgba(10,107,94,0.2); }
+  .co.t::before { background: var(--teal); }
+  .co .cl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+  .co.gold .cl { color: var(--gold); }
+  .co.r .cl { color: var(--red); }
+  .co.b .cl { color: var(--blue); }
+  .co.t .cl { color: var(--teal); }
+  .co p, .co ul { font-size: 0.9rem; color: var(--ink); }
+
+  /* ── LEAVE COMPARISON CARDS ── */
+  .lc {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem;
+    text-align: center;
+  }
+  .lc .lt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .lc .lv {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .lc .lunit {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+  .lc.cl .lv { color: var(--blue); }
+  .lc.ml .lv { color: var(--teal); }
+  .lc.sl .lv { color: var(--orange); }
+  .lc .extra {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ── TS RETURNS ── */
+  .ts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .ts-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .ts-card:hover { border-color: var(--accent); }
+  .ts-code {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .ts-title { font-size: 0.85rem; color: var(--ink); font-weight: 600; line-height: 1.4; }
+  .ts-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; }
+
+  /* ── INSPECTION TEAM ── */
+  .tri-team {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+  .tri-item {
+    padding: 1rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .tri-item:last-child { border-right: none; }
+  .tri-item:nth-child(2) { background: rgba(45,106,45,0.05); }
+  .tri-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .tri-role { font-size: 0.78rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .tri-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+  @media (max-width: 600px) { .tri-team { grid-template-columns: 1fr; } .tri-item { border-right: none; border-bottom: 1px solid var(--border); } }
+
+  /* ── SCROLL REVEAL ── */
+  .sr { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .sr.vis { opacity: 1; transform: translateY(0); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    border-top: 4px solid var(--gold);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="pill">DGE&T · Ignite Academy Class Notes</div>
+  <h1>DGE<span class="amp">&</span>T Training Manual</h1>
+  <p class="tagline">Administration of Industrial Training Institutes — Complete Study Notes</p>
+  <div class="stat-row">
+    <div class="stat-pill"><span class="sv">42</span><span class="sl">hrs/week</span></div>
+    <div class="stat-pill"><span class="sv">80%</span><span class="sl">min attendance</span></div>
+    <div class="stat-pill"><span class="sv">7.5</span><span class="sl">hrs/day</span></div>
+    <div class="stat-pill"><span class="sv">1964</span><span class="sl">skills competition</span></div>
+    <div class="stat-pill"><span class="sv">TS-1 to TS-4</span><span class="sl">stat returns</span></div>
+  </div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#memmap">Memory Map</a>
+  <a href="#nums">Quick Numbers</a>
+  <a href="#hours">Working Hours</a>
+  <a href="#leave">Leave Rules</a>
+  <a href="#absence">Absence & Conduct</a>
+  <a href="#inspection">Inspection</a>
+  <a href="#principal">Principal's Duties</a>
+  <a href="#ncvt">NCVT Affiliation</a>
+  <a href="#new-iti">New ITI Rules</a>
+  <a href="#stats">Statistical Returns</a>
+</nav>
+
+<main>
+
+<!-- ═══ MEMORY MAP ═══ -->
+<section id="memmap">
+  <div class="map-box">
+    <div class="map-title">🗺 DGE&T ITI TRAINING MANUAL — VISUAL MEMORY MAP</div>
+    <div class="map-center">
+      <div class="map-root">ITI ADMINISTRATION (DGE&T Manual)</div>
+    </div>
+    <div class="map-branches">
+      <div class="map-col">
+        <div class="mn g">WORKING<br>HOURS</div>
+        <div class="ms">
+          <span>42 hrs/week total</span>
+          <span>28 practical + 10 theory</span>
+          <span>7.5 hrs/day (2nd Sat holiday)</span>
+          <span>80% min attendance</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn gold">CASUAL<br>LEAVE</div>
+        <div class="ms">
+          <span>12 days/year</span>
+          <span>Max 10 days at a time</span>
+          <span>Stipend continues</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn t">MEDICAL<br>LEAVE</div>
+        <div class="ms">
+          <span>15 days basic</span>
+          <span>+ 3 wks (1-yr course)</span>
+          <span>+ 6 wks (2-yr course)</span>
+          <span>Medical certificate needed</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn o">SPECIAL<br>LEAVE</div>
+        <div class="ms">
+          <span>10 days normal</span>
+          <span>Max 15 days (1-yr)</span>
+          <span>Max 30 days (2-yr)</span>
+          <span>No scholarship during SL</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn r">ABSENCE<br>& CONDUCT</div>
+        <div class="ms">
+          <span>&lt;10 days: written warning</span>
+          <span>Repeat → State Director</span>
+          <span>Misconduct → suspension</span>
+          <span>No stipend during suspension</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn b">INSPECTION</div>
+        <div class="ms">
+          <span>Quarterly by State Directorate</span>
+          <span>Annual by tripartite team</span>
+          <span>Team: State Dir + Industry + Labour</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn g">NCVT<br>AFFILIATION</div>
+        <div class="ms">
+          <span>Follow NCVT standards</span>
+          <span>Untrained instructors: 3 yr limit</span>
+          <span>Close trade: 6 mo notice</span>
+          <span>Withdraw if standards fail</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn gold">NEW ITI<br>RULES</div>
+        <div class="ms">
+          <span>200–1000 seats</span>
+          <span>Near industrial estates</span>
+          <span>4 location factors</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn b">STAT<br>RETURNS</div>
+        <div class="ms">
+          <span>TS-1 to TS-4 (annual)</span>
+          <span>TS-3 = NCVT affiliations</span>
+          <span>Sent via State Directors</span>
+        </div>
+      </div>
+      <div class="map-col">
+        <div class="mn t">CERTIFICATES<br>& TESTS</div>
+        <div class="ms">
+          <span>NTC issued by NCVT</span>
+          <span>Signed by Secretary NCVT</span>
+          <span>All India Trade Test</span>
+          <span>Skills Competition: 1964</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUICK NUMBERS ═══ -->
+<section id="nums" class="sr">
+  <div class="sh">
+    <div class="tag gold">QUICK REF</div>
+    <h2 class="sh">Critical <span class="hlg">Numbers</span> at a Glance</h2>
+  </div>
+  <div class="nums">
+    <div class="nc"><div class="stag">Working</div><div class="val">42</div><div class="unit">hrs / week</div><div class="desc">Total working hours per week at ITI</div></div>
+    <div class="nc"><div class="stag">Working</div><div class="val">28</div><div class="unit">hrs / week</div><div class="desc">Practical instruction hours per week</div></div>
+    <div class="nc"><div class="stag">Working</div><div class="val">10</div><div class="unit">hrs / week</div><div class="desc">Theoretical instruction hours per week</div></div>
+    <div class="nc"><div class="stag">Working</div><div class="val">7.5</div><div class="unit">hrs / day</div><div class="desc">Uniform daily working hours (2nd Saturday holiday)</div></div>
+    <div class="nc"><div class="stag">Attendance</div><div class="val">80%</div><div class="unit">min attendance</div><div class="desc">Minimum compulsory for final trade test eligibility</div></div>
+    <div class="nc"><div class="stag">Casual Leave</div><div class="val">12</div><div class="unit">days / year</div><div class="desc">Casual leave for 1-year and 2-year courses</div></div>
+    <div class="nc"><div class="stag">Casual Leave</div><div class="val">10</div><div class="unit">days max at once</div><div class="desc">Maximum casual leave at one time</div></div>
+    <div class="nc"><div class="stag">Medical Leave</div><div class="val">15</div><div class="unit">days basic</div><div class="desc">Basic medical leave for illness (not work injury)</div></div>
+    <div class="nc"><div class="stag">Medical Extra</div><div class="val">3 wks</div><div class="unit">+ for 1-yr course</div><div class="desc">Additional medical leave for 1-year trade courses</div></div>
+    <div class="nc"><div class="stag">Medical Extra</div><div class="val">6 wks</div><div class="unit">+ for 2-yr course</div><div class="desc">Additional medical leave for 2-year trade courses</div></div>
+    <div class="nc"><div class="stag">Special Leave</div><div class="val">10</div><div class="unit">days normal</div><div class="desc">Standard special leave on private affairs</div></div>
+    <div class="nc"><div class="stag">Special Max</div><div class="val">15</div><div class="unit">days (1-yr)</div><div class="desc">Maximum special leave for 1-year course trainees</div></div>
+    <div class="nc"><div class="stag">Special Max</div><div class="val">30</div><div class="unit">days (2-yr)</div><div class="desc">Maximum special leave for 2-year course trainees</div></div>
+    <div class="nc"><div class="stag">Absence</div><div class="val">&lt;10</div><div class="unit">consecutive days</div><div class="desc">Written warning issued by Principal on first occasion</div></div>
+    <div class="nc"><div class="stag">Inspection</div><div class="val">1/quarter</div><div class="unit">per centre</div><div class="desc">Minimum inspection frequency by State Directorate</div></div>
+    <div class="nc"><div class="stag">Inspection</div><div class="val">1/year</div><div class="unit">tripartite</div><div class="desc">Annual inspection by 3-member tripartite team</div></div>
+    <div class="nc"><div class="stag">NCVT</div><div class="val">3 yrs</div><div class="unit">instructor training</div><div class="desc">Untrained instructors must be trained within 3 years</div></div>
+    <div class="nc"><div class="stag">NCVT</div><div class="val">6 months</div><div class="unit">advance notice</div><div class="desc">State Director must notify DGE&T before closing a trade</div></div>
+    <div class="nc"><div class="stag">Seats</div><div class="val">200–1000</div><div class="unit">seats per ITI</div><div class="desc">Minimum and maximum seat capacity for new ITIs</div></div>
+    <div class="nc"><div class="stag">Skills</div><div class="val">1964</div><div class="unit">start year</div><div class="desc">All India Skills Competition started</div></div>
+  </div>
+</section>
+
+<!-- ═══ WORKING HOURS ═══ -->
+<section id="hours" class="sr">
+  <div class="sh">
+    <div class="tag g">WORKING HOURS</div>
+    <h2 class="sh h2">Working Hours & <span class="hl">Attendance</span></h2>
+  </div>
+  <div class="g2">
+    <div class="card g">
+      <h3>Weekly Hours Breakdown</h3>
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Hours/Week</th></tr></thead>
+        <tbody>
+          <tr><td>Total Hours</td><td><strong>42 hours/week</strong></td></tr>
+          <tr><td>Practical Instruction</td><td><strong>28 hours/week</strong></td></tr>
+          <tr><td>Theoretical Instruction</td><td><strong>10 hours/week</strong></td></tr>
+          <tr><td>Daily Hours</td><td><strong>7.5 hours/day</strong></td></tr>
+          <tr><td>Holiday</td><td>2nd Saturday of every month</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card gold">
+      <h3>Attendance & Holidays</h3>
+      <ul class="sl">
+        <li>Minimum compulsory attendance for <strong>final trade test eligibility: 80%</strong> of actual working days</li>
+        <li>Trainees allowed same holidays as fixed by <strong>State Director</strong> for observance by staff</li>
+        <li>Stipend holders get stipend at <strong>full rate</strong> during holidays</li>
+        <li>7.5 hrs/day fixed for <strong>uniformity across all ITIs</strong> in India</li>
+        <li>Transfer of trainees sanctioned by <strong>State Director</strong> — no expense on travel, no change in sanctioned numbers</li>
+        <li>Tuition fee decided by <strong>State Government</strong> based on State Council for Vocational Training recommendation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LEAVE RULES ═══ -->
+<section id="leave" class="sr">
+  <div class="sh">
+    <div class="tag b">LEAVE RULES</div>
+    <h2 class="sh h2">Leave Admissible <span class="hlb">to Trainees</span></h2>
+  </div>
+
+  <div class="g3" style="margin-bottom:1.5rem;">
+    <div class="lc cl">
+      <div class="lt">Casual Leave</div>
+      <div class="lv">12</div>
+      <div class="lunit">days per year</div>
+      <div class="extra">Max <strong>10 days</strong> at one time. Applies to both 1-year and 2-year courses. Stipend continues at full rate.</div>
+    </div>
+    <div class="lc ml">
+      <div class="lt">Medical Leave</div>
+      <div class="lv">15</div>
+      <div class="lunit">days basic</div>
+      <div class="extra">For illness other than work injury. Medical certificate required. Extendable (see below).</div>
+    </div>
+    <div class="lc sl">
+      <div class="lt">Special Leave</div>
+      <div class="lv">10</div>
+      <div class="lunit">days normal</div>
+      <div class="extra">For private affairs. Extendable at Principal's discretion. No scholarship during special leave.</div>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-bottom:1.5rem;">
+    <thead>
+      <tr><th>Leave Type</th><th>Basic Entitlement</th><th>1-Year Course Extension</th><th>2-Year Course Extension</th><th>Stipend/Scholarship</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Casual Leave</td>
+        <td><strong>12 days/year</strong> (max 10 at once)</td>
+        <td>—</td>
+        <td>—</td>
+        <td>Stipend continues at full rate</td>
+      </tr>
+      <tr>
+        <td>Medical Leave</td>
+        <td><strong>15 days</strong></td>
+        <td>Additional <strong>3 weeks</strong> (with medical certificate)</td>
+        <td>Additional <strong>6 weeks</strong> (with medical certificate)</td>
+        <td>Not specifically mentioned</td>
+      </tr>
+      <tr>
+        <td>Special Leave</td>
+        <td><strong>10 days</strong></td>
+        <td>Up to <strong>15 days</strong> (Principal's discretion)</td>
+        <td>Up to <strong>30 days</strong> (Principal's discretion)</td>
+        <td><strong>No scholarship</strong> during special leave</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="co t">
+    <div class="cl">Medical Leave — Important Conditions</div>
+    <ul class="sl">
+      <li>Leave for illness <strong>other than injuries received while at work</strong></li>
+      <li>Extended leave requires medical certificate from <strong>medical officer or registered medical practitioner</strong></li>
+      <li>Certificate required <strong>irrespective of whether he goes to hospital or not</strong></li>
+      <li>Extended period is <strong>in continuation or in addition</strong> to the basic 15 days</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ ABSENCE & CONDUCT ═══ -->
+<section id="absence" class="sr">
+  <div class="sh">
+    <div class="tag r">CONDUCT</div>
+    <h2 class="sh h2">Unauthorised Absence & <span style="color:var(--red)">Conduct</span></h2>
+  </div>
+
+  <div class="g2">
+    <div class="card r">
+      <h3>Unauthorised Absence — Action Matrix</h3>
+      <table class="tbl">
+        <thead><tr><th>Situation</th><th>Action</th><th>By Whom</th></tr></thead>
+        <tbody>
+          <tr><td>First offence (&lt;10 consecutive days)</td><td><strong>Written warning</strong></td><td>Principal of institute</td></tr>
+          <tr><td>Repeated offence</td><td>Report to <strong>State Director</strong> with view to discharge</td><td>Principal</td></tr>
+          <tr><td>Any unauthorised absence (stipend holder)</td><td><strong>Proportionate deduction</strong> of stipend</td><td>Principal</td></tr>
+          <tr><td>Suspected misconduct (pending inquiry)</td><td><strong>Suspension</strong> (reasons recorded in writing)</td><td>Principal</td></tr>
+          <tr><td>During misconduct suspension</td><td><strong>No stipend</strong> paid</td><td>Institute</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card gold">
+      <h3>National Trade Certificate (NTC)</h3>
+      <ul class="sl">
+        <li>Awarded by <strong>National Council for Vocational Training (NCVT)</strong> to trainees who pass the trade test</li>
+        <li>Certificates printed with signature of the <strong>Secretary of NCVT</strong></li>
+        <li>Digitally signed and verifiable via NCVT MIS portal</li>
+      </ul>
+      <h3 style="margin-top:1rem;">Record Cards of Pass-Out Trainees</h3>
+      <ul class="sl">
+        <li>Record cards maintained for all ex-trainees</li>
+        <li>Must track whether trainee has <strong>secured employment</strong></li>
+        <li>If employed → name of employer recorded; if unemployed → whereabouts shown</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSPECTION ═══ -->
+<section id="inspection" class="sr">
+  <div class="sh">
+    <div class="tag b">INSPECTION</div>
+    <h2 class="sh h2">Inspection of <span class="hlb">ITI / ITCs</span></h2>
+  </div>
+
+  <div class="g2">
+    <div class="card b">
+      <h3>Inspection Frequencies</h3>
+      <ul class="sl">
+        <li>State Directorate inspecting officers should visit institutes <strong>as frequently as possible</strong></li>
+        <li>Conduct trade tests for trainees from time to time</li>
+        <li>Check efficiency of instructors; assist Principals in all training matters</li>
+        <li>Each training centre inspected at least <strong>once a quarter</strong> by State Directorate officer</li>
+        <li>At least <strong>one centre per year</strong> inspected by <em>tripartite team</em></li>
+      </ul>
+    </div>
+    <div class="card g">
+      <h3>Annual Tripartite Inspection Team</h3>
+      <div class="tri-team">
+        <div class="tri-item">
+          <div class="tri-num">①</div>
+          <div class="tri-role">State Director-in-charge of Training</div>
+          <div class="tri-sub">Government Representative</div>
+        </div>
+        <div class="tri-item">
+          <div class="tri-num">②</div>
+          <div class="tri-role">Representative of Industries</div>
+          <div class="tri-sub">Running own training schemes</div>
+        </div>
+        <div class="tri-item">
+          <div class="tri-num">③</div>
+          <div class="tri-role">Representative of Labour Organisation</div>
+          <div class="tri-sub">Worker's representative</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card t">
+    <h3>Factors for Location of New ITIs/ITCs</h3>
+    <div class="g2">
+      <ul class="sl">
+        <li><strong>1.</strong> Availability of plentiful supply of <strong>electric power</strong></li>
+        <li><strong>2.</strong> <strong>Employment potential</strong> in the trade(s)</li>
+      </ul>
+      <ul class="sl">
+        <li><strong>3.</strong> <strong>Industrial concentration</strong> or potentiality for industry in the area</li>
+        <li><strong>4.</strong> Availability of <strong>suitable land</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRINCIPAL'S DUTIES ═══ -->
+<section id="principal" class="sr">
+  <div class="sh">
+    <div class="tag gold">PRINCIPAL</div>
+    <h2 class="sh h2">Suggested Duties of <span class="hlg">ITI Principal</span></h2>
+  </div>
+
+  <div class="g2">
+    <div class="card gold">
+      <h3>Administrative Duties</h3>
+      <ul class="sl">
+        <li>Ensure all instructions from higher authorities are <strong>properly and expeditiously carried out</strong></li>
+        <li>Accounts maintained properly; stores <strong>accounted for and verified periodically</strong></li>
+        <li>Purchases according to <strong>specification and in good condition</strong></li>
+        <li>Raw materials purchased in time and duly supplied</li>
+        <li>Machine and equipment <strong>properly maintained</strong></li>
+        <li>Manufactured products accounted for and disposed per rules</li>
+        <li>Ensure foremen/supervisors maintain <strong>close supervision</strong> over instructors</li>
+        <li><strong>Proper discipline</strong> maintained; proper security and safety precautions observed</li>
+      </ul>
+    </div>
+    <div class="card g">
+      <h3>Training & Welfare Duties</h3>
+      <ul class="sl">
+        <li>Training programmes carried out <strong>according to schemes</strong></li>
+        <li>Close relationship maintained between <strong>trainees and instructional staff</strong></li>
+        <li>Proper follow-up maintained of <strong>passed-out trainees</strong></li>
+        <li>Trainees get <strong>proper medical aid</strong> and welfare arrangements</li>
+        <li>Proper facilities made available to inspection staff of <strong>State Directorate, DGE&T</strong> and other authorised bodies</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-top:0;">
+    <div class="card b">
+      <h3>Reference Material in Principal's Office (9 items)</h3>
+      <ul class="sl">
+        <li><strong>1.</strong> Layout plan of the institute</li>
+        <li><strong>2.</strong> Workshop layout showing machine locations</li>
+        <li><strong>3.</strong> Layout of electrical installation in workshop</li>
+        <li><strong>4.</strong> Electrical distribution layout of institute premises</li>
+        <li><strong>5.</strong> Organisational charts of the institute</li>
+        <li><strong>6.</strong> Prescribed syllabi and standard tools/equipment lists</li>
+        <li><strong>7.</strong> Trade-wise chart of trainees who passed trade test</li>
+        <li><strong>8.</strong> Duty charts of instructional/supervisory staff</li>
+        <li><strong>9.</strong> Weekly working time-table of each section</li>
+      </ul>
+    </div>
+    <div class="card t">
+      <h3>Reference Material in Workshop Sections (9 items)</h3>
+      <ul class="sl">
+        <li><strong>1.</strong> Sectional layout plan (machine positions, specs, loads)</li>
+        <li><strong>2.</strong> Prescribed syllabus and tools/equipment list</li>
+        <li><strong>3.</strong> Month/week-wise syllabus break-up charts</li>
+        <li><strong>4.</strong> Weekly working time-table</li>
+        <li><strong>5.</strong> Section progress card (individual trainee exercises)</li>
+        <li><strong>6.</strong> Visual aids, charts, drawings and models</li>
+        <li><strong>7.</strong> Machine and equipment maintenance instructions</li>
+        <li><strong>8.</strong> Chart showing safety rules</li>
+        <li><strong>9.</strong> First aid instructions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="co b">
+    <div class="cl">Instructional Media Packages (IMPs)</div>
+    <p>Government of India prescribes <strong>IMPs prepared by Central Instructional Media Institute (CIMI), Madras</strong> for all trades — used in ITIs as well as industrial establishments implementing the Apprenticeship Training programme.</p>
+  </div>
+</section>
+
+<!-- ═══ NCVT AFFILIATION ═══ -->
+<section id="ncvt" class="sr">
+  <div class="sh">
+    <div class="tag t">NCVT</div>
+    <h2 class="sh h2">Terms & Conditions for <span style="color:var(--teal)">NCVT Affiliation</span></h2>
+  </div>
+
+  <div class="g2">
+    <div class="card t">
+      <h3>Conditions to Maintain Affiliation</h3>
+      <ul class="sl">
+        <li>Must adopt NCVT standards: syllabi, scale of tools/equipment, shop layouts, training methods, trade testing</li>
+        <li>Training sessions must conform to <strong>All-India dates</strong> as laid down for starting sessions</li>
+        <li>Trainees appear in <strong>All India Trade Test conducted by NCVT</strong></li>
+        <li>Trade Tests conducted in institute premises or <strong>centre approved by State Director</strong> per NCVT procedure</li>
+        <li>Institute must provide facilities for regular inspections by State and <strong>Central Government officers</strong></li>
+        <li><strong>No new trade or unit</strong> without prior approval of State Director</li>
+      </ul>
+    </div>
+    <div class="card r">
+      <h3>Conditions That Can Cause Withdrawal of Affiliation</h3>
+      <ul class="sl">
+        <li>Untrained instructors must be trained within <strong>3 years of appointment</strong> — failing which, affiliation liable to be withdrawn</li>
+        <li>Closing a trade: State Director must give <strong>6 months advance notice</strong> to DGE&T with reasons</li>
+        <li>Failure to maintain prescribed NCVT standards → affiliation withdrawn on recommendation of <strong>Standing Committee + acceptance by NCVT</strong></li>
+        <li>Cost of raw materials for trade tests in <strong>private institutes borne by private institutes</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEW ITI RULES ═══ -->
+<section id="new-iti" class="sr">
+  <div class="sh">
+    <div class="tag o">NEW ITI</div>
+    <h2 class="sh h2">Opening New <span style="color:var(--orange)">Training Institutes</span></h2>
+  </div>
+
+  <div class="g2">
+    <div class="card o">
+      <h3>For Opening New Training Institutes</h3>
+      <ul class="sl">
+        <li>Should be located in <strong>industrial estates or close proximity</strong> to them</li>
+        <li>Capacity: <strong>not more than 1000 seats</strong> and <strong>not less than 200 seats</strong></li>
+      </ul>
+    </div>
+    <div class="card gold">
+      <h3>For Introduction of New Trades / Change of Trades</h3>
+      <ul class="sl">
+        <li>Utilise <strong>existing idle capacity</strong> by converting surplus seats from low-demand to high-demand trades</li>
+        <li>Measure <strong>present demand</strong> by number of applications received at time of admission</li>
+        <li>Consider <strong>employment potential</strong> or availability of further apprenticeship training facilities</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="co">
+    <div class="cl">All India Skills Competition</div>
+    <p>Started in <strong>1964</strong> to foster healthy competition among trainees and raise skill standards. Only trainees under the <strong>regular Craftsmen Training Scheme</strong> are eligible to compete.</p>
+  </div>
+
+  <div class="co b">
+    <div class="cl">Training in Dual Trades</div>
+    <p>An ex-trainee who already holds a <strong>National Trade Certificate (NTC)</strong> in one trade under CTS may be admitted to train in another trade, provided they fulfill all conditions regarding <strong>educational qualifications, age, etc.</strong> prescribed for the new trade.</p>
+  </div>
+</section>
+
+<!-- ═══ STATISTICAL RETURNS ═══ -->
+<section id="stats" class="sr">
+  <div class="sh">
+    <div class="tag b">STATISTICS</div>
+    <h2 class="sh h2">Statistical Returns — <span class="hlb">Craftsmen Training Scheme</span></h2>
+  </div>
+
+  <div class="co b" style="margin-bottom:1.5rem;">
+    <div class="cl">Submission Route</div>
+    <p>Four statistical returns (TS-1 to TS-4) must be sent <strong>annually</strong> by ITIs/ITCs to <strong>DGET, New Delhi</strong> through the State Directors.</p>
+  </div>
+
+  <div class="ts-grid">
+    <div class="ts-card">
+      <div class="ts-code">TS-1</div>
+      <div class="ts-title">Annual Statistical Return on Craftsmen Training Scheme</div>
+      <div class="ts-note">General annual return — overall training data</div>
+    </div>
+    <div class="ts-card">
+      <div class="ts-code">TS-2</div>
+      <div class="ts-title">Annual Return — Number of trainees declared Successful in Final / Supplementary Trade Tests</div>
+      <div class="ts-note">Pass rate and success data</div>
+    </div>
+    <div class="ts-card">
+      <div class="ts-code">TS-3</div>
+      <div class="ts-title">Annual Return — Trades and Units affiliated to NCVT</div>
+      <div class="ts-note">NCVT affiliation data per institute <strong>(2014 Exam Answer)</strong></div>
+    </div>
+    <div class="ts-card">
+      <div class="ts-code">TS-4</div>
+      <div class="ts-title">Annual Return — Training of Industrial Workers under Part-time Classes for Industrial Workers</div>
+      <div class="ts-note">Part-time industrial worker training scheme</div>
+    </div>
+  </div>
+
+  <div class="co gold" style="margin-top:1.5rem;">
+    <div class="cl">TS-1 Form Categories (Category of Institute)</div>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;">
+      General → <strong style="color:var(--accent)">'G'</strong> &nbsp;|&nbsp;
+      Women → <strong style="color:var(--blue)">'W'</strong> &nbsp;|&nbsp;
+      SC → <strong style="color:var(--teal)">'SC'</strong> &nbsp;|&nbsp;
+      ST → <strong style="color:var(--orange)">'ST'</strong> &nbsp;|&nbsp;
+      Physically Handicapped → <strong style="color:var(--red)">'Ph'</strong> &nbsp;|&nbsp;
+      Minority → <strong style="color:var(--gold)">'M'</strong>
+    </p>
+    <p style="font-size:0.85rem;margin-top:0.5rem;color:var(--muted);">Session ending date: <strong style="color:var(--ink)">31 July</strong> · Sent through State Director to DGET, New Delhi</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  DGE&T TRAINING MANUAL — ITI ADMINISTRATION NOTES · Prepared from Ignite Academy Class Notes · For Educational Purposes Only
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.sr');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  els.forEach(el => obs.observe(el));
+
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
