@@ -3,1030 +3,560 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vocational Education – Complete Notes | Ignite Academy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<title>DHRUV — Vocational Education Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --red: #e05252;
-    --dark-red: #c0392b;
-    --bg: #0d0f14;
-    --surface: #151820;
-    --surface2: #1c2030;
-    --surface3: #232840;
-    --gold: #f0b429;
-    --gold-dim: #a37c1a;
-    --border: #2a2f45;
-    --border-bright: #3a4060;
-    --text: #d0d8f0;
-    --text-dim: #7a85a8;
-    --text-bright: #eef2ff;
-    --highlight-bg: #1e1a0a;
-    --highlight-border: #7a5a00;
-    --green: #3dba7a;
-    --green-bg: #0a1f15;
-    --blue: #4a9eda;
-    --blue-bg: #0a1525;
-    --purple: #a07ee0;
-    --purple-bg: #150e28;
-    --orange: #e07840;
-    --cyan: #30c8c8;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  /* ── HEADER ── */
-  header {
-    background: linear-gradient(135deg, #0a0c12 0%, #131828 50%, #1a1030 100%);
-    color: white;
-    padding: 48px 44px 36px;
-    position: relative;
-    overflow: hidden;
-    border-bottom: 1px solid var(--border-bright);
-  }
-  header::before {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(224,82,82,0.18) 0%, transparent 70%);
-  }
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: 28%;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(240,180,41,0.12) 0%, transparent 70%);
-  }
-  .header-glow {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(74,158,218,0.04), transparent);
-    pointer-events: none;
-  }
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-    color: var(--text-bright);
-    text-shadow: 0 0 40px rgba(74,158,218,0.3);
-  }
-  header .subtitle {
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    margin-top: 8px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 1;
-  }
-  header .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--dark-red), #8b1a1a);
-    color: white;
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-top: 14px;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-    border: 1px solid rgba(224,82,82,0.3);
-    box-shadow: 0 0 16px rgba(224,82,82,0.2);
-  }
-
-  /* ── LAYOUT ── */
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
-
-  /* ── TOC ── */
-  .toc {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 28px 32px;
-    margin: 32px 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 6px 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-  }
-  .toc-title {
-    grid-column: 1 / -1;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--gold);
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--border-bright);
-    padding-bottom: 10px;
-  }
-  .toc a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 0.84rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 6px;
-    border-radius: 6px;
-    transition: all 0.2s;
-  }
-  .toc a:hover { color: var(--gold); background: rgba(240,180,41,0.07); }
-  .toc a::before { content: '›'; color: var(--red); font-size: 1rem; line-height: 1; }
-
-  /* ── SECTION ── */
-  section { margin: 36px 0; }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--border-bright);
-    position: relative;
-  }
-  .section-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; left: 0;
-    width: 80px; height: 2px;
-    background: var(--red);
-    border-radius: 2px;
-  }
-  .section-icon {
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--dark-red), #6b1010);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-    box-shadow: 0 0 16px rgba(192,57,43,0.3);
-  }
-  .section-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--text-bright);
-  }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 22px 26px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    transition: border-color 0.2s;
-  }
-  .card:hover { border-color: var(--border-bright); }
-  .card h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--red);
-    font-size: 1.1rem;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card h4 {
-    color: var(--blue);
-    font-size: 0.88rem;
-    font-weight: 700;
-    margin: 16px 0 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .card h4::before {
-    content: '';
-    display: inline-block;
-    width: 3px; height: 14px;
-    background: var(--blue);
-    border-radius: 2px;
-  }
-
-  /* ── BULLET LISTS ── */
-  ul.notes { list-style: none; padding: 0; }
-  ul.notes li {
-    padding: 5px 0 5px 22px;
-    position: relative;
-    font-size: 0.92rem;
-    color: var(--text);
-    border-bottom: 1px solid rgba(42,47,69,0.5);
-  }
-  ul.notes li:last-child { border-bottom: none; }
-  ul.notes li::before {
-    content: '▸';
-    color: var(--red);
-    position: absolute;
-    left: 0;
-    font-size: 0.75rem;
-    top: 8px;
-  }
-  ul.notes li strong { color: var(--gold); font-weight: 600; }
-
-  /* ── HIGHLIGHT BOXES ── */
-  .highlight-box {
-    background: var(--highlight-bg);
-    border: 1px solid var(--highlight-border);
-    border-left: 4px solid var(--gold);
-    border-radius: 0 8px 8px 0;
-    padding: 13px 18px;
-    margin: 14px 0;
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-  .highlight-box strong { color: var(--gold); }
-
-  .info-box {
-    background: var(--blue-bg);
-    border: 1px solid rgba(74,158,218,0.2);
-    border-left: 4px solid var(--blue);
-    border-radius: 0 8px 8px 0;
-    padding: 13px 18px;
-    margin: 14px 0;
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-  .info-box strong { color: var(--blue); }
-
-  .success-box {
-    background: var(--green-bg);
-    border: 1px solid rgba(61,186,122,0.2);
-    border-left: 4px solid var(--green);
-    border-radius: 0 8px 8px 0;
-    padding: 13px 18px;
-    margin: 14px 0;
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-  .success-box strong { color: var(--green); }
-
-  /* ── GRID ── */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  @media(max-width: 700px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    header h1 { font-size: 1.7rem; }
-    .phases { flex-direction: column; }
-  }
-
-  .mini-card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 0.87rem;
-    color: var(--text);
-    transition: border-color 0.2s, transform 0.15s;
-  }
-  .mini-card:hover { border-color: var(--border-bright); transform: translateY(-1px); }
-  .mini-card .label {
-    font-weight: 700;
-    color: var(--red);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-    font-family: 'Fira Code', monospace;
-  }
-  .mini-card strong { color: var(--gold); }
-
-  /* ── MEMORY MAP ── */
-  .memory-map {
-    background: linear-gradient(135deg, #0a0c14 0%, #10142a 100%);
-    border: 1px solid var(--border-bright);
-    border-radius: 16px;
-    padding: 36px;
-    margin: 32px 0;
-    color: white;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-  }
-  .memory-map h2 {
-    font-family: 'Playfair Display', serif;
-    color: var(--gold);
-    font-size: 1.6rem;
-    text-align: center;
-    margin-bottom: 28px;
-    text-shadow: 0 0 30px rgba(240,180,41,0.3);
-  }
-  .map-center { text-align: center; margin-bottom: 28px; }
-  .map-core {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--dark-red), #8b1515);
-    color: white;
-    padding: 16px 36px;
-    border-radius: 50px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    box-shadow: 0 0 0 6px rgba(192,57,43,0.15), 0 0 40px rgba(192,57,43,0.25);
-    border: 1px solid rgba(224,82,82,0.4);
-  }
-  .map-branches {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-  }
-  .branch-node {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
-    padding: 16px;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .branch-node:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(240,180,41,0.25);
-  }
-  .branch-node .branch-title {
-    font-weight: 700;
-    color: var(--gold);
-    font-size: 0.82rem;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    padding-bottom: 8px;
-  }
-  .branch-node ul { list-style: none; padding: 0; }
-  .branch-node ul li {
-    font-size: 0.76rem;
-    color: #8a99c0;
-    padding: 3px 0 3px 12px;
-    position: relative;
-    line-height: 1.5;
-  }
-  .branch-node ul li::before {
-    content: '·';
-    position: absolute; left: 0;
-    color: var(--red);
-    font-size: 1.4rem;
-    top: -4px;
-  }
-
-  /* ── TIMELINE ── */
-  .timeline { position: relative; padding-left: 32px; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 10px; top: 0; bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--red), var(--gold), var(--blue));
-    opacity: 0.5;
-  }
-  .timeline-item { position: relative; margin-bottom: 16px; }
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -25px; top: 7px;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--red);
-    border: 2px solid var(--bg);
-    box-shadow: 0 0 0 2px var(--red), 0 0 8px rgba(224,82,82,0.4);
-  }
-  .timeline-item .year {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--dark-red), #6b1010);
-    color: white;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    margin-bottom: 3px;
-    font-family: 'Fira Code', monospace;
-    border: 1px solid rgba(224,82,82,0.3);
-  }
-  .timeline-item p { font-size: 0.89rem; color: var(--text); }
-  .timeline-item p strong { color: var(--gold); }
-
-  /* ── PYQ ── */
-  .pyq-block {
-    background: var(--purple-bg);
-    border: 1px solid rgba(160,126,224,0.2);
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-bottom: 12px;
-    transition: border-color 0.2s;
-  }
-  .pyq-block:hover { border-color: rgba(160,126,224,0.4); }
-  .pyq-tag {
-    display: inline-block;
-    background: linear-gradient(135deg, #5a3a9a, #3a2070);
-    color: #c8aaff;
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-    font-family: 'Fira Code', monospace;
-    border: 1px solid rgba(160,126,224,0.3);
-  }
-  .pyq-block .q { font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-bright); }
-  .pyq-block .ans {
-    color: var(--green);
-    font-weight: 600;
-    font-size: 0.87rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
-    padding: 8px 12px;
-    background: rgba(61,186,122,0.06);
-    border-radius: 6px;
-    border: 1px solid rgba(61,186,122,0.15);
-  }
-  .pyq-block .ans::before { content: '✔'; flex-shrink: 0; margin-top: 1px; }
-
-  /* ── TABLE ── */
-  table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
-  th {
-    background: #0d1220;
-    color: var(--gold);
-    padding: 11px 16px;
-    text-align: left;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--border-bright);
-  }
-  td { padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--text); }
-  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-  tr:hover td { background: rgba(240,180,41,0.05); }
-
-  /* ── PHASES (PMKVY) ── */
-  .phases { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 10px; }
-  .phases::-webkit-scrollbar { height: 4px; }
-  .phases::-webkit-scrollbar-track { background: var(--surface); }
-  .phases::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
-
-  .phase-card {
-    min-width: 195px;
-    background: var(--surface2);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    padding: 18px;
-    flex-shrink: 0;
-    border-top: 3px solid var(--red);
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .phase-card:hover { transform: translateY(-3px); border-color: var(--border-bright); }
-  .phase-card.v2 { border-top-color: var(--blue); }
-  .phase-card.v3 { border-top-color: var(--green); }
-  .phase-card.v4 { border-top-color: var(--purple); }
-  .phase-card .phase-label {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--text-dim);
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-  }
-  .phase-card h4 { font-size: 0.96rem; margin-bottom: 10px; color: var(--text-bright); font-family: 'Playfair Display', serif; }
-  .phase-card ul { list-style: none; padding: 0; }
-  .phase-card ul li { font-size: 0.79rem; padding: 3px 0 3px 14px; position: relative; color: var(--text); }
-  .phase-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--text-dim); font-size: 0.75rem; }
-
-  /* ── DIVIDER ── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--border-bright), transparent);
-    margin: 36px 0;
-  }
-
-  /* ── BACK TO TOP ── */
-  .back-top {
-    position: fixed; bottom: 24px; right: 24px;
-    background: linear-gradient(135deg, var(--dark-red), #8b1a1a);
-    color: white;
-    border: 1px solid rgba(224,82,82,0.4);
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(192,57,43,0.4);
-    display: flex; align-items: center; justify-content: center;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .back-top:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,57,43,0.5); }
-
-  /* scrollbar global */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+:root{--bg:#07070c;--s1:#0e0e16;--s2:#12121e;--s3:#1a1a28;--border:rgba(255,255,255,0.07);--text:#c8c8d8;--bright:#f0f0f8;--muted:#52526a;--fire:#ff3c1f;--fire2:#ff6b4a;--gold:#f5a623;--goldd:#ffc96b;--teal:#00d4b4;--violet:#9b5de5;--green:#22d37a;--blue:#4da6ff;--red:#ff5757;--purple:#c77dff;--orange:#f97316;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");}
+body>*{position:relative;z-index:1;}
+.dhruv-bar{position:sticky;top:0;z-index:500;background:rgba(7,7,12,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.dhruv-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff3c1f,#f5a623);}
+.dhruv-left{display:flex;align-items:center;gap:0.85rem;}
+.dhruv-logo{width:36px;height:36px;background:linear-gradient(135deg,#ff3c1f,#f5a623);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 0 16px rgba(255,60,31,0.4);flex-shrink:0;}
+.dhruv-brand{font-family:'Bebas Neue',sans-serif;font-size:1.65rem;letter-spacing:0.07em;background:linear-gradient(130deg,#fff 25%,#ffc96b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.dhruv-divider{width:1px;height:26px;background:var(--border);}
+.dhruv-badge{font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:100px;background:rgba(255,60,31,0.12);border:1px solid rgba(255,60,31,0.3);color:#ff6b4a;}
+.dhruv-title{font-weight:700;font-size:0.85rem;color:var(--bright);}
+.dhruv-sub{font-size:0.62rem;color:var(--muted);margin-top:0.1rem;}
+.dhruv-back{display:flex;align-items:center;gap:0.4rem;padding:0.4rem 0.9rem;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--muted);font-size:0.73rem;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.dhruv-back:hover{border-color:rgba(255,60,31,0.4);color:var(--fire2);}
+header{padding:4rem 2rem 3.5rem;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(255,60,31,0.12) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(245,166,35,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 100%,rgba(0,212,180,0.05) 0%,transparent 50%);}
+.header-inner{max-width:1100px;margin:0 auto;position:relative;}
+.header-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,60,31,0.1);border:1px solid rgba(255,60,31,0.25);color:var(--fire2);font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:100px;margin-bottom:1.4rem;}
+header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);letter-spacing:0.04em;line-height:1;background:linear-gradient(130deg,#fff 20%,#ffc96b 70%,#ff6b4a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{margin-top:0.8rem;color:var(--muted);font-size:0.9rem;letter-spacing:0.04em;}
+.header-stats{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;}
+.hstat{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:0.7rem 1.2rem;display:flex;align-items:center;gap:0.6rem;}
+.hstat-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.03em;color:var(--gold);line-height:1;}
+.hstat-label{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+nav.topnav{background:rgba(14,14,22,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0.6rem 2rem;display:flex;gap:0.3rem;flex-wrap:wrap;position:sticky;top:57px;z-index:400;overflow-x:auto;}
+nav.topnav a{color:var(--muted);text-decoration:none;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:0.35rem 0.8rem;border-radius:6px;border:1px solid transparent;transition:all 0.2s;white-space:nowrap;}
+nav.topnav a:hover{color:var(--bright);border-color:var(--border);background:rgba(255,255,255,0.04);}
+nav.topnav a.active{color:var(--fire2);border-color:rgba(255,60,31,0.3);background:rgba(255,60,31,0.07);}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem;}
+.toc{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.8rem;margin:2rem 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.4rem 1.5rem;}
+.toc-title{grid-column:1/-1;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.06em;color:var(--gold);margin-bottom:0.8rem;padding-bottom:0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;}
+.toc a{color:var(--muted);text-decoration:none;font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.5rem;border-radius:6px;transition:all 0.2s;}
+.toc a:hover{color:var(--gold);background:rgba(245,166,35,0.06);}
+.toc a::before{content:'›';color:var(--fire);font-size:1rem;line-height:1;}
+section{margin:2.5rem 0;}
+.sec-hdr{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:0.9rem;border-bottom:1px solid var(--border);position:relative;}
+.sec-hdr::after{content:'';position:absolute;bottom:-1px;left:0;width:60px;height:2px;background:linear-gradient(90deg,var(--fire),transparent);border-radius:2px;}
+.sec-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(255,60,31,0.2),rgba(245,166,35,0.2));border:1px solid rgba(255,60,31,0.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.sec-hdr h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.04em;color:var(--bright);}
+.sec-hdr h2 em{font-style:normal;color:var(--gold);}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.7rem;margin-bottom:1.2rem;transition:border-color 0.2s,box-shadow 0.2s;}
+.card:hover{border-color:rgba(255,255,255,0.12);box-shadow:0 8px 32px rgba(0,0,0,0.3);}
+.card h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.05em;color:var(--fire2);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+.card h4{color:var(--blue);font-size:0.78rem;font-weight:700;margin:1.2rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.1em;display:flex;align-items:center;gap:0.4rem;}
+.card h4::before{content:'';display:inline-block;width:3px;height:12px;background:var(--blue);border-radius:2px;}
+ul.notes{list-style:none;padding:0;}
+ul.notes li{padding:0.4rem 0 0.4rem 1.4rem;position:relative;font-size:0.88rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);}
+ul.notes li:last-child{border-bottom:none;}
+ul.notes li::before{content:'▸';color:var(--fire);position:absolute;left:0;font-size:0.7rem;top:0.55rem;}
+ul.notes li strong{color:var(--goldd);font-weight:600;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem;}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr;}.phases{flex-direction:column!important;}}
+.mini-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;font-size:0.85rem;color:var(--text);transition:border-color 0.2s,transform 0.15s;}
+.mini-card:hover{border-color:rgba(255,255,255,0.12);transform:translateY(-1px);}
+.mini-card .label{font-family:'Fira Code',monospace;font-weight:700;color:var(--fire2);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem;}
+.mini-card strong{color:var(--goldd);}
+.mini-card.teal .label{color:var(--teal);}
+.mini-card.blue .label{color:var(--blue);}
+.mini-card.green .label{color:var(--green);}
+.mini-card.violet .label{color:var(--violet);}
+.hbox{border-radius:10px;padding:0.85rem 1.1rem;margin:0.9rem 0;border-left:3px solid var(--gold);background:rgba(245,166,35,0.06);font-size:0.87rem;color:var(--text);}
+.hbox strong{color:var(--goldd);}
+.hbox.blue{border-color:var(--blue);background:rgba(77,166,255,0.06);}
+.hbox.blue strong{color:var(--blue);}
+.hbox.green{border-color:var(--green);background:rgba(34,211,122,0.06);}
+.hbox.green strong{color:var(--green);}
+.hbox.teal{border-color:var(--teal);background:rgba(0,212,180,0.06);}
+.hbox.teal strong{color:var(--teal);}
+.hbox.red{border-color:var(--red);background:rgba(255,87,87,0.06);}
+.hbox.red strong{color:var(--red);}
+.hbox.violet{border-color:var(--violet);background:rgba(155,93,229,0.06);}
+.hbox.violet strong{color:var(--violet);}
+.timeline{position:relative;padding-left:2.2rem;}
+.timeline::before{content:'';position:absolute;left:0.6rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--fire),var(--gold),var(--teal));opacity:0.5;border-radius:2px;}
+.tl-item{position:relative;margin-bottom:1.1rem;}
+.tl-item::before{content:'';position:absolute;left:-1.65rem;top:0.5rem;width:10px;height:10px;border-radius:50%;background:var(--fire);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--fire),0 0 8px rgba(255,60,31,0.4);}
+.tl-year{display:inline-block;background:rgba(255,60,31,0.12);border:1px solid rgba(255,60,31,0.25);color:var(--fire2);padding:0.15rem 0.7rem;border-radius:100px;font-family:'Fira Code',monospace;font-size:0.72rem;font-weight:600;margin-bottom:0.2rem;}
+.tl-item p{font-size:0.88rem;color:var(--text);}
+.tl-item p strong{color:var(--goldd);}
+.pyq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:640px){.pyq-grid{grid-template-columns:1fr;}}
+.pyq{background:rgba(155,93,229,0.06);border:1px solid rgba(155,93,229,0.2);border-radius:12px;padding:1rem 1.2rem;transition:border-color 0.2s;}
+.pyq:hover{border-color:rgba(155,93,229,0.4);}
+.pyq-tag{display:inline-block;background:rgba(155,93,229,0.15);color:var(--purple);font-family:'Fira Code',monospace;font-size:0.62rem;font-weight:700;padding:0.18rem 0.7rem;border-radius:100px;letter-spacing:0.06em;margin-bottom:0.6rem;border:1px solid rgba(155,93,229,0.3);}
+.pyq .q{font-weight:600;font-size:0.88rem;margin-bottom:0.7rem;color:var(--bright);}
+.pyq .ans{color:var(--green);font-weight:600;font-size:0.85rem;display:flex;align-items:flex-start;gap:0.5rem;padding:0.6rem 0.9rem;background:rgba(34,211,122,0.06);border-radius:7px;border:1px solid rgba(34,211,122,0.15);}
+.pyq .ans::before{content:'✔';flex-shrink:0;margin-top:0.05rem;}
+table{width:100%;border-collapse:collapse;font-size:0.86rem;}
+th{background:rgba(255,60,31,0.1);color:var(--fire2);padding:0.7rem 1rem;text-align:left;font-weight:700;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,60,31,0.2);}
+td{padding:0.65rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text);}
+tr:hover td{background:rgba(245,166,35,0.03);}
+.phases{display:flex;gap:1rem;overflow-x:auto;padding-bottom:0.8rem;}
+.phases::-webkit-scrollbar{height:3px;}
+.phases::-webkit-scrollbar-track{background:var(--s1);}
+.phases::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px;}
+.phase-card{min-width:200px;flex-shrink:0;background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:1.2rem;border-top:3px solid var(--fire);transition:transform 0.2s,border-color 0.2s;}
+.phase-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.12);}
+.phase-card.v2{border-top-color:var(--blue);}
+.phase-card.v3{border-top-color:var(--green);}
+.phase-card.v4{border-top-color:var(--violet);}
+.phase-label{font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:0.5rem;}
+.phase-card h4{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.04em;color:var(--bright);margin-bottom:0.6rem;}
+.phase-card ul{list-style:none;padding:0;}
+.phase-card ul li{font-size:0.78rem;padding:0.2rem 0 0.2rem 1rem;position:relative;color:var(--text);}
+.phase-card ul li::before{content:'→';position:absolute;left:0;color:var(--muted);font-size:0.7rem;}
+.memory-map{background:linear-gradient(135deg,rgba(255,60,31,0.06) 0%,rgba(7,7,12,0) 60%,rgba(0,212,180,0.04) 100%);border:1px solid var(--border);border-radius:20px;padding:2.5rem;margin:2rem 0;position:relative;overflow:hidden;}
+.memory-map::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(245,166,35,0.06) 0%,transparent 60%);}
+.map-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.06em;color:var(--gold);text-align:center;margin-bottom:2rem;text-shadow:0 0 30px rgba(245,166,35,0.25);}
+.map-center{text-align:center;margin-bottom:2rem;}
+.map-core{display:inline-block;background:linear-gradient(135deg,#ff3c1f,#f5a623);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.06em;padding:0.9rem 2.5rem;border-radius:50px;box-shadow:0 0 0 6px rgba(255,60,31,0.12),0 0 40px rgba(255,60,31,0.2);}
+.map-branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1rem;}
+.branch-node{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;transition:border-color 0.2s,background 0.2s;}
+.branch-node:hover{background:rgba(255,255,255,0.045);border-color:rgba(245,166,35,0.2);}
+.branch-title{font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.04em;color:var(--gold);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.4rem;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:0.6rem;}
+.branch-node ul{list-style:none;padding:0;}
+.branch-node ul li{font-size:0.74rem;color:var(--muted);padding:0.2rem 0 0.2rem 0.8rem;position:relative;line-height:1.45;}
+.branch-node ul li::before{content:'·';position:absolute;left:0;color:var(--fire);}
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(255,60,31,0.3),transparent);margin:2.5rem 0;}
+.num-strip{display:flex;gap:0.7rem;flex-wrap:wrap;margin:1rem 0;}
+.num-pill{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:0.7rem 1rem;display:flex;flex-direction:column;align-items:center;gap:0.15rem;flex:1;min-width:110px;}
+.np-val{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--fire2);line-height:1;}
+.np-label{font-family:'Fira Code',monospace;font-size:0.62rem;color:var(--muted);text-align:center;line-height:1.3;}
+.exam-tip{display:flex;align-items:flex-start;gap:0.75rem;background:rgba(0,212,180,0.06);border:1px solid rgba(0,212,180,0.2);border-radius:10px;padding:0.85rem 1.1rem;margin:0.9rem 0;font-size:0.86rem;color:var(--text);}
+.exam-tip::before{content:'⚡';flex-shrink:0;font-size:1rem;margin-top:0.05rem;}
+.exam-tip strong{color:var(--teal);}
+.back-top{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;background:linear-gradient(135deg,var(--fire),var(--gold));color:#fff;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;text-decoration:none;box-shadow:0 4px 16px rgba(255,60,31,0.4);transition:transform 0.2s,box-shadow 0.2s;}
+.back-top:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,60,31,0.5);}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
 </style>
 </head>
 <body>
 
+<div class="dhruv-bar">
+  <div class="dhruv-left">
+    <div class="dhruv-logo">📚</div>
+    <div class="dhruv-brand">DHRUV</div>
+    <div class="dhruv-divider"></div>
+    <div>
+      <div style="display:flex;align-items:center;gap:0.5rem">
+        <span class="dhruv-badge">Voc. Education</span>
+        <div class="dhruv-title">Vocational Education Notes</div>
+      </div>
+      <div class="dhruv-sub">MPSC Exam Preparation · Complete Notes</div>
+    </div>
+  </div>
+  <a class="dhruv-back" href="index.html">← Back to DHRUV</a>
+</div>
+
 <header>
-  <div class="header-glow"></div>
-  <h1>📚 Vocational Education</h1>
-  <div class="subtitle">Complete Class Notes — Ignite Academy</div>
-  <span class="badge">उपसंचालक | प्राचार्य | उप प्राचार्य | निरीक्षक</span>
+  <div class="header-inner">
+    <div class="header-eyebrow">📚 Vocational Education</div>
+    <h1>VOCATIONAL<br>EDUCATION</h1>
+    <div class="header-sub">Complete Exam Notes · MPSC उपसंचालक | प्राचार्य | निरीक्षक</div>
+    <div class="header-stats">
+      <div class="hstat"><span class="hstat-val">10</span><span class="hstat-label">Topics<br>Covered</span></div>
+      <div class="hstat"><span class="hstat-val">411</span><span class="hstat-label">ITIs in<br>Maharashtra</span></div>
+      <div class="hstat"><span class="hstat-val">4</span><span class="hstat-label">PMKVY<br>Phases</span></div>
+      <div class="hstat"><span class="hstat-val">2014</span><span class="hstat-label">MSDE<br>Established</span></div>
+    </div>
+  </div>
 </header>
 
+<nav class="topnav" id="main-nav">
+  <a href="#def" class="active">Definition</a>
+  <a href="#systems">VET Systems</a>
+  <a href="#iti">ITI Ecosystem</a>
+  <a href="#history">History</a>
+  <a href="#prevoc">Pre-Voc & SUPW</a>
+  <a href="#problems">Problems</a>
+  <a href="#pmkvy">PMKVY</a>
+  <a href="#schemes">Schemes</a>
+  <a href="#maharashtra">Maharashtra</a>
+  <a href="#pyqs">PYQs</a>
+  <a href="#memmap">Memory Map</a>
+</nav>
+
 <div class="container">
+<nav class="toc">
+  <div class="toc-title">📑 Table of Contents</div>
+  <a href="#def">1. Definition & Need</a>
+  <a href="#systems">2. Systems of VET</a>
+  <a href="#iti">3. ITI Ecosystem</a>
+  <a href="#history">4. History of VE</a>
+  <a href="#prevoc">5. Pre-Voc & SUPW</a>
+  <a href="#problems">6. Problems</a>
+  <a href="#pmkvy">7. PMKVY All Phases</a>
+  <a href="#schemes">8. Other Schemes</a>
+  <a href="#maharashtra">9. Maharashtra</a>
+  <a href="#pyqs">10. PYQ Practice</a>
+  <a href="#memmap">🧠 Memory Map</a>
+</nav>
 
-  <!-- TOC -->
-  <nav class="toc">
-    <div class="toc-title">📑 Table of Contents</div>
-    <a href="#def">1. Definition & Need</a>
-    <a href="#systems">2. Systems of VET in India</a>
-    <a href="#iti">3. ITI Ecosystem</a>
-    <a href="#history">4. History of VE in India</a>
-    <a href="#prevoc">5. Pre-Vocational Education & SUPW</a>
-    <a href="#problems">6. Problems in VE</a>
-    <a href="#pmkvy">7. PMKVY (All Phases)</a>
-    <a href="#schemes">8. Other Schemes</a>
-    <a href="#maharashtra">9. Maharashtra-Specific</a>
-    <a href="#pyqs">10. PYQ Practice Questions</a>
-    <a href="#memmap">🧠 Memory Map</a>
-  </nav>
-
-  <!-- ═══ 1. DEFINITION ═══ -->
-  <section id="def">
-    <div class="section-header">
-      <div class="section-icon">📖</div>
-      <h2>1. What is Vocational Education?</h2>
-    </div>
-    <div class="card">
-      <ul class="notes">
-        <li>Education based on <strong>occupation and employment</strong></li>
-        <li>Also known as <strong>Career and Technical Education (CTE)</strong> or <strong>Technical and Vocational Education and Training (TVET)</strong></li>
-        <li>Prepares people for specific trades, crafts and careers at all levels</li>
-        <li>Also called <strong>Technical Education</strong> — trainee directly develops expertise in a group of techniques</li>
-      </ul>
-      <h4>Need of Vocational Education</h4>
+<section id="def">
+  <div class="sec-hdr"><div class="sec-icon">📖</div><h2>1. What is <em>Vocational Education?</em></h2></div>
+  <div class="card">
+    <ul class="notes">
+      <li>Education based on <strong>occupation and employment</strong></li>
+      <li>Also known as <strong>Career and Technical Education (CTE)</strong> or <strong>Technical and Vocational Education and Training (TVET)</strong></li>
+      <li>Prepares people for specific trades, crafts and careers at all levels</li>
+      <li>Also called <strong>Technical Education</strong> — trainee directly develops expertise in a group of techniques</li>
+    </ul>
+    <h4>Need of Vocational Education</h4>
+    <div class="grid-2">
       <ul class="notes">
         <li><strong>Bridges skill gap</strong> — between industry demands and workforce skills</li>
         <li>Enhances chances of <strong>gainful employment or self-employment</strong></li>
-        <li>Increases <strong>industry productivity</strong> by aligning training with industry needs</li>
+        <li>Increases <strong>industry productivity</strong> by aligning training with needs</li>
+      </ul>
+      <ul class="notes">
         <li>Caters to <strong>hands-on / practical learners</strong> — broader spectrum of talent</li>
-        <li>Helps <strong>alleviate poverty</strong> by improving standard of living through better jobs or businesses</li>
+        <li>Helps <strong>alleviate poverty</strong> by improving standard of living</li>
       </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══ 2. SYSTEMS ═══ -->
-  <section id="systems">
-    <div class="section-header">
-      <div class="section-icon">🏛️</div>
-      <h2>2. Systems of VET in India</h2>
-    </div>
-    <div class="grid-3">
-      <div class="mini-card"><div class="label">System 1</div>Industrial Training Institutes (ITIs)</div>
-      <div class="mini-card"><div class="label">System 2</div>Apprenticeship Training</div>
-      <div class="mini-card"><div class="label">System 3</div>Polytechnic Institutes</div>
-      <div class="mini-card"><div class="label">System 4</div>Skill Development Initiatives</div>
-      <div class="mini-card"><div class="label">System 5</div>National Skills Qualification Framework (NSQF)</div>
-    </div>
-  </section>
+<section id="systems">
+  <div class="sec-hdr"><div class="sec-icon">🏛️</div><h2>2. Systems of <em>VET in India</em></h2></div>
+  <div class="grid-3">
+    <div class="mini-card blue"><div class="label">System 1</div>Industrial Training Institutes (ITIs)</div>
+    <div class="mini-card blue"><div class="label">System 2</div>Apprenticeship Training</div>
+    <div class="mini-card blue"><div class="label">System 3</div>Polytechnic Institutes</div>
+    <div class="mini-card teal"><div class="label">System 4</div>Skill Development Initiatives</div>
+    <div class="mini-card teal"><div class="label">System 5</div>National Skills Qualification Framework (NSQF)</div>
+  </div>
+</section>
 
-  <!-- ═══ 3. ITI ═══ -->
-  <section id="iti">
-    <div class="section-header">
-      <div class="section-icon">🔧</div>
-      <h2>3. ITI Ecosystem</h2>
+<section id="iti">
+  <div class="sec-hdr"><div class="sec-icon">🔧</div><h2>3. <em>ITI</em> Ecosystem</h2></div>
+  <div class="card">
+    <h3>📌 Directorate General of Training (DGT)</h3>
+    <ul class="notes">
+      <li><strong>National-level apex organization</strong> for development & coordination of vocational training</li>
+      <li>Frames norms, policies and standards for vocational training programmes</li>
+      <li>Operates the <strong>Apprenticeship Act, 1961</strong></li>
+      <li>Transferred in <strong>2015</strong> from Ministry of Labour & Employment (MoLE) to <strong>MSDE</strong></li>
+    </ul>
+    <h4>ITI Accreditation Timeline</h4>
+    <div class="grid-2">
+      <div class="mini-card"><div class="label">Pre-2012</div>Done by DGE&T as per NCVT norms. NCVT can reject applications.</div>
+      <div class="mini-card green"><div class="label">2012</div>Accreditation by Quality Council of India (QCI)</div>
+      <div class="mini-card"><div class="label">July 2017</div>Responsibility shifted back from QCI → DGT</div>
+      <div class="mini-card teal"><div class="label">Post-2017</div>Accreditation by DGT, once every <strong>5 years</strong></div>
     </div>
-
-    <div class="card">
-      <h3>📌 Directorate General of Training (DGT)</h3>
+  </div>
+  <div class="card">
+    <h3>📌 National Skill Training Institutes (NSTIs)</h3>
+    <ul class="notes">
+      <li><strong>Craft Instructors Training Scheme (CITS)</strong> — initiated to strengthen instructor quality</li>
+      <li>First Craft Instructors' Training Institute: <strong>1948</strong></li>
+      <li>NSTIs started by DGE&T in <strong>1963</strong></li>
+      <li>In <strong>2010</strong> — States/UTs & private industries allowed to set up instructor training institutes</li>
+      <li>Also called <strong>Institute for Training of Trainers (ITOT)</strong></li>
+      <li>Total: <strong>18 institutes</strong> (6 government + 12 non-government)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>📌 CTS vs CITS</h3>
+    <div class="grid-2">
+      <div class="hbox blue"><strong>Craftsmen Training Scheme (CTS) — Started 1950</strong><br>Provides vocational training to develop skilled workers in various trades.<br>Target: Individuals seeking vocational skills.</div>
+      <div class="hbox green"><strong>Crafts Instructor Training Scheme (CITS) — Started 1948</strong><br>Trains individuals to become skilled instructors/trainers/faculty for VET programs.<br>Target: Those who have already completed vocational training.</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📌 Lifecycle of ITI Training</h3>
+    <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
+      <div class="mini-card blue" style="flex:1;min-width:120px;"><div class="label">Step 1</div>Clear Class 8 or 10 exam</div>
+      <div style="color:var(--fire);font-size:1.3rem;">→</div>
+      <div class="mini-card blue" style="flex:1;min-width:120px;"><div class="label">Step 2</div>Merit-based admission: 1 or 2-year ITI course</div>
+      <div style="color:var(--fire);font-size:1.3rem;">→</div>
+      <div class="mini-card blue" style="flex:1;min-width:120px;"><div class="label">Step 3</div>All India Trade Test (AITT)</div>
+      <div style="color:var(--fire);font-size:1.3rem;">→</div>
+      <div class="mini-card" style="flex:1;min-width:120px;border-color:rgba(245,166,35,0.3);"><div class="label" style="color:var(--gold);">Step 4</div>Awarded <strong>National Trade Certificate (NTC)</strong></div>
+    </div>
+    <div class="hbox"><strong>NTC</strong> is a recognized qualification for recruitment to <strong>subordinate posts under Central & State Governments</strong>.</div>
+    <div class="exam-tip"><strong>Maharashtra:</strong> 411 ITIs total | Over 2.6 lakh applications for 1.5 lakh seats.</div>
+  </div>
+  <div class="card">
+    <h3>📌 Institute Management Committee (IMC)</h3>
+    <div class="grid-2">
       <ul class="notes">
-        <li><strong>National-level apex organization</strong> for development & coordination of vocational training</li>
-        <li>Frames norms, policies and standards for vocational training programmes</li>
-        <li>Operates the <strong>Apprenticeship Act, 1961</strong></li>
-        <li>Transferred in <strong>2015</strong> from Ministry of Labour & Employment (MoLE) to <strong>MSDE</strong></li>
-      </ul>
-      <h4>ITI Accreditation Timeline</h4>
-      <div class="grid-2">
-        <div class="mini-card"><div class="label">Pre-2012</div>Done by DGE&T as per NCVT norms. NCVT can reject applications.</div>
-        <div class="mini-card"><div class="label">2012</div>Accreditation by Quality Council of India (QCI)</div>
-        <div class="mini-card"><div class="label">July 2017</div>Responsibility shifted back from QCI → DGT</div>
-        <div class="mini-card"><div class="label">Post-2017</div>Accreditation by DGT, once every <strong>5 years</strong></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📌 National Skill Training Institutes (NSTIs)</h3>
-      <ul class="notes">
-        <li><strong>Craft Instructors Training Scheme (CITS)</strong> — initiated to strengthen instructor quality</li>
-        <li>First Craft Instructors' Training Institute: <strong>1948</strong></li>
-        <li>NSTIs started by DGE&T in <strong>1963</strong></li>
-        <li>In <strong>2010</strong> — States/UTs & private industries allowed to set up instructor training institutes</li>
-        <li>Also called <strong>Institute for Training of Trainers (ITOT)</strong></li>
-        <li>Total: <strong>18 institutes</strong> (6 government + 12 non-government)</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>📌 CTS vs CITS</h3>
-      <div class="grid-2">
-        <div>
-          <div class="info-box">
-            <strong>Craftsmen Training Scheme (CTS) — Started 1950</strong><br>
-            Provides vocational training to develop skilled workers in various trades.<br>
-            Target: Individuals seeking vocational skills.
-          </div>
-        </div>
-        <div>
-          <div class="success-box">
-            <strong>Crafts Instructor Training Scheme (CITS) — Started 1948</strong><br>
-            Trains individuals to become skilled instructors/trainers/faculty for VET programs.<br>
-            Target: Those who have already completed vocational training.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📌 Lifecycle of ITI Training</h3>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:0.85rem;margin-bottom:16px;">
-        <div class="mini-card" style="border-top:3px solid var(--blue)"><div class="label">Step 1</div>Clear Class 8 or 10 exam</div>
-        <div style="color:var(--red);font-size:1.4rem;">→</div>
-        <div class="mini-card" style="border-top:3px solid var(--blue)"><div class="label">Step 2</div>Merit-based admission to 1-year or 2-year course at ITI</div>
-        <div style="color:var(--red);font-size:1.4rem;">→</div>
-        <div class="mini-card" style="border-top:3px solid var(--blue)"><div class="label">Step 3</div>On completion: All India Trade Test (AITT)</div>
-        <div style="color:var(--red);font-size:1.4rem;">→</div>
-        <div class="mini-card" style="border-top:3px solid var(--gold)"><div class="label">Step 4</div>Awarded <strong>National Trade Certificate (NTC)</strong></div>
-      </div>
-      <div class="highlight-box"><strong>NTC</strong> is a recognized qualification for recruitment to <strong>subordinate posts under Central & State Governments</strong>.</div>
-      <div class="highlight-box"><strong>Maharashtra:</strong> 411 ITIs total | Over 2.6 lakh applications for 1.5 lakh seats shows massive demand.</div>
-    </div>
-
-    <div class="card">
-      <h3>📌 Institute Management Committee (IMC)</h3>
-      <ul class="notes">
-        <li>Constituted/reconstituted for each selected ITI</li>
         <li>Converted by State Govt into a <strong>Society</strong> under Societies Registration Act</li>
-        <li>Entrusted with <strong>responsibility of managing ITI affairs</strong></li>
-      </ul>
-      <h4>IMC Members</h4>
-      <ul class="notes">
-        <li><strong>Industry Partner (IP)</strong> or representative — Chairperson</li>
-        <li><strong>4 members</strong> from local industry nominated by IP</li>
-        <li><strong>5 members</strong> nominated by State Govt</li>
-        <li>Principal of ITI — Ex-officio Member Secretary</li>
-      </ul>
-      <h4>Salient Features of IMC</h4>
-      <ul class="notes">
-        <li>Industry Partner associated for <strong>upgradation</strong> process</li>
-        <li><strong>Memorandum of Agreement (MoA)</strong> signed among IP, State & Central Govt</li>
-        <li><strong>Institute Development Plan (IDP)</strong> prepared by IMC with KPIs for 5 years</li>
         <li>IMC registered under <strong>Society Registration Act 1860</strong></li>
         <li>IMCs given <strong>Financial & Academic Autonomy</strong></li>
         <li>IMC determines <strong>20% of admissions</strong></li>
-        <li>After SSC approval → Central Govt releases <strong>interest-free loan of ₹2.5 crore</strong> directly to IMC (repaid in 20 years: 11th–30th year)</li>
-        <li>Guiding principle: <strong>Decentralization and accountability of users</strong></li>
+        <li>Central Govt releases interest-free loan of <strong>₹2.5 crore</strong> directly to IMC</li>
       </ul>
-      <div class="highlight-box"><strong>Maharashtra's 5 New ITIs:</strong> One each in Mumbai, Sambhaji Nagar, Pune, Nagpur, Nashik. Foreign languages taught for non-English speaking countries.</div>
-    </div>
-  </section>
-
-  <!-- ═══ 4. HISTORY ═══ -->
-  <section id="history">
-    <div class="section-header">
-      <div class="section-icon">📜</div>
-      <h2>4. History of Vocational Education in India</h2>
-    </div>
-
-    <div class="card">
-      <div class="info-box">India had a strong <strong>Guru-Shishya tradition</strong> of education and training. Millions still learn occupational skills this way.</div>
-      <div class="timeline">
-        <div class="timeline-item"><span class="year">1854</span><p><strong>Wood's Despatch</strong> — First to highlight need for VE at secondary school stage</p></div>
-        <div class="timeline-item"><span class="year">1882</span><p><strong>Indian Education Commission</strong> (Hunter Commission) — Examined problems of VE & technical education</p></div>
-        <div class="timeline-item"><span class="year">1929 & 1934</span><p><strong>Hartog Review Committee (1929)</strong> & <strong>Sapru Enquiry Committee (1934)</strong> — Emphasized vital role of VE in economic development</p></div>
-        <div class="timeline-item"><span class="year">1936</span><p><strong>Wood-Abbot Advisory Committee</strong> — Basis for diploma-level technical education & establishment of polytechnics</p></div>
-        <div class="timeline-item"><span class="year">1944</span><p><strong>Sargent Report</strong> — Two streams: Academic & Technical. General education + career preparation</p></div>
-        <div class="timeline-item"><span class="year">1948</span><p><strong>Radhakrishnan Commission</strong> (University Education Commission) — VE to meet variety of needs of young men & women</p></div>
-        <div class="timeline-item"><span class="year">1952–53</span><p><strong>Mudaliar Commission</strong> (Secondary Education Commission) — Idea of multipurpose school; 11-year pattern; diversification after 8 years in crafts/vocations</p></div>
-        <div class="timeline-item"><span class="year">1964–66</span><p><strong>Kothari Commission</strong> — Proposed <strong>10+2+3 pattern</strong>; recommended 50% students diverted to VE at +2 level within 20 years. CABE endorsed 10+2+3.</p></div>
-        <div class="timeline-item"><span class="year">1977</span><p><strong>Working Group on Vocationalization</strong> — Headed by <strong>P. Sabanayagam</strong>; recommended National Council of Vocational Education & Training</p></div>
-        <div class="timeline-item"><span class="year">1985</span><p><strong>Kulandaiswamy Working Group</strong> — Extensive review; concept of vocationalization at different levels; well-knit management system</p></div>
-        <div class="timeline-item"><span class="year">1986</span><p><strong>National Policy on Education (NPE 1986)</strong> — High priority to VE. Targets: 10% by 1990, 25% by 1995</p></div>
-        <div class="timeline-item"><span class="year">1988</span><p><strong>MCVC</strong> introduced by MHRD (idea from NPE 1986)</p></div>
-        <div class="timeline-item"><span class="year">1992</span><p><strong>Programme of Action</strong> — Accepted Kulandaiswamy model. CABE stressed VE for employability</p></div>
-        <div class="timeline-item"><span class="year">2005</span><p><strong>NCF 2005</strong> — Flexible vocational courses integrated with mainstream schooling</p></div>
-        <div class="timeline-item"><span class="year">2008</span><p><strong>NSDC</strong> established — promote private sector in skill development</p></div>
-        <div class="timeline-item"><span class="year">2011</span><p><strong>NVEQF</strong> launched — clear career pathways and credit-based system</p></div>
-        <div class="timeline-item"><span class="year">2013</span><p>NVEQF subsumed into <strong>NSQF</strong></p></div>
-        <div class="timeline-item"><span class="year">2014</span><p>Creation of <strong>Ministry of Skill Development and Entrepreneurship (MSDE)</strong></p></div>
-        <div class="timeline-item"><span class="year">2015</span><p><strong>PMKVY 1.0</strong> launched (15 July — World Youth Skills Day)</p></div>
-        <div class="timeline-item"><span class="year">2016</span><p>National Policy for Skill Development & Entrepreneurship — integration with academic pathways</p></div>
-        <div class="timeline-item"><span class="year">2020</span><p><strong>NEP 2020</strong> — Mainstreaming VE from Grade 6; target: 50% learners with VE exposure by 2025</p></div>
+      <div>
+        <h4>IMC Members</h4>
+        <ul class="notes">
+          <li><strong>Industry Partner (IP)</strong> — Chairperson</li>
+          <li><strong>4 members</strong> from local industry nominated by IP</li>
+          <li><strong>5 members</strong> nominated by State Govt</li>
+          <li>Principal of ITI — Ex-officio Member Secretary</li>
+        </ul>
       </div>
     </div>
+    <div class="hbox teal"><strong>Guiding Principle:</strong> Decentralization and accountability of users | MoA signed among IP, State & Central Govt | IDP prepared by IMC with KPIs for 5 years</div>
+    <div class="exam-tip"><strong>Maharashtra's 5 New ITIs:</strong> One each in Mumbai, Sambhaji Nagar, Pune, Nagpur, Nashik. Foreign languages taught for non-English speaking countries.</div>
+  </div>
+</section>
 
-    <div class="card">
-      <h3>📌 MCVC — Minimum Competency Vocational Courses</h3>
-      <ul class="notes">
-        <li>Job-oriented course <strong>after Class 10</strong>, duration: <strong>2 years</strong></li>
-        <li><strong>5 courses:</strong> Commerce Technology | Engineering Technology | Agriculture Technology | Health & Paramedical Technology | Home Science Technology</li>
-        <li>Introduced in India in <strong>1988</strong> by MHRD (idea: NPE 1986)</li>
-        <li>Renamed to <strong>HSC Vocational</strong> on <strong>2nd March 2009</strong></li>
-        <li>In <strong>2018</strong> — Maharashtra merged MCVC with ITIs</li>
-      </ul>
+<section id="history">
+  <div class="sec-hdr"><div class="sec-icon">📜</div><h2>4. <em>History</em> of Vocational Education</h2></div>
+  <div class="card">
+    <div class="hbox blue">India had a strong <strong>Guru-Shishya tradition</strong> of education and training. Millions still learn occupational skills this way.</div>
+    <div class="timeline">
+      <div class="tl-item"><span class="tl-year">1854</span><p><strong>Wood's Despatch</strong> — First to highlight need for VE at secondary school stage</p></div>
+      <div class="tl-item"><span class="tl-year">1882</span><p><strong>Indian Education Commission</strong> (Hunter Commission) — Examined problems of VE & technical education</p></div>
+      <div class="tl-item"><span class="tl-year">1929 & 1934</span><p><strong>Hartog Review Committee (1929)</strong> & <strong>Sapru Enquiry Committee (1934)</strong> — Emphasized vital role of VE in economic development</p></div>
+      <div class="tl-item"><span class="tl-year">1936</span><p><strong>Wood-Abbot Advisory Committee</strong> — Basis for diploma-level technical education & establishment of polytechnics</p></div>
+      <div class="tl-item"><span class="tl-year">1944</span><p><strong>Sargent Report</strong> — Two streams: Academic & Technical</p></div>
+      <div class="tl-item"><span class="tl-year">1948</span><p><strong>Radhakrishnan Commission</strong> — VE to meet variety of needs of young men & women</p></div>
+      <div class="tl-item"><span class="tl-year">1952–53</span><p><strong>Mudaliar Commission</strong> — Multipurpose school; 11-year pattern; diversification after 8 years in crafts/vocations</p></div>
+      <div class="tl-item"><span class="tl-year">1964–66</span><p><strong>Kothari Commission</strong> — Proposed <strong>10+2+3 pattern</strong>; recommended <strong>50% students diverted to VE at +2 level</strong> within 20 years</p></div>
+      <div class="tl-item"><span class="tl-year">1977</span><p><strong>Working Group on Vocationalization</strong> — Headed by <strong>P. Sabanayagam</strong>; recommended National Council of VE&T</p></div>
+      <div class="tl-item"><span class="tl-year">1985</span><p><strong>Kulandaiswamy Working Group</strong> — Concept of vocationalization at different levels</p></div>
+      <div class="tl-item"><span class="tl-year">1986</span><p><strong>National Policy on Education (NPE 1986)</strong> — High priority to VE. Targets: <strong>10% by 1990, 25% by 1995</strong></p></div>
+      <div class="tl-item"><span class="tl-year">1988</span><p><strong>MCVC</strong> introduced by MHRD (idea from NPE 1986)</p></div>
+      <div class="tl-item"><span class="tl-year">2005</span><p><strong>NCF 2005</strong> — Flexible vocational courses integrated with mainstream schooling</p></div>
+      <div class="tl-item"><span class="tl-year">2008</span><p><strong>NSDC</strong> established — promote private sector in skill development</p></div>
+      <div class="tl-item"><span class="tl-year">2013</span><p>NVEQF subsumed into <strong>NSQF</strong></p></div>
+      <div class="tl-item"><span class="tl-year">2014</span><p>Creation of <strong>Ministry of Skill Development and Entrepreneurship (MSDE)</strong></p></div>
+      <div class="tl-item"><span class="tl-year">2015</span><p><strong>PMKVY 1.0</strong> launched (15 July — World Youth Skills Day)</p></div>
+      <div class="tl-item"><span class="tl-year">2020</span><p><strong>NEP 2020</strong> — Mainstreaming VE from Grade 6; target: <strong>50% learners with VE exposure by 2025</strong></p></div>
     </div>
+  </div>
+  <div class="card">
+    <h3>📌 MCVC — Minimum Competency Vocational Courses</h3>
+    <ul class="notes">
+      <li>Job-oriented course <strong>after Class 10</strong>, duration: <strong>2 years</strong></li>
+      <li><strong>5 courses:</strong> Commerce Technology | Engineering Technology | Agriculture Technology | Health & Paramedical Technology | Home Science Technology</li>
+      <li>Introduced in India in <strong>1988</strong> by MHRD (idea: NPE 1986)</li>
+      <li>Renamed to <strong>HSC Vocational</strong> on <strong>2nd March 2009</strong></li>
+      <li>In <strong>2018</strong> — Maharashtra merged MCVC with ITIs</li>
+    </ul>
+  </div>
+</section>
 
-    <div class="card">
-      <h3>📌 Vocational Courses at Various Levels</h3>
-      <div class="grid-2">
-        <div class="info-box"><strong>After 10th:</strong><br>Typewriting Hindi/English | Word Processing (MS Word) | House Keeping | Catering Management | Food Processing | Soil & Fertilizer Management</div>
-        <div class="success-box"><strong>After 12th — B.Voc (Bachelor of Vocation):</strong><br>3-year UG course. Fields: Healthcare, Technology, Management, Automobiles, Journalism, Software Development</div>
-      </div>
-    </div>
-  </section>
+<div class="divider"></div>
 
-  <div class="divider"></div>
-
-  <!-- ═══ 5. PRE-VOC & SUPW ═══ -->
-  <section id="prevoc">
-    <div class="section-header">
-      <div class="section-icon">🌱</div>
-      <h2>5. Pre-Vocational Education & SUPW</h2>
-    </div>
-
-    <div class="card">
-      <h3>📌 Pre-Vocational Education</h3>
-      <ul class="notes">
-        <li>Basic exposure, awareness and training in <strong>simple work-related skills</strong> before formal VE</li>
-        <li>Not full-fledged VT — a <strong>preparatory phase</strong></li>
-      </ul>
-      <h4>Policy Scope</h4>
+<section id="prevoc">
+  <div class="sec-hdr"><div class="sec-icon">🌱</div><h2>5. <em>Pre-Vocational</em> Education & SUPW</h2></div>
+  <div class="card">
+    <h3>📌 Pre-Vocational Education</h3>
+    <div class="hbox">Basic exposure, awareness and training in <strong>simple work-related skills</strong> before formal VE. Not full-fledged VT — a <strong>preparatory phase</strong>.</div>
+    <h4>Policy Scope (Class Range Over Time)</h4>
+    <div class="grid-2">
       <ul class="notes">
         <li><strong>Kothari Commission (1964-66) & NPE 1968</strong> — Classes IX–X</li>
         <li><strong>NPE 1986 & POA 1992</strong> — Class VI to X</li>
-        <li><strong>Revised NPE 1992</strong> — Classes VI–X; SUPW treated as pre-vocational</li>
+      </ul>
+      <ul class="notes">
         <li><strong>Samagra Shiksha & NEP 2020</strong> — Classes VI–VIII (foundational) up to Class X</li>
-        <li><strong>CBSE Pre-vocational</strong> — offered to Class 6, 7, 8 students</li>
-      </ul>
-      <h4>Objectives of Pre-Vocational Education</h4>
-      <div class="grid-2">
-        <ul class="notes">
-          <li>Orientation to World of Work</li>
-          <li>Development of Work-related Skills</li>
-          <li>Cultivation of Dignity of Labour</li>
-          <li>Foundation for Vocational Courses</li>
-        </ul>
-        <ul class="notes">
-          <li>Enhancing Employability & Self-reliance</li>
-          <li>Holistic Development (cognitive, psychomotor, affective)</li>
-          <li>Productive Citizenship</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📌 Socially Useful Productive Work (SUPW)</h3>
-      <ul class="notes">
-        <li>Defined as <strong>purposive, meaningful, manual work resulting in goods or services useful to society</strong></li>
-        <li><strong>Ishwarbhai Patel Committee (1977)</strong> — recommended term "SUPW" while examining 10-year school system</li>
-        <li><strong>Kothari Commission (1964-66)</strong> — conceived work experience as "participation in productive work in school, home, workshop, farm, factory"</li>
-      </ul>
-      <h4>Characteristics of SUPW</h4>
-      <table>
-        <tr><th>Feature</th><th>Meaning</th></tr>
-        <tr><td>Purposive</td><td>Learner understands "Why" and "for what" — performs intelligently</td></tr>
-        <tr><td>Meaningful</td><td>Related to needs of learner and community</td></tr>
-        <tr><td>Manual Work</td><td>Instills dignity of labour</td></tr>
-        <tr><td>Goods or Services</td><td>Results in material product OR service (remunerative or social)</td></tr>
-      </table>
-      <h4>SUPW Activities by Stage</h4>
-      <div class="grid-3">
-        <div class="mini-card" style="border-top:3px solid var(--green)"><div class="label">Lower Primary</div>Paper folding/crafts | Campus cleaning | Community visits | Growing plants</div>
-        <div class="mini-card" style="border-top:3px solid var(--blue)"><div class="label">Upper Primary</div>Stitching & knitting | School beautification | Making dolls | Clay models</div>
-        <div class="mini-card" style="border-top:3px solid var(--red)"><div class="label">Secondary</div>Repair of appliances | Garment making | Squash/Jam/Pickles | Cloth dyeing</div>
-      </div>
-      <h4>NCERT Criteria for SUPW Activities</h4>
-      <ul class="notes">
-        <li>Help develop <strong>total personality</strong> of children</li>
-        <li>Involve <strong>problem solving & creative thinking</strong></li>
-        <li>Help in <strong>developing values</strong></li>
-        <li>Result in products <strong>directly consumable</strong> by students and school community</li>
-        <li>Relevant to meet needs of <strong>community and individual</strong></li>
+        <li><strong>CBSE Pre-vocational</strong> — offered to Class <strong>6, 7, 8</strong> students</li>
       </ul>
     </div>
-  </section>
-
-  <!-- ═══ 6. PROBLEMS ═══ -->
-  <section id="problems">
-    <div class="section-header">
-      <div class="section-icon">⚠️</div>
-      <h2>6. Problems & Issues in Vocational Education</h2>
+  </div>
+  <div class="card">
+    <h3>📌 Socially Useful Productive Work (SUPW)</h3>
+    <div class="hbox teal">Defined as <strong>purposive, meaningful, manual work resulting in goods or services useful to society</strong>.<br>Term recommended by: <strong>Ishwarbhai Patel Committee (1977)</strong><br>Work experience concept originally from: <strong>Kothari Commission (1964-66)</strong></div>
+    <h4>Characteristics of SUPW</h4>
+    <table>
+      <tr><th>Feature</th><th>Meaning</th></tr>
+      <tr><td><strong>Purposive</strong></td><td>Learner understands "Why" and "for what" — performs intelligently</td></tr>
+      <tr><td><strong>Meaningful</strong></td><td>Related to needs of learner and community</td></tr>
+      <tr><td><strong>Manual Work</strong></td><td>Instills dignity of labour</td></tr>
+      <tr><td><strong>Goods or Services</strong></td><td>Results in material product OR service (remunerative or social)</td></tr>
+    </table>
+    <h4>SUPW Activities by Stage</h4>
+    <div class="grid-3">
+      <div class="mini-card green"><div class="label">Lower Primary</div>Paper folding/crafts | Campus cleaning | Community visits | Growing plants</div>
+      <div class="mini-card blue"><div class="label">Upper Primary</div>Stitching & knitting | School beautification | Making dolls | Clay models</div>
+      <div class="mini-card"><div class="label" style="color:var(--fire2);">Secondary</div>Repair of appliances | Garment making | Squash/Jam/Pickles | Cloth dyeing</div>
     </div>
-    <div class="card">
-      <div class="grid-2">
-        <ul class="notes">
-          <li><strong>Shortage of VET Institutions</strong> — insufficient post-Independence</li>
-          <li><strong>Limited Curriculum</strong> — only technical, no liberal education</li>
-          <li><strong>Medium of Instruction</strong> — English dominates; difficult for Hindi/regional medium students</li>
-          <li><strong>Lack of Quality Teachers</strong> — staff retention problem</li>
-        </ul>
-        <ul class="notes">
-          <li><strong>Insufficient Practical Exposure</strong> — theoretical knowledge not enough</li>
-          <li><strong>Shortage of Continuous Education</strong> — workforce becomes outdated with changing technology</li>
-          <li><strong>Lack of Coordination</strong> among Govt agencies & regulatory bodies</li>
-          <li><strong>Inadequate Industry Linkage</strong> — poor communication between training sector and job providers</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══ 7. PMKVY ═══ -->
-  <section id="pmkvy">
-    <div class="section-header">
-      <div class="section-icon">🚀</div>
-      <h2>7. Pradhan Mantri Kaushal Vikas Yojana (PMKVY)</h2>
-    </div>
-
-    <div class="phases">
-      <div class="phase-card">
-        <div class="phase-label">PMKVY 1.0 · 2015</div>
-        <h4>Launch Phase</h4>
-        <ul>
-          <li>Launched 15 July 2015 (World Youth Skills Day)</li>
-          <li>India's largest Skill Certification Scheme</li>
-          <li>Free short-duration training + monetary rewards</li>
-          <li>19.86 lakh candidates trained</li>
-          <li>Components: STT, Special Projects, RPL</li>
-        </ul>
-      </div>
-      <div class="phase-card v2">
-        <div class="phase-label">PMKVY 2.0 · 2016–2020</div>
-        <h4>Expansion Phase</h4>
-        <ul>
-          <li>Target: 10 million youth</li>
-          <li>CSCM: 75% funds (by NSDC)</li>
-          <li>CSSM: 25% funds (by SSDMs)</li>
-          <li>1.10 crore candidates trained</li>
-          <li>Standardise certification process</li>
-        </ul>
-      </div>
-      <div class="phase-card v3">
-        <div class="phase-label">PMKVY 3.0 · 2021</div>
-        <h4>Decentralised Phase</h4>
-        <ul>
-          <li>Decentralised structure</li>
-          <li>District Skill Committees (DSCs) key role</li>
-          <li>Demand-based approach (shifted from supply)</li>
-          <li>Trainee & learner centric</li>
-          <li>Target: 15–45 years</li>
-          <li>7.37 lakh trained</li>
-        </ul>
-      </div>
-      <div class="phase-card v4">
-        <div class="phase-label">PMKVY 4.0 · 2022–2026</div>
-        <h4>Future Skills Phase</h4>
-        <ul>
-          <li>Part of Skill India Programme (₹8,800 crore)</li>
-          <li>Skill Hubs in CBSE institutions</li>
-          <li>Focus: AI, ML, new-age skills</li>
-          <li>Digital platforms for enrollment</li>
-          <li>Learning by doing</li>
-          <li>Age: 15–45 years</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:16px">
-      <h3>📌 Key Components</h3>
-      <div class="grid-3">
-        <div class="mini-card" style="border-top:3px solid var(--blue)"><div class="label">Short Term Training (STT)</div>School/college dropouts or unemployed. 200–600 hrs. Placement assistance by Training Partners.</div>
-        <div class="mini-card" style="border-top:3px solid var(--green)"><div class="label">Recognition of Prior Learning (RPL)</div>Age 18–59. 12–80 hrs. Aligns unregulated workforce to NSQF. 5-stage process. Certify with ≥70% marks.</div>
-        <div class="mini-card" style="border-top:3px solid var(--purple)"><div class="label">Special Projects</div>Marginalized/vulnerable groups. 15–45 years. Training in special areas or non-standard job roles.</div>
-      </div>
-      <div class="highlight-box" style="margin-top:14px"><strong>Skill India Programme (Feb 2025 Cabinet):</strong> PMKVY 4.0 + PM-NAPS + JSS Scheme combined under single scheme with ₹8,800 crore outlay (2022-23 to 2025-26)</div>
-    </div>
-  </section>
-
-  <!-- ═══ 8. SCHEMES ═══ -->
-  <section id="schemes">
-    <div class="section-header">
-      <div class="section-icon">📋</div>
-      <h2>8. Other Key Schemes & Institutions</h2>
-    </div>
-
+<section id="problems">
+  <div class="sec-hdr"><div class="sec-icon">⚠️</div><h2>6. <em>Problems</em> in Vocational Education</h2></div>
+  <div class="card">
     <div class="grid-2">
-      <div class="card">
-        <h3>📌 SDIS / MES Scheme</h3>
-        <ul class="notes">
-          <li>Also known as <strong>Modular Employable Skills (MES)</strong></li>
-          <li>Improves employability via vocational training</li>
-          <li><strong>Public-private partnership</strong> for school dropouts & unorganized sector workers</li>
-          <li>Training duration: <strong>50 to 600 hours</strong> (short duration)</li>
-          <li>Multi-entry and multi-exit allowed</li>
-          <li>Certification jointly by <strong>NCVT and Industry</strong></li>
-          <li>Educational qualification: Class 5 to 12 pass</li>
-        </ul>
-        <div class="highlight-box"><strong>SDIS Efficiency assessed by:</strong> Employment rate | Placement records | Employer feedback | Pre/post skill assessment | Tracer studies</div>
-      </div>
-
-      <div class="card">
-        <h3>📌 Jan Shikshan Sansthan (JSS)</h3>
-        <ul class="notes">
-          <li>Formerly: <strong>Shramik Vidyapeeth</strong></li>
-          <li>Implemented since <strong>1967</strong></li>
-          <li>Renamed JSS in <strong>2000</strong></li>
-          <li>Transferred from Ministry of Education to <strong>MSDE in July 2018</strong></li>
-          <li>Implemented through <strong>NGOs with 100% GoI grants</strong></li>
-          <li>Target: Non-literate, neo-literate, up to Class 8 & dropouts up to 12 | Age: <strong>15–45 years</strong></li>
-          <li><strong>Priority groups:</strong> Women, SC, ST, Minorities, OBC</li>
-          <li>Registered under <strong>Societies Registration Act, 1860</strong></li>
-          <li>Supervised by <strong>DJSS</strong> (subordinate office of MSDE)</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>📌 SANKALP</h3>
-        <ul class="notes">
-          <li>Launched: <strong>19th January 2018</strong></li>
-          <li>Duration: 6 years till <strong>March 2023</strong></li>
-          <li>Funded by <strong>World Bank</strong></li>
-          <li><strong>4 Key Result Areas:</strong> Institutional Strengthening | Quality Assurance | Inclusion of marginalized | Expanding through PPPs</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>📌 PM YUVA Yojana</h3>
-        <ul class="notes">
-          <li>Full form: <strong>Yuva Udyamita Vikas Abhiyan</strong></li>
-          <li>Centrally sponsored — entrepreneurship education</li>
-          <li>5 years: <strong>2016-17 to 2020-21</strong></li>
-          <li>7 lakh+ students through 3050 institutes</li>
-          <li>Uses <strong>MOOCs & LMS</strong> for free delivery</li>
-          <li>3050 institutions: 2200 Higher Learning | 300 Schools | 500 ITIs | 50 EDCs</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>📌 Skill Loan Scheme (July 2015)</h3>
-        <ul class="notes">
-          <li>Institutional credit for NSQF-aligned skill courses</li>
-          <li>Applicable to all IBA member banks</li>
-          <li><strong>Quantum:</strong> ₹5,000 to ₹1,50,000</li>
-          <li>No minimum course duration | No collateral required</li>
-          <li><strong>Repayment:</strong> ≤₹50k → 3 yrs | ₹50k–1L → 5 yrs | >₹1L → 7 yrs</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>📌 IGNOU & Others</h3>
-        <ul class="notes">
-          <li><strong>IGNOU</strong> — Public research university, New Delhi | Est. <strong>1985</strong> | IGNOU Act 1985 | Motto: The People's University</li>
-          <li><strong>IIE</strong> — Indian Institute of Entrepreneurship | Est. <strong>1993, Guwahati</strong> | Under MSME Ministry | Operates since April 1994 | Transferred to MSDE on 2 May 2015</li>
-          <li><strong>Skills Build Platform</strong> — Digital platform by <strong>IBM</strong> | India: 4th country (launched 2019) | After UK, Germany, France | 2-year Advanced Diploma in IT/Networking/Cloud | Accessible via bharatskills.gov.in</li>
-        </ul>
-      </div>
+      <ul class="notes">
+        <li><strong>Shortage of VET Institutions</strong> — insufficient post-Independence</li>
+        <li><strong>Limited Curriculum</strong> — only technical, no liberal education</li>
+        <li><strong>Medium of Instruction</strong> — English dominates; difficult for Hindi/regional medium students</li>
+        <li><strong>Lack of Quality Teachers</strong> — staff retention problem</li>
+      </ul>
+      <ul class="notes">
+        <li><strong>Insufficient Practical Exposure</strong> — theoretical knowledge not enough</li>
+        <li><strong>Shortage of Continuous Education</strong> — workforce becomes outdated</li>
+        <li><strong>Lack of Coordination</strong> among Govt agencies & regulatory bodies</li>
+        <li><strong>Inadequate Industry Linkage</strong> — poor communication between training sector and job providers</li>
+      </ul>
     </div>
+  </div>
+</section>
 
+<section id="pmkvy">
+  <div class="sec-hdr"><div class="sec-icon">🚀</div><h2>7. <em>PMKVY</em> — All Phases</h2></div>
+  <div class="phases">
+    <div class="phase-card">
+      <div class="phase-label">PMKVY 1.0 · 2015</div>
+      <h4>Launch Phase</h4>
+      <ul>
+        <li>Launched 15 July 2015 (World Youth Skills Day)</li>
+        <li>India's largest Skill Certification Scheme</li>
+        <li>Free short-duration training + monetary rewards</li>
+        <li>19.86 lakh candidates trained</li>
+        <li>Components: STT, Special Projects, RPL</li>
+      </ul>
+    </div>
+    <div class="phase-card v2">
+      <div class="phase-label">PMKVY 2.0 · 2016–2020</div>
+      <h4>Expansion Phase</h4>
+      <ul>
+        <li>Target: 10 million youth</li>
+        <li>CSCM: 75% funds (by NSDC)</li>
+        <li>CSSM: 25% funds (by SSDMs)</li>
+        <li>1.10 crore candidates trained</li>
+        <li>Standardise certification process</li>
+      </ul>
+    </div>
+    <div class="phase-card v3">
+      <div class="phase-label">PMKVY 3.0 · 2021</div>
+      <h4>Decentralised Phase</h4>
+      <ul>
+        <li>Decentralised structure</li>
+        <li>District Skill Committees (DSCs) key role</li>
+        <li>Demand-based approach</li>
+        <li>Trainee & learner centric</li>
+        <li>Target: 15–45 years | 7.37 lakh trained</li>
+      </ul>
+    </div>
+    <div class="phase-card v4">
+      <div class="phase-label">PMKVY 4.0 · 2022–2026</div>
+      <h4>Future Skills Phase</h4>
+      <ul>
+        <li>Part of Skill India Programme (₹8,800 crore)</li>
+        <li>Skill Hubs in CBSE institutions</li>
+        <li>Focus: AI, ML, new-age skills</li>
+        <li>Digital platforms for enrollment</li>
+        <li>Age: 15–45 years</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:1rem">
+    <h3>📌 Key Components</h3>
+    <div class="grid-3">
+      <div class="mini-card blue"><div class="label">Short Term Training (STT)</div>School/college dropouts or unemployed. <strong>200–600 hrs</strong>. Placement assistance by Training Partners.</div>
+      <div class="mini-card green"><div class="label">Recognition of Prior Learning (RPL)</div>Age 18–59. <strong>12–80 hrs</strong>. Aligns unregulated workforce to NSQF. 5-stage process. Certify with ≥70% marks.</div>
+      <div class="mini-card violet"><div class="label">Special Projects</div>Marginalized/vulnerable groups. 15–45 years. Training in special areas or non-standard job roles.</div>
+    </div>
+    <div class="exam-tip" style="margin-top:1rem"><strong>Skill India Programme (Feb 2025 Cabinet):</strong> PMKVY 4.0 + PM-NAPS + JSS Scheme combined under single scheme with <strong>₹8,800 crore outlay (2022-23 to 2025-26)</strong></div>
+  </div>
+</section>
+
+<section id="schemes">
+  <div class="sec-hdr"><div class="sec-icon">📋</div><h2>8. <em>Other Key</em> Schemes & Institutions</h2></div>
+  <div class="grid-2">
     <div class="card">
-      <h3>📌 Important Days & Key Facts</h3>
-      <div class="grid-3">
-        <div class="mini-card"><div class="label">World Youth Skills Day</div>15 July annually | 2025 Theme: "Youth empowerment through AI and digital skills"</div>
-        <div class="mini-card"><div class="label">National Entrepreneurship Day</div>9 November (MSDE notified on 9 Nov 2014)</div>
-        <div class="mini-card"><div class="label">MOOC</div>Massive Open Online Course — used in PM YUVA Yojana for free delivery</div>
-      </div>
+      <h3>📌 SDIS / MES Scheme</h3>
+      <ul class="notes">
+        <li>Also known as <strong>Modular Employable Skills (MES)</strong></li>
+        <li>Improves employability via vocational training</li>
+        <li><strong>Public-private partnership</strong> for school dropouts & unorganized sector workers</li>
+        <li>Training duration: <strong>50 to 600 hours</strong></li>
+        <li>Multi-entry and multi-exit allowed</li>
+        <li>Certification jointly by <strong>NCVT and Industry</strong></li>
+        <li>Educational qualification: Class 5 to 12 pass</li>
+      </ul>
+      <div class="hbox"><strong>SDIS Efficiency assessed by:</strong> Employment rate | Placement records | Employer feedback | Pre/post skill assessment | Tracer studies</div>
     </div>
-  </section>
+    <div class="card">
+      <h3>📌 Jan Shikshan Sansthan (JSS)</h3>
+      <ul class="notes">
+        <li>Formerly: <strong>Shramik Vidyapeeth</strong></li>
+        <li>Implemented since <strong>1967</strong> | Renamed JSS in <strong>2000</strong></li>
+        <li>Transferred from Ministry of Education to <strong>MSDE in July 2018</strong></li>
+        <li>Implemented through <strong>NGOs with 100% GoI grants</strong></li>
+        <li>Target: Non-literate to Class 8 dropouts | Age: <strong>15–45 years</strong></li>
+        <li><strong>Priority groups:</strong> Women, SC, ST, Minorities, OBC</li>
+        <li>Registered under <strong>Societies Registration Act, 1860</strong></li>
+        <li>Supervised by <strong>DJSS</strong> (subordinate office of MSDE)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📌 SANKALP</h3>
+      <ul class="notes">
+        <li>Launched: <strong>19th January 2018</strong></li>
+        <li>Duration: 6 years till <strong>March 2023</strong></li>
+        <li>Funded by <strong>World Bank</strong></li>
+        <li><strong>4 Key Result Areas:</strong> Institutional Strengthening | Quality Assurance | Inclusion of marginalized | Expanding through PPPs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📌 PM YUVA Yojana</h3>
+      <ul class="notes">
+        <li>Full form: <strong>Yuva Udyamita Vikas Abhiyan</strong></li>
+        <li>Centrally sponsored — entrepreneurship education</li>
+        <li>5 years: <strong>2016-17 to 2020-21</strong></li>
+        <li>7 lakh+ students through 3050 institutes</li>
+        <li>Uses <strong>MOOCs & LMS</strong> for free delivery</li>
+        <li>3050 institutions: 2200 Higher Learning | 300 Schools | 500 ITIs | 50 EDCs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📌 Skill Loan Scheme (July 2015)</h3>
+      <ul class="notes">
+        <li>Institutional credit for NSQF-aligned skill courses</li>
+        <li>Applicable to all IBA member banks</li>
+        <li><strong>Quantum:</strong> ₹5,000 to ₹1,50,000 | No collateral required</li>
+        <li><strong>Repayment:</strong> ≤₹50k → 3 yrs | ₹50k–1L → 5 yrs | >₹1L → 7 yrs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📌 IGNOU & Others</h3>
+      <ul class="notes">
+        <li><strong>IGNOU</strong> — Public research university, New Delhi | Est. <strong>1985</strong> | Motto: The People's University</li>
+        <li><strong>IIE</strong> — Indian Institute of Entrepreneurship | Est. <strong>1993, Guwahati</strong> | Transferred to MSDE on <strong>2 May 2015</strong></li>
+        <li><strong>Skills Build Platform</strong> — Digital platform by <strong>IBM</strong> | India: 4th country (2019) | bharatskills.gov.in</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📌 Important Days & Key Numbers</h3>
+    <div class="num-strip">
+      <div class="num-pill"><span class="np-val">15 Jul</span><span class="np-label">World Youth<br>Skills Day</span></div>
+      <div class="num-pill"><span class="np-val">9 Nov</span><span class="np-label">National<br>Entrepreneur Day</span></div>
+      <div class="num-pill"><span class="np-val">2008</span><span class="np-label">NSDC<br>Established</span></div>
+      <div class="num-pill"><span class="np-val">2014</span><span class="np-label">MSDE<br>Created</span></div>
+      <div class="num-pill"><span class="np-val">2019</span><span class="np-label">IBM Skills Build<br>India Launch</span></div>
+    </div>
+  </div>
+</section>
 
-  <!-- ═══ 9. MAHARASHTRA ═══ -->
-  <section id="maharashtra">
-    <div class="section-header">
-      <div class="section-icon">🌐</div>
-      <h2>9. Maharashtra-Specific</h2>
-    </div>
+<section id="maharashtra">
+  <div class="sec-hdr"><div class="sec-icon">🌐</div><h2>9. <em>Maharashtra</em>-Specific</h2></div>
+  <div class="grid-2">
     <div class="card">
       <h3>📌 Maharashtra State Skill Development Society (MSSDS)</h3>
       <ul class="notes">
         <li>Registered: <strong>15th February 2011</strong> under Societies Registration Act 1860</li>
-        <li><strong>Single Nodal Agency</strong> for planning, coordination, execution & monitoring of Skill Development</li>
+        <li><strong>Single Nodal Agency</strong> for planning, coordination, execution & monitoring</li>
         <li>Functions under <strong>Skill, Employment, Entrepreneurship and Innovation Department</strong>, GoM</li>
         <li>All state skill development schemes integrated under single umbrella</li>
-      </ul>
-      <h4>Key Functions</h4>
-      <ul class="notes">
-        <li>Prepare Maharashtra State Skill Gap Assessment Report & Action Plan</li>
-        <li>Support State Department & District Skill Development Committees</li>
-        <li>Support counselling, awareness & guidance for unorganized sector</li>
-        <li>Partnership with national & international agencies</li>
         <li>Appoint <strong>"Maharashtra Skill Mission Ambassador"</strong></li>
       </ul>
     </div>
@@ -1034,168 +564,71 @@
       <h3>📌 Women Entrepreneurship Cell (WEC)</h3>
       <ul class="notes">
         <li>Set up by <strong>Maharashtra State Innovation Society (MSInS)</strong> in <strong>January 2021</strong></li>
-        <li>Focus: planning & undertaking initiatives for women entrepreneurship in Maharashtra</li>
-        <li>Works with public & private sector on single platform</li>
+        <li>Focus: women entrepreneurship in Maharashtra</li>
         <li>Dedicated women incubator in partnership with <strong>SNDT Women's University, Mumbai</strong></li>
         <li>Under Maharashtra State Innovative Startup Policy 2018 — grant of <strong>₹5 Cr per incubator</strong></li>
       </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══ 10. PYQs ═══ -->
-  <section id="pyqs">
-    <div class="section-header">
-      <div class="section-icon">✍️</div>
-      <h2>10. Practice Questions (PYQs)</h2>
+<section id="pyqs">
+  <div class="sec-hdr"><div class="sec-icon">✍️</div><h2>10. <em>Practice Questions</em> (PYQs)</h2></div>
+  <div class="pyq-grid">
+    <div class="pyq"><span class="pyq-tag">ITI Principal 2014</span><div class="q">Guiding Principle of IMC is?</div><div class="ans">Decentralization and accountability of user</div></div>
+    <div class="pyq"><span class="pyq-tag">ITI Principal 2014</span><div class="q">ITIs fall under which Ministry?</div><div class="ans">Ministry of Labour and Employment</div></div>
+    <div class="pyq"><span class="pyq-tag">ITI Principal 2014</span><div class="q">SDIS efficiency assessed by?</div><div class="ans">a, b and d (passout %, employability impact, tracer studies)</div></div>
+    <div class="pyq"><span class="pyq-tag">ITI Principal 2014</span><div class="q">MOOC stands for?</div><div class="ans">Massive Open Online Course</div></div>
+    <div class="pyq"><span class="pyq-tag">MPSC Mains 2021</span><div class="q">Which statements about Commissions are incorrect?</div><div class="ans">None of the above (all 4 statements are correct)</div></div>
+    <div class="pyq"><span class="pyq-tag">MPSC Mains 2019</span><div class="q">PMKVY is scheme of which Ministry?</div><div class="ans">Skill Development and Entrepreneurship</div></div>
+    <div class="pyq"><span class="pyq-tag">Deputy Director 2016</span><div class="q">A: VE alleviates poverty. R: Poverty is because of VE. Which is correct?</div><div class="ans">A is true but R is false</div></div>
+    <div class="pyq"><span class="pyq-tag">Deputy Director 2016</span><div class="q">Pre-vocational education of CBSE offered to?</div><div class="ans">Class 6th, 7th, 8th students</div></div>
+    <div class="pyq"><span class="pyq-tag">Deputy Director 2016</span><div class="q">Chairman of Education Commission 1964-66?</div><div class="ans">Dr. D. S. Kothari</div></div>
+    <div class="pyq"><span class="pyq-tag">General</span><div class="q">SUPW term recommended by which committee?</div><div class="ans">Ishwarbhai Patel Committee (1977)</div></div>
+    <div class="pyq"><span class="pyq-tag">General</span><div class="q">When was MCVC renamed to HSC Vocational?</div><div class="ans">2nd March 2009</div></div>
+    <div class="pyq"><span class="pyq-tag">General</span><div class="q">Why is VE important in India?</div><div class="ans">To bridge the gap between industry demands and workforce skills</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="memmap">
+  <div class="memory-map">
+    <div class="map-title">🧠 Memory Map — Vocational Education</div>
+    <div class="map-center"><div class="map-core">VOCATIONAL EDUCATION</div></div>
+    <div class="map-branches">
+      <div class="branch-node"><div class="branch-title">📖 Definition</div><ul><li>Occupation-based education</li><li>Also: CTE / TVET</li><li>Technical education</li></ul></div>
+      <div class="branch-node"><div class="branch-title">🏛️ VET Systems</div><ul><li>ITIs</li><li>Apprenticeship</li><li>Polytechnics</li><li>Skill Dev Initiatives</li><li>NSQF</li></ul></div>
+      <div class="branch-node"><div class="branch-title">🔧 ITI Key Bodies</div><ul><li>DGT (apex, 2015→MSDE)</li><li>NSTIs (est. 1963)</li><li>CTS (1950) vs CITS (1948)</li><li>IMC (4+5+Principal)</li><li>NTC = outcome</li></ul></div>
+      <div class="branch-node"><div class="branch-title">📜 Key Commissions</div><ul><li>Wood's Despatch 1854</li><li>Mudaliar 1952 (multipurpose)</li><li>Kothari 1964 (10+2+3; 50%)</li><li>Sabanayagam 1977</li><li>NPE 1986 | NEP 2020</li></ul></div>
+      <div class="branch-node"><div class="branch-title">🌱 Pre-Voc & SUPW</div><ul><li>SUPW = Ishwarbhai Patel 1977</li><li>Purposive + Meaningful + Manual</li><li>CBSE: Class 6, 7, 8</li><li>NEP: VI–X</li></ul></div>
+      <div class="branch-node"><div class="branch-title">🚀 PMKVY Phases</div><ul><li>1.0 → 2015 (19.86L)</li><li>2.0 → 2016-20 (1.1 Cr)</li><li>3.0 → 2021 demand-based</li><li>4.0 → 2022-26 AI skills</li></ul></div>
+      <div class="branch-node"><div class="branch-title">📋 Key Schemes</div><ul><li>MES/SDIS (50-600 hrs)</li><li>JSS (est.1967, NGO-run)</li><li>SANKALP (2018, World Bank)</li><li>PM YUVA | Skill Loan</li></ul></div>
+      <div class="branch-node"><div class="branch-title">🌐 Maharashtra</div><ul><li>411 ITIs</li><li>MSSDS (2011)</li><li>WEC (Jan 2021, SNDT)</li><li>MCVC→HSC Voc (2009)</li><li>MCVC+ITI merged (2018)</li></ul></div>
+      <div class="branch-node"><div class="branch-title">📅 Key Dates</div><ul><li>15 July = World Youth Skills Day</li><li>9 Nov = Entrepreneurship Day</li><li>NSDC = 2008 | MSDE = 2014</li><li>IIE = 1993 Guwahati</li></ul></div>
+      <div class="branch-node"><div class="branch-title">⚠️ Problems</div><ul><li>Shortage of institutions</li><li>Limited curriculum</li><li>English medium barrier</li><li>No industry linkage</li></ul></div>
+      <div class="branch-node"><div class="branch-title">🏫 Courses</div><ul><li>MCVC (after 10, 2yr)</li><li>B.Voc (after 12, 3yr)</li><li>ITI (1-2yr, NTC)</li><li>IGNOU (1985, New Delhi)</li></ul></div>
+      <div class="branch-node"><div class="branch-title">💡 Digital/Tech</div><ul><li>Skills Build (IBM, 2019)</li><li>bharatskills.gov.in</li><li>MOOC = Massive Open Online Course</li></ul></div>
     </div>
-    <div class="grid-2">
-      <div class="pyq-block"><span class="pyq-tag">ITI PRINCIPAL 2014</span><div class="q">Guiding Principle of IMC is?</div><div class="ans">Decentralization and accountability of user</div></div>
-      <div class="pyq-block"><span class="pyq-tag">ITI PRINCIPAL 2014</span><div class="q">ITIs fall under which Ministry?</div><div class="ans">Ministry of Labour and Employment</div></div>
-      <div class="pyq-block"><span class="pyq-tag">ITI PRINCIPAL 2014</span><div class="q">ITI major aim includes?</div><div class="ans">a, b and c (impart skills, award NTC, train school dropouts VIII–XII)</div></div>
-      <div class="pyq-block"><span class="pyq-tag">ITI PRINCIPAL 2014</span><div class="q">Role of teachers in T&VE?</div><div class="ans">An educational manager</div></div>
-      <div class="pyq-block"><span class="pyq-tag">ITI PRINCIPAL 2014</span><div class="q">SDIS efficiency assessed by?</div><div class="ans">a, b and d (passout %, employability impact, tracer studies)</div></div>
-      <div class="pyq-block"><span class="pyq-tag">ITI PRINCIPAL 2014</span><div class="q">MOOC stands for?</div><div class="ans">Massive Open Online Course</div></div>
-      <div class="pyq-block"><span class="pyq-tag">MPSC MAINS 2021</span><div class="q">Which statements about Commissions are incorrect?</div><div class="ans">None of the above (all 4 statements are correct)</div></div>
-      <div class="pyq-block"><span class="pyq-tag">MPSC MAINS 2019</span><div class="q">PMKVY is scheme of which Ministry?</div><div class="ans">Skill Development and Entrepreneurship</div></div>
-      <div class="pyq-block"><span class="pyq-tag">DEPUTY DIRECTOR 2016</span><div class="q">A: VE alleviates poverty. R: Poverty is because of VE. Which is correct?</div><div class="ans">A is true but R is false</div></div>
-      <div class="pyq-block"><span class="pyq-tag">DEPUTY DIRECTOR 2016</span><div class="q">Pre-vocational education of CBSE offered to?</div><div class="ans">Class 6th, 7th, 8th students</div></div>
-      <div class="pyq-block"><span class="pyq-tag">DEPUTY DIRECTOR 2016</span><div class="q">Chairman of Education Commission 1964-66?</div><div class="ans">Dr. D. S. Kothari</div></div>
-      <div class="pyq-block"><span class="pyq-tag">GENERAL</span><div class="q">Why is VE important in India?</div><div class="ans">To bridge the gap between industry demands and workforce skills</div></div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══ MEMORY MAP ═══ -->
-  <section id="memmap">
-    <div class="memory-map">
-      <h2>🧠 Memory Map — Vocational Education</h2>
-      <div class="map-center">
-        <div class="map-core">VOCATIONAL EDUCATION</div>
-      </div>
-      <div class="map-branches">
-        <div class="branch-node">
-          <div class="branch-title">📖 Definition</div>
-          <ul>
-            <li>Occupation-based education</li>
-            <li>Also: CTE / TVET</li>
-            <li>Technical education</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">🏛️ VET Systems</div>
-          <ul>
-            <li>ITIs</li>
-            <li>Apprenticeship</li>
-            <li>Polytechnics</li>
-            <li>Skill Dev Initiatives</li>
-            <li>NSQF</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">🔧 ITI Key Bodies</div>
-          <ul>
-            <li>DGT (apex, 2015→MSDE)</li>
-            <li>NSTIs (est. 1963)</li>
-            <li>CTS (1950) vs CITS (1948)</li>
-            <li>IMC (4+5+Principal)</li>
-            <li>NTC = outcome</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">📜 Historic Commissions</div>
-          <ul>
-            <li>Wood's Despatch 1854</li>
-            <li>Mudaliar 1952 (11yr + multipurpose)</li>
-            <li>Kothari 1964 (10+2+3; 50%)</li>
-            <li>Sabanayagam 1977</li>
-            <li>NPE 1986</li>
-            <li>NEP 2020 (Gr.6+; 50% by 2025)</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">🌱 Pre-Voc & SUPW</div>
-          <ul>
-            <li>SUPW = Ishwarbhai Patel 1977</li>
-            <li>Purposive + Meaningful + Manual</li>
-            <li>CBSE: Class 6,7,8</li>
-            <li>NEP: VI–X</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">🚀 PMKVY Phases</div>
-          <ul>
-            <li>1.0 → 2015 (19.86L)</li>
-            <li>2.0 → 2016-20 (1.1 Cr)</li>
-            <li>3.0 → 2021 demand-based</li>
-            <li>4.0 → 2022-26 AI skills</li>
-            <li>STT + RPL + Sp. Projects</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">📋 Key Schemes</div>
-          <ul>
-            <li>MES/SDIS (50-600 hrs)</li>
-            <li>JSS (est.1967, NGO-run)</li>
-            <li>SANKALP (2018, World Bank)</li>
-            <li>PM YUVA Yojana (MOOCs)</li>
-            <li>Skill Loan (₹5K–1.5L)</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">🌐 Maharashtra</div>
-          <ul>
-            <li>411 ITIs</li>
-            <li>MSSDS (2011)</li>
-            <li>WEC (Jan 2021, SNDT)</li>
-            <li>MCVC→HSC Voc (2009)</li>
-            <li>MCVC+ITI merged (2018)</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">📅 Key Dates & Days</div>
-          <ul>
-            <li>15 July = World Youth Skills Day</li>
-            <li>9 Nov = Entrepreneurship Day</li>
-            <li>NSDC = 2008</li>
-            <li>MSDE = 2014</li>
-            <li>IIE = 1993 Guwahati</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">⚠️ Problems</div>
-          <ul>
-            <li>Shortage of institutions</li>
-            <li>Limited curriculum</li>
-            <li>English medium barrier</li>
-            <li>No industry linkage</li>
-            <li>No continuous education</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">🏫 Courses</div>
-          <ul>
-            <li>MCVC (after 10, 2yr)</li>
-            <li>B.Voc (after 12, 3yr)</li>
-            <li>ITI (1-2yr, NTC)</li>
-            <li>IGNOU (1985, New Delhi)</li>
-          </ul>
-        </div>
-        <div class="branch-node">
-          <div class="branch-title">💡 Digital/Tech</div>
-          <ul>
-            <li>Skills Build (IBM, 2019)</li>
-            <li>bharatskills.gov.in</li>
-            <li>MOOC = Massive Open Online Course</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  </div>
+</section>
 </div>
 
 <a href="#" class="back-top" title="Back to top">↑</a>
 
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav#main-nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`nav#main-nav a[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+}, {rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
