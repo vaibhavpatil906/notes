@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>General Education – SET A (500 MCQs) | IGNITE ACADEMY</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f1a;--surf:#111827;--card:#1a2235;--bdr:#1e2d45;--acc:#f5a623;--a2:#4fc3f7;--a3:#81c784;--a4:#ff8a65;--a5:#ce93d8;--txt:#e2e8f0;--mut:#718096;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+header{background:linear-gradient(135deg,#0d1b2e,#162040);border-bottom:2px solid var(--acc);padding:16px 24px;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(245,166,35,.2);}
+.hi{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+h1{font-family:'Rajdhani',sans-serif;font-size:1.5rem;color:var(--acc);letter-spacing:2px;}
+.sub{font-size:.72rem;color:var(--a2);margin-top:2px;letter-spacing:.5px;}
+.stats{display:flex;gap:16px;font-size:.8rem;font-weight:700;}
+.stat{text-align:center;background:#0d1428;border:1px solid var(--bdr);padding:6px 14px;border-radius:8px;}
+.stat span{display:block;font-size:1.1rem;color:var(--acc);}
+.controls{max-width:1300px;margin:0 auto;padding:12px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--surf);border-bottom:1px solid var(--bdr);}
+select,input{background:#0d1428;border:1px solid var(--bdr);color:var(--txt);padding:7px 12px;border-radius:8px;font-family:'Noto Sans',sans-serif;font-size:.82rem;outline:none;}
+select:focus,input:focus{border-color:var(--a2);}
+input{width:240px;}
+btn,button{background:var(--acc);color:#000;border:none;padding:7px 16px;border-radius:8px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:'Rajdhani',sans-serif;letter-spacing:.5px;}
+button.sec{background:transparent;border:1px solid var(--bdr);color:var(--mut);}
+button.sec:hover{border-color:var(--acc);color:var(--acc);}
+main{max-width:1300px;margin:0 auto;padding:20px 24px;}
+.progress-bar{height:4px;background:var(--bdr);border-radius:2px;margin-bottom:18px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--a2));border-radius:2px;transition:width .5s;}
+.sec-label{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--a2);background:var(--surf);border:1px solid var(--bdr);border-left:4px solid var(--a2);padding:10px 16px;border-radius:0 8px 8px 0;margin:20px 0 12px;}
+.mcq{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:16px;margin-bottom:10px;transition:border-color .2s;}
+.mcq:hover{border-color:#2a3a55;}
+.qno{font-size:.7rem;font-weight:700;color:var(--acc);margin-bottom:5px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;}
+.qtxt{font-size:.87rem;font-weight:600;color:var(--txt);margin-bottom:10px;line-height:1.55;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.opt{background:#0d1428;border:1px solid var(--bdr);border-radius:7px;padding:7px 11px;font-size:.81rem;color:#94a3b8;cursor:pointer;transition:all .2s;line-height:1.4;}
+.opt:hover{border-color:var(--a2);color:var(--txt);}
+.opt.correct{background:#0d2b1a;border-color:var(--a3);color:var(--a3);font-weight:700;}
+.opt.wrong{background:#2b0d0d;border-color:#ef5350;color:#ef5350;}
+.opt.disabled{pointer-events:none;}
+#noResults{display:none;text-align:center;padding:40px;color:var(--mut);font-size:.9rem;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px;}
+@media(max-width:600px){.opts{grid-template-columns:1fr;}.stats{gap:8px;}}
+</style>
+</head>
+<body>
+<header>
+<div class="hi">
+  <div><h1>📚 IGNITE ACADEMY — General Education SET A</h1><div class="sub">उपसंचालक | प्राचार्य | उप प्राचार्य | निरीक्षक • 500 Questions</div></div>
+  <div class="stats">
+    <div class="stat"><span id="sTotal">500</span>Total</div>
+    <div class="stat"><span id="sAns">0</span>Answered</div>
+    <div class="stat"><span id="sCorr">0</span>Correct</div>
+    <div class="stat"><span id="sAcc">0%</span>Accuracy</div>
+  </div>
+</div>
+</header>
+<div class="controls">
+  <select id="secFilter" onchange="filterQ()"><option value="">All Sections</option></select>
+  <input type="text" id="srch" placeholder="🔍 Search question..." oninput="filterQ()">
+  <button onclick="revealAll()">Reveal All Answers</button>
+  <button class="sec" onclick="resetAll()">Reset</button>
+  <button class="sec" onclick="filterQ()">Refresh</button>
+</div>
+<main>
+  <div class="progress-bar"><div class="progress-fill" id="progBar" style="width:0%"></div></div>
+  <div id="qContainer"></div>
+  <div id="noResults">No questions match your filter.</div>
+</main>
+<script>
+const data=[
+// ==================== SECTION 1: MEANING & TYPES OF EDUCATION (Q1-60) ====================
+{s:"Meaning & Types of Education",q:"The word 'Education' is derived from the Latin word 'Educare' which means:",o:["To bring out","To bring up / rear","To teach","To develop"],a:1},
+{s:"Meaning & Types of Education",q:"The Latin word 'Educere' means:",o:["To bring up","To rear","To bring out or lead forth","To impart knowledge"],a:2},
+{s:"Meaning & Types of Education",q:"In the broadest sense, education is defined as:",o:["Attending school regularly","A deliberate and systematic attempt to socialize an individual","Reading books and gaining knowledge","Passing examinations"],a:1},
+{s:"Meaning & Types of Education",q:"Which philosopher said 'Education leads to all-round development'?",o:["Amartya Sen","Rabindranath Tagore","Mahatma Gandhi","B.R. Ambedkar"],a:2},
+{s:"Meaning & Types of Education",q:"Mahatma Gandhi's concept of Basic Education is characterized by:",o:["English medium instruction","Integration of schooling with productive manual work","Emphasis on rote learning","University-focused curriculum"],a:1},
+{s:"Meaning & Types of Education",q:"According to Gandhi's Basic Education, the primary purpose of making schools self-reliant was:",o:["To reduce teacher workload","To integrate schooling with productive work","To promote English education","To increase government funding"],a:1},
+{s:"Meaning & Types of Education",q:"Amartya Sen's 'Capability Approach' considers education as:",o:["A luxury for developed nations","A basic capability enhancing freedom","Only a means to earn income","A tool for industrialization"],a:1},
+{s:"Meaning & Types of Education",q:"Which type of education is imparted in institutionalized settings like schools and colleges?",o:["Informal","Non-formal","Formal","Alternative"],a:2},
+{s:"Meaning & Types of Education",q:"Education imparted by family and relatives at home without any structured curriculum is called:",o:["Formal education","Non-formal education","Informal education","Distance education"],a:2},
+{s:"Meaning & Types of Education",q:"Non-formal education is primarily designed for:",o:["College students","Out-of-school children and adults","Teachers","Government employees"],a:1},
+{s:"Meaning & Types of Education",q:"Which of the following is an example of Non-formal education?",o:["IIT Mumbai","Navodaya Vidyalaya","Adult literacy program by NGO","CBSE affiliated school"],a:2},
+{s:"Meaning & Types of Education",q:"Which of the following features belongs to FORMAL education?\n(a) Classroom + direct teacher presence\n(b) Pre-decided curriculum\n(d) Sequential levels",o:["Only (b)","(a) and (b) correct","(a), (b), (d) correct","All including (c) correct"],a:2},
+{s:"Meaning & Types of Education",q:"The transfer of knowledge from one generation to another is the fundamental purpose of:",o:["Examination","Education","Vocational training","Research"],a:1},
+{s:"Meaning & Types of Education",q:"Social Mobility refers to:",o:["Physical movement of people","Shift in an individual's social status","Change in cultural values","Migration from rural to urban areas"],a:1},
+{s:"Meaning & Types of Education",q:"When a doctor becomes a medical teacher without change in social standing, this represents:",o:["Vertical Mobility","Horizontal Mobility","Inter-generational Mobility","Intra-generational Mobility"],a:1},
+{s:"Meaning & Types of Education",q:"When a factory worker's son becomes a lawyer, this change across generations is called:",o:["Vertical Mobility","Horizontal Mobility","Inter-generational Mobility","Intra-generational Mobility"],a:2},
+{s:"Meaning & Types of Education",q:"Intra-generational mobility refers to:",o:["Change across multiple generations","Change within the lifespan of a single generation or between siblings","Change between countries","Change in educational qualifications"],a:1},
+{s:"Meaning & Types of Education",q:"Upward social mobility through education means:",o:["Moving from higher to lower social position","Moving from lower to higher social position","Staying at the same social level","Changing occupation"],a:1},
+{s:"Meaning & Types of Education",q:"The Global Social Mobility Index is prepared by:",o:["UNESCO","World Bank","World Economic Forum","UNDP"],a:2},
+{s:"Meaning & Types of Education",q:"The Global Social Mobility Index was first released in:",o:["2015","2018","2020","2022"],a:2},
+{s:"Meaning & Types of Education",q:"How many determinants does the Global Social Mobility Index measure?",o:["3","4","5","6"],a:2},
+{s:"Meaning & Types of Education",q:"Which of the following is NOT a determinant of the Global Social Mobility Index?",o:["Health","Technology","Religion","Work"],a:2},
+{s:"Meaning & Types of Education",q:"Education sub-factors in the Global Social Mobility Index include:",o:["Only access and quality","Access, Quality & Equity, and Lifelong Learning","Only quality and equity","Access and lifelong learning only"],a:1},
+{s:"Meaning & Types of Education",q:"Education as a tool for social change can bring about:",o:["Poverty eradication","Better health and nutrition","Upward social mobility","All of the above"],a:3},
+{s:"Meaning & Types of Education",q:"Which type of education is described as 'lifelong, unstructured process'?",o:["Formal","Non-formal","Informal","Distance"],a:2},
+{s:"Meaning & Types of Education",q:"Skill development courses run by ITIs represent which type of education?",o:["Formal","Informal","Non-formal","Alternative"],a:2},
+{s:"Meaning & Types of Education",q:"Which Latin word means 'to rear' or 'bring up'?",o:["Educere","Educare","Educatio","Educo"],a:1},
+{s:"Meaning & Types of Education",q:"Pre-decided curriculum is a feature of which type of education?",o:["Informal","Non-formal","Formal","Vocational"],a:2},
+{s:"Meaning & Types of Education",q:"Which philosopher's Capability Approach catalysed holistic understanding of human development?",o:["Karl Marx","John Dewey","Amartya Sen","Jean Piaget"],a:2},
+{s:"Meaning & Types of Education",q:"Downward social mobility occurs when a person:",o:["Moves from lower to higher position","Moves from higher to lower social position","Remains at same social level","Changes their occupation"],a:1},
+{s:"Meaning & Types of Education",q:"Which type of mobility occurs when a change in occupational status affects one's societal position?",o:["Horizontal Mobility","Vertical Mobility","Cultural Mobility","Geographic Mobility"],a:1},
+{s:"Meaning & Types of Education",q:"Education directly contributes to social change through:",o:["Personality development","Character building","Empowering individuals","All of the above"],a:3},
+{s:"Meaning & Types of Education",q:"Sequential access from one level to another is a hallmark of which type of education?",o:["Non-formal","Informal","Formal","Community"],a:2},
+{s:"Meaning & Types of Education",q:"Which of the following BEST defines Non-formal education?",o:["Education in schools","Education by family","Education outside formal system for specific target groups","Education through online platforms only"],a:2},
+{s:"Meaning & Types of Education",q:"In which type of education are Anganwadis primarily categorized?",o:["Formal","Informal","Non-formal","Higher"],a:2},
+{s:"Meaning & Types of Education",q:"Gandhi published his ideas on Basic Education in which weekly magazine?",o:["Young India","Harijan","Navajivan","Indian Opinion"],a:1},
+{s:"Meaning & Types of Education",q:"'Protection & Institutions' is one of the determinants of:",o:["HDI","Global Social Mobility Index","World Happiness Index","EFA Index"],a:1},
+{s:"Meaning & Types of Education",q:"According to Amartya Sen, education enhances which fundamental aspect?",o:["Wealth","Freedom","Power","Social status"],a:1},
+{s:"Meaning & Types of Education",q:"Gandhi's Harijan magazine was started in:",o:["1930","1933","1937","1942"],a:1},
+{s:"Meaning & Types of Education",q:"Which commission recommended free & compulsory education for 8 years under the Wardha Scheme?",o:["Raleigh Commission","Indian National Congress (INC)","Hunter Commission","CABE"],a:1},
+{s:"Meaning & Types of Education",q:"The improvement of economic status through education is an example of:",o:["Horizontal Social Mobility","Downward Social Mobility","Upward Social Mobility","Cultural Mobility"],a:2},
+{s:"Meaning & Types of Education",q:"Which of the following is a feature of informal education?",o:["Structured curriculum","Certificate awarded at the end","Imparted by family at home","Conducted in school premises"],a:2},
+{s:"Meaning & Types of Education",q:"'Work' as a determinant in Global Social Mobility Index includes:",o:["Only wages","Opportunities, wages, and conditions","Only employment rate","Only working hours"],a:1},
+{s:"Meaning & Types of Education",q:"Knowledge passed on from one generation to another occurs primarily through:",o:["Television","Education","Internet","Social media"],a:1},
+{s:"Meaning & Types of Education",q:"A craftsman teaching his son the family trade is an example of:",o:["Formal education","Non-formal education","Informal education","Technical education"],a:2},
+{s:"Meaning & Types of Education",q:"Which type of education uses standardized curriculum across institutions?",o:["Informal","Non-formal","Alternative","Formal"],a:3},
+{s:"Meaning & Types of Education",q:"Civic participation as a result of education is an aspect of:",o:["Social mobility","Education as social change","Vocational development","Economic growth"],a:1},
+{s:"Meaning & Types of Education",q:"Open schools and NGO literacy programs are examples of:",o:["Formal education","Informal education","Non-formal education","Traditional education"],a:2},
+{s:"Meaning & Types of Education",q:"The goal of education according to the Capability Approach is to:",o:["Increase GDP","Enhance individual freedoms and choices","Train workers for industry","Achieve universal literacy"],a:1},
+{s:"Meaning & Types of Education",q:"Which type of education is provided by Kendriya Vidyalayas?",o:["Non-formal","Informal","Formal","Distance"],a:2},
+{s:"Meaning & Types of Education",q:"'Curriculum as per need' is a feature of which type of education?",o:["Formal","Non-formal","Informal","Higher"],a:1},
+{s:"Meaning & Types of Education",q:"Gandhi's concept of Basic Education emphasised what type of work at the center of learning?",o:["Administrative work","Manual/productive craftwork","Research work","Office work"],a:1},
+{s:"Meaning & Types of Education",q:"The process of making an individual fit to participate in society through education is called:",o:["Socialization","Industrialization","Urbanization","Vocalization"],a:0},
+{s:"Meaning & Types of Education",q:"Which of the following correctly describes Vertical Social Mobility?",o:["Changing profession at same status level","Moving up or down in social hierarchy","Moving from one country to another","Changing educational institution"],a:1},
+{s:"Meaning & Types of Education",q:"Which global body considers education as a key tool for achieving SDG 4?",o:["WHO","UNESCO","WTO","IMF"],a:1},
+{s:"Meaning & Types of Education",q:"SDG 4 was adopted in which year?",o:["2000","2010","2015","2020"],a:2},
+{s:"Meaning & Types of Education",q:"SDG 4 aims to ensure quality education by:",o:["2025","2030","2035","2040"],a:1},
+{s:"Meaning & Types of Education",q:"Which of the following statements about education as social change is INCORRECT?",o:["Education improves economic status","Education promotes social mobility","Education always leads to downward mobility","Education builds character"],a:2},
+{s:"Meaning & Types of Education",q:"Personality development through education comes under which role of education?",o:["Economic role","Political role","Social change role","Administrative role"],a:2},
+
+// ==================== SECTION 2: EVOLUTION OF EDUCATION (Q61-150) ====================
+{s:"Evolution of Education",q:"Which was the first educational institution established by the East India Company?",o:["Fort William College","Sanskrit College Benares","Calcutta Madrasa","Asiatic Society of Bengal"],a:2},
+{s:"Evolution of Education",q:"The Calcutta Madrasa (1781) was established by:",o:["Richard Wellesley","William Jones","Warren Hastings","Lord Macaulay"],a:2},
+{s:"Evolution of Education",q:"The Asiatic Society of Bengal (1784) was founded by:",o:["Warren Hastings","William Jones","Jonathan Duncan","Charles Wilkins"],a:1},
+{s:"Evolution of Education",q:"The Asiatic Society of Bengal was founded to:",o:["Train Indian civil servants","Understand India's history and culture","Promote English education","Set up universities"],a:1},
+{s:"Evolution of Education",q:"Who translated the Bhagavad Gita into English for the first time?",o:["William Jones","Warren Hastings","Charles Wilkins","Jonathan Duncan"],a:2},
+{s:"Evolution of Education",q:"Sanskrit College at Benares was founded in 1791 by:",o:["Warren Hastings","Richard Wellesley","Jonathan Duncan","Lord Macaulay"],a:2},
+{s:"Evolution of Education",q:"Sanskrit College, Benares was established for study of:",o:["Islamic law","English literature","Hindu laws and philosophies","Mathematics and science"],a:2},
+{s:"Evolution of Education",q:"Fort William College, Calcutta (1800) was founded by:",o:["Warren Hastings","Lord Macaulay","Richard Wellesley","William Jones"],a:2},
+{s:"Evolution of Education",q:"Fort William College was established primarily to train:",o:["Indian students in English","EIC civil servants in Indian languages","Indian kings in governance","Women in vocational skills"],a:1},
+{s:"Evolution of Education",q:"The Charter Act of 1813 set aside how much annual amount for educating Indian subjects?",o:["Rs. 50,000","Rs. 1 lakh","Rs. 2 lakh","Rs. 5 lakh"],a:1},
+{s:"Evolution of Education",q:"Macaulay's Minutes on Education were written in:",o:["1813","1835","1854","1882"],a:1},
+{s:"Evolution of Education",q:"Macaulay's Minute proposed teaching of:",o:["Sanskrit and Arabic","Indian vernacular languages","Western sciences and literature in English only","Both Indian and western subjects"],a:2},
+{s:"Evolution of Education",q:"The 'Downward Filtration Theory' was part of:",o:["Wood's Dispatch","Hunter Commission","Macaulay's Minutes","Sadler Commission"],a:2},
+{s:"Evolution of Education",q:"The Downward Filtration Theory aimed to educate a small section of:",o:["Rural poor","Upper and middle-class Indians","Women","SC/ST communities"],a:1},
+{s:"Evolution of Education",q:"Wood's Dispatch of 1854 is known as the:",o:["Magna Carta of Indian Education","First Education Policy","Foundation of Modern India","Dawn of Vernacular Education"],a:0},
+{s:"Evolution of Education",q:"Wood's Dispatch introduced which system for educational institutions?",o:["Scholarship system","Grants-in-aid system","Fee waiver system","Loan system"],a:1},
+{s:"Evolution of Education",q:"Which three cities got the first universities as a result of Wood's Dispatch?",o:["Delhi, Mumbai, Chennai","Kolkata, Chennai, Mumbai","Lucknow, Patna, Allahabad","Hyderabad, Pune, Nagpur"],a:1},
+{s:"Evolution of Education",q:"Wood's Dispatch recommended which language for primary school teaching?",o:["English","Hindi","Vernacular/Mother tongue","Sanskrit"],a:2},
+{s:"Evolution of Education",q:"Wood's Dispatch recommended which type of education in government schools?",o:["Religious education","Secular education","Vocational education","Military education"],a:1},
+{s:"Evolution of Education",q:"Rajkot College (1868) and Mayo College, Ajmer (1875) were established for:",o:["Training women teachers","Educating SC/ST children","Political training of Indian princes and elites","Vocational training"],a:2},
+{s:"Evolution of Education",q:"Hunter's Commission was constituted in:",o:["1854","1875","1882","1902"],a:2},
+{s:"Evolution of Education",q:"Hunter's Commission recommended that the state should primarily focus on:",o:["Higher education","Primary education","Secondary education","University education"],a:1},
+{s:"Evolution of Education",q:"According to Hunter's Commission, secondary education was to be divided into:",o:["Arts and Science streams","Literary and Vocational streams","Classical and Modern streams","General and Technical streams"],a:1},
+{s:"Evolution of Education",q:"Hunter's Commission recommended transfer of primary education control to:",o:["Central government","State government","District and Municipal Boards","University boards"],a:2},
+{s:"Evolution of Education",q:"The Raleigh Commission (1902) was constituted by Viceroy:",o:["Lord Mayo","Lord Ripon","Lord Curzon","Lord Dalhousie"],a:2},
+{s:"Evolution of Education",q:"The Raleigh Commission led to which legislation?",o:["Charter Act 1813","Universities Act 1904","Indian Education Act 1854","Indian Universities Act 1920"],a:1},
+{s:"Evolution of Education",q:"Universities Act 1904 gave the government:",o:["Power to establish new universities","Veto over university senate decisions","Power to appoint all teachers","Right to set curriculum"],a:1},
+{s:"Evolution of Education",q:"Gopal Krishna Gokhale mooted the idea of free and compulsory primary education in:",o:["1905","1910","1915","1920"],a:1},
+{s:"Evolution of Education",q:"The Sadler University Commission (1917-19) initially aimed to study:",o:["All Indian universities","Only Calcutta University's poor performance","Primary education in India","Vocational education"],a:1},
+{s:"Evolution of Education",q:"Sadler Commission recommended school completion in:",o:["10 years","11 years","12 years","14 years"],a:2},
+{s:"Evolution of Education",q:"According to Sadler Commission, university admission should be after:",o:["Matric","Intermediate","High School","Class 8"],a:1},
+{s:"Evolution of Education",q:"How many new universities were established between 1916-21 based on Sadler Commission?",o:["5","6","7","8"],a:2},
+{s:"Evolution of Education",q:"Central Advisory Board of Education (CABE) was set up in:",o:["1913","1917","1920","1937"],a:2},
+{s:"Evolution of Education",q:"The Wardha Scheme of Basic Education (1937) was developed under which committee?",o:["Radhakrishnan Committee","Zakir Hussain Committee","Hunter Committee","Sadler Committee"],a:1},
+{s:"Evolution of Education",q:"Wardha Scheme of Basic Education was based on ideas of:",o:["Jawaharlal Nehru","B.R. Ambedkar","Mahatma Gandhi","Rabindranath Tagore"],a:2},
+{s:"Evolution of Education",q:"The Wardha Scheme proposed free and compulsory education for how many years?",o:["6 years","8 years","10 years","12 years"],a:1},
+{s:"Evolution of Education",q:"The age bracket covered under the Wardha Scheme was:",o:["3-11 years","5-14 years","6-14 years","6-16 years"],a:2},
+{s:"Evolution of Education",q:"Wardha Scheme divided schooling into:",o:["4 years junior + 4 years senior","5 years junior + 3 years senior","6 years junior + 2 years senior","3 years junior + 5 years senior"],a:1},
+{s:"Evolution of Education",q:"Under the Wardha Scheme, girls were allowed to leave school at age:",o:["10","11","12","14"],a:2},
+{s:"Evolution of Education",q:"The Three Basic Resolutions of Wardha Scheme were passed on:",o:["15 August 1937","22-23 October 1937","26 January 1937","2 October 1937"],a:1},
+{s:"Evolution of Education",q:"Which of the following was NOT a resolution of the Wardha Scheme?",o:["Free and compulsory education for 8 years","Mother tongue as medium","English as compulsory subject","Work-centered education"],a:2},
+{s:"Evolution of Education",q:"The Sergeant Plan of Education (1944) was created by:",o:["Indian National Congress","CABE","British Parliament","Viceroy's Council"],a:1},
+{s:"Evolution of Education",q:"Under Sergeant Plan, free primary education was for age group:",o:["3-6 years","6-11 years","6-14 years","0-6 years"],a:0},
+{s:"Evolution of Education",q:"Under Sergeant Plan, compulsory education was for age group:",o:["3-6 years","6-11 years","11-17 years","6-14 years"],a:1},
+{s:"Evolution of Education",q:"Under Sergeant Plan, High School education was for:",o:["All children","Only boys","Selected students aged 11-17","Only girls"],a:2},
+{s:"Evolution of Education",q:"The correct chronological sequence is:",o:["Wood's Dispatch → Macaulay → Hunter → Sergeant","Macaulay → Wood's Dispatch → Hunter → Sergeant","Hunter → Macaulay → Wood's → Sergeant","Sergeant → Hunter → Wood's → Macaulay"],a:1},
+{s:"Evolution of Education",q:"Which body set aside Rs.1 lakh for Indian education through the Charter Act of 1813?",o:["East India Company","British Parliament","Indian National Congress","Viceroy's Council"],a:0},
+{s:"Evolution of Education",q:"The CABE (1937-39) stressed the need for:",o:["Higher education reforms","Vocational education","Adult education on a wider scale involving voluntary organizations","Primary school expansion"],a:2},
+{s:"Evolution of Education",q:"Which commission recommended at least one agricultural university per state?",o:["Mudaliar Commission","Radhakrishnan Commission","Kothari Commission","Sadler Commission"],a:2},
+{s:"Evolution of Education",q:"The 10+2+3 educational structure was first recommended by:",o:["Radhakrishnan Commission","Mudaliar Commission","Kothari Commission","Sadler Commission"],a:2},
+{s:"Evolution of Education",q:"Universities Act 1904 stipulated that Fellows (university members) should be:",o:["Increased in number","Reduced and nominated by government","Elected by teachers","Selected by students"],a:1},
+{s:"Evolution of Education",q:"Macaulay proposed making English the medium of instruction to:",o:["Strengthen Indian culture","Create a class of Indians who assist in governance","Promote Indian languages","Develop science education"],a:1},
+{s:"Evolution of Education",q:"Which document of colonial education is often criticized for neglecting mass education?",o:["Wood's Dispatch","Hunter's Report","Macaulay's Minutes","Sadler Report"],a:2},
+{s:"Evolution of Education",q:"Wood's Dispatch recommended Anglo-Vernacular schools at which level?",o:["Primary","High School","Intermediate","University"],a:1},
+{s:"Evolution of Education",q:"Which university was NOT established between 1916-1921 under Sadler Commission recommendations?",o:["Mysore","Patna","Benares","Nagpur"],a:3},
+{s:"Evolution of Education",q:"The Sadler Commission recommended a separate board for:",o:["Primary education","Secondary and Intermediate education","Higher education","Technical education"],a:1},
+{s:"Evolution of Education",q:"Wood's Dispatch gave impetus to education of:",o:["Only men","Only upper caste","Women and vocational training","Only urban students"],a:2},
+{s:"Evolution of Education",q:"The Wardha Scheme education was centered on:",o:["Book learning","Regional craftwork and productive labor","Competitive examinations","English language learning"],a:1},
+{s:"Evolution of Education",q:"Gokhale's proposal for free and compulsory primary education was:",o:["Immediately implemented","Shelved at that time","Rejected permanently","Implemented in 1920"],a:1},
+{s:"Evolution of Education",q:"The charter of Wood's Dispatch is often called 'Magna Carta' because it:",o:["Gave political rights","Laid comprehensive foundation for modern Indian education","Made English official language","Established military schools"],a:1},
+{s:"Evolution of Education",q:"Hunter Commission recommended female education especially outside:",o:["Villages","Presidency towns","Hill stations","Urban centres"],a:1},
+{s:"Evolution of Education",q:"Raleigh Commission was concerned that universities were producing students with:",o:["Scientific knowledge","Religious values","Revolutionary ideologies","Trade skills"],a:2},
+{s:"Evolution of Education",q:"Which document recommended Vernacular language for primary school teaching for the first time?",o:["Macaulay's Minutes","Wood's Dispatch","Hunter's Report","Sergeant Plan"],a:1},
+{s:"Evolution of Education",q:"Which person associated with INC chaired the Wardha Scheme committee?",o:["Mahatma Gandhi","Jawaharlal Nehru","Zakir Hussain","Maulana Abul Kalam Azad"],a:2},
+{s:"Evolution of Education",q:"Sergeant Plan focused on education for mentally and physically handicapped — this was a:",o:["Revolutionary concept at that time","Already practiced concept","Rejected by government","Implemented later in 1940"],a:0},
+{s:"Evolution of Education",q:"According to Wood's Dispatch, affiliated colleges were to be set up at:",o:["Presidency towns only","District level","Village level","Tehsil level"],a:1},
+{s:"Evolution of Education",q:"The 1882 Hunter's Commission is also known as the:",o:["Indian Education Commission","Calcutta University Commission","Universities Commission","Viceroy's Education Commission"],a:0},
+{s:"Evolution of Education",q:"Wood's Dispatch (1854) recommended higher education should be:",o:["Free for all","Available at district headquarters only","For selected meritorious students","Compulsory for government employees"],a:2},
+{s:"Evolution of Education",q:"Which report established a pattern of having one agricultural university per state?",o:["Sergeant Report","Mudaliar Report","Kothari Commission Report","Radhakrishnan Report"],a:2},
+{s:"Evolution of Education",q:"The Wardha Scheme was gender and religion neutral — which statement is correct?",o:["Girls were not included","Only Hindu children included","Education was gender/culture/religion neutral","Boys had separate curriculum"],a:2},
+{s:"Evolution of Education",q:"Fort William College was set up in which city?",o:["Bombay","Madras","Calcutta","Delhi"],a:2},
+{s:"Evolution of Education",q:"Calcutta Madrasa (1781) was established for studies of:",o:["Hindu philosophy","Islamic law and studies","Christian theology","Western science"],a:1},
+{s:"Evolution of Education",q:"Which document established affiliated colleges at the district level in India?",o:["Macaulay's Minutes","Charter Act 1813","Wood's Dispatch 1854","Sadler Commission"],a:2},
+{s:"Evolution of Education",q:"Which commission addressed both primary and higher education and recommended private enterprise for higher education?",o:["Raleigh Commission","Sadler Commission","Hunter Commission","Sergeant Commission"],a:2},
+{s:"Evolution of Education",q:"The moral side of education was emphasized particularly by which commission?",o:["Raleigh Commission","Hunter Commission","Sadler Commission","Mudaliar Commission"],a:1},
+{s:"Evolution of Education",q:"CABE stands for:",o:["Central Advisory Board of Education","Central Authority for Basic Education","Council for Advanced Board of Examination","Central Administration Bureau of Education"],a:0},
+{s:"Evolution of Education",q:"Lord Curzon's educational policy was primarily directed at:",o:["Expanding mass education","Controlling revolutionary tendencies in universities","Promoting vernacular languages","Encouraging women's education"],a:1},
+{s:"Evolution of Education",q:"The Sadler Commission was composed in response to poor performance of:",o:["Bombay University","Calcutta University","Madras University","Lahore University"],a:1},
+{s:"Evolution of Education",q:"Sadler Commission recommended a university degree to be of how many years?",o:["2 years","3 years","4 years","5 years"],a:1},
+
+// ==================== SECTION 3: COMMISSIONS (Q151-230) ====================
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission (1948-49) was the:",o:["Last education commission of colonial India","First Education Commission of independent India","Commission on primary education","Commission on vocational education"],a:1},
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission is also known as:",o:["Education Commission","University Education Commission","School Education Commission","Higher Education Commission"],a:1},
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission recommended that all students should receive:",o:["Military training","Agricultural training","N.C.C. training","Sports training"],a:2},
+{s:"Post-Independence Commissions",q:"According to Radhakrishnan Commission, university admission should be after:",o:["Matric (10 years)","Intermediate (11 years of school)","High School (9 years)","Degree (15 years)"],a:1},
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission recommended what type of questions in examinations?",o:["Only objective type","Only essay type","Essay type supplemented by objective type","Only oral questions"],a:2},
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission recommended establishing colleges specifically for:",o:["Backward classes","Women","Rural students","Working adults"],a:1},
+{s:"Post-Independence Commissions",q:"Which commission recommended that teachers should be given leaves for higher studies?",o:["Kothari Commission","Mudaliar Commission","Radhakrishnan Commission","Ramamurthi Committee"],a:2},
+{s:"Post-Independence Commissions",q:"Mudaliar Commission (1952-53) focused on:",o:["Primary education","Secondary education","University education","Adult education"],a:1},
+{s:"Post-Independence Commissions",q:"Chairman of Mudaliar Commission was:",o:["S. Radhakrishnan","D.S. Kothari","Lakshamanswami Mudaliar","Acharya Ramamurthi"],a:2},
+{s:"Post-Independence Commissions",q:"Dr. Lakshamanswami Mudaliar was Vice Chancellor of:",o:["Delhi University","Bombay University","Madras University","Calcutta University"],a:2},
+{s:"Post-Independence Commissions",q:"Mudaliar Commission used which methods of data collection?",o:["Questionnaire and Interview Method","Observation and Experiment","Survey and Census","Focus Group and Case Study"],a:0},
+{s:"Post-Independence Commissions",q:"Mudaliar Commission recommended secondary education for age group:",o:["6-14 years","11-17 years","14-18 years","8-16 years"],a:1},
+{s:"Post-Independence Commissions",q:"According to Mudaliar Commission, Junior Secondary Stage covers:",o:["2 years","3 years","4 years","5 years"],a:1},
+{s:"Post-Independence Commissions",q:"According to Mudaliar Commission, Higher Secondary Stage covers:",o:["2 years","3 years","4 years","5 years"],a:2},
+{s:"Post-Independence Commissions",q:"Kothari Commission (1964-66) was the first commission to cover:",o:["Only secondary education","Only higher education","All levels of education from primary to higher","Only technical education"],a:2},
+{s:"Post-Independence Commissions",q:"Kothari Commission report is titled:",o:["Education for National Development","Education and National Development","National Education Policy","Learning Without Borders"],a:1},
+{s:"Post-Independence Commissions",q:"Which commission's recommendations led to the National Policy on Education 1968?",o:["Radhakrishnan Commission","Mudaliar Commission","Kothari Commission","Ramamurthi Committee"],a:2},
+{s:"Post-Independence Commissions",q:"Kothari Commission recommended what percentage of national income for education?",o:["3%","4%","5%","6%"],a:3},
+{s:"Post-Independence Commissions",q:"Kothari Commission recommended how many agricultural universities per state?",o:["Two","At least one","Three","As many as needed"],a:1},
+{s:"Post-Independence Commissions",q:"The Three Language Formula was recommended by:",o:["Radhakrishnan Commission","Mudaliar Commission","Kothari Commission","Ramamurthi Committee"],a:2},
+{s:"Post-Independence Commissions",q:"10+2+3 educational pattern was accepted based on which commission's recommendation?",o:["Radhakrishnan Commission","Mudaliar Commission","Kothari Commission","Sadler Commission"],a:2},
+{s:"Post-Independence Commissions",q:"The 10+2+3 pattern was primarily accepted to prepare school leavers for:",o:["College education","Various vocations","Medical and engineering courses","Government service"],a:1},
+{s:"Post-Independence Commissions",q:"Acharya Ramamurthi Committee was formed in:",o:["1986","1988","1989","1991"],a:2},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee's report was titled:",o:["Education and National Development","Towards an Enlightened and Humane Society","Education for the New India","Learning for Life"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee was formed to review:",o:["NPE 1968","NPE 1986","Kothari Commission Report","Mudaliar Commission Report"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee was appointed on:",o:["7 May 1990","9 January 1991","1 April 1989","15 August 1990"],a:0},
+{s:"Post-Independence Commissions",q:"Ramamurthi Report was tabled on:",o:["7 May 1990","9 January 1991","1 April 1989","15 August 1990"],a:1},
+{s:"Post-Independence Commissions",q:"According to Ramamurthi Report, Work Experience/SUPW should be:",o:["Independent of subjects","Integrally linked with subjects in content and pedagogy","Only after school hours","Only for vocational stream students"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee recommended that Right to Education should be included in:",o:["Directive Principles","Fundamental Rights","Fundamental Duties","Preamble of Constitution"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee recommended work benches and practical schools for:",o:["General education","Vocational education","Technical education","Higher education"],a:1},
+{s:"Post-Independence Commissions",q:"Janardhana Reddy Committee was appointed on:",o:["31 July 1989","31 July 1991","31 July 1992","31 July 1990"],a:1},
+{s:"Post-Independence Commissions",q:"Janardhana Reddy Committee recommended Navodaya Vidyalaya scheme should:",o:["Be discontinued","Continue with one in each district","Be merged with regular schools","Be converted to ITIs"],a:1},
+{s:"Post-Independence Commissions",q:"According to Janardhana Reddy Committee, ECCE under Article 45:",o:["Scope should be enlarged","Scope need not be enlarged; Anganwadi workers to expand role","Should be transferred to private sector","Should be made compulsory for all states"],a:1},
+{s:"Post-Independence Commissions",q:"Janardhana Reddy Committee recommended what approach for UEE and adult literacy?",o:["Sequential approach","Dual track approach","Parallel approach","Integrated approach"],a:1},
+{s:"Post-Independence Commissions",q:"Janardhana Reddy recommended vocational courses from which class onwards?",o:["Class VI","Class VIII","Class IX","Class XI"],a:2},
+{s:"Post-Independence Commissions",q:"Janardhana Reddy recommended establishment of:",o:["State Board of Education","District Board of Education","National Board of Education","Central Board of Education"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee promoted transformation of govt schools into:",o:["Private schools","Navodaya Vidyalayas","Genuine neighbourhood schools","Residential schools"],a:2},
+{s:"Post-Independence Commissions",q:"Which commission recommended establishing rural universities based on Gandhian basic education?",o:["Radhakrishnan Commission","Kothari Commission","Mudaliar Commission","Based on NPE 1986"],a:3},
+{s:"Post-Independence Commissions",q:"Which of the following commissions recommended ECCE inclusion in Fundamental Rights?",o:["Kothari Commission","Mudaliar Commission","Ramamurthi Committee","Janardhana Reddy Committee"],a:2},
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission recommended improving which aspect of teachers' working conditions?",o:["Teaching hours only","Pay scale and service conditions","Classroom infrastructure","Teaching methodology"],a:1},
+{s:"Post-Independence Commissions",q:"SUPW in the context of Ramamurthi Committee stands for:",o:["Study Under Professional Workers","Socially Useful Productive Work","School Unified Program Work","Students' Unified Practical Workshop"],a:1},
+{s:"Post-Independence Commissions",q:"The Kothari Commission report title 'Education and National Development' was published in:",o:["1964","1966","1968","1970"],a:1},
+{s:"Post-Independence Commissions",q:"Radhakrishnan Commission's primary focus was on:",o:["Primary education","Secondary education","University/higher education","Adult education"],a:2},
+{s:"Post-Independence Commissions",q:"Mudaliar Commission recommended secondary education as preparation for:",o:["Only university entry","Either university or commerce/vocations","Only vocational careers","Military service"],a:1},
+{s:"Post-Independence Commissions",q:"Which commission was known as the 'Secondary Education Commission'?",o:["Radhakrishnan Commission","Mudaliar Commission","Kothari Commission","Hunter Commission"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee recommended alternatives for which scheme?",o:["Operation Blackboard","Mid-Day Meal Scheme","Navodaya Vidyalaya scheme","IGNOU"],a:2},
+{s:"Post-Independence Commissions",q:"Janardhana Reddy Committee operated under:",o:["Planning Commission","CABE (Central Advisory Board of Education)","NCERT","Ministry of HRD"],a:1},
+{s:"Post-Independence Commissions",q:"Operation Blackboard was recommended to continue in expanded form by:",o:["Ramamurthi Committee","Janardhana Reddy Committee","Kothari Commission","CABE 1944"],a:1},
+{s:"Post-Independence Commissions",q:"Ramamurthi Committee recommended removing disparities especially in:",o:["Urban areas","Rural and tribal areas","Metropolitan cities","Educational institutions"],a:1},
+{s:"Post-Independence Commissions",q:"Common School System was recommended by:",o:["Only Kothari Commission","Only Ramamurthi Committee","Both Ramamurthi Committee and Janardhana Reddy Committee","Radhakrishnan Commission"],a:2},
+{s:"Post-Independence Commissions",q:"Kothari Commission recommended that oral examinations should be supplementary to:",o:["Essay type questions","Objective type questions","Practical examinations","Written examinations"],a:0},
+{s:"Post-Independence Commissions",q:"Which commission for the first time recommended a comprehensive policy covering all levels of education?",o:["Radhakrishnan Commission","Mudaliar Commission","Kothari Commission","Hunter Commission"],a:2},
+
+// ==================== SECTION 4: NATIONAL POLICIES (Q231-300) ====================
+{s:"National Policies on Education",q:"The first National Policy on Education of independent India was promulgated in:",o:["1966","1968","1970","1976"],a:1},
+{s:"National Policies on Education",q:"NPE 1968 was based on recommendations of:",o:["Mudaliar Commission","Radhakrishnan Commission","Kothari Commission","Hunter Commission"],a:2},
+{s:"National Policies on Education",q:"NPE 1968 recommended free and compulsory education for all children up to age:",o:["11 years","12 years","14 years","16 years"],a:2},
+{s:"National Policies on Education",q:"The Three Language Formula under NPE 1968 for Hindi-speaking states included:",o:["Hindi + Sanskrit + English","Modern Indian Language (southern) + Hindi + English","Hindi + Regional Language + English","Any three languages"],a:1},
+{s:"National Policies on Education",q:"NPE 1968 recommended increasing education investment to what percentage of national income?",o:["4%","5%","6%","8%"],a:2},
+{s:"National Policies on Education",q:"Equalization of Educational Opportunity under NPE 1968 was aimed at:",o:["Only urban students","Only rural students","Merit-based admission protecting socially deprived sections","Only women"],a:2},
+{s:"National Policies on Education",q:"NPE 1968 recommended which pattern of education across India?",o:["8+2+3","10+2+3","10+2+2","12+3"],a:1},
+{s:"National Policies on Education",q:"NPE 1968 recommended at least one _____ university per state:",o:["Technical","Medical","Agricultural","Law"],a:2},
+{s:"National Policies on Education",q:"NPE 1968 gave academic freedom to teachers to:",o:["Set their own salaries","Publish research and express views on national/international issues","Choose their own curriculum","Refuse certain assignments"],a:1},
+{s:"National Policies on Education",q:"The second National Policy on Education was promulgated in:",o:["1982","1984","1986","1988"],a:2},
+{s:"National Policies on Education",q:"NPE 1986 recommended which common educational structure?",o:["8+4+3","10+2+3","5+3+3+4","10+3+2"],a:1},
+{s:"National Policies on Education",q:"Operation Blackboard under NPE 1986 required each primary school to have at least:",o:["1 teacher (100% women)","2 teachers (50% women)","3 teachers (50% women)","5 teachers (30% women)"],a:2},
+{s:"National Policies on Education",q:"Operation Blackboard specified that school rooms should be:",o:["Air conditioned","All-weather (at least 3 reasonably large rooms)","Soundproofed","Underground"],a:1},
+{s:"National Policies on Education",q:"NPE 1986 recommended opening primary schools on priority in:",o:["State capitals","Metropolitan cities","Tribal, SC, backward areas","Industrial zones"],a:2},
+{s:"National Policies on Education",q:"Vocational education under NPE 1986 was introduced at:",o:["Primary level","Secondary level (+2 stage)","University level","All levels"],a:1},
+{s:"National Policies on Education",q:"NPE 1986 made which institution responsible for coordinating distance learning?",o:["NCERT","UGC","IGNOU","AICTE"],a:2},
+{s:"National Policies on Education",q:"Navodaya Vidyalayas were established under:",o:["NPE 1968","NPE 1986","Kothari Commission","Ramamurthi Committee"],a:1},
+{s:"National Policies on Education",q:"Navodaya Vidyalayas were established for:",o:["Economically backward students","Gifted students from rural areas","Urban elite students","Physically handicapped students"],a:1},
+{s:"National Policies on Education",q:"NPE 1986 recommended establishing rural universities based on:",o:["Kothari model","Gandhian basic education","Mudaliar model","British university model"],a:1},
+{s:"National Policies on Education",q:"NPE 1986 recommended delinking degrees from jobs in selected areas. What test was proposed?",o:["UPSC test","National Evaluation Organization voluntary test","NCERT test","University entrance test"],a:1},
+{s:"National Policies on Education",q:"Special schools with hostels for severely handicapped children were to be set up at:",o:["State capital","Division headquarters","District headquarters","Taluka level"],a:2},
+{s:"National Policies on Education",q:"Programme of Action (PoA) 1992 was formulated after reviewing reports of:",o:["Only Ramamurthi Committee","Only Janardhana Reddy Committee","Both Ramamurthi and Janardhana Reddy Committees","Kothari Commission"],a:2},
+{s:"National Policies on Education",q:"MSBTE stands for:",o:["Maharashtra State Board of Technical Education","Maharastra State Bureau of Training and Education","Mumbai State Board of Technical Examinations","Maharashtra School Board of Technical Excellence"],a:0},
+{s:"National Policies on Education",q:"MSBTE was established in:",o:["1952","1963","1975","1999"],a:1},
+{s:"National Policies on Education",q:"MSBTE received autonomous status in:",o:["1963","1985","1999","2005"],a:2},
+{s:"National Policies on Education",q:"MSBTE headquarters is located in:",o:["Pune","Nagpur","Mumbai","Aurangabad"],a:2},
+{s:"National Policies on Education",q:"MSBTE designs programs for:",o:["B.E./B.Tech degrees","Diploma, post diploma and advanced diploma programs","M.Tech programs","Ph.D programs"],a:1},
+{s:"National Policies on Education",q:"PSSCIVE stands for:",o:["Pandit Sundarlal Sharma Central Institute of Vocational Education","Primary School System and Central Institute of Vocational Excellence","Punjab State Secondary Central Institute of Vocational Education","Professional Standards and Skills Central Institute of Vocational Examination"],a:0},
+{s:"National Policies on Education",q:"PSSCIVE is located at:",o:["Chandigarh","New Delhi","Bhopal","Mumbai"],a:2},
+{s:"National Policies on Education",q:"PSSCIVE primarily assists in developing:",o:["University curriculum","Teacher training modules and teacher handbooks","Government policies","Examination papers"],a:1},
+{s:"National Policies on Education",q:"NPE 1968 criticized which aspect of the publishing of school books?",o:["High quality but less content","Frequent changes and high prices of books","Lack of illustrations","Regional language bias"],a:1},
+{s:"National Policies on Education",q:"Under NPE 1986, Operation Blackboard materials included:",o:["Only blackboards","Only textbooks","Blackboards, maps, charts, toys, learning aids, library","Only scientific equipment"],a:2},
+{s:"National Policies on Education",q:"NPE 1986 recommended establishing new universities only after:",o:["State government permission","Adequate funding was secured","UGC approval","Central government approval"],a:1},
+{s:"National Policies on Education",q:"NPE 1968 recommended that science education and research should be treated as:",o:["Optional","High priority","A basic requirement","A secondary concern"],a:1},
+{s:"National Policies on Education",q:"Under Programme of Action 1992, vocational stream at +2 was:",o:["Discontinued","Weakened","Strengthened","Merged with academic stream"],a:2},
+{s:"National Policies on Education",q:"Three Language Formula requires non-Hindi states to study:",o:["Hindi + English + Sanskrit","Hindi + Regional Language + English","Regional language + Hindi + any foreign language","Only regional language"],a:1},
+{s:"National Policies on Education",q:"Which national policy recommended promotion of Hindi as link language?",o:["NPE 1986","NPE 2020","NPE 1968","PoA 1992"],a:2},
+{s:"National Policies on Education",q:"Under NPE 1986, IGNOU was given responsibility for:",o:["Setting university syllabus","Coordinating distance learning system","Teacher training","Primary education"],a:1},
+{s:"National Policies on Education",q:"NPE 1986 recommended facilities for teaching which classical language?",o:["Tamil","Sanskrit","Arabic","Pali"],a:1},
+{s:"National Policies on Education",q:"Under Janardhana Reddy Committee (PoA 1992), District Board of Education was to be:",o:["Abolished","Set up and operationalized","Merged with state board","Made optional"],a:1},
+{s:"National Policies on Education",q:"PoA 1992 continued Operation Blackboard in which form?",o:["As it was","Reduced form","Expanded form","Digitized form"],a:2},
+{s:"National Policies on Education",q:"NPE 1968 aimed at identification and development of:",o:["Only backward students","Talented students","Only girl students","Only rural students"],a:1},
+{s:"National Policies on Education",q:"Under NPE 1986, which scheme provided essential facilities to primary schools?",o:["Sarva Shiksha Abhiyan","Mid-Day Meal","Operation Blackboard","Operation Saraswati"],a:2},
+{s:"National Policies on Education",q:"All polytechnic institutes in Maharashtra are affiliated to:",o:["CBSE","NCTE","MSBTE","UGC"],a:2},
+{s:"National Policies on Education",q:"Which two types of institutions are affiliated to MSBTE?",o:["Only government institutions","Only private institutions","Both government and private polytechnic institutes","Universities only"],a:2},
+{s:"National Policies on Education",q:"NPE 1986 recommended that university facilities be improved to attract:",o:["Only international students","Teachers from reputed institutions","Talented students through scholarships","Industry professionals"],a:1},
+{s:"National Policies on Education",q:"IGNOU stands for:",o:["Indira Gandhi National Open University","Indian Govt National Open University","Indira Gandhi National Online University","Indian Graduate Network Open University"],a:0},
+{s:"National Policies on Education",q:"Which policy introduced the concept of National Evaluation Organization?",o:["NPE 1968","NPE 1986","PoA 1992","NEP 2020"],a:1},
+{s:"National Policies on Education",q:"PSSCIVE works with:",o:["Only central government","Departments of Education in universities and State Governments","Only private institutions","Only Ministry of HRD"],a:1},
+{s:"National Policies on Education",q:"PoA 1992 was implemented after reviewing the effectiveness of:",o:["NPE 1968","NPE 1986","Both NPE 1968 and 1986","Kothari Commission"],a:1},
+{s:"National Policies on Education",q:"NPE 1986 gave importance to education of which special group?",o:["Only gifted students","Handicapped children with special schools at district HQ","Only girls","Only rural children"],a:1},
+
+// ==================== SECTION 5: NEP 2020 (Q301-370) ====================
+{s:"NEP 2020",q:"NEP 2020 replaced MHRD with which ministry name?",o:["Ministry of Knowledge","Ministry of Skills","Ministry of Education","Ministry of Learning"],a:2},
+{s:"NEP 2020",q:"The Subramanian Committee on NEP was formed in:",o:["2013","2014","2015","2016"],a:2},
+{s:"NEP 2020",q:"The Kasturirangan Committee on NEP was formed in:",o:["June 2015","June 2016","June 2017","June 2018"],a:2},
+{s:"NEP 2020",q:"The draft NEP was made public on:",o:["31 May 2018","31 May 2019","31 May 2020","1 June 2020"],a:1},
+{s:"NEP 2020",q:"SDG 4 aims at quality education by which year?",o:["2025","2030","2035","2040"],a:1},
+{s:"NEP 2020",q:"PARAKH in NEP 2020 stands for:",o:["Performance Assessment, Review and Analysis of Knowledge for Holistic Development","Primary Assessment and Review Authority for Knowledge and Humanities","Policy Assessment and Regulation for Academic Knowledge Hierarchy","Performance Audit and Review for Academic Knowledge and Humanities"],a:0},
+{s:"NEP 2020",q:"NEP 2020 recommends the new educational structure of:",o:["10+2+3","5+3+3+4","8+4+3","6+4+2+3"],a:1},
+{s:"NEP 2020",q:"The Foundational Stage in 5+3+3+4 covers which age group?",o:["0-3 years","3-8 years","5-8 years","3-6 years"],a:1},
+{s:"NEP 2020",q:"The Foundational Stage in NEP 2020 covers Grade:",o:["Pre-primary only","Grade 1-2 only","3 years pre-primary + Grade 1-2","Grade 1-3"],a:2},
+{s:"NEP 2020",q:"The Preparatory Stage in NEP 2020 covers:",o:["Age 3-8 years, Grade 1-3","Age 8-11 years, Grade 3-5","Age 11-14 years, Grade 6-8","Age 14-18 years, Grade 9-12"],a:1},
+{s:"NEP 2020",q:"The Middle Stage in NEP 2020 covers:",o:["Age 3-8 years","Age 8-11 years","Age 11-14 years, Grade 6-8","Age 14-18 years"],a:2},
+{s:"NEP 2020",q:"The Secondary Stage in NEP 2020 covers:",o:["Age 3-8 years","Age 8-11 years","Age 11-14 years","Age 14-18 years, Grade 9-12"],a:3},
+{s:"NEP 2020",q:"NEP 2020 recommends ECCE for children aged:",o:["0-3 years","3-6 years","6-8 years","0-6 years"],a:1},
+{s:"NEP 2020",q:"NEP 2020 recommends medium of instruction in home language till at least:",o:["Grade 3","Grade 5","Grade 8","Grade 10"],a:1},
+{s:"NEP 2020",q:"Preferably, home language instruction should continue till:",o:["Grade 5","Grade 6","Grade 8","Grade 10"],a:2},
+{s:"NEP 2020",q:"NEP 2020 recommends Board Exams on up to how many occasions per year?",o:["One","Two","Three","Four"],a:1},
+{s:"NEP 2020",q:"GER in higher education should reach what target under NEP 2020?",o:["30%","40%","50%","60%"],a:2},
+{s:"NEP 2020",q:"MERUs in NEP 2020 stands for:",o:["Multi-Education and Research Universities","Multidisciplinary Education and Research Universities","Modern Educational and Research Units","Multiple Education and Research University System"],a:1},
+{s:"NEP 2020",q:"NRF in NEP 2020 stands for:",o:["National Research Forum","National Research Foundation","National Research Funds","National Research Framework"],a:1},
+{s:"NEP 2020",q:"NETF in NEP 2020 stands for:",o:["National Educational Technology Forum","National Education Training Fund","National Educational Technology Framework","National Examination and Testing Forum"],a:0},
+{s:"NEP 2020",q:"NEP 2020 aims to increase public investment in education to:",o:["4% of GDP","5% of GDP","6% of GDP","8% of GDP"],a:2},
+{s:"NEP 2020",q:"Which programme was discontinued under NEP 2020?",o:["Ph.D","M.Phil","MBA","MCA"],a:1},
+{s:"NEP 2020",q:"SSSA in NEP 2020 stands for:",o:["State School Standards Authority","State School Syllabus Administration","State Secondary School Authority","State Standards and Syllabus Authority"],a:0},
+{s:"NEP 2020",q:"NEP 2020 recommends Gender Inclusion Fund for:",o:["Gender-neutral sports","Inclusion of girls and transgender students","Only boys in rural areas","Only women teachers"],a:1},
+{s:"NEP 2020",q:"Vocational education in schools under NEP 2020 starts from:",o:["Grade 4","Grade 5","Grade 6","Grade 8"],a:2},
+{s:"NEP 2020",q:"NEP 2020 recommends a 10-day bagless period in which grades?",o:["Grade 1-5","Grade 3-5","Grade 6-8","Grade 9-10"],a:2},
+{s:"NEP 2020",q:"During the 10-day bagless period, students intern with local experts such as:",o:["Only doctors and lawyers","Carpenters, gardeners, potters, artists","Only software engineers","Only farmers"],a:1},
+{s:"NEP 2020",q:"By 2025, NEP 2020 aims for at least what percentage of learners to have vocational exposure?",o:["30%","40%","50%","60%"],a:2},
+{s:"NEP 2020",q:"B.Voc. degree was introduced in:",o:["2010","2011","2013","2015"],a:2},
+{s:"NEP 2020",q:"NCIVE stands for:",o:["National Council for Integration of Vocational Education","National Centre for Innovation in Vocational Education","National Committee for Integration of Vocational Education","National Curriculum for Inclusive Vocational Education"],a:2},
+{s:"NEP 2020",q:"GEC in NEP 2020 stands for:",o:["General Education Commission","Graduate Education Council","General Education Council","Graduate Examination Committee"],a:2},
+{s:"NEP 2020",q:"NHEQF stands for:",o:["National Higher Education Qualifications Forum","National Higher Education Qualification Framework","National Holistic Education Quality Framework","National Higher Education Quality Fund"],a:1},
+{s:"NEP 2020",q:"NHEQF is to be in sync with:",o:["NSDC","NSQF","NCF","NCVET"],a:1},
+{s:"NEP 2020",q:"Professional councils under NEP 2020 act as:",o:["GEC bodies","PSSBs – Professional Standard Setting Bodies","MERUs","PARAKH bodies"],a:1},
+{s:"NEP 2020",q:"NPST stands for:",o:["National Policy for School Teaching","National Programme for Skilled Teachers","National Professional Standards for Teachers","National Primary School Training"],a:2},
+{s:"NEP 2020",q:"NPST is prepared by which body?",o:["NCERT","UGC","PSSB under GEC","Ministry of Education directly"],a:2},
+{s:"NEP 2020",q:"Under NEP 2020, skill labs in schools follow which model?",o:["Star model","Hub and spoke model","Cluster model","District model"],a:1},
+{s:"NEP 2020",q:"Skill Based Aptitude Test (SBT) under NEP 2020 is for:",o:["University admissions","Career guidance for school students","Professional certifications","Government job recruitment"],a:1},
+{s:"NEP 2020",q:"NIOS provides which type of courses under NEP 2020?",o:["Only secondary level courses","Open vocational courses (ODL system)","Only engineering courses","Only degree courses"],a:1},
+{s:"NEP 2020",q:"NEP 2020 prohibits which separation in education?",o:["Only arts and science separation","Hard separation between arts/sciences, curricular/extracurricular, vocational/academic","Only vocational and academic separation","Only gender separation"],a:1},
+{s:"NEP 2020",q:"NEP 2020 introduced Special Education Zones for:",o:["Only urban areas","Educationally backward regions","Only tribal areas","Only SC/ST communities"],a:1},
+{s:"NEP 2020",q:"National Mission on Foundational Literacy and Numeracy aims to achieve by:",o:["2022","2023","2025","2030"],a:0},
+{s:"NEP 2020",q:"Pre-vocational education for Grades VI to VIII is developed by which body?",o:["CBSE","NCERT (National Curriculum Framework)","State boards","AICTE"],a:1},
+{s:"NEP 2020",q:"Vocational Teacher Training under NEP 2020 is conducted by:",o:["Only NCERT","Only CBSE","NCERT, NIOS, CBSE and State Boards","Only private institutions"],a:2},
+{s:"NEP 2020",q:"Incubation centres under NEP 2020 in higher education are developed in partnership with:",o:["Only government agencies","Industry partners","Only NGOs","International universities only"],a:1},
+{s:"NEP 2020",q:"Higher education problems identified by NEP 2020 include rigid separation of:",o:["Languages","Disciplines","Genders","Urban and rural students"],a:1},
+{s:"NEP 2020",q:"Which body frames learning outcomes and graduate attributes under NEP 2020?",o:["NCERT","UGC","GEC (General Education Council)","AICTE"],a:2},
+{s:"NEP 2020",q:"NEP 2020 envisions higher education system with how many years undergraduate degree?",o:["3 years","4 years","Both 3 and 4 years with multiple entry/exit","5 years"],a:2},
+{s:"NEP 2020",q:"PSSB examples include:",o:["ICAR, VCI, NCTE, CoA, NCVET","CBSE, ICSE, IBDP","UGC, AICTE only","NCERT, MSBTE"],a:0},
+{s:"NEP 2020",q:"Samagra Shiksha Abhiyan is used for expanding vocational education in:",o:["Higher education institutions","All government schools","Only KVS schools","Private schools"],a:1},
+{s:"NEP 2020",q:"NEP 2020 was adopted in which year?",o:["2018","2019","2020","2021"],a:2},
+
+// ==================== SECTION 6: PRE-PRIMARY EDUCATION (Q371-430) ====================
+{s:"Pre-Primary Education",q:"The first Balwadi in Maharashtra was established in which village?",o:["Pune","Bordi, Thane district","Nagpur","Kolhapur"],a:1},
+{s:"Pre-Primary Education",q:"Balwadi was developed by:",o:["Maria Montessori","Tarabai Modak","Annie Besant","Savitribai Phule"],a:1},
+{s:"Pre-Primary Education",q:"The first Balwadi was started by which organization?",o:["Lok Seva Sangh","Nutan Bal Shikshan Sangh","Seva Sadan","Mahila Mandal"],a:1},
+{s:"Pre-Primary Education",q:"The first Balwadi was started in:",o:["1935","1940","1945","1950"],a:2},
+{s:"Pre-Primary Education",q:"Anganwadi is also called:",o:["Village school","Angan Balwadi","Community centre","Rural hostel"],a:1},
+{s:"Pre-Primary Education",q:"Montessori education was developed by:",o:["John Dewey","Maria Montessori","Jean Piaget","Friedrich Froebel"],a:1},
+{s:"Pre-Primary Education",q:"Maria Montessori (1870-1952) was a:",o:["British educator","French philosopher","Italian physician","Swiss psychologist"],a:2},
+{s:"Pre-Primary Education",q:"Montessori education is characterized by:",o:["Strict teacher-centered approach","Child-centered approach with hands-on learning","Rote memorization","Competitive examinations"],a:1},
+{s:"Pre-Primary Education",q:"Which of the following is a core principle of Montessori education?",o:["Respect for the Teacher","Sensitive Periods for Learning","Uniform curriculum for all","Standardized testing"],a:1},
+{s:"Pre-Primary Education",q:"'A Prepared Environment' is a principle of:",o:["Kothari Commission","Montessori Education","NPE 1986","NEP 2020"],a:1},
+{s:"Pre-Primary Education",q:"Montessori education emphasizes which type of learning?",o:["Rote learning","Hands-on, real-world learning","Lecture-based learning","Computer-based learning"],a:1},
+{s:"Pre-Primary Education",q:"Balvatika was introduced by:",o:["NCERT","CBSE","Kendriya Vidyalaya Sangathan (KVS)","IGNOU"],a:2},
+{s:"Pre-Primary Education",q:"Balvatika is part of the vision of:",o:["NPE 1986","NEP 2020","NPE 1968","Kothari Commission"],a:1},
+{s:"Pre-Primary Education",q:"Balvatika is designed for children aged:",o:["0-3 years","1-5 years","3-6 years","5-8 years"],a:2},
+{s:"Pre-Primary Education",q:"Balvatika emphasizes which type of learning?",o:["Rote learning","Competitive learning","Play-based learning","Computer-based learning"],a:2},
+{s:"Pre-Primary Education",q:"ICDS stands for:",o:["Integrated Child Development Scheme","Integrated Child Development Services Scheme","Indian Child Development Services","Integrated Community Development Scheme"],a:1},
+{s:"Pre-Primary Education",q:"ICDS was launched on:",o:["15 August 1974","2 October 1975","26 January 1976","1 April 1976"],a:1},
+{s:"Pre-Primary Education",q:"ICDS was launched on the _____ birth anniversary of Mahatma Gandhi:",o:["105th","106th","107th","108th"],a:1},
+{s:"Pre-Primary Education",q:"ICDS is described as the world's:",o:["Largest educational program","Largest community-based program","Most expensive scheme","Most effective nutrition program"],a:1},
+{s:"Pre-Primary Education",q:"ICDS primary beneficiaries include children aged:",o:["0-14 years","0-6 years","3-6 years","0-3 years"],a:1},
+{s:"Pre-Primary Education",q:"Pregnant and lactating mothers are beneficiaries of:",o:["Operation Blackboard","Mid-Day Meal","ICDS","Navodaya Vidyalaya"],a:2},
+{s:"Pre-Primary Education",q:"Under ICDS, women of which age group are beneficiaries?",o:["15-40 years","15-44 years","18-45 years","20-44 years"],a:1},
+{s:"Pre-Primary Education",q:"Adolescents aged 11-18 were added to ICDS beneficiaries in:",o:["1985","1988","1991","1995"],a:2},
+{s:"Pre-Primary Education",q:"ECCE is provided under ICDS for children aged:",o:["0-3 years","3-6 years","6-8 years","0-6 years"],a:1},
+{s:"Pre-Primary Education",q:"Article 45 of the Constitution (after 2002 amendment) relates to:",o:["Free and compulsory education up to age 14","ECCE for children until age 6","Reservation in education","Equal pay for women"],a:1},
+{s:"Pre-Primary Education",q:"RTE (Right to Education) Act came into force on:",o:["1 April 2009","1 April 2010","15 August 2010","26 January 2010"],a:1},
+{s:"Pre-Primary Education",q:"The World Conference on ECCE was held in Tashkent in:",o:["2020","2021","2022","2023"],a:2},
+{s:"Pre-Primary Education",q:"Tashkent Conference on ECCE was held in which country?",o:["Russia","Kazakhstan","Uzbekistan","Kyrgyzstan"],a:2},
+{s:"Pre-Primary Education",q:"UNESCO member states at Tashkent pledged to invest at least what percentage on pre-primary education?",o:["5% of education spending","10% of total education spending","15% of GDP","20% of education budget"],a:1},
+{s:"Pre-Primary Education",q:"Global Partnership Strategy for Early Childhood covers:",o:["2015-2025","2020-2030","2021-2030","2022-2032"],a:2},
+{s:"Pre-Primary Education",q:"Global Partnership Strategy for Early Childhood (2021-2030) was a report by:",o:["UNICEF","World Bank","UNESCO","WHO"],a:2},
+{s:"Pre-Primary Education",q:"LKG in Indian education system covers children aged:",o:["2-3 years","3-4 years","4-5 years","5-6 years"],a:1},
+{s:"Pre-Primary Education",q:"UKG in Indian education system covers children aged:",o:["3-4 years","4-5 years","5-6 years","6-7 years"],a:1},
+{s:"Pre-Primary Education",q:"Primary School in Indian education covers which classes?",o:["Class 1-4","Class 1-5","Class 1-7","Class 1-8"],a:1},
+{s:"Pre-Primary Education",q:"Secondary School in India covers which age group?",o:["6-11 years","11-15 years","15-17 years","14-18 years"],a:1},
+{s:"Pre-Primary Education",q:"Higher Secondary in India covers which classes?",o:["Class 9-10","Class 10-11","Class 11-12","Class 11-13"],a:2},
+{s:"Pre-Primary Education",q:"GER in Indian higher education stands at approximately:",o:["15.1%","21.1%","27.1%","35%"],a:2},
+{s:"Pre-Primary Education",q:"The 'Tashkent Declaration' was adopted at which conference?",o:["World Education Forum","World Conference on ECCE 2022","EFA conference","Dakar conference"],a:1},
+{s:"Pre-Primary Education",q:"Which constitutional article was amended in 2002 to include ECCE provision?",o:["Article 21","Article 21A","Article 45","Article 51A"],a:2},
+{s:"Pre-Primary Education",q:"Montessori component of Multi-Age Groupings means:",o:["Only same age groups","Children of different ages learn together","Only same gender groups","Age groups based on IQ"],a:1},
+{s:"Pre-Primary Education",q:"RTE Act was passed in:",o:["2008","2009","2010","2011"],a:1},
+{s:"Pre-Primary Education",q:"The advantage of Montessori education includes:",o:["Strict discipline","Improved social and problem-solving skills","Only academic excellence","Rote memorization"],a:1},
+{s:"Pre-Primary Education",q:"Which provides ECCE services including preschool education for 3-6 years?",o:["Primary schools","ICDS/Anganwadis","Secondary schools","Navodaya Vidyalayas"],a:1},
+{s:"Pre-Primary Education",q:"Problems in pre-primary education in India include:",o:["Too many trained teachers","Excess infrastructure","Accessibility issues and lack of trained specialists","Very high GER"],a:2},
+{s:"Pre-Primary Education",q:"Independence and Discovery as a principle of Montessori means:",o:["Children should be isolated","Children discover learning independently with guidance","Teachers make all decisions","Only competitive discovery is valid"],a:1},
+{s:"Pre-Primary Education",q:"Indian education GER problem in higher education is compared with:",o:["Developing countries only","Developed countries","Neighboring countries","BRICS nations"],a:1},
+{s:"Pre-Primary Education",q:"Higher education problems identified in NEP 2020 include administrative burden diluting focus on:",o:["Infrastructure","Academic activities and research","Budget management","Student welfare"],a:1},
+{s:"Pre-Primary Education",q:"ECCE under NPE 1986 was supported through:",o:["Tax deductions","Grants for ECE centres","Direct government schools","Only NGO support"],a:1},
+{s:"Pre-Primary Education",q:"Pre-primary education in India starts at Nursery for infants up to:",o:["2 years","3 years","4 years","5 years"],a:1},
+
+// ==================== SECTION 7: UEE & EFA (Q431-480) ====================
+{s:"UEE & Education For All",q:"UEE stands for:",o:["Universal Education for Everyone","Universalization of Elementary Education","Uniform Education Examination","United Education for Equity"],a:1},
+{s:"UEE & Education For All",q:"UEE aims at making education available to all children aged:",o:["3-14 years","6-14 years","6-11 years","5-14 years"],a:1},
+{s:"UEE & Education For All",q:"Universalization of Primary Education covers age group:",o:["3-8 years","6-11 years","6-14 years","5-11 years"],a:1},
+{s:"UEE & Education For All",q:"Which article of the Constitution was amended to make education a Fundamental Right?",o:["Article 19","Article 21","Article 21A","Article 45"],a:2},
+{s:"UEE & Education For All",q:"The 4 components of UEE are:",o:["Access, Enrolment, Retention, Attainment","Access, Education, Retention, Achievement","Admission, Enrolment, Retention, Attainment","Access, Enrolment, Retention, Assessment"],a:0},
+{s:"UEE & Education For All",q:"Which of the following is NOT a component of UEE?",o:["Universal Access","Universal Enrolment","Universal Retention","Universal Supervision"],a:3},
+{s:"UEE & Education For All",q:"Universalization of Retention means:",o:["All children should be admitted","All admitted children complete their schooling","All teachers should be retained","All schools should be retained"],a:1},
+{s:"UEE & Education For All",q:"Which NPE first reiterated the commitment to UEE?",o:["NPE 1986","NPE 1968","PoA 1992","NEP 2020"],a:1},
+{s:"UEE & Education For All",q:"Dual track approach in education refers to:",o:["Two types of schools","Pursuing UEE and adult literacy simultaneously","Boys and girls in separate schools","Day and night schools"],a:1},
+{s:"UEE & Education For All",q:"EFA movement was started by:",o:["UNICEF","World Bank","UNESCO","World Health Organization"],a:2},
+{s:"UEE & Education For All",q:"First World Conference on Education For All was held in:",o:["1985","1990","2000","2005"],a:1},
+{s:"UEE & Education For All",q:"First World Conference on EFA was held in:",o:["New York, USA","Jomtien, Thailand","Geneva, Switzerland","Paris, France"],a:1},
+{s:"UEE & Education For All",q:"World Education Forum (Dakar Conference) was held in:",o:["1990","1995","2000","2005"],a:2},
+{s:"UEE & Education For All",q:"Dakar Conference goal 4 aimed at what improvement in adult literacy by 2015?",o:["25% improvement","50% improvement","75% improvement","100% improvement"],a:1},
+{s:"UEE & Education For All",q:"Dakar goal 5 required elimination of gender disparities in primary & secondary education by:",o:["2000","2005","2010","2015"],a:1},
+{s:"UEE & Education For All",q:"Dakar goal 2 aimed that all children should access free & compulsory primary education by:",o:["2005","2010","2015","2020"],a:2},
+{s:"UEE & Education For All",q:"How many goals did the Dakar Framework for EFA (2000) set?",o:["4","5","6","8"],a:2},
+{s:"UEE & Education For All",q:"UDHR Article 26 states that elementary education should be:",o:["Paid and merit-based","Free","Only for citizens","Only in national language"],a:1},
+{s:"UEE & Education For All",q:"UDHR Article 26 gives prior right to which group in choosing education for their children?",o:["Government","Teachers","Parents","Elected representatives"],a:2},
+{s:"UEE & Education For All",q:"The Universal Declaration of Human Rights was approved on:",o:["10 December 1945","10 December 1948","26 January 1950","15 August 1947"],a:1},
+{s:"UEE & Education For All",q:"10th December is celebrated as:",o:["World Education Day","Human Rights Day","World Children's Day","UN Day"],a:1},
+{s:"UEE & Education For All",q:"UDHR completed how many years in 2023?",o:["50 years","65 years","70 years","75 years"],a:3},
+{s:"UEE & Education For All",q:"Major cause of school dropout in India includes:",o:["Excess of schools","Child labour and poverty","Too many teachers","High quality of education"],a:1},
+{s:"UEE & Education For All",q:"According to UNICEF 2023, what percentage of Indian girls are married before age 18?",o:["24%","34%","44%","54%"],a:1},
+{s:"UEE & Education For All",q:"India has the highest number of which group married during childhood?",o:["Boys","Girls","Orphans","Tribal children"],a:1},
+{s:"UEE & Education For All",q:"Strategy to achieve UEE includes shift of focus from educationally backward states to:",o:["Cities","Backward districts","Tribal areas","Coastal regions"],a:1},
+{s:"UEE & Education For All",q:"Non-formal education under UEE strategy is for:",o:["All children","Working children, girls, disadvantaged groups","Only boys","Only adults"],a:1},
+{s:"UEE & Education For All",q:"UDHR Article 26 states education should develop:",o:["Professional skills only","Full human personality and strengthen human rights","Only scientific knowledge","Economic productivity"],a:1},
+{s:"UEE & Education For All",q:"Dakar goal 1 focused on:",o:["Universal primary education","Expanding and improving ECCE","Adult literacy","Gender equality"],a:1},
+{s:"UEE & Education For All",q:"Dakar goal 3 addressed learning needs of:",o:["Only school-age children","Youth and adults through equitable access to life skills","Only women","University students"],a:1},
+{s:"UEE & Education For All",q:"Which constitutional article (DPSP) laid down that state should provide free education up to 14 years?",o:["Article 21A","Article 45","Article 46","Article 51A"],a:1},
+{s:"UEE & Education For All",q:"According to Dakar Framework, gender equality in education should be achieved by:",o:["2005","2010","2015","2020"],a:2},
+{s:"UEE & Education For All",q:"Gender disparities in education are caused by:",o:["Too many girls in schools","Safety concerns, societal norms, household responsibilities","Excess of female teachers","High quality of schools"],a:1},
+{s:"UEE & Education For All",q:"Health issues leading to school dropouts include:",o:["Excess physical activity","Malnutrition and chronic illnesses","High academic pressure only","Lack of interest in sports"],a:1},
+{s:"UEE & Education For All",q:"Technical and professional education under UDHR Art 26 should be:",o:["Free for all","Generally available and merit-based for higher education","Only for wealthy nations","Restricted to cities"],a:1},
+{s:"UEE & Education For All",q:"Education for All Jomtien Declaration was in:",o:["1989","1990","1991","1992"],a:1},
+{s:"UEE & Education For All",q:"UEE requires that education up to Class __ should be universal:",o:["5","8","10","12"],a:1},
+{s:"UEE & Education For All",q:"Strategies for UEE include decentralization of:",o:["Government","Education","Taxation","Health services"],a:1},
+{s:"UEE & Education For All",q:"Janardhana Reddy's dual track recommended pursuing UEE alongside:",o:["Vocational training","Adult literacy","University expansion","Teacher training"],a:1},
+{s:"UEE & Education For All",q:"Child marriages as a cause of dropout primarily affects which group?",o:["Boys in rural areas","Girls in backward regions","Urban children","Only tribal children"],a:1},
+{s:"UEE & Education For All",q:"UDHR was adopted by which body?",o:["UNESCO","UN Security Council","UN General Assembly","International Court of Justice"],a:2},
+{s:"UEE & Education For All",q:"The EFA movement focused primarily on which level of education?",o:["Higher education","Pre-primary education","Basic/elementary education","Secondary education"],a:2},
+{s:"UEE & Education For All",q:"Universalization of Elementary Education requires covering which Classes?",o:["Class 1-5","Class 1-8","Class 1-10","Class 1-12"],a:1},
+{s:"UEE & Education For All",q:"RTE Act guarantees free and compulsory education to children aged:",o:["3-11 years","6-14 years","5-16 years","6-18 years"],a:1},
+{s:"UEE & Education For All",q:"Operation Blackboard under NPE 1986 was specifically aimed at achieving:",o:["Quality improvement in higher ed","UEE through improving primary school facilities","Secondary education reform","Vocational training"],a:1},
+{s:"UEE & Education For All",q:"The Jomtien Declaration on EFA emphasized education as a:",o:["Government expenditure","Basic human right","Global initiative only","Economic investment"],a:1},
+{s:"UEE & Education For All",q:"Lack of parental involvement causes dropouts primarily due to:",o:["Parents' disinterest in education","Awareness gaps and economic pressures","Parents' illiteracy only","Cultural preferences"],a:1},
+{s:"UEE & Education For All",q:"Article 21A guarantees which right?",o:["Right to equality","Right to education","Right to life","Right to speech"],a:1},
+
+// ==================== SECTION 8: QUALITY & GLOBALIZATION (Q481-500) ====================
+{s:"Quality & Globalization",q:"Atal Tinkering Labs were established by:",o:["NCERT","Ministry of Education","Atal Innovation Mission, NITI Aayog","MSBTE"],a:2},
+{s:"Quality & Globalization",q:"Atal Tinkering Labs primarily focus on:",o:["Agriculture skills","STEM education and innovation skills","Language learning","Arts and culture"],a:1},
+{s:"Quality & Globalization",q:"Manodarpan Initiative was inaugurated on:",o:["1 April 2020","21 July 2020","15 August 2020","26 January 2021"],a:1},
+{s:"Quality & Globalization",q:"Manodarpan Initiative is by which ministry?",o:["Ministry of Health","Ministry of Social Justice","Ministry of Education","Ministry of Women and Child Development"],a:2},
+{s:"Quality & Globalization",q:"Manodarpan National Helpline number is:",o:["1800-180-1104","8448440632","14567","1800-300-1234"],a:1},
+{s:"Quality & Globalization",q:"SAHYOG under Manodarpan provides live sessions on:",o:["Radio","DTH-TV at 12 PM (eVidya)","YouTube only","Social media"],a:1},
+{s:"Quality & Globalization",q:"Globalization is defined as intensification of world-wide social relations. This definition is associated with:",o:["Anthony Giddens","Karl Marx","Amartya Sen","Max Weber"],a:0},
+{s:"Quality & Globalization",q:"Which of the following is a POSITIVE impact of globalization on Indian education?",o:["Commercialization of education","Public-private disparity","Access to global knowledge and digital resources","Devaluing local culture"],a:2},
+{s:"Quality & Globalization",q:"Which is a NEGATIVE impact of globalization on education?",o:["Improved teaching quality","Digital access","Rise of private institutions","Commercialization and profit motive"],a:3},
+{s:"Quality & Globalization",q:"'Education for profit' vs 'Education for all' is a concern arising from:",o:["Globalization and privatization","Government regulation","Teacher training gaps","Curriculum changes"],a:0},
+{s:"Quality & Globalization",q:"Digital transformation in education through globalization has led to:",o:["Reduction in teachers","Online courses and digital resources making learning accessible","Only urban education improvement","Elimination of formal schools"],a:1},
+{s:"Quality & Globalization",q:"Impact of globalization on teachers includes teachers needing to:",o:["Only teach traditional content","Acquire specialized skills and communicate in new ways","Avoid digital technology","Reduce teaching hours"],a:1},
+{s:"Quality & Globalization",q:"Strategy for quality improvement: Hub and spoke model is used for:",o:["Teacher training","Skill labs in schools","Digital classrooms","Library management"],a:1},
+{s:"Quality & Globalization",q:"NCERT Counselling Services for School Children was launched in:",o:["January 2020","April 2020","July 2020","January 2021"],a:1},
+{s:"Quality & Globalization",q:"Atal Innovation Mission is an initiative of:",o:["Ministry of Education","NCERT","NITI Aayog","Ministry of Science and Technology"],a:2},
+{s:"Quality & Globalization",q:"Globalization has caused surge in industry-education partnerships primarily for:",o:["Academic research only","Internships and vocational training","School infrastructure","Teacher recruitment"],a:1},
+{s:"Quality & Globalization",q:"Quality improvement strategy of 'Assessment Reforms' includes moving away from:",o:["Practical skills","Project-based learning","Rote learning and single high-stakes exams","Holistic assessment"],a:2},
+{s:"Quality & Globalization",q:"Which of the following improves quality of education through 'Research and Innovation'?",o:["More examinations","International university collaborations","Stricter rules","Reducing teachers"],a:1},
+{s:"Quality & Globalization",q:"Manodarpan initiative focuses on wellbeing during:",o:["Only examination periods","COVID-19 pandemic and beyond","Only for university students","Only for teachers"],a:1},
+{s:"Quality & Globalization",q:"Privatization of education has widened the gap between:",o:["Rural and urban teachers","Socioeconomic classes in education quality","Public and private sector jobs","Science and arts students"],a:1},
+];
+
+let answered=0,correct=0;
+function buildFilters(){
+  const secs=[...new Set(data.map(d=>d.s))];
+  const sel=document.getElementById('secFilter');
+  secs.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
+}
+function renderAll(filtered){
+  const c=document.getElementById('qContainer');
+  const nR=document.getElementById('noResults');
+  if(!filtered.length){c.innerHTML='';nR.style.display='block';return;}
+  nR.style.display='none';
+  let html='';let lastSec='';
+  filtered.forEach((item,i)=>{
+    const origIdx=data.indexOf(item);
+    if(item.s!==lastSec){html+=`<div class="sec-label">📂 ${item.s}</div>`;lastSec=item.s;}
+    html+=`<div class="mcq" id="mcq${origIdx}">
+      <div class="qno">Q${origIdx+1} • ${item.s}</div>
+      <div class="qtxt">${item.q.replace(/\n/g,'<br>')}</div>
+      <div class="opts">
+        ${item.o.map((o,j)=>`<div class="opt" onclick="check(${origIdx},${j},this)">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}
+      </div>
+    </div>`;
+  });
+  c.innerHTML=html;
+}
+function filterQ(){
+  const sec=document.getElementById('secFilter').value;
+  const srch=document.getElementById('srch').value.toLowerCase();
+  let filtered=data;
+  if(sec) filtered=filtered.filter(d=>d.s===sec);
+  if(srch) filtered=filtered.filter(d=>d.q.toLowerCase().includes(srch)||d.o.some(o=>o.toLowerCase().includes(srch)));
+  renderAll(filtered);
+}
+function check(qi,optIdx,el){
+  const box=el.closest('.mcq');
+  if(box.querySelector('.correct')) return;
+  box.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
+  box.querySelectorAll('.opt')[data[qi].a].classList.add('correct');
+  if(optIdx!==data[qi].a) el.classList.add('wrong');
+  else correct++;
+  answered++;
+  updateStats();
+}
+function updateStats(){
+  document.getElementById('sAns').textContent=answered;
+  document.getElementById('sCorr').textContent=correct;
+  document.getElementById('sAcc').textContent=answered?Math.round(correct/answered*100)+'%':'0%';
+  document.getElementById('progBar').style.width=Math.round(answered/data.length*100)+'%';
+}
+function revealAll(){
+  document.querySelectorAll('.mcq').forEach((box,i)=>{
+    if(box.querySelector('.correct')) return;
+    const qi=parseInt(box.id.replace('mcq',''));
+    box.querySelectorAll('.opt').forEach(o=>o.classList.add('disabled'));
+    box.querySelectorAll('.opt')[data[qi].a].classList.add('correct');
+  });
+}
+function resetAll(){
+  answered=0;correct=0;
+  document.querySelectorAll('.opt').forEach(o=>{o.classList.remove('correct','wrong','disabled');});
+  updateStats();
+}
+buildFilters();
+filterQ();
+</script>
+</body>
+</html>
