@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>General Education – Class Notes | IGNITE ACADEMY</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0f1e;--surface:#101828;--card:#141e30;--border:#1e2d45;
+    --accent:#f5a623;--accent2:#4fc3f7;--accent3:#81c784;--accent4:#ff8a65;--accent5:#ce93d8;
+    --text:#e8eaf6;--muted:#90a4ae;--tag-bg:#1a2744;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  header{background:linear-gradient(135deg,#0d1b2e,#1a2744,#0d1b2e);border-bottom:2px solid var(--accent);padding:18px 30px;position:sticky;top:0;z-index:100;box-shadow:0 4px 30px rgba(245,166,35,.15);}
+  .header-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .header-title h1{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--accent);letter-spacing:2px;text-shadow:0 0 20px rgba(245,166,35,.4);}
+  .header-title p{font-size:.76rem;color:var(--accent2);letter-spacing:1px;margin-top:2px;}
+  .search-bar input{background:#0a1428;border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:.84rem;width:220px;outline:none;transition:border-color .3s;}
+  .search-bar input:focus{border-color:var(--accent2);}
+  nav.tab-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 30px;overflow-x:auto;white-space:nowrap;}
+  nav.tab-nav::-webkit-scrollbar{height:3px;}
+  nav.tab-nav::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+  .tab-btn{display:inline-block;padding:13px 16px;cursor:pointer;font-size:.79rem;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.4px;text-transform:uppercase;}
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  main{max-width:1400px;margin:0 auto;padding:28px;}
+  .tab-content{display:none;}.tab-content.active{display:block;}
+  .section-title{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--accent);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+  .grid{display:grid;gap:16px;}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(270px,1fr));}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;transition:transform .2s,box-shadow .2s;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+  .card-title{font-size:.92rem;font-weight:800;color:var(--accent2);margin-bottom:11px;display:flex;align-items:center;gap:7px;}
+  .card-title .dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);flex-shrink:0;}
+  .points{list-style:none;}
+  .points li{padding:5px 0 5px 18px;position:relative;font-size:.86rem;line-height:1.6;color:#c5cae9;border-bottom:1px solid rgba(255,255,255,.03);}
+  .points li:last-child{border-bottom:none;}
+  .points li::before{content:'✦';position:absolute;left:0;color:var(--accent);font-size:.6rem;top:8px;}
+  .points li strong{color:var(--accent);font-weight:800;}
+  .points li em{color:var(--accent2);font-style:normal;font-weight:700;}
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2));}
+  .tl-item{position:relative;margin-bottom:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 15px;}
+  .tl-item::before{content:'';position:absolute;left:-23px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 8px rgba(245,166,35,.5);}
+  .tl-year{font-family:'Fira Code',monospace;font-size:.78rem;color:var(--accent);font-weight:600;margin-bottom:3px;}
+  .tl-title{font-size:.88rem;font-weight:800;color:var(--accent2);margin-bottom:5px;}
+  .tl-body{font-size:.82rem;color:#b0bec5;line-height:1.6;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .tag{background:var(--tag-bg);border:1px solid var(--border);color:var(--accent2);padding:3px 10px;border-radius:20px;font-size:.73rem;font-weight:700;}
+  .tag.green{background:#1b3a2d;border-color:#2e7d52;color:var(--accent3);}
+  .tag.orange{background:#3a2010;border-color:#8d4e1a;color:var(--accent4);}
+  .tag.purple{background:#2e1b3a;border-color:#7b3fa0;color:var(--accent5);}
+  .tag.gold{background:#3a2e10;border-color:#8d7a1a;color:var(--accent);}
+  .hbox{background:linear-gradient(135deg,#1a2744,#0d2035);border:1px solid var(--accent2);border-left:4px solid var(--accent2);border-radius:8px;padding:13px 15px;margin:10px 0;font-size:.85rem;line-height:1.7;}
+  .hbox.gold{border-left-color:var(--accent);border-color:#3a2e10;background:linear-gradient(135deg,#1f1800,#110d00);}
+  .hbox.green{border-left-color:var(--accent3);border-color:#1b3a2d;background:linear-gradient(135deg,#071a0f,#020d07);}
+  .hbox.red{border-left-color:#ef5350;border-color:#3a1010;background:linear-gradient(135deg,#1a0505,#0d0202);}
+  .info-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+  .info-table th{background:#1a2744;color:var(--accent);padding:9px 11px;text-align:left;font-size:.77rem;letter-spacing:.5px;text-transform:uppercase;border-bottom:2px solid var(--accent);}
+  .info-table td{padding:8px 11px;border-bottom:1px solid var(--border);color:#c5cae9;vertical-align:top;line-height:1.5;}
+  .info-table tr:hover td{background:rgba(255,255,255,.02);}
+  .info-table td:first-child{color:var(--accent2);font-weight:700;white-space:nowrap;}
+  .acc-item{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+  .acc-header{padding:13px 17px;cursor:pointer;font-weight:800;font-size:.88rem;color:var(--accent2);display:flex;justify-content:space-between;align-items:center;user-select:none;transition:background .2s;}
+  .acc-header:hover{background:rgba(79,195,247,.05);}
+  .acc-arrow{transition:transform .3s;font-size:.82rem;}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;border-top:1px solid transparent;}
+  .acc-body.open{max-height:1400px;border-top-color:var(--border);}
+  .acc-inner{padding:13px 17px;font-size:.84rem;line-height:1.7;color:#b0bec5;}
+  .mcq-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:17px;margin-bottom:13px;}
+  .mcq-q{font-size:.86rem;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.5;}
+  .mcq-year{display:inline-block;background:#3a2e10;color:var(--accent);font-size:.7rem;padding:2px 8px;border-radius:10px;margin-bottom:7px;font-weight:700;}
+  .mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .mcq-opt{background:#0a1428;border:1px solid var(--border);border-radius:7px;padding:7px 10px;font-size:.8rem;color:#90a4ae;cursor:pointer;transition:all .2s;}
+  .mcq-opt:hover{border-color:var(--accent2);color:var(--text);}
+  .mcq-opt.correct{background:#0d2b1a;border-color:var(--accent3);color:var(--accent3);}
+  .mcq-opt.wrong{background:#2b0d0d;border-color:#ef5350;color:#ef5350;}
+  .banner{background:linear-gradient(135deg,#1a2744,#0d1b2e);border:1px solid var(--accent);border-radius:12px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;gap:13px;}
+  .banner-icon{font-size:2.2rem;}
+  .banner h2{font-family:'Cinzel',serif;color:var(--accent);font-size:1.05rem;margin-bottom:3px;}
+  .banner p{font-size:.79rem;color:var(--muted);line-height:1.5;}
+  .subhead{font-size:.9rem;font-weight:800;color:var(--accent4);margin:16px 0 9px;padding-left:10px;border-left:3px solid var(--accent4);}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .pill{background:#1a2744;border:1px solid var(--accent2);color:var(--accent2);padding:4px 13px;border-radius:20px;font-size:.77rem;font-weight:700;}
+  .pill.gold{border-color:var(--accent);color:var(--accent);background:#2a1e08;}
+  .pill.green{border-color:var(--accent3);color:var(--accent3);background:#0d1f14;}
+  .pill.purple{border-color:var(--accent5);color:var(--accent5);background:#1e0f2b;}
+  .mindmap-container{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:auto;padding:10px;}
+  ::-webkit-scrollbar{width:6px;height:6px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+  @media(max-width:600px){header{padding:12px;}main{padding:12px;}.grid-2,.grid-3{grid-template-columns:1fr;}.mcq-options{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">
+      <h1>🎓 IGNITE ACADEMY</h1>
+      <p>General Education • उपसंचालक | प्राचार्य | उप प्राचार्य | निरीक्षक</p>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchBox" placeholder="🔍 Search notes..." oninput="doSearch()">
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <span class="tab-btn active" onclick="showTab('intro',this)">📘 Education Basics</span>
+  <span class="tab-btn" onclick="showTab('evolution',this)">📜 Evolution</span>
+  <span class="tab-btn" onclick="showTab('commissions',this)">⚖️ Commissions</span>
+  <span class="tab-btn" onclick="showTab('policies',this)">📋 Nat'l Policies</span>
+  <span class="tab-btn" onclick="showTab('nep2020',this)">🌟 NEP 2020</span>
+  <span class="tab-btn" onclick="showTab('preprimary',this)">🧒 Pre-Primary</span>
+  <span class="tab-btn" onclick="showTab('uee',this)">🏫 UEE</span>
+  <span class="tab-btn" onclick="showTab('quality',this)">✨ Quality</span>
+  <span class="tab-btn" onclick="showTab('globalization',this)">🌐 Globalization</span>
+  <span class="tab-btn" onclick="showTab('mcqs',this)">✅ Practice MCQs</span>
+  <span class="tab-btn" onclick="showTab('mindmap',this)">🗺️ Mind Map</span>
+</nav>
+
+<main id="mainContent">
+
+<!-- TAB 1: EDUCATION BASICS -->
+<div id="tab-intro" class="tab-content active">
+  <div class="banner"><div class="banner-icon">📘</div><div><h2>Education: Meaning, Types & Social Change</h2><p>Etymology • Formal/Informal/Non-formal • Social Mobility • Global Social Mobility Index</p></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><div class="dot"></div>Etymology of "Education"</div>
+      <ul class="points">
+        <li><strong>Educare</strong> (Latin) = "to bring up" or "rear"</li>
+        <li><strong>Educere</strong> (Latin) = "to bring out" or "lead forth"</li>
+        <li>Education = process of rearing + bringing out potentialities of an individual</li>
+        <li>Broadest sense = <em>deliberate and systematic attempt to socialize an individual</em></li>
+        <li>Knowledge acquired and passed on from one generation to another</li>
+      </ul>
+      <div class="hbox gold" style="margin-top:12px;"><strong>Gandhi:</strong> "Education leads to all-round development." → <strong>Basic Education</strong>: schooling integrated with productive work → school as self-reliant productive institution.</div>
+      <div class="hbox" style="margin-top:8px;"><strong>Amartya Sen:</strong> Education as <strong>basic capability</strong> enhancing freedom → <strong>Capability Approach</strong>: holistic understanding of human development.</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>Three Types of Education</div>
+      <table class="info-table">
+        <tr><th>Type</th><th>Description / Examples</th></tr>
+        <tr><td>Formal</td><td>Institutionalized (schools, colleges); standardized pre-decided curriculum; sequential levels</td></tr>
+        <tr><td>Informal</td><td>Family, relatives at home; unstructured, lifelong process</td></tr>
+        <tr><td>Non-formal</td><td>For out-of-school children; outside formal system. Ex: NGOs, adult literacy, vocational centres, skill dev courses</td></tr>
+      </table>
+      <div class="hbox gold" style="margin-top:11px;font-size:.79rem;"><strong>MPSC Rajyaseva 2019 – Formal Education features:</strong> (a) Classroom + direct teacher presence; (b) Pre-decided curriculum; (d) Sequential levels → next level needs prior level completion. ✅ <em>Ans: (2) a, b, d correct</em></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent4)"></div>Education as Tool for Social Change</div>
+      <ul class="points">
+        <li>Empowering individuals</li>
+        <li>Increased Participation (civic, economic)</li>
+        <li>Improved economic status &amp; Poverty Eradication</li>
+        <li><strong>Upward Social Mobility</strong></li>
+        <li>Better health and nutritional status</li>
+        <li>Personality development and character building</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent5)"></div>Social Mobility – Types</div>
+      <ul class="points">
+        <li><strong>Social Mobility:</strong> shift in individual's social status from one to another</li>
+        <li><strong>Horizontal Mobility:</strong> occupation changes but social standing unchanged (doctor → medical teacher)</li>
+        <li><strong>Vertical Mobility:</strong> change in occupational/political/religious status → societal change<br>• <em>Upward</em> = lower → higher | <em>Downward</em> = reverse</li>
+        <li><strong>Inter-generational:</strong> social position changes across generations (father = factory worker; son = lawyer)</li>
+        <li><strong>Intra-generational:</strong> change within single generation lifespan / between siblings</li>
+      </ul>
+    </div>
+    <div class="card" style="grid-column:1/-1;">
+      <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Global Social Mobility Index</div>
+      <div class="grid grid-3" style="margin-top:8px;">
+        <div class="hbox"><strong>Prepared by:</strong> World Economic Forum<br><strong>First released:</strong> 2020</div>
+        <div class="hbox gold"><strong>5 Determinants:</strong><br>• Health<br>• Education (access, quality &amp; equity, lifelong learning)<br>• Technology<br>• Work (opportunities, wages, conditions)<br>• Protection &amp; Institutions</div>
+        <div class="hbox green"><strong>Education sub-factors:</strong><br>Access • Quality &amp; Equity • Lifelong Learning</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: EVOLUTION -->
+<div id="tab-evolution" class="tab-content">
+  <div class="banner"><div class="banner-icon">📜</div><div><h2>Evolution of General Education in India</h2><p>Colonial Era (1781–1944) → Key Acts, Commissions &amp; Education Conferences</p></div></div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-year">1781</div><div class="tl-title">Calcutta Madrasa – Warren Hastings</div><div class="tl-body">Governor-General of Bengal <strong>Warren Hastings</strong> established for Islamic law studies. <em>First educational institute set by East India Company (EIC).</em></div></div>
+    <div class="tl-item"><div class="tl-year">1784</div><div class="tl-title">Asiatic Society of Bengal – William Jones</div><div class="tl-body">Founded by <strong>William Jones</strong> to understand India's history and culture. <strong>Charles Wilkins</strong> translated Bhagwat Gita into English during this period.</div></div>
+    <div class="tl-item"><div class="tl-year">1791</div><div class="tl-title">Sanskrit College, Benares – Jonathan Duncan</div><div class="tl-body">Resident of Benares <strong>Jonathan Duncan</strong> founded for study of Hindu laws and philosophies.</div></div>
+    <div class="tl-item"><div class="tl-year">1800</div><div class="tl-title">Fort William College, Calcutta – Richard Wellesley</div><div class="tl-body">Governor-General <strong>Richard Wellesley</strong> to train EIC civil servants in Indian languages and customs.</div></div>
+    <div class="tl-item"><div class="tl-year">1813</div><div class="tl-title">Charter Act of 1813</div><div class="tl-body">Set aside annual sum of <strong>Rs.1 lakh</strong> for educating Indian subjects.</div></div>
+    <div class="tl-item"><div class="tl-year">1835</div><div class="tl-title">Macaulay's Minutes</div><div class="tl-body">• Resources for western sciences &amp; literature in English ONLY<br>• English as medium of education in all schools/colleges<br>• Mass education neglected<br>• <strong>Downward Filtration Theory:</strong> educate small section of upper/middle-class Indians to bridge masses and government.</div></div>
+    <div class="tl-item"><div class="tl-year">1854</div><div class="tl-title">Wood's Dispatch — "Magna Carta of English Education in India"</div><div class="tl-body">• Sacred duty of government to provide education<br>• Masses in mother tongue; English knowledge still required<br>• <strong>Grants-in-aid system</strong> for educational institutions<br>• First universities at <strong>Kolkata, Chennai, Mumbai</strong><br><br><strong>Key Features:</strong> Vernacular in primary schools • Anglo-vernacular high schools • Affiliated colleges at district level • Universities in presidency towns • Impetus to female education &amp; vocational training • Secular education in govt schools</div></div>
+    <div class="tl-item"><div class="tl-year">1868 &amp; 1875</div><div class="tl-title">Lord Mayo's Colleges</div><div class="tl-body"><strong>Rajkot College</strong> in Kathiawar (1868) and <strong>Mayo College</strong> of Ajmer (1875) for political training of Indian princes and elites.</div></div>
+    <div class="tl-item"><div class="tl-year">1882</div><div class="tl-title">Hunter's Commission (Report 1882)</div><div class="tl-body">• Careful withdrawal of govt from higher ed; private enterprise to take over<br>• State focus on primary education; moral side emphasized<br><strong>Recommendations:</strong> Mass education via vernacular languages • Transfer primary control to district/municipal boards • Female education outside presidency towns • Secondary divided: <em>Literary</em> (→university) &amp; <em>Vocational</em> (commercial)</div></div>
+    <div class="tl-item"><div class="tl-year">1902</div><div class="tl-title">Raleigh Commission → Universities Act 1904</div><div class="tl-body">Viceroy <strong>Curzon</strong> believed universities produced revolutionary students. Commission led to <strong>Universities Act 1904</strong>: focus on research over revolutionary activities; govt veto on senate; stricter affiliation rules.</div></div>
+    <div class="tl-item"><div class="tl-year">1910</div><div class="tl-title">Gopal Krishna Gokhale</div><div class="tl-body">Mooted idea of <strong>free and compulsory primary education</strong> for all children — plan shelved then but remains relevant.</div></div>
+    <div class="tl-item"><div class="tl-year">1917–19</div><div class="tl-title">Sadler University Commission</div><div class="tl-body">Initially to study Calcutta University; ended up reviewing all universities.<br>• Stressed trained teachers • School in <strong>12 years</strong> • University after intermediate (not matric) → 3-year degree • Separate board for secondary &amp; intermediate<br>• 1916-21: 7 new universities at Mysore, Patna, Benares, Aligarh, Dacca, Lucknow, Osmania</div></div>
+    <div class="tl-item"><div class="tl-year">1920</div><div class="tl-title">Central Advisory Board of Education (CABE)</div><div class="tl-body">Set up to advise government on education. 1937-39: stressed adult education on wider scale; involve voluntary organizations.</div></div>
+    <div class="tl-item"><div class="tl-year">1937</div><div class="tl-title">Wardha Scheme of Basic Education</div><div class="tl-body">By <strong>INC</strong>. Committee under <strong>Zakir Hussain</strong>. Based on Gandhiji's ideas in <strong>Harijan</strong> (magazine, 1933).<br><br><strong>Three Basic Resolutions (22-23 Oct 1937):</strong><br>1. Free &amp; Compulsory Education for <strong>8 years</strong><br>2. Mother Tongue as Medium of Instruction<br>3. Education around manual/productive work<br><br><strong>Features:</strong> Age 6-14 (5 yrs Junior + 3 yrs Senior) • Gender/culture/religion-neutral • Girls may leave at 12 if parents wish • Work-centric (regional craftwork)</div></div>
+    <div class="tl-item"><div class="tl-year">1944</div><div class="tl-title">Sergeant Plan of Education (by CABE)</div><div class="tl-body">State responsible for adult education.<br>• Free primary: age <strong>3-6 yrs</strong> | Compulsory: age <strong>6-11 yrs</strong> | High school for selected: age <strong>11-17 yrs</strong><br>• Focus: teachers' training, physical education, handicapped education</div></div>
+  </div>
+  <div class="hbox gold" style="margin-top:14px;"><strong>MPSC Chronological Order Trick:</strong> Macaulay (1835) → Wood's Dispatch (1854) → Hunter Commission (1882) → Sargent Report (1944) → Ans: <em>(a) 2, 1, 4, 3</em></div>
+</div>
+
+<!-- TAB 3: COMMISSIONS -->
+<div id="tab-commissions" class="tab-content">
+  <div class="banner"><div class="banner-icon">⚖️</div><div><h2>Post-Independence Education Commissions</h2><p>Radhakrishnan • Mudaliar • Kothari • Ramamurthi • Janardhana Reddy</p></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent5)"></div>Radhakrishnan Commission (1948-49)</div>
+      <div class="tags"><span class="tag purple">University Education Commission</span><span class="tag purple">First Commission of Independent India</span></div>
+      <ul class="points" style="margin-top:10px;">
+        <li>First Education Commission of independent India</li>
+        <li>Quality of university education depends on quality of teachers</li>
+        <li>Improve pay scale &amp; service conditions; leaves for higher studies</li>
+        <li>University admission: after intermediate (after 11 yrs school)</li>
+        <li>Essay type supplemented by objective type questions</li>
+        <li>Oral examinations should be used</li>
+        <li>All students should receive <strong>N.C.C. training</strong></li>
+        <li>Establish <strong>colleges for women</strong> with adequate facilities</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent4)"></div>Mudaliar Commission (1952-53) – Secondary Education</div>
+      <div class="tags"><span class="tag orange">Secondary Education Commission</span></div>
+      <ul class="points" style="margin-top:10px;">
+        <li>Chairman: <strong>Dr. Lakshamanswami Mudaliar</strong>, VC of Madras University</li>
+        <li>Methods: Questionnaire Method &amp; Interview Method</li>
+        <li>Secondary education: children aged <strong>11-17 years</strong></li>
+        <li>Divided into 2 parts:<br>• <strong>Junior Secondary Stage</strong> (3 years)<br>• <strong>Higher Secondary Stage</strong> (4 years)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Kothari Commission (1964-66) – Education Commission</div>
+      <div class="tags"><span class="tag gold">First Comprehensive Commission</span><span class="tag gold">Led to NPE 1968</span></div>
+      <ul class="points" style="margin-top:10px;">
+        <li><strong>First comprehensive commission</strong> covering ALL levels (primary → higher)</li>
+        <li>Report: <em>"Education and National Development"</em></li>
+        <li>Recommended <strong>10+2+3 pattern</strong> — accepted mainly to prepare school leavers for vocations</li>
+        <li>6% of national income for education</li>
+        <li>At least <strong>one agricultural university per state</strong></li>
+        <li>Three Language Formula</li>
+      </ul>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2014: "Last commission to look into education system as a whole" → <strong>D.S. Kothari Commission</strong><br>✅ MPSC 2022: Kothari report title → <em>"Education and National Development"</em></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>Acharya Ramamurthi Committee (1990)</div>
+      <div class="tags"><span class="tag green">Review of NPE 1986</span></div>
+      <ul class="points" style="margin-top:10px;">
+        <li>Formed 1989 under <strong>Acharya Ramamurthi</strong></li>
+        <li>Report: <em>"Towards an Enlightened and Humane Society"</em></li>
+        <li>Appointed: <strong>7 May 1990</strong>; Report tabled: <strong>9 January 1991</strong></li>
+        <li><strong>Common school system</strong> – transform govt schools into genuine neighbourhood schools</li>
+        <li>Remove disparities (rural &amp; tribal)</li>
+        <li>Promotion of women education</li>
+        <li>Value education as a continuous process</li>
+        <li>Work Experience/SUPW <strong>integrally linked with subjects</strong> (content &amp; pedagogy)</li>
+        <li>Work benches &amp; practical schools for vocational ed</li>
+        <li>ECCE – Right to Education for inclusion in Fundamental Rights</li>
+        <li>Navodaya Vidyalayas – three alternatives proposed</li>
+      </ul>
+      <div class="hbox green" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2014: Work experience should be → <strong>(a) Integrally linked with subjects in content and pedagogy</strong><br>✅ MPSC 2021: Ramamurti Commission was for → <strong>(b) Review of NPE 1986</strong></div>
+    </div>
+    <div class="card" style="grid-column:1/-1;">
+      <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>Janardhana Reddy Committee / CABE Committee (1992)</div>
+      <div class="tags"><span class="tag">CABE</span><span class="tag">Appointed 31 July 1991</span></div>
+      <ul class="points" style="margin-top:10px;">
+        <li>To review implementation of NPE parameters; consider Ramamurti report</li>
+        <li><strong>Common school system</strong> – implement NPE provisions</li>
+        <li>Navodaya Vidyalaya scheme to continue; one in each district</li>
+        <li>ECCE: Article 45 scope need not be enlarged; Anganwadi workers to play expanded role</li>
+        <li><strong>Operation Blackboard</strong> to continue in expanded form (7th Five Year Plan)</li>
+        <li><strong>Dual track approach</strong> – UEE + adult literacy simultaneously</li>
+        <li>Vocational stream at +2 to be strengthened; vocational courses from <strong>Class IX</strong> also</li>
+        <li>District Board of Education to be set up and operationalized</li>
+        <li>Need-based financing for UEE, Adult Literacy, vocationalisation</li>
+      </ul>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2021: Janardhana Reddy 1992 on Vocational Education → <strong>(c) Both (a) and (b)</strong> — Vocational from Std 9 ✓ + Work experience functional ✓</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: NATIONAL POLICIES -->
+<div id="tab-policies" class="tab-content">
+  <div class="banner"><div class="banner-icon">📋</div><div><h2>National Policies on Education in India</h2><p>NPE 1968 → NPE 1986 → Programme of Action 1992 → National Policy for ICT 2012</p></div></div>
+  <div class="pill-row"><span class="pill gold">NPE 1968</span><span class="pill">NPE 1986</span><span class="pill green">PoA 1992</span><span class="pill purple">ICT Policy 2012</span><span class="pill">NEP 2020</span></div>
+  <div class="hbox gold" style="margin-bottom:18px;"><strong>First NPE:</strong> Based on Kothari Commission (1964-66) recommendations → rolled out in <strong>1968</strong>. ✅ MPSC 2014 Ans: (c) 1968</div>
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">📗 National Policy on Education – 1968 (NPE 1968)<span class="acc-arrow">▼</span></div>
+    <div class="acc-body"><div class="acc-inner">
+      <ul class="points">
+        <li><strong>Free and Compulsory Education</strong> for all children up to age <strong>14 years</strong></li>
+        <li><strong>Status of Teachers:</strong> Improve service conditions; academic freedom to publish research</li>
+        <li><strong>Three Language Formula:</strong><br>— Hindi-speaking states: Modern Indian language (preferably southern) + Hindi + English<br>— Non-Hindi states: Hindi + Regional language + English</li>
+        <li>Promotion of <strong>Hindi</strong> as link language; facilities for <strong>Sanskrit</strong></li>
+        <li><strong>Equalization of Educational Opportunity:</strong> Merit-based admission; protect socially deprived</li>
+        <li><strong>Science Education &amp; Research</strong> as high priority</li>
+        <li>At least <strong>one agricultural university per state</strong></li>
+        <li>Criticized frequent changes and high prices of books</li>
+        <li><strong>Educational Structure:</strong> Uniform <strong>10+2+3 pattern</strong> across India</li>
+        <li>Increase education investment to <strong>6% of national income</strong></li>
+      </ul>
+    </div></div>
+  </div>
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">📙 National Policy on Education – 1986 (NPE 1986)<span class="acc-arrow">▼</span></div>
+    <div class="acc-body"><div class="acc-inner">
+      <ul class="points">
+        <li><strong>National System of Education:</strong> Common educational structure <strong>10+2+3</strong></li>
+        <li><strong>Operation Blackboard:</strong> 3 all-weather rooms, blackboards, maps, charts, toys, library + at least <strong>3 teachers (50% women)</strong></li>
+        <li>Open primary schools in <strong>tribal, SC, backward areas</strong> on priority</li>
+        <li>Special schools with hostel for <strong>severely handicapped</strong> at district HQ</li>
+        <li><strong>Vocational education</strong> courses at <strong>+2 stage</strong></li>
+        <li><strong>IGNOU</strong> responsible for coordinating <strong>distance learning system</strong></li>
+        <li>Delink degrees from jobs; <strong>National Evaluation Organization</strong> for voluntary tests</li>
+        <li>Establish <strong>rural universities</strong> based on Gandhian basic education</li>
+      </ul>
+    </div></div>
+  </div>
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc(this)">📒 Programme of Action – 1992<span class="acc-arrow">▼</span></div>
+    <div class="acc-body"><div class="acc-inner">
+      <ul class="points">
+        <li>Post Ramamurthi &amp; Janardhana Reddy reports</li>
+        <li>Continued Operation Blackboard in expanded form</li>
+        <li>Vocational courses from Class IX</li>
+        <li>District Board of Education to be operationalized</li>
+      </ul>
+    </div></div>
+  </div>
+  <div class="grid grid-2" style="margin-top:18px;">
+    <div class="card">
+      <div class="card-title"><div class="dot"></div>MSBTE – Maharashtra State Board of Technical Education</div>
+      <ul class="points">
+        <li><strong>Autonomous board</strong> of education in Maharashtra</li>
+        <li>Designs &amp; implements diploma, post diploma &amp; advanced diploma programs</li>
+        <li>Established: <strong>1963</strong>; Autonomous status: <strong>1999</strong></li>
+        <li>Headquarters: <strong>Mumbai, Maharashtra</strong></li>
+        <li>All polytechnic institutes in Maharashtra affiliated to MSBTE (Govt + Private)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>PSSCIVE – Bhopal</div>
+      <ul class="points">
+        <li><strong>Pandit Sundarlal Sharma Central Institute of Vocational Education</strong></li>
+        <li>Located at: <strong>Bhopal</strong></li>
+        <li>Develops teacher training modules and teacher handbooks</li>
+        <li>Works with universities' Departments of Education &amp; State Governments</li>
+      </ul>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ DVET 2016: PSSCIVE located at → <strong>(d) Bhopal</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: NEP 2020 -->
+<div id="tab-nep2020" class="tab-content">
+  <div class="banner"><div class="banner-icon">🌟</div><div><h2>National Education Policy 2020</h2><p>SDG4 • Subramanian → Kasturirangan • 5+3+3+4 Structure • PARAKH • NEP Vision</p></div></div>
+  <div class="grid grid-3" style="margin-bottom:18px;">
+    <div class="hbox"><strong>SDG 4 adopted:</strong> 2015 — "Ensure inclusive and equitable quality education and promote lifelong learning for all by 2030"</div>
+    <div class="hbox gold"><strong>Subramanian Committee:</strong> 2015 (first draft)<br><strong>Kasturirangan Committee:</strong> June 2017<br>Draft public: <strong>31 May 2019</strong></div>
+    <div class="hbox green"><strong>NEP 2020 officially adopted</strong><br>MHRD → <strong>Ministry of Education</strong></div>
+  </div>
+  <div class="subhead">🏗️ New Curricular Structure: 5+3+3+4</div>
+  <div class="grid grid-2" style="margin-bottom:18px;">
+    <div class="card">
+      <table class="info-table">
+        <tr><th>Stage</th><th>Years</th><th>Age / Grades</th></tr>
+        <tr><td>Foundational</td><td>5 years</td><td>3–8 years (3 pre-primary + Gr 1-2)</td></tr>
+        <tr><td>Preparatory</td><td>3 years</td><td>8–11 years (Gr 3-5)</td></tr>
+        <tr><td>Middle</td><td>3 years</td><td>11–14 years (Gr 6-8)</td></tr>
+        <tr><td>Secondary</td><td>4 years</td><td>14–18 years (Gr 9-12)</td></tr>
+      </table>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2021: 5+3+3+4 recommended by → <strong>(a) NEP 2020</strong></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot"></div>Key NEP 2020 Features</div>
+      <ul class="points">
+        <li>Universal Access from pre-primary to Grade 12</li>
+        <li>ECCE for children aged <strong>3-6 years</strong></li>
+        <li>No hard separation: arts/sciences, curricular/extracurricular, vocational/academic</li>
+        <li><strong>National Mission on Foundational Literacy and Numeracy</strong></li>
+        <li>Medium of instruction: home language till at least <strong>Grade 5</strong>, preferably till <strong>Grade 8</strong></li>
+        <li>Board Exams on up to <strong>two occasions</strong> per year (main + improvement)</li>
+        <li><strong>PARAKH</strong> – Performance Assessment, Review &amp; Analysis of Knowledge for Holistic Development</li>
+        <li>Gender Inclusion Fund &amp; Special Education Zones</li>
+        <li><strong>SSSA</strong> – State School Standards Authority</li>
+        <li>GER in higher education to <strong>50%</strong></li>
+        <li><strong>MERUs</strong> – Multidisciplinary Education and Research Universities</li>
+        <li><strong>NRF</strong> – National Research Foundation</li>
+        <li><strong>NETF</strong> – National Educational Technology Forum</li>
+        <li>Public investment in education → <strong>6% of GDP</strong></li>
+        <li><strong>M.Phil programme discontinued</strong></li>
+      </ul>
+    </div>
+  </div>
+  <div class="subhead">🛠️ Vocational Education in NEP 2020</div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>School Level</div>
+      <ul class="points">
+        <li>Vocational education from <strong>Grade 6 onwards</strong></li>
+        <li>Expanded via <strong>Samagra Shiksha Abhiyan</strong></li>
+        <li><strong>10-day bagless period</strong> in Grades 6-8: intern with local vocational experts (carpenters, gardeners, potters, artists)</li>
+        <li>Pre-vocational education for Grades VI to VIII (NCERT framework; MoE guidelines)</li>
+        <li><strong>Skill Based Aptitude Test (SBT)</strong> for career guidance</li>
+        <li>NCERT to develop <strong>National Curriculum Framework (NCF)</strong></li>
+        <li>Skill labs: <strong>hub and spoke model</strong></li>
+        <li><strong>NPST</strong> (National Professional Standards for Teachers) by 2022</li>
+        <li>Vocational Teacher Training by NCERT, NIOS, CBSE, State Boards</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent4)"></div>Higher Education</div>
+      <ul class="points">
+        <li>Vocational ed integrated in all HEIs over next decade</li>
+        <li>By <strong>2025</strong>: at least <strong>50% of learners</strong> to have vocational exposure</li>
+        <li>Incubation centres in HEIs with industry partnerships</li>
+        <li>Short-term certificate courses including soft skills</li>
+        <li><strong>B.Voc. degrees</strong> (introduced 2013) to continue</li>
+        <li><strong>NCIVE</strong> – National Committee for Integration of Vocational Education</li>
+        <li><strong>GEC</strong> – General Education Council (frames graduate attributes)</li>
+        <li><strong>NHEQF</strong> in sync with <strong>NSQF</strong> → ease integration</li>
+        <li>Professional councils as <strong>PSSBs</strong> (ICAR, VCI, NCTE, CoA, NCVET etc.)</li>
+        <li><strong>NIOS</strong> for open vocational courses (ODL system)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="subhead">📌 NPST – National Professional Standards for Teachers</div>
+  <div class="card" style="margin-top:8px;">
+    <ul class="points">
+      <li>Public statement defining teacher quality + elements of high-quality 21st-century teaching</li>
+      <li>Prepared by <strong>PSSB</strong> (Professional Standard Setting Body) under <strong>GEC</strong></li>
+      <li>Goal: prepare, develop and grow teachers through various career stages</li>
+      <li>Provides clear understanding of attributes, knowledge, skills, ethics all teachers should follow</li>
+    </ul>
+  </div>
+  <div class="hbox gold" style="margin-top:14px;">✅ MPSC 2022: NEP 2020 programme to be discontinued → <strong>(b) M.Phil</strong></div>
+</div>
+
+<!-- TAB 6: PRE-PRIMARY -->
+<div id="tab-preprimary" class="tab-content">
+  <div class="banner"><div class="banner-icon">🧒</div><div><h2>Pre-Primary to Higher Education</h2><p>ECCE • Balwadi • Montessori • Balvatika • ICDS • Structure of Indian Education</p></div></div>
+  <div class="subhead">📚 Indian Education System Structure</div>
+  <div class="card" style="margin-bottom:16px;">
+    <table class="info-table">
+      <tr><th>Level</th><th>Age</th><th>Details</th></tr>
+      <tr><td>Pre-school</td><td>0-5 yrs</td><td>Nursery (infants–3 yrs) → LKG (3-4 yrs) → UKG (4-5 yrs) | #Pre-Primary Education</td></tr>
+      <tr><td>Primary School</td><td>6-11 yrs</td><td>Class 1 to 5</td></tr>
+      <tr><td>Secondary School</td><td>11-15 yrs</td><td>Class 6 to 10</td></tr>
+      <tr><td>Higher Secondary</td><td>16-17 yrs</td><td>Class 11 and 12</td></tr>
+      <tr><td>Undergraduate</td><td>—</td><td>3 or 4-year degree courses</td></tr>
+      <tr><td>Postgraduate</td><td>—</td><td>Courses after degree</td></tr>
+    </table>
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>ECCE – Early Childhood Care Education</div>
+      <ul class="points">
+        <li>Integral component of pre-primary education</li>
+        <li>NPE 1986: govt to take care of early childhood education; grants for centres</li>
+        <li><strong>Article 45</strong> (amended Constitution Act 2002): "State shall endeavour to provide ECCE for all children until age of 6 years"</li>
+        <li><strong>RTE Act</strong> came into force: <strong>1 April 2010</strong></li>
+        <li>Free pre-school education for children above 3 years</li>
+      </ul>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">Article 45 (DPSP) + Article 21A (Fundamental Right) → Goal of UEE</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent4)"></div>Balwadi</div>
+      <ul class="points">
+        <li>Native Marathi name for pre-schools in Maharashtra</li>
+        <li>Developed by <strong>Tarabai Modak</strong></li>
+        <li>First Balwadi: <strong>Bordi</strong> village, Thane district, Maharashtra</li>
+        <li>Started by <strong>Nutan Bal Shikshan Sangh</strong> in <strong>1945</strong></li>
+        <li><strong>Anganwadi</strong> = Angan Balwadi — in neighbourhood of targeted children</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent5)"></div>Montessori Education</div>
+      <ul class="points">
+        <li>Involves children's natural interests &amp; activities (not formal teaching)</li>
+        <li>Emphasis on <strong>hands-on learning</strong> &amp; real-world skills</li>
+        <li>Started by Italian physician <strong>Maria Montessori (1870-1952)</strong></li>
+        <li>Child-centered approach; unique interests &amp; abilities of each student</li>
+      </ul>
+      <div class="tags" style="margin-top:8px;"><span class="tag purple">1. Respect for the Child</span><span class="tag purple">2. Sensitive Periods for Learning</span><span class="tag purple">3. A Prepared Environment</span><span class="tag purple">4. Independence &amp; Discovery</span></div>
+      <div style="margin-top:8px;font-size:.82rem;color:#90a4ae;">Components: Multi-Age Groupings • Student Choice of Activity • Uninterrupted Blocks of Time</div>
+      <div style="margin-top:6px;font-size:.82rem;color:#90a4ae;">Advantages: Self-motivated learners • Problem-solving skills • Abstract math understanding • Compassion, self-esteem</div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>Balvatika (KVS + NEP 2020)</div>
+      <ul class="points">
+        <li>Introduced by <strong>Kendriya Vidyalaya Sangathan (KVS)</strong> under <strong>NEP 2020</strong></li>
+        <li>For children aged <strong>3 to 6 years</strong></li>
+        <li>Emphasizes <strong>play-based learning</strong></li>
+        <li>Fosters cognitive, social, emotional &amp; physical development</li>
+        <li>Beyond traditional classroom settings</li>
+      </ul>
+    </div>
+    <div class="card" style="grid-column:1/-1;">
+      <div class="card-title"><div class="dot" style="background:var(--accent)"></div>ICDS – Integrated Child Development Services Scheme</div>
+      <div class="grid grid-3" style="margin-top:8px;">
+        <div class="hbox"><strong>Launched:</strong> 2nd October 1975<br><strong>Type:</strong> World's largest community-based programme<br><strong>Aim:</strong> Improve health, nutrition &amp; education</div>
+        <div class="hbox gold"><strong>Beneficiaries:</strong><br>• Children 0–6 years<br>• Pregnant &amp; lactating mothers<br>• Women 15–44 years<br><em>(Adolescents 11-18 added in 1991)</em></div>
+        <div class="hbox green"><strong>Services include:</strong><br>Preschool education for children 3–6 years<br>Supplementary nutrition<br>Immunization<br>Health check-ups</div>
+      </div>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2022: Correct statements about ICDS → <strong>(d) (1), (3) and (4)</strong> — Launched 2 Oct 1975 ✓ | mental/physical/social development ✓ | nutritional status ✓. Statement 2 (108th birth anniversary) is INCORRECT.</div>
+    </div>
+  </div>
+  <div class="subhead" style="margin-top:18px;">🌍 Global Level – ECCE</div>
+  <div class="grid grid-2">
+    <div class="card"><ul class="points">
+      <li><strong>Global Partnership Strategy for Early Childhood 2021-2030</strong> – report by UNESCO</li>
+      <li><strong>World Conference on ECCE:</strong> Tashkent, Uzbekistan, November 2022</li>
+      <li><strong>Tashkent Declaration</strong> adopted</li>
+      <li>UNESCO member states pledged: at least <strong>10% of total education spending</strong> on pre-primary</li>
+    </ul></div>
+    <div class="card">
+      <div class="card-title"><div class="dot"></div>Problems in Pre-Primary Education</div>
+      <ul class="points"><li>Accessibility</li><li>Need for trained teachers specializing in early childhood</li><li>Curriculum alignment with developmental needs</li><li>Inadequate infrastructure facilities</li></ul>
+    </div>
+  </div>
+  <div class="subhead" style="margin-top:18px;">🎓 Problems in Higher Education</div>
+  <div class="card"><ul class="points">
+    <li><strong>Regional &amp; Social Imbalances:</strong> Low literacy, poor economic conditions, rural-urban divide</li>
+    <li><strong>GER</strong> in higher education = only <strong>27.1%</strong> (low vs developed countries)</li>
+    <li>Lack of accreditation; over-centralization; bureaucratic structures</li>
+    <li>Administrative burden diluting focus on academics &amp; research</li>
+    <li><strong>Research:</strong> Poor fund allocation, low PhD enrolment, fewer interdisciplinary opportunities</li>
+  </ul>
+  <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2022: NEP 2020 higher education problems → <strong>(c) All of the above</strong> — Fragmented ecosystem ✓, Less cognitive skill emphasis ✓, Rigid disciplines ✓, Limited autonomy ✓</div>
+  </div>
+</div>
+
+<!-- TAB 7: UEE -->
+<div id="tab-uee" class="tab-content">
+  <div class="banner"><div class="banner-icon">🏫</div><div><h2>Universalization of Education (UEE)</h2><p>UEE Components • School Dropouts • Education For All • Dakar Goals • UDHR Article 26</p></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent)"></div>Universalization of Elementary Education (UEE)</div>
+      <ul class="points">
+        <li>Making education up to <strong>Class I-VIII</strong> available to all children aged <strong>6-14</strong></li>
+        <li>6-11 = Universalization of Primary Education</li>
+        <li>6-14 = Universalization of Elementary Education</li>
+        <li><strong>Article 45</strong> (DPSP) + <strong>Article 21A</strong> (Fundamental Right) → UEE</li>
+        <li>NPE 1968, 1986, PoA 1992 all reiterated UEE commitment</li>
+      </ul>
+      <div style="margin-top:10px;"><strong style="color:var(--accent);font-size:.85rem;">4 Components of UEE:</strong></div>
+      <div class="tags" style="margin-top:6px;"><span class="tag gold">Access</span><span class="tag gold">Enrolment</span><span class="tag gold">Retention</span><span class="tag gold">Attainment</span></div>
+      <div class="hbox gold" style="margin-top:10px;font-size:.79rem;">✅ MPSC 2022: Which is NOT a major component of UEE → <strong>(d) Universal Supervision</strong></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:#ef5350)"></div>Causes of School Dropouts in India</div>
+      <ul class="points">
+        <li><strong>Child Labour:</strong> forced to work in agriculture, manufacturing, domestic service</li>
+        <li><strong>Child Marriages:</strong> India has highest number — <strong>34% girls married before 18</strong> (UNICEF 2023)</li>
+        <li><strong>Lack of Interest:</strong> studies not found relevant</li>
+        <li><strong>Gender Disparities:</strong> safety concerns, household responsibilities, societal norms</li>
+        <li><strong>Health Issues:</strong> malnutrition and chronic illnesses</li>
+        <li><strong>Lack of Parental Involvement:</strong> lack of awareness or economic pressures</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>Strategies to Achieve UEE</div>
+      <ul class="points">
+        <li>Overcome school dropouts; emphasize retention &amp; attainment over mere enrolment</li>
+        <li>Strengthen non-formal education for working children, girls, disadvantaged groups</li>
+        <li>Decentralization of education</li>
+        <li>Shift focus from educationally backward <em>states</em> to backward <em>districts</em></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>Education For All (EFA) – UNESCO</div>
+      <ul class="points">
+        <li>Movement started by <strong>UNESCO</strong></li>
+        <li><strong>First World Conference:</strong> 1990 at <strong>Jomtien, Thailand</strong></li>
+        <li><strong>Dakar Conference (World Education Forum):</strong> April 2000 — reviewed EFA progress</li>
+      </ul>
+      <div style="margin-top:10px;font-size:.82rem;color:var(--accent);font-weight:800;">6 Dakar Goals:</div>
+      <ol style="padding-left:18px;font-size:.82rem;color:#b0bec5;line-height:1.8;margin-top:6px;">
+        <li>Expand &amp; improve ECCE especially for vulnerable children</li>
+        <li>All children access free &amp; compulsory primary education by <strong>2015</strong></li>
+        <li>Learning needs of youth &amp; adults met via equitable life skills access</li>
+        <li><strong>50% improvement</strong> in adult literacy by 2015, esp. women</li>
+        <li>Eliminate gender disparities in primary &amp; secondary by <strong>2005</strong>; gender equality by 2015</li>
+        <li>Improve quality → measurable outcomes in literacy, numeracy, life skills</li>
+      </ol>
+    </div>
+  </div>
+  <div class="subhead" style="margin-top:18px;">📜 Universal Declaration of Human Rights – Article 26</div>
+  <div class="card"><ul class="points">
+    <li>Everyone has the right to education. Elementary stage shall be <strong>free</strong></li>
+    <li>Technical &amp; professional education generally available; higher education on merit</li>
+    <li>Education directed to full development of human personality + respect for human rights</li>
+    <li>Parents have <strong>prior right</strong> to choose kind of education for their children</li>
+  </ul>
+  <div class="hbox gold" style="margin-top:10px;font-size:.79rem;"><strong>Note:</strong> UDHR approved by UN General Assembly on <strong>10 December 1948</strong>. Completed 75 years in 2023. <strong>10th Dec = Human Rights Day</strong></div>
+  </div>
+</div>
+
+<!-- TAB 8: QUALITY -->
+<div id="tab-quality" class="tab-content">
+  <div class="banner"><div class="banner-icon">✨</div><div><h2>Quality Improvement in Indian Education</h2><p>7 Strategies • Atal Tinkering Labs • Manodarpan Initiative</p></div></div>
+  <div class="grid grid-2">
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent)"></div>1. Teacher Training &amp; Support</div><ul class="points"><li>Regular training: modern methodologies, digital tools, classroom management</li><li>Improve salaries/incentives especially in rural areas</li></ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent3)"></div>2. Emphasis on ECE</div><ul class="points"><li>Expanding quality ECE bridges early learning gaps</li><li>Active involvement of parents is important</li></ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent2)"></div>3. Infrastructure &amp; Digital Access</div><ul class="points"><li>Basic facilities: clean toilets, libraries, adequate classrooms</li><li>Digital devices &amp; internet in rural areas → bridge digital divide</li></ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent4)"></div>4. Assessment Reforms</div><ul class="points"><li>Holistic model: participation, projects, practical skills</li><li>Evaluate understanding &amp; application (not rote)</li></ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent5)"></div>5. Research &amp; Innovation</div><ul class="points"><li>More research opportunities at school &amp; university levels</li><li>Collaborate with international universities</li></ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent)"></div>6. Education Policy &amp; Governance</div><ul class="points"><li>Grant local authorities more power; tailor to specific needs</li><li>Decentralization especially in diverse states</li></ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent3)"></div>Atal Tinkering Labs (ATL)</div><ul class="points">
+      <li>Established by <strong>Atal Innovation Mission</strong> (initiative of <strong>NITI Aayog</strong>)</li>
+      <li>Foster curiosity, creativity, imagination in young minds</li>
+      <li>Inculcate: design mindset, computational thinking, adaptive learning, physical computing</li>
+      <li>Hands-on DIY workspace; learn innovation skills</li>
+      <li>Children work with tools to understand <strong>STEM</strong></li>
+    </ul></div>
+    <div class="card"><div class="card-title"><div class="dot" style="background:var(--accent4)"></div>7. Mental Health &amp; Well-being</div><ul class="points"><li>Mental health services and academic counselling</li><li>Move away from high-stakes competitive exams; focus on holistic development</li></ul></div>
+    <div class="card" style="grid-column:1/-1;">
+      <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>Manodarpan Initiative (Ministry of Education)</div>
+      <div class="grid grid-3">
+        <ul class="points"><li>Wide range of psychosocial support activities for students, teachers &amp; families</li><li>Focus: Mental Health &amp; Emotional Wellbeing during COVID and beyond</li></ul>
+        <ul class="points"><li>National Toll-free Helpline: <strong>8448440632</strong></li><li>Country-wide outreach: schools, colleges, universities</li><li>Tele-counselling for mental health</li></ul>
+        <ul class="points"><li>Inaugurated: <strong>21 July 2020</strong></li><li><strong>NCERT</strong> Counselling Services: April 2020</li><li><strong>SAHYOG:</strong> Live sessions on DTH-TV at 12 PM (eVidya, Cl 1-12)</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 9: GLOBALIZATION -->
+<div id="tab-globalization" class="tab-content">
+  <div class="banner"><div class="banner-icon">🌐</div><div><h2>Impact of Globalization &amp; Privatization on Education</h2><p>Positive &amp; Negative impacts • Commercialization • Digital Transformation</p></div></div>
+  <div class="hbox" style="margin-bottom:18px;"><strong>Globalization:</strong> "The intensification of world-wide social relations which link distant localities in such a way that local happenings are shaped by events occurring many miles away and vice-versa."</div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>✅ Positive Impacts</div>
+      <ul class="points">
+        <li><strong>Access to Global Knowledge:</strong> Indian education opened to international standards; English proficiency, digital literacy, cross-cultural skills</li>
+        <li><strong>Rise of Private Institutions:</strong> Higher quality facilities and resources to meet youth demand</li>
+        <li><strong>Improved Quality:</strong> Competitive environment → STEM education, soft skills, technical training incorporated</li>
+        <li><strong>Vocational &amp; Skill-Based Education:</strong> Revealed need to align workforce with international standards; surge in internship partnerships</li>
+        <li><strong>Digital Transformation:</strong> Online courses, digital resources; learning more accessible</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><div class="dot" style="background:#ef5350"></div>❌ Negative Impacts</div>
+      <ul class="points">
+        <li><strong>Commercialization:</strong> Institutions prioritize profit → rote learning, lack of critical thinking; "education for profit" vs "education for all"</li>
+        <li><strong>Public-Private Disparity:</strong> Private institutions costly; accessible mainly to affluent families</li>
+        <li><strong>Impact on Public Education:</strong> Privatization diverts funding from public schools; quality gap reinforces inequality</li>
+        <li><strong>Widening Educational Divide:</strong> Low-income families excluded from quality private education; socioeconomic gap widens</li>
+      </ul>
+      <div class="hbox red" style="margin-top:12px;font-size:.79rem;">✅ MPSC 2022: Impact of globalization on Teachers → <strong>(4) All are correct</strong> — specialized skills ✓, communicate in new ways ✓, accessible to students ✓, work in teams ✓</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 10: MCQs -->
+<div id="tab-mcqs" class="tab-content">
+  <div class="banner"><div class="banner-icon">✅</div><div><h2>Practice MCQs – General Education</h2><p>Click an option to check your answer instantly</p></div></div>
+  <div id="mcqContainer"></div>
+</div>
+
+<!-- TAB 11: MIND MAP -->
+<div id="tab-mindmap" class="tab-content">
+  <div class="banner"><div class="banner-icon">🗺️</div><div><h2>General Education – Mind Map</h2><p>Visual overview of all major topics</p></div></div>
+  <div class="mindmap-container">
+    <svg viewBox="0 0 1100 800" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-height:580px;font-family:'Nunito',sans-serif;">
+      <rect width="1100" height="800" fill="#0a0f1e"/>
+      <!-- Center -->
+      <ellipse cx="550" cy="400" rx="105" ry="50" fill="#f5a623" opacity=".9"/>
+      <text x="550" y="394" text-anchor="middle" fill="#0a0f1e" font-size="13" font-weight="800">GENERAL</text>
+      <text x="550" y="412" text-anchor="middle" fill="#0a0f1e" font-size="13" font-weight="800">EDUCATION</text>
+      <!-- Branch 1: Basics -->
+      <line x1="448" y1="373" x2="240" y2="185" stroke="#4fc3f7" stroke-width="2"/>
+      <rect x="95" y="148" rx="10" width="175" height="72" fill="#141e30" stroke="#4fc3f7"/>
+      <text x="183" y="172" text-anchor="middle" fill="#4fc3f7" font-size="11" font-weight="800">📘 Education Basics</text>
+      <text x="183" y="189" text-anchor="middle" fill="#90a4ae" font-size="9">Educare / Educere</text>
+      <text x="183" y="202" text-anchor="middle" fill="#90a4ae" font-size="9">Formal / Informal / Non-formal</text>
+      <text x="183" y="215" text-anchor="middle" fill="#90a4ae" font-size="9">Social Mobility • GSM Index</text>
+      <!-- Branch 2: Evolution -->
+      <line x1="446" y1="415" x2="230" y2="400" stroke="#81c784" stroke-width="2"/>
+      <rect x="30" y="366" rx="10" width="185" height="75" fill="#141e30" stroke="#81c784"/>
+      <text x="122" y="390" text-anchor="middle" fill="#81c784" font-size="11" font-weight="800">📜 Evolution</text>
+      <text x="122" y="406" text-anchor="middle" fill="#90a4ae" font-size="9">1781-1944: Colonial era</text>
+      <text x="122" y="419" text-anchor="middle" fill="#90a4ae" font-size="9">Wood's Dispatch (Magna Carta)</text>
+      <text x="122" y="432" text-anchor="middle" fill="#90a4ae" font-size="9">Wardha (1937) • Sergeant (1944)</text>
+      <!-- Branch 3: Commissions -->
+      <line x1="462" y1="447" x2="258" y2="588" stroke="#ff8a65" stroke-width="2"/>
+      <rect x="78" y="558" rx="10" width="188" height="80" fill="#141e30" stroke="#ff8a65"/>
+      <text x="172" y="579" text-anchor="middle" fill="#ff8a65" font-size="11" font-weight="800">⚖️ Commissions</text>
+      <text x="172" y="595" text-anchor="middle" fill="#90a4ae" font-size="9">Radhakrishnan (1948-49)</text>
+      <text x="172" y="608" text-anchor="middle" fill="#90a4ae" font-size="9">Mudaliar (1952-53) • Kothari (1964-66)</text>
+      <text x="172" y="621" text-anchor="middle" fill="#90a4ae" font-size="9">Ramamurthi (1990) • J.Reddy (1992)</text>
+      <text x="172" y="634" text-anchor="middle" fill="#90a4ae" font-size="9">Report: "Edu and Nat'l Development"</text>
+      <!-- Branch 4: Policies -->
+      <line x1="538" y1="450" x2="538" y2="630" stroke="#ce93d8" stroke-width="2"/>
+      <rect x="438" y="630" rx="10" width="200" height="72" fill="#141e30" stroke="#ce93d8"/>
+      <text x="538" y="652" text-anchor="middle" fill="#ce93d8" font-size="11" font-weight="800">📋 National Policies</text>
+      <text x="538" y="668" text-anchor="middle" fill="#90a4ae" font-size="9">NPE 1968: 10+2+3 • 6% income</text>
+      <text x="538" y="681" text-anchor="middle" fill="#90a4ae" font-size="9">NPE 1986: Op.Blackboard • IGNOU</text>
+      <text x="538" y="694" text-anchor="middle" fill="#90a4ae" font-size="9">NEP 2020: 5+3+3+4 • PARAKH</text>
+      <!-- Branch 5: NEP 2020 -->
+      <line x1="615" y1="444" x2="820" y2="575" stroke="#f5a623" stroke-width="2"/>
+      <rect x="822" y="545" rx="10" width="192" height="85" fill="#141e30" stroke="#f5a623"/>
+      <text x="918" y="568" text-anchor="middle" fill="#f5a623" font-size="11" font-weight="800">🌟 NEP 2020</text>
+      <text x="918" y="584" text-anchor="middle" fill="#90a4ae" font-size="9">5+3+3+4 Structure</text>
+      <text x="918" y="597" text-anchor="middle" fill="#90a4ae" font-size="9">PARAKH • NETF • NRF • MERUs</text>
+      <text x="918" y="610" text-anchor="middle" fill="#90a4ae" font-size="9">Voc. Ed from Grade 6 • 50% by 2025</text>
+      <text x="918" y="623" text-anchor="middle" fill="#90a4ae" font-size="9">M.Phil discontinued • GEC • NHEQF</text>
+      <!-- Branch 6: Pre-Primary -->
+      <line x1="617" y1="370" x2="832" y2="255" stroke="#4fc3f7" stroke-width="2"/>
+      <rect x="826" y="198" rx="10" width="196" height="95" fill="#141e30" stroke="#4fc3f7"/>
+      <text x="924" y="222" text-anchor="middle" fill="#4fc3f7" font-size="11" font-weight="800">🧒 Pre-Primary</text>
+      <text x="924" y="238" text-anchor="middle" fill="#90a4ae" font-size="9">ECCE (Art.45 + RTE 2010)</text>
+      <text x="924" y="251" text-anchor="middle" fill="#90a4ae" font-size="9">Balwadi (Tarabai Modak, 1945)</text>
+      <text x="924" y="264" text-anchor="middle" fill="#90a4ae" font-size="9">Montessori (Maria Montessori)</text>
+      <text x="924" y="277" text-anchor="middle" fill="#90a4ae" font-size="9">Balvatika (KVS)</text>
+      <text x="924" y="290" text-anchor="middle" fill="#90a4ae" font-size="9">ICDS (2 Oct 1975)</text>
+      <!-- Branch 7: UEE -->
+      <line x1="560" y1="350" x2="635" y2="148" stroke="#81c784" stroke-width="2"/>
+      <rect x="560" y="80" rx="10" width="195" height="88" fill="#141e30" stroke="#81c784"/>
+      <text x="657" y="103" text-anchor="middle" fill="#81c784" font-size="11" font-weight="800">🏫 UEE</text>
+      <text x="657" y="119" text-anchor="middle" fill="#90a4ae" font-size="9">Age 6-14 (Class I-VIII)</text>
+      <text x="657" y="132" text-anchor="middle" fill="#90a4ae" font-size="9">4 Components: Access, Enrolment,</text>
+      <text x="657" y="145" text-anchor="middle" fill="#90a4ae" font-size="9">Retention, Attainment</text>
+      <text x="657" y="158" text-anchor="middle" fill="#90a4ae" font-size="9">EFA Jomtien 1990 • Dakar 2000</text>
+      <!-- Branch 8: Globalization -->
+      <line x1="527" y1="352" x2="378" y2="147" stroke="#ff8a65" stroke-width="2"/>
+      <rect x="252" y="80" rx="10" width="197" height="80" fill="#141e30" stroke="#ff8a65"/>
+      <text x="350" y="103" text-anchor="middle" fill="#ff8a65" font-size="11" font-weight="800">🌐 Globalization</text>
+      <text x="350" y="119" text-anchor="middle" fill="#90a4ae" font-size="9">↑ Private Institutions</text>
+      <text x="350" y="132" text-anchor="middle" fill="#90a4ae" font-size="9">↑ Vocational/Skill-based Ed</text>
+      <text x="350" y="145" text-anchor="middle" fill="#90a4ae" font-size="9">Commercialization Risk</text>
+      <text x="350" y="158" text-anchor="middle" fill="#90a4ae" font-size="9">Public-Private Inequality</text>
+    </svg>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.acc-arrow');
+  body.classList.toggle('open');
+  arrow.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+function doSearch() {
+  document.querySelectorAll('.acc-body').forEach(b => b.classList.add('open'));
+  document.querySelectorAll('.acc-arrow').forEach(a => a.style.transform = 'rotate(180deg)');
+}
+
+const mcqs = [
+  {year:"MPSC Rajyaseva 2019",q:"What is formal Education? Which alternatives are correct?\n(a) Classroom teaching + direct teacher presence\n(b) Pre-decided curriculum\n(c) Curriculum as per need\n(d) Sequential levels — next level needs prior level completion",opts:["(a) and (b) correct","(a), (b), (d) correct","(a), (b), (c) correct","Only (b) correct"],ans:1},
+  {year:"MPSC Chronological Order",q:"Correct chronological sequence:\n1. Wood's Education Despatch\n2. Macaulay's minute on education\n3. Sargent Education Report\n4. Indian Education (Hunter Commission)",opts:["2, 1, 4, 3","2, 1, 3, 4","1, 2, 4, 3","4, 3, 1, 3"],ans:0},
+  {year:"MPSC General",q:"Who amongst the following Englishmen first translated Bhagavad-Gita into English?",opts:["William Jones","Charles Wilkins","Alexander Cunningham","John Marshall"],ans:1},
+  {year:"MPSC General",q:"Regarding Wood's Dispatch, which statements are true?\n1. Grants-in-Aid system was introduced\n2. Establishment of universities was recommended\n3. English as medium at ALL levels was recommended",opts:["1 and 2 only","2 and 3 only","1 and 3 only","1, 2 and 3"],ans:0},
+  {year:"MPSC Principal Gr-A&B 2014",q:"In which year was the first National Policy on Education promulgated by Govt. of India?",opts:["1986","1965","1968","1970"],ans:2},
+  {year:"MPSC Principal Gr-A&B 2014",q:"Which was the last education commission to look into the education system of the country as a whole?",opts:["Radhakrishnan Commission","Mudaliar Commission","Damodaran Commission","D.S. Kothari Commission"],ans:3},
+  {year:"MPSC Principal Gr-A&B 2014",q:"Ramamurthy Committee recommends that work experience/SUPW should be",opts:["Integrally linked with subjects in content and pedagogy","Independent of subjects","Dealing with extracurricular activities","Developing personality and leadership"],ans:0},
+  {year:"MPSC Principal Gr-A&B 2014",q:"Objective of work benches and practical schools according to Ramamurthi report is to provide",opts:["Vocational training at ITI Level","Direct experience within production units","Skills and attitude development","Opportunities for personal growth"],ans:0},
+  {year:"Deputy Director (DVET) 2016",q:"The PSS Central Institute of Vocational Education (PSSCIVE) is located at:",opts:["New Delhi","Mumbai","Chandigarh","Bhopal"],ans:3},
+  {year:"Deputy Director (DVET) 2016",q:"10+2+3 pattern recommended by Education Commission was accepted mainly for:",opts:["Preparing students for college education","Preparing large school leavers for different vocations","Preparing students for engineering and medical education","Distinct stream of general education"],ans:1},
+  {year:"MPSC Rajyaseva Mains 2021",q:"The constitution of Acharya Ramamurti Commission was for ______.",opts:["Vocational Education","Review of New Education Policy 1986","Technical Education","Women's Education"],ans:1},
+  {year:"MPSC Rajyaseva Mains 2021",q:"Janardhana Reddy 1992 recommendation on Vocational Education?\n(a) Vocational course from Standard 9\n(b) Work experience should be functional",opts:["Only (a)","Only (b)","Both (a) and (b)","None of the above"],ans:2},
+  {year:"MPSC Rajyaseva Mains 2021",q:"The 5+3+3+4 Educational pattern was recommended by which policy?",opts:["National Education Policy - 2020","National Education Policy - 1986","NPE Review Committee 1990","National Policy of Education - 2000"],ans:0},
+  {year:"MPSC Rajyaseva Mains 2022",q:"The report of _________ commission was entitled 'Education and National development.'",opts:["Kothari","Mudaliar","Radhakrishnan","Sampitroda"],ans:0},
+  {year:"MPSC Rajyaseva Mains 2022",q:"As per NEP 2020, ____ programme shall be discontinued.",opts:["Ph.D","M.Phil","MCA","M.P.Ed"],ans:1},
+  {year:"MPSC Rajyaseva Mains 2022",q:"Under Universalization of Elementary Education _____ is NOT a major component.",opts:["universal access","universal retention","universal enrolment","universal supervision"],ans:3},
+  {year:"MPSC Rajyaseva Mains 2022",q:"Correct statements about ICDS:\n(1) Launched 2 October 1975\n(2) Launched on 108th birth anniversary of Gandhi\n(3) Objective is mental, physical and social development of children\n(4) Improve nutritional and health status of children under 6",opts:["Only (4)","Only (2)","(2), (3) and (4)","(1), (3) and (4)"],ans:3},
+  {year:"MPSC Rajyaseva Mains 2022",q:"NEP 2020: higher education system in India is facing which problems?\n(1) Severely fragmented ecosystem\n(2) Less emphasis on cognitive skills\n(3) Rigid separation of disciplines\n(4) Limited teacher autonomy",opts:["Only (1)","Only (2)","All of the above","None of the above"],ans:2},
+  {year:"MPSC Rajyaseva Mains 2022",q:"Impact of globalization on Teachers is _______.",opts:["(1) is correct","(1) and (2) are correct","Only (3) is correct","All are correct"],ans:3}
+];
+
+function renderMCQs() {
+  document.getElementById('mcqContainer').innerHTML = mcqs.map((m,i) => `
+    <div class="mcq-box">
+      <div class="mcq-year">${m.year}</div>
+      <div class="mcq-q">Q${i+1}. ${m.q.replace(/\n/g,'<br>')}</div>
+      <div class="mcq-options">
+        ${m.opts.map((o,j) => `<div class="mcq-opt" onclick="checkMCQ(this,${i},${j})">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function checkMCQ(el, qi, optIdx) {
+  const box = el.closest('.mcq-box');
+  box.querySelectorAll('.mcq-opt').forEach(o => { o.style.pointerEvents='none'; o.classList.remove('correct','wrong'); });
+  box.querySelectorAll('.mcq-opt')[mcqs[qi].ans].classList.add('correct');
+  if (optIdx !== mcqs[qi].ans) el.classList.add('wrong');
+}
+renderMCQs();
+</script>
+</body>
+</html>
