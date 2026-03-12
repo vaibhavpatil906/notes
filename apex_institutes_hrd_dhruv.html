@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DHRUV — Apex Institutes in HRD</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070c;--surface:#0e0e16;--card:#12121c;--card-hover:#1a1a28;
+  --border:rgba(255,255,255,0.07);--border-hi:rgba(255,80,60,0.45);
+  --text:#f0f0f8;--text-muted:#64647a;--text-dim:#2e2e44;
+  --fire:#ff3c1f;--fire-light:#ff6b4a;
+  --gold:#f5a623;--gold-light:#ffc96b;
+  --teal:#00d4b4;--violet:#9b5de5;--green:#22d37a;--blue:#4da6ff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")}
+.blob{position:fixed;border-radius:50%;filter:blur(130px);opacity:0.10;pointer-events:none;z-index:0;animation:drift 18s ease-in-out infinite alternate}
+.b1{width:700px;height:700px;background:var(--fire);top:-220px;left:-180px}
+.b2{width:500px;height:500px;background:var(--gold);bottom:5%;right:-120px;animation-delay:-9s}
+.b3{width:350px;height:350px;background:var(--violet);top:55%;left:42%;animation-delay:-5s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(28px,38px) scale(1.07)}}
+
+/* HEADER */
+header{position:relative;z-index:1;padding:3.5rem 1.5rem 2.5rem;text-align:center;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(255,60,31,0.07) 0%,transparent 100%)}
+.brand-eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--fire-light);margin-bottom:0.6rem;animation:riseUp 0.5s ease both}
+.brand-row{display:flex;align-items:center;justify-content:center;gap:1rem;animation:riseUp 0.5s 0.07s ease both}
+.brand-logo{width:56px;height:56px;background:linear-gradient(135deg,var(--fire),var(--gold));
+  border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;flex-shrink:0;box-shadow:0 0 32px rgba(255,60,31,0.45)}
+.brand-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,11vw,7rem);
+  letter-spacing:0.07em;line-height:1;
+  background:linear-gradient(130deg,#fff 25%,var(--gold-light) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-sub{font-size:0.88rem;font-weight:300;color:var(--text-muted);margin-top:0.5rem;animation:riseUp 0.5s 0.14s ease both}
+@keyframes riseUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.topic-badge{display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(255,60,31,0.12);border:1px solid rgba(255,60,31,0.3);
+  border-radius:100px;padding:0.45rem 1.2rem;font-size:0.82rem;font-weight:600;
+  color:var(--fire-light);margin-top:1.2rem;animation:riseUp 0.5s 0.2s ease both}
+
+/* NAV PILLS */
+.nav-sticky{position:sticky;top:0;z-index:100;background:rgba(7,7,12,0.92);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--border);
+  padding:0.65rem 1.5rem;display:flex;gap:0.4rem;overflow-x:auto;white-space:nowrap}
+.nav-sticky::-webkit-scrollbar{height:3px}
+.nav-sticky::-webkit-scrollbar-thumb{background:var(--fire)}
+.np{display:inline-block;padding:0.35rem 0.85rem;border-radius:100px;
+  font-size:0.68rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+  text-decoration:none;color:var(--text-muted);background:var(--card);
+  border:1px solid var(--border);transition:all 0.2s;white-space:nowrap}
+.np:hover{background:var(--fire);color:#fff;border-color:var(--fire)}
+
+/* WRAP */
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:2.5rem 1.5rem 6rem}
+
+/* INSTITUTE BLOCK */
+.inst-block{background:var(--card);border:1px solid var(--border);border-radius:20px;
+  margin-bottom:2rem;overflow:hidden;position:relative;
+  animation:cardIn 0.45s ease both}
+@keyframes cardIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.inst-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+
+/* accent colours per block */
+.ac-fire::before{background:linear-gradient(90deg,var(--fire),var(--gold))}
+.ac-teal::before{background:linear-gradient(90deg,var(--teal),var(--blue))}
+.ac-violet::before{background:linear-gradient(90deg,var(--violet),var(--teal))}
+.ac-gold::before{background:linear-gradient(90deg,var(--gold),var(--fire-light))}
+.ac-green::before{background:linear-gradient(90deg,var(--green),var(--teal))}
+.ac-blue::before{background:linear-gradient(90deg,var(--blue),var(--violet))}
+
+/* INST HEADER */
+.inst-header{padding:1.5rem 1.8rem 1.2rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:1.1rem}
+.inst-icon{width:50px;height:50px;min-width:50px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.inst-meta{}
+.inst-num{font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:0.25rem}
+.inst-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.06em;line-height:1.1}
+.ac-fire .inst-title{color:var(--fire-light)}
+.ac-teal .inst-title{color:var(--teal)}
+.ac-violet .inst-title{color:var(--violet)}
+.ac-gold .inst-title{color:var(--gold-light)}
+.ac-green .inst-title{color:var(--green)}
+.ac-blue .inst-title{color:var(--blue)}
+.inst-abbr{display:inline-block;font-family:'DM Sans',sans-serif;font-size:0.72rem;
+  font-weight:700;padding:0.18rem 0.6rem;border-radius:6px;margin-left:0.5rem;
+  vertical-align:middle;letter-spacing:0.05em}
+.inst-full-name{font-size:0.82rem;color:var(--text-muted);margin-top:0.2rem;font-weight:300}
+
+/* INST BODY */
+.inst-body{padding:1.5rem 1.8rem 2rem}
+
+/* CHIPS ROW */
+.chips{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.3rem}
+.chip{display:inline-flex;align-items:center;gap:0.3rem;padding:0.3rem 0.8rem;
+  border-radius:100px;font-size:0.74rem;font-weight:500;border:1px solid}
+.ch-fire{background:rgba(255,60,31,0.1);color:var(--fire-light);border-color:rgba(255,60,31,0.25)}
+.ch-gold{background:rgba(245,166,35,0.1);color:var(--gold-light);border-color:rgba(245,166,35,0.25)}
+.ch-teal{background:rgba(0,212,180,0.1);color:var(--teal);border-color:rgba(0,212,180,0.25)}
+.ch-violet{background:rgba(155,93,229,0.1);color:var(--violet);border-color:rgba(155,93,229,0.25)}
+.ch-green{background:rgba(34,211,122,0.1);color:var(--green);border-color:rgba(34,211,122,0.25)}
+.ch-blue{background:rgba(77,166,255,0.1);color:var(--blue);border-color:rgba(77,166,255,0.25)}
+
+/* HIGHLIGHT BOX */
+.hl-box{background:linear-gradient(120deg,rgba(255,60,31,0.08),rgba(245,166,35,0.05));
+  border:1px solid rgba(255,60,31,0.2);border-left:3px solid var(--fire);
+  border-radius:0 12px 12px 0;padding:1rem 1.3rem;margin-bottom:1.3rem}
+.hl-label{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--fire-light);margin-bottom:0.35rem}
+.hl-text{font-size:0.88rem;color:var(--text);line-height:1.7;font-weight:300}
+.hl-text strong{color:var(--gold-light);font-weight:600}
+
+/* INFO BOX */
+.info-box{background:rgba(0,212,180,0.05);border:1px solid rgba(0,212,180,0.15);
+  border-left:3px solid var(--teal);border-radius:0 12px 12px 0;
+  padding:1rem 1.3rem;margin-bottom:1.3rem}
+.info-box .hl-label{color:var(--teal)}
+.info-box .hl-text strong{color:var(--teal)}
+
+/* VIOLET BOX */
+.vio-box{background:rgba(155,93,229,0.06);border:1px solid rgba(155,93,229,0.15);
+  border-left:3px solid var(--violet);border-radius:0 12px 12px 0;
+  padding:1rem 1.3rem;margin-bottom:1.3rem}
+.vio-box .hl-label{color:var(--violet)}
+.vio-box .hl-text strong{color:var(--violet)}
+
+/* SUBSECTION */
+.sub-sec{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+.sub-title{font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.9rem;display:flex;align-items:center;gap:0.5rem}
+.sub-title::before{content:'▸';color:var(--fire)}
+
+/* POINTS LIST */
+.pts{list-style:none}
+.pts li{position:relative;padding:0.5rem 0 0.5rem 1.5rem;
+  font-size:0.875rem;line-height:1.65;color:var(--text-muted);
+  border-bottom:1px solid rgba(255,255,255,0.04)}
+.pts li:last-child{border-bottom:none}
+.pts li::before{content:'—';position:absolute;left:0;color:var(--fire);font-weight:700}
+.pts li strong{color:var(--text);font-weight:600}
+.pts li em{color:var(--gold-light);font-style:italic}
+
+/* NESTED SUB-POINTS */
+.pts .sub-pts{list-style:none;margin-top:0.4rem;padding-left:1.2rem}
+.pts .sub-pts li{border:none;font-size:0.83rem;color:var(--text-dim);padding:0.25rem 0 0.25rem 1.2rem}
+.pts .sub-pts li::before{content:'·';color:var(--teal)}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:2rem;margin-top:0.5rem}
+.tl::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:2px;
+  background:linear-gradient(to bottom,var(--fire),var(--violet),transparent)}
+.tl-item{position:relative;margin-bottom:1.1rem}
+.tl-item::before{content:'';position:absolute;left:-1.6rem;top:0.45rem;
+  width:12px;height:12px;background:var(--bg);border:2px solid var(--fire);
+  border-radius:50%;box-shadow:0 0 8px rgba(255,60,31,0.5)}
+.tl-year{font-size:0.72rem;font-weight:700;color:var(--fire-light);
+  font-family:'Bebas Neue',sans-serif;letter-spacing:0.12em;margin-bottom:0.15rem}
+.tl-text{font-size:0.86rem;color:var(--text-muted);line-height:1.6}
+.tl-text strong{color:var(--text);font-weight:600}
+
+/* FUNCTION GRID */
+.fn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.7rem;margin-top:0.7rem}
+.fn-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:0.85rem 1rem;font-size:0.82rem;color:var(--text-muted);line-height:1.55;
+  display:flex;gap:0.55rem;align-items:flex-start;transition:border-color 0.2s}
+.fn-card:hover{border-color:rgba(255,60,31,0.25)}
+.fn-dot{width:6px;height:6px;min-width:6px;background:var(--fire);border-radius:50%;margin-top:0.45rem}
+.fn-card strong{color:var(--text)}
+
+/* TABLE */
+.dtable{width:100%;border-collapse:collapse;font-size:0.83rem;margin-top:0.8rem}
+.dtable th{background:var(--surface);color:var(--text-muted);text-align:left;
+  padding:0.65rem 1rem;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  border-bottom:1px solid var(--border)}
+.dtable td{padding:0.6rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text-muted);vertical-align:top}
+.dtable tr:last-child td{border-bottom:none}
+.dtable tr:hover td{background:rgba(255,255,255,0.02)}
+.dtable .td-key{color:var(--text);font-weight:600}
+.dtable .td-fire{color:var(--fire-light);font-weight:600}
+.dtable .td-gold{color:var(--gold-light);font-weight:600}
+.dtable .td-teal{color:var(--teal);font-weight:600}
+
+/* EXAM BOX */
+.exam-box{background:var(--surface);border:1px solid rgba(0,212,180,0.2);border-radius:14px;
+  padding:1.2rem 1.5rem;margin-top:1.3rem}
+.exam-label{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:0.6rem}
+.exam-q{font-size:0.88rem;color:var(--text);font-weight:500;margin-bottom:0.85rem;line-height:1.5}
+.exam-opts{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:0.75rem}
+.eopt{padding:0.35rem 0.85rem;border-radius:8px;font-size:0.78rem;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-muted)}
+.eopt.correct{background:rgba(34,211,122,0.12);border-color:rgba(34,211,122,0.4);
+  color:var(--green);font-weight:700}
+.exam-ans{font-size:0.75rem;color:var(--text-dim)}
+.exam-ans span{color:var(--gold-light);font-weight:600}
+
+/* NAAC SCALE */
+.naac-row{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.7rem}
+.naac-cell{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:0.55rem 0.8rem;text-align:center;min-width:80px;flex:1}
+.naac-cell.top{border-color:rgba(34,211,122,0.3)}
+.naac-grade{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.06em}
+.naac-cell.top .naac-grade{color:var(--green)}
+.naac-cell:not(.top) .naac-grade{color:var(--text-muted)}
+.naac-cell.fail .naac-grade{color:var(--fire)}
+.naac-range{font-size:0.65rem;color:var(--text-dim);margin-top:0.1rem}
+
+/* SECTION DIVIDER */
+.sec-divider{text-align:center;padding:2rem 0 0.5rem;
+  font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim)}
+.sec-divider span{color:var(--fire-light)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;text-align:center;padding:2rem 1rem;
+  color:var(--text-dim);font-size:0.72rem;border-top:1px solid var(--border);margin-top:2rem}
+footer span{color:var(--fire)}
+
+@media(max-width:640px){
+  .fn-grid{grid-template-columns:1fr}
+  .inst-header{flex-direction:column;gap:0.7rem}
+  .inst-body{padding:1.2rem 1.2rem 1.5rem}
+  .brand-name{font-size:4.5rem}
+}
+
+/* stagger */
+.inst-block:nth-child(1){animation-delay:0.05s}.inst-block:nth-child(2){animation-delay:0.09s}
+.inst-block:nth-child(3){animation-delay:0.13s}.inst-block:nth-child(4){animation-delay:0.17s}
+.inst-block:nth-child(5){animation-delay:0.21s}.inst-block:nth-child(6){animation-delay:0.25s}
+.inst-block:nth-child(7){animation-delay:0.29s}.inst-block:nth-child(8){animation-delay:0.33s}
+.inst-block:nth-child(9){animation-delay:0.37s}.inst-block:nth-child(10){animation-delay:0.41s}
+.inst-block:nth-child(11){animation-delay:0.45s}.inst-block:nth-child(12){animation-delay:0.49s}
+.inst-block:nth-child(13){animation-delay:0.53s}.inst-block:nth-child(14){animation-delay:0.57s}
+.inst-block:nth-child(15){animation-delay:0.61s}.inst-block:nth-child(16){animation-delay:0.65s}
+.inst-block:nth-child(17){animation-delay:0.69s}.inst-block:nth-child(18){animation-delay:0.73s}
+.inst-block:nth-child(19){animation-delay:0.77s}.inst-block:nth-child(20){animation-delay:0.81s}
+.inst-block:nth-child(21){animation-delay:0.85s}.inst-block:nth-child(22){animation-delay:0.89s}
+.inst-block:nth-child(23){animation-delay:0.93s}
+</style>
+</head>
+<body>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+
+<header>
+  <div class="brand-eyebrow">Ignite Academy · Maharashtra Public Service Commission</div>
+  <div class="brand-row">
+    <div class="brand-logo">🎯</div>
+    <div class="brand-name">DHRUV</div>
+  </div>
+  <p class="brand-sub">उपसंचालक | प्राचार्य | उप प्राचार्य | निरीक्षक &nbsp;·&nbsp; 8888256117 / 8888996116</p>
+  <div class="topic-badge">📚 Role of Apex Institutes in Human Resource Development</div>
+</header>
+
+<nav class="nav-sticky">
+  <a class="np" href="#dgt">DGT</a>
+  <a class="np" href="#ncvet">NCVET</a>
+  <a class="np" href="#skill-india">Skill India</a>
+  <a class="np" href="#skill-univ">Skill Univ</a>
+  <a class="np" href="#nsda">NSDA</a>
+  <a class="np" href="#nsdc">NSDC</a>
+  <a class="np" href="#cstari">CSTARI</a>
+  <a class="np" href="#nimi">NIMI</a>
+  <a class="np" href="#ati">ATI</a>
+  <a class="np" href="#ncert">NCERT</a>
+  <a class="np" href="#psscive">PSSCIVE</a>
+  <a class="np" href="#niesbud">NIESBUD</a>
+  <a class="np" href="#niepa">NIEPA</a>
+  <a class="np" href="#titi">TITI</a>
+  <a class="np" href="#aicte">AICTE</a>
+  <a class="np" href="#ugc">UGC</a>
+  <a class="np" href="#iit">IIT</a>
+  <a class="np" href="#ssc">SSC</a>
+  <a class="np" href="#icse">ICSE</a>
+  <a class="np" href="#nitttr">NITTTR</a>
+  <a class="np" href="#nitie">NITIE</a>
+  <a class="np" href="#moe">MoE</a>
+  <a class="np" href="#cbse">CBSE</a>
+  <a class="np" href="#ref">Ref Table</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══ 01 DGT ══ -->
+<div class="inst-block ac-fire" id="dgt">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">🏛️</div>
+    <div class="inst-meta">
+      <div class="inst-num">01 · Vocational Training — Apex Body</div>
+      <div class="inst-title">Directorate General of Training
+        <span class="inst-abbr" style="background:rgba(255,60,31,0.2);color:var(--fire-light)">DGT</span>
+      </div>
+      <div class="inst-full-name">Ministry of Skill Development and Entrepreneurship (MSDE)</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">⭐ Apex Organisation — Vocational Training</span>
+      <span class="chip ch-gold">📍 Under MSDE</span>
+      <span class="chip ch-teal">Bifurcated from DGE&T in 2015</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Core Role</div>
+      <div class="hl-text">DGT is the <strong>apex organisation</strong> for development and coordination at National level for all programmes relating to <strong>vocational training</strong>. ITIs are under administrative and financial control of State Governments/UT Administrations. DGT also operates Vocational Training Schemes in specialised areas through field institutes under its direct control. <strong>Common policies, common standards and procedures, training of instructors and trade testing</strong> are the responsibility of DGT.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Development Timeline</div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-year">July 1945</div>
+          <div class="tl-text"><strong>Directorate General of Resettlement and Employment (DGRE)</strong> was set up. Purpose: Post–World War II resettlement. <em>Note: Training was NOT its initial purpose.</em></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1948</div>
+          <div class="tl-text">Employment Exchanges under DGRE were <strong>opened to all categories of job-seekers</strong>.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1950</div>
+          <div class="tl-text">Training services for civilians were added. <strong>Craftsmen Training Scheme (CTS)</strong> started. Training provided through <strong>Industrial Training Institutes (ITIs)</strong>.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1956</div>
+          <div class="tl-text">Administrative control of Employment Exchanges and ITIs was given to State/UT Governments on recommendation of <strong>Shiva Rao Committee (1952)</strong>.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1960</div>
+          <div class="tl-text">DGRE renamed as <strong>DGE&T</strong> (Directorate General of Employment & Training).</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">1969</div>
+          <div class="tl-text">Full <strong>financial responsibility</strong> of Employment Exchanges and ITIs handed over to States/UTs.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2015</div>
+          <div class="tl-text">DGE&T was bifurcated into: <strong>DGT</strong> (Ministry of Skill Development & Entrepreneurship) + <strong>DGE</strong> (Ministry of Labour and Employment).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Functions of DGT</div>
+      <div class="fn-grid">
+        <div class="fn-card"><div class="fn-dot"></div>Frame overall policies, norms and standards for vocational training</div>
+        <div class="fn-card"><div class="fn-dot"></div>Diversify, update and expand training facilities — craftsmen and crafts instructor training</div>
+        <div class="fn-card"><div class="fn-dot"></div>Organise and conduct specialised training and research at specially established training institutes</div>
+        <div class="fn-card"><div class="fn-dot"></div>Implement, regulate and increase scope of training of apprentices under <strong>Apprentices Act, 1961</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div>Organise vocational training programmes for <strong>women</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div>Provide vocational guidance and employment counselling</div>
+        <div class="fn-card"><div class="fn-dot"></div>Assist SC/ST and persons with disabilities — enhance capabilities for wage employment and self-employment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 02 NCVET ══ -->
+<div class="inst-block ac-violet" id="ncvet">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(155,93,229,0.12)">⚖️</div>
+    <div class="inst-meta">
+      <div class="inst-num">02 · National Regulator — VET</div>
+      <div class="inst-title">National Council for Vocational Education and Training
+        <span class="inst-abbr" style="background:rgba(155,93,229,0.2);color:var(--violet)">NCVET</span>
+      </div>
+      <div class="inst-full-name">Established as a Regulatory Body by Government of India</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-violet">📅 Established: 5 December 2018</span>
+      <span class="chip ch-green">✅ Fully Operational: 1 August 2020</span>
+      <span class="chip ch-fire">🏛️ Statutory Regulatory Body</span>
+    </div>
+    <div class="vio-box">
+      <div class="hl-label">What is NCVET?</div>
+      <div class="hl-text">Overarching <strong>national regulator</strong> with the aim of setting standards, developing comprehensive regulations, and improving the <strong>vocational education, training, and skilling ecosystem</strong>. Primary objective: ensure strong <strong>industry interfacing</strong> and implement effective regulations that enhance quality and outcomes of VET. It is responsible for development, qualitative improvement, and regulation of vocational education and training systems. It also <strong>grants recognition to and monitors</strong> the functioning of awarding bodies, assessment agencies, and skill information providers.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Mandates of NCVET</div>
+      <ul class="pts">
+        <li><strong>Recognising, disciplining, and de-recognising Awarding Bodies (ABs), Assessment Agencies (AAs), and Skill-related Information Providers (SIPs)</strong></li>
+        <li>Establishing regulations and guidelines for <strong>Skill Universities as ABs and AAs</strong> in consultation with MSDE</li>
+        <li>Anchoring the <strong>NSQF (National Skills Qualifications Framework)</strong> — a framework that organises qualifications based on levels of knowledge, skills, and competencies</li>
+        <li>Maintaining the <strong>National Qualification Register (NQR)</strong> — acts as a repository for all qualifications aligned to the NSQF</li>
+        <li>Approving <strong>NSQF-aligned qualifications</strong> and <strong>National Occupational Standards (NOSs)</strong> developed by ABs, including Sector Skill Councils (SSCs)</li>
+        <li>Performs other incidental functions as specified in its resolution</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 03 SKILL INDIA ══ -->
+<div class="inst-block ac-fire" id="skill-india">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">🇮🇳</div>
+    <div class="inst-meta">
+      <div class="inst-num">03 · National Campaign</div>
+      <div class="inst-title">Skill India Mission</div>
+      <div class="inst-full-name">Ministry of Skill Development and Entrepreneurship (MSDE)</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">📅 Approved by Cabinet: 01 July 2015</span>
+      <span class="chip ch-gold">🚀 Launched: 15 July 2015 — World Youth Skills Day</span>
+      <span class="chip ch-teal">Implemented through MSDE</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">3-Tier Institutional Structure</div>
+      <div class="hl-text">
+        <strong>Tier 1:</strong> Governing Council — policy guidance at apex level<br>
+        <strong>Tier 2:</strong> Steering Committee<br>
+        <strong>Tier 3:</strong> Mission Directorate + Executive Committee (executive arm)<br><br>
+        Mission Directorate supported by three institutions: <strong>NSDA + NSDC + DGT</strong>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">National Policy on Skill Development and Entrepreneurship, 2015 — Objectives</div>
+      <ul class="pts">
+        <li>Core objective: <strong>Empower the individual</strong> — enable realisation of full potential through lifelong learning</li>
+        <li>Make quality vocational training <strong>aspirational</strong> for both youth and employers — youth sees it as matter of choice; employer acknowledges productivity and pays premium</li>
+        <li>Ensure both <strong>vertical and horizontal pathways</strong> for skilled workforce — seamless integration of skill training with formal education</li>
+        <li>Focus on <strong>outcome-based approach</strong> — increased employability, better livelihoods, improved productivity across primary, secondary and tertiary sectors</li>
+        <li>Increase <strong>capacity and quality of training infrastructure and trainers</strong> — equitable and easy access to every citizen</li>
+        <li>Address human resource needs by <strong>aligning supply of skilled workers with sectoral requirements</strong> — including flagship programmes like Make in India</li>
+        <li>Establish <strong>IT-based Labour Market Information System (LMIS)</strong> — for aggregating demand and supply of skilled workforce, matching supply with demand</li>
+        <li>Recognise value of <strong>on-the-job training</strong> — make apprenticeships in actual work environments an integral part of all skill development efforts</li>
+        <li>Ensure skilling needs of <strong>socially and geographically disadvantaged and marginalised groups</strong> — SCs, STs, OBCs, minorities, differently abled persons</li>
+        <li><strong>National Skills Universities and institutes</strong> promoted in partnership with States as centres of excellence for skill development and training of trainers</li>
+        <li>ITI qualifications linked to formal educational qualifications through <strong>language/bridge courses</strong> in consultation with State/Central boards</li>
+        <li>Existing <strong>ITIs and Polytechnics</strong> to be modernised with curriculum aligned to emerging competency-based market demand; technology leveraged for pedagogical techniques</li>
+        <li>ITIs interface with industry promoted to enhance <strong>apprenticeship opportunities</strong>, improve relevance and increase employability</li>
+        <li>Industry expected to lead ITIs through <strong>Institute Management Committees (IMCs)</strong> — given autonomy to implement decisions</li>
+        <li>New ITIs set up in <strong>PPP mode</strong> in unserved blocks; higher order skilling through <strong>ATIs and Multi Skill Institutes (MSIs)</strong> in PPP mode — near demand centres as Skill Hubs (affiliated to Skill Universities)</li>
+        <li>State Governments encouraged to set up <strong>Kaushal Vardhan Kendras (KVKs)</strong> at panchayat level — linked to nearest ITI/MSI/ATI for capacity building, curriculum development, assessment and certification; also function as counselling/guidance centres</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Parameters to Improve Quality of Skilling</div>
+      <div class="chips">
+        <span class="chip ch-fire">Quality Assurance Framework embedded in NSQF</span>
+        <span class="chip ch-gold">Market Relevant Training Programmes</span>
+        <span class="chip ch-teal">Recognition of Prior Learning</span>
+        <span class="chip ch-violet">Curriculum Alignment</span>
+        <span class="chip ch-green">National Certification Framework</span>
+        <span class="chip ch-blue">Employability Skills</span>
+        <span class="chip ch-fire">Placements</span>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Labour Market Information System (LMIS)</div>
+      <ul class="pts">
+        <li>Integrated database with socio-economic data modules: (i) supply side skilled labour force statistics, (ii) demand of skilled/unskilled labour, (iii) market trends — wage structures, economic growth, occupational shortages</li>
+        <li>Integrates all existing databases: <strong>NSDC SDMS</strong>, National Career Service Portal, <strong>NCVT MIS portal</strong>, SDIS portal, State databases, SSC databases</li>
+        <li>A <strong>National Skills Research Division (NSRD)</strong> constituted within NSDA — conducts skill surveys, aggregates SSC environmental scans, studies emerging demand trends, operates LMIS</li>
+        <li>NSRD involves private sector subject experts — serves as strategy think tank for MSDE</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">National Entrepreneurship Hub (E-Hub)</div>
+      <ul class="pts">
+        <li>Advised by a <strong>National Advisory Committee (NAC)</strong> comprising representatives from government ministries, entrepreneurs, NGOs and academia</li>
+        <li>Purpose: To support entrepreneurs in India</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Key Initiatives Under Skill India</div>
+      <ul class="pts">
+        <li><strong>PMKVY</strong> — Pradhan Mantri Kaushal Vikas Yojana: short-term skill training for youth</li>
+        <li><strong>Common Norms</strong> — uniformity and standardisation in implementation of skill development schemes across Central Ministries/Departments</li>
+        <li><strong>Sector Skill Councils (SSCs)</strong> — industry-led bodies to develop National Occupation Standards (NOS)</li>
+        <li><strong>SANKALP</strong> — Skills Acquisition and Knowledge Awareness for Livelihood Promotion: outcome-oriented World Bank supported project for strengthening institutional mechanisms at national and state levels</li>
+        <li><strong>STRIVE</strong> — Skills Strengthening for Industrial Value Enhancement: World Bank assisted project to improve relevance and efficiency of skills training through ITIs and apprenticeships</li>
+        <li><strong>Skill India Portal</strong> — provides information of trainees, training providers and trainers</li>
+        <li><strong>Kaushal Rozgar Melas / Skills Career Counselling Scheme</strong> — outreach activities to make skilling aspirational</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 04 SKILL UNIVERSITY ══ -->
+<div class="inst-block ac-gold" id="skill-univ">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(245,166,35,0.12)">🎓</div>
+    <div class="inst-meta">
+      <div class="inst-num">04 · Higher Education</div>
+      <div class="inst-title">Skill Universities</div>
+      <div class="inst-full-name">Higher-Education Degree-Awarding Institutes — Skill-Based, Job-Oriented Courses</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-gold">🥇 First: Seacom Skills Univ, Bolpur, WB — 2014</span>
+      <span class="chip ch-fire">Idea: National Skills Universities Bill, 2015</span>
+      <span class="chip ch-teal">Degrees conform to NSQF</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">What is a Skill University?</div>
+      <div class="hl-text">Type of Higher-Education degree-awarding institute offering courses that are <strong>skill-based, job-oriented and of applied nature</strong>. Offer courses with higher job potential and employability. Degrees conform to the <strong>National Skills Qualification Framework (NSQF)</strong>. The idea was first proposed in the <strong>National Skills Universities Bill, 2015</strong> by MSDE, Government of India.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Public Skill Universities in India</div>
+      <table class="dtable">
+        <tr><th>University</th><th>State</th></tr>
+        <tr><td class="td-key">Shri Vishwakarma Skill University (SVSU)</td><td class="td-gold">Haryana</td></tr>
+        <tr><td class="td-key">Ratan Tata University (formerly Maharashtra State Skills University)</td><td class="td-gold">Maharashtra</td></tr>
+        <tr><td class="td-key">Assam Skill University (ASU)</td><td class="td-gold">Assam</td></tr>
+        <tr><td class="td-key">Delhi Skill and Entrepreneurship University (DSEU)</td><td class="td-gold">Delhi</td></tr>
+        <tr><td class="td-key">Kaushalya — The Skill University</td><td class="td-gold">Gujarat</td></tr>
+        <tr><td class="td-key">Seacom Skills University (SSU) — First Skill University (Private)</td><td class="td-fire">West Bengal (2014)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 05 NSDA ══ -->
+<div class="inst-block ac-teal" id="nsda">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(0,212,180,0.1)">🔗</div>
+    <div class="inst-meta">
+      <div class="inst-num">05 · Autonomous Body — NSQF Anchor</div>
+      <div class="inst-title">National Skill Development Agency
+        <span class="inst-abbr" style="background:rgba(0,212,180,0.15);color:var(--teal)">NSDA</span>
+      </div>
+      <div class="inst-full-name">Ministry of Skill Development and Entrepreneurship | Registered under Societies Registration Act, 1860</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-teal">📅 Cabinet Approval: 9 May 2013</span>
+      <span class="chip ch-fire">Autonomous Body — Societies Act 1860</span>
+      <span class="chip ch-gold">Anchors NSQF + NSQC Secretariat</span>
+    </div>
+    <div class="info-box">
+      <div class="hl-label">Core Role</div>
+      <div class="hl-text">Anchors the <strong>National Skills Qualifications Framework (NSQF)</strong> and allied quality assurance mechanisms for synergising skill initiatives. Nodal agency for State Skill Development Missions. NSQF is implemented through the <strong>National Skill Qualification Committee (NSQC)</strong>; permanent secretariat for NSQC is set up in NSDA.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Functions of NSDA</div>
+      <ul class="pts">
+        <li>Take all possible steps to meet skilling targets as envisaged in the <strong>12th Five Year Plan and beyond</strong></li>
+        <li><strong>Coordinate and harmonise</strong> the approach to skill development among Central Ministries/Departments, State Governments, NSDC and private sector</li>
+        <li>Anchor and operationalise the <strong>NSQF</strong> — ensure quality and standards meet sector specific requirements</li>
+        <li>Be the <strong>nodal agency for State Skill Development Missions</strong></li>
+        <li>Raise <strong>extra-budgetary resources</strong> for skill development from international agencies, multilateral agencies and private sector</li>
+        <li>Evaluate existing skill development schemes — assess efficacy and suggest corrective action</li>
+        <li>Create and maintain a national database related to skill development including development of a dynamic <strong>Labour Market Information System (LMIS)</strong></li>
+        <li>Take affirmative action for advocacy</li>
+        <li>Ensure skilling needs of disadvantaged and marginalised groups — <strong>SCs, STs, OBCs, minorities, women, differently abled</strong></li>
+        <li>Discharge any other function assigned by Government of India</li>
+        <li>The <strong>NSQF is anchored in NSDA</strong> and implemented through the National Skill Qualification Committee (NSQC); permanent secretariat for NSQC set up in NSDA</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 06 NSDC ══ -->
+<div class="inst-block ac-gold" id="nsdc">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(245,166,35,0.12)">🏢</div>
+    <div class="inst-meta">
+      <div class="inst-num">06 · Public Private Partnership</div>
+      <div class="inst-title">National Skill Development Corporation
+        <span class="inst-abbr" style="background:rgba(245,166,35,0.2);color:var(--gold-light)">NSDC</span>
+      </div>
+      <div class="inst-full-name">Not-for-Profit Public Limited Company | HQ: New Delhi</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-gold">📅 Incorporated: 31 July 2008</span>
+      <span class="chip ch-fire">Under Section 25, Companies Act 1956</span>
+      <span class="chip ch-teal">Set up by Ministry of Finance</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Shareholding — PPP Model</div>
+      <div class="hl-text"><strong>Government of India (through MSDE): 49%</strong> &nbsp;|&nbsp; <strong>Private Sector: 51%</strong><br>Aim: Promote skill development by catalysing creation of large, quality and for-profit vocational institutions.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Key Initiatives by NSDC</div>
+      <ul class="pts">
+        <li><strong>Kaushal Mart</strong> — online skilling resource marketplace; aggregates skilling resources and bridges demand-supply gap</li>
+        <li><strong>Kaushal e-Pustakalaya (eBook Reader)</strong> — Android App giving readers and skill seekers access to skilling content on the move</li>
+        <li><strong>Takshashila Portal</strong> — dedicated online platform for management of Trainers and Assessors of Indian Short-Term Skill ecosystem; central repository for quality Trainers and Assessors</li>
+        <li><strong>Pradhan Mantri Kaushal Kendra (PMKK)</strong> — MSDE established Model Training Centres (MTCs) in every district; NSDC is implementing agency. Objectives: (i) establish distinguished institutions showcasing aspirational value of competency-based skill training, (ii) emphasise quality, sustainability and stakeholder engagement, (iii) shift from mandate-driven temporary model to sustainable institutional framework</li>
+        <li><strong>Rozgar Mela</strong> — event where employers and job seekers come together for applying and interviewing. Employment strategy to fast-track meeting of job seekers and employers. Range: 5–100 employers with hundreds of job seekers. NSDC conducts at national level</li>
+        <li><strong>Skill India Portal (SIP)</strong> — formerly SMART (Skill Management Accreditation of Training Centres). Any entity can create a training centre and apply for affiliation/accreditation after registering as Training Provider. Final decision on accreditation rests with aligned Sector Skill Council. Onboarding done by NSDC</li>
+        <li><strong>Technical Intern Training Program (TITP)</strong> — initiated in Japan in 1993; supports developing countries by hosting citizens and imparting skills through On-the-Job Training (OJT). MSDE signed MoC with Japan's Ministry of Justice, Ministry of Foreign Affairs, Ministry of Health, Labour and Welfare on <strong>17 October 2017</strong>. Indian individuals selected for 3–5 year internships in Japan. Upon completion must return and apply acquired skills in India. NSDC appointed monitoring body in <strong>January 2018</strong></li>
+        <li><strong>Udaan Scheme</strong> — Special Industry Initiative (SII) for J&K; funded by Ministry of Home Affairs; implemented by NSDC. Based on <strong>Rangarajan Committee</strong> recommendations. Makes educated youth (graduates, post-graduates, 3-year engineering diploma holders) of J&K employable. Launched <strong>FY 2011-12</strong></li>
+      </ul>
+    </div>
+
+    <div class="exam-box">
+      <div class="exam-label">🎯 Rajyaseva Mains 2015 — Past Question</div>
+      <div class="exam-q">Which one of the following two statements is INCORRECT?<br>(a) National Skill Development Corporation functions as a Public-Private Partnership.<br>(b) NSDC also supports private sector initiatives.</div>
+      <div class="exam-opts">
+        <div class="eopt">Only (a)</div>
+        <div class="eopt">Only (b)</div>
+        <div class="eopt">Both</div>
+        <div class="eopt correct">✔ Neither</div>
+      </div>
+      <div class="exam-ans">ANS: <span>(4) Neither</span> — Both statements are correct. NSDC is PPP and supports private sector.</div>
+    </div>
+
+    <div class="exam-box" style="margin-top:0.8rem">
+      <div class="exam-label">🎯 Rajyaseva Mains 2021 — Past Question</div>
+      <div class="exam-q">Of the following, which is NOT a scheme through NSDC?</div>
+      <div class="exam-opts">
+        <div class="eopt">Rozgar Mela</div>
+        <div class="eopt">Udaan</div>
+        <div class="eopt">Pradhan Mantri Kaushal Vikas Yojana</div>
+        <div class="eopt correct">✔ Craftsmen Training Scheme</div>
+      </div>
+      <div class="exam-ans">ANS: <span>(4) Craftsmen Training Scheme</span> — CTS is managed by DGT, not NSDC.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 07 CSTARI ══ -->
+<div class="inst-block ac-violet" id="cstari">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(155,93,229,0.12)">🔬</div>
+    <div class="inst-meta">
+      <div class="inst-num">07 · Staff Training & Research</div>
+      <div class="inst-title">Central Staff Training and Research Institute
+        <span class="inst-abbr" style="background:rgba(155,93,229,0.2);color:var(--violet)">CSTARI</span>
+      </div>
+      <div class="inst-full-name">Under DGT, Ministry of Skill Development and Entrepreneurship (from April 2015)</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-violet">📅 Established: 1968</span>
+      <span class="chip ch-gold">Collaboration: German Federal Republic</span>
+      <span class="chip ch-teal">📍 Kolkata</span>
+      <span class="chip ch-fire">Under DGE&T (Ministry of Labour & Employment) → DGT/MSDE from April 2015</span>
+    </div>
+    <div class="vio-box">
+      <div class="hl-label">Origin</div>
+      <div class="hl-text">Established in 1968 by Govt of India, <strong>Ministry of Labour & Employment, DGE&T</strong> in collaboration with the Govt of the <strong>Federal Republic of Germany</strong>. From April 2015 under DGT, MSDE.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Functions</div>
+      <ul class="pts">
+        <li>Conduct <strong>Training on Pedagogy for Instructors of ITI</strong> and other vocational training institutes</li>
+        <li>Conduct <strong>Training on NSQF</strong> for better implementation of outcome-based curricula</li>
+        <li><strong>"Induction Training Programme"</strong> for newly inducted ISDS cadre officials recruited through Indian Engineering Services</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 08 NIMI ══ -->
+<div class="inst-block ac-teal" id="nimi">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(0,212,180,0.1)">📚</div>
+    <div class="inst-meta">
+      <div class="inst-num">08 · Instructional Media</div>
+      <div class="inst-title">National Instructional Media Institute
+        <span class="inst-abbr" style="background:rgba(0,212,180,0.15);color:var(--teal)">NIMI</span>
+      </div>
+      <div class="inst-full-name">Autonomous Institute under DGT, MSDE | Formerly: Central Instructional Media Institute (CIMI)</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-teal">📅 Established: December 1986</span>
+      <span class="chip ch-gold">Autonomous Status: 1999</span>
+      <span class="chip ch-fire">📍 Chennai</span>
+      <span class="chip ch-violet">Originally under DGE&T — with assistance of Federal Republic of Germany</span>
+    </div>
+    <div class="info-box">
+      <div class="hl-label">Core Role</div>
+      <div class="hl-text">NIMI is the <strong>nodal organisation for development of Instructional Media Packages (IMP)</strong>, including digital content, Question Banks for assessment, for different Vocational courses — especially ITIs. Develops content for vocational qualifications based on curriculum provided by DGT. One of the premier institutes providing content/instructional material for vocational ecosystem.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Functions of NIMI</div>
+      <ul class="pts">
+        <li>Develop <strong>Instructional Media Packages (IMPs)</strong> — digital content and Question Banks for different vocational courses</li>
+        <li>Develop <strong>Question Bank (QB)</strong> for assessment</li>
+        <li><strong>Translation of content/QB</strong> in Hindi and other Regional languages</li>
+        <li>Developing <strong>e-Content</strong> to facilitate new age learners and enhance reach in pace with fast-growing technology</li>
+        <li>Provides services for facilities, infrastructures, and competencies to design, develop, produce, and disseminate Instructional Media for long and short-term courses</li>
+        <li>Develops content for vocational qualifications <strong>based on curriculum provided by DGT</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 09 ATI ══ -->
+<div class="inst-block ac-fire" id="ati">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">⚙️</div>
+    <div class="inst-meta">
+      <div class="inst-num">09 · Advanced Technical Training</div>
+      <div class="inst-title">Advanced Training Institute
+        <span class="inst-abbr" style="background:rgba(255,60,31,0.2);color:var(--fire-light)">ATI</span>
+      </div>
+      <div class="inst-full-name">Under Directorate General of Training, Ministry of Skill Development and Entrepreneurship</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">📅 Established: 1981</span>
+      <span class="chip ch-gold">Funded by Government of India</span>
+      <span class="chip ch-teal">Under DGT, MSDE</span>
+    </div>
+    <ul class="pts">
+      <li>Aims to <strong>develop skilled manpower for industry</strong></li>
+      <li>Provide <strong>instructional staff for Industrial Training Institutes</strong></li>
+      <li>Upgrade the skill of <strong>in-service persons from industry</strong></li>
+      <li>Funded by the Government of India</li>
+      <li><em>Note: ATI Mumbai is treated as the TITI-equivalent institute in Maharashtra</em></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══ 10 NCERT ══ -->
+<div class="inst-block ac-green" id="ncert">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(34,211,122,0.1)">📖</div>
+    <div class="inst-meta">
+      <div class="inst-num">10 · School Education Research</div>
+      <div class="inst-title">National Council of Educational Research and Training
+        <span class="inst-abbr" style="background:rgba(34,211,122,0.15);color:var(--green)">NCERT</span>
+      </div>
+      <div class="inst-full-name">Autonomous Organisation | Ministry of Education, Government of India</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-green">📅 Established: 1961</span>
+      <span class="chip ch-gold">📍 New Delhi</span>
+      <span class="chip ch-teal">Autonomous Organisation</span>
+      <span class="chip ch-fire">Motto: "Life Eternal Through Learning" — Isha Upanishad</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Logo + Motto</div>
+      <div class="hl-text">Logo design taken from an <strong>Ashokan period relic of the 3rd century BCE</strong> found in excavations near <strong>Maski in Raichur district, Karnataka</strong>. Motto from the <strong>Isha Upanishad</strong> — means '<strong>life eternal through learning</strong>'.</div>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Established For</div>
+      <div class="hl-text">To assist and advise the <strong>Central and State Governments</strong> on policies and programmes for qualitative improvement in school education. Established with the agenda to design and support a common system of education which is national in character and also enables and encourages the diverse culture across the country.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Major Objectives of NCERT</div>
+      <ul class="pts">
+        <li>Undertake, promote and coordinate <strong>research in areas related to school education</strong></li>
+        <li>Prepare and publish <strong>model textbooks, supplementary material, newsletters, journals</strong> and develop educational kits, multimedia digital materials</li>
+        <li>Organise <strong>pre-service and in-service training of teachers</strong></li>
+        <li>Develop and disseminate <strong>innovative educational techniques and practices</strong></li>
+        <li>Collaborate and network with state educational departments, universities, NGOs and other educational institutions</li>
+        <li>Act as a <strong>clearing house for ideas and information</strong> in matters related to school education</li>
+        <li>Act as <strong>nodal agency for achieving goals of Universalisation of Elementary Education</strong></li>
+        <li>Implementation agency for <strong>bilateral cultural exchange programmes</strong> with other countries in field of school education</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Major Constituent Units of NCERT</div>
+      <table class="dtable">
+        <tr><th>Unit</th><th>Location</th><th>Est.</th><th>Key Role</th></tr>
+        <tr><td class="td-key">CIET — Central Institute of Educational Technology</td><td class="td-teal">—</td><td>1984</td><td>Promote Educational Technology; multimedia for school level</td></tr>
+        <tr><td class="td-key">PSSCIVE — P.S. Sharma Central Institute of Vocational Education</td><td class="td-teal">Bhopal</td><td>—</td><td>Promote VET; UNESCO-UNEVOC Centre</td></tr>
+        <tr><td class="td-key">RIE — Regional Institutes of Education (×4)</td><td class="td-teal">Ajmer, Bhopal, Bhubaneswar, Mysore</td><td>—</td><td>Regional teacher education</td></tr>
+        <tr><td class="td-key">NERIE — North East Regional Institute of Education</td><td class="td-teal">Shillong, Meghalaya</td><td>1992</td><td>Caters to 8 NE states</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">CIET — Central Institute of Educational Technology</div>
+      <ul class="pts">
+        <li>Constituent unit of NCERT; under Ministry of Education, Government of India</li>
+        <li>Established in <strong>1984</strong> with merger of Centre of Educational Technology (1973) and Department of Teaching Aids (1959)</li>
+        <li>Aim: to promote <strong>Educational Technology especially mass media</strong> singly or in combinations (multimedia packages) to extend educational opportunities and improve quality of educational processes at school level</li>
+        <li>Functions: Design, develop and disseminate alternative learning systems; Promote Educational Technology; Train Personnel in Educational Technology; Advise & Co-ordinate activities of SIETs; Provide Consultancy and media support to other constituents of NCERT</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">NERIE — North East Regional Institute of Education</div>
+      <ul class="pts">
+        <li>Located in <strong>Shillong, Meghalaya</strong></li>
+        <li>Established in <strong>1992</strong></li>
+        <li>Caters to the educational needs of the <strong>eight states of the North East</strong> — Assam, Arunachal Pradesh, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim and Tripura</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">SCERT — State Council of Educational Research and Training</div>
+      <ul class="pts">
+        <li>Came into existence on <strong>5 January 1979</strong> — transformation and upgradation of former State Institute of Education (SIE)</li>
+        <li>Functions: Organise special educational projects sponsored by UNICEF, NCERT and other agencies; Prescribe curriculum and textbooks; Produce instructional materials for teacher-educators; Arrange in-service training for teachers, inspecting officers and teacher-educators; Organise Correspondence-cum-Contact Courses for professional development; Supervise Teacher-Training Colleges, Secondary/Elementary Training Schools; Evaluate adult and non-formal education programmes</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 11 PSSCIVE ══ -->
+<div class="inst-block ac-teal" id="psscive">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(0,212,180,0.1)">🏫</div>
+    <div class="inst-meta">
+      <div class="inst-num">11 · Vocational Education — NCERT Unit</div>
+      <div class="inst-title">Pandit Sunderlal Sharma Central Institute of Vocational Education
+        <span class="inst-abbr" style="background:rgba(0,212,180,0.15);color:var(--teal)">PSSCIVE</span>
+      </div>
+      <div class="inst-full-name">Constituent Unit of NCERT | Shyamala Hills, Bhopal</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-teal">📍 Shyamala Hills, Bhopal</span>
+      <span class="chip ch-violet">UNESCO-UNEVOC Network Centre in India</span>
+      <span class="chip ch-gold">Coordinates with UNESCO-UNEVOC International Centre, Bonn, Germany</span>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Major Functions of PSSCIVE</div>
+      <ul class="pts">
+        <li>Promote <strong>vocational education and training</strong> to enhance the socio-economic development of the country</li>
+        <li>Enhance the quality of vocational education and training system through <strong>systemic policy interventions</strong></li>
+        <li>Foster <strong>lifelong learning</strong> through delivery of employability and 21st Century skills</li>
+        <li>Design and offer programmes for <strong>professional development of Vocational Teachers</strong> to enhance quality of VET in schools</li>
+        <li>Enhance synergic partnership and networking with organisations, institutions and agencies for delivery of <strong>VET products and services</strong></li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">UNESCO-UNEVOC — International Centre</div>
+      <ul class="pts">
+        <li>Full form: <strong>International Centre for Technical and Vocational Education and Training</strong></li>
+        <li>Established in <strong>2002</strong></li>
+        <li>Located at the <strong>United Nations Campus in Bonn, Germany</strong></li>
+        <li>Financed by both <strong>UNESCO and the German government</strong></li>
+        <li>International Centre for connecting UNESCO Member States worldwide to develop and strengthen TVET</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 12 NIESBUD ══ -->
+<div class="inst-block ac-fire" id="niesbud">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">💼</div>
+    <div class="inst-meta">
+      <div class="inst-num">12 · Entrepreneurship Development</div>
+      <div class="inst-title">National Institute of Entrepreneurship and Small Business Development
+        <span class="inst-abbr" style="background:rgba(255,60,31,0.2);color:var(--fire-light)">NIESBUD</span>
+      </div>
+      <div class="inst-full-name">Premier Organisation of Ministry of Skill Development and Entrepreneurship</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">📍 HQ: Noida, Uttar Pradesh</span>
+      <span class="chip ch-gold">Regional Centre: Dehradun (NSTI Premises)</span>
+      <span class="chip ch-teal">Training · Consultancy · Research · Publication</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Core Role</div>
+      <div class="hl-text">Premier organisation engaged in <strong>training, consultancy, research and publication</strong> in order to promote <strong>entrepreneurship and Skill Development</strong>. Serves as apex national level resource institute for accelerating and enhancing the process of entrepreneurship development.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Objectives of NIESBUD</div>
+      <ul class="pts">
+        <li>Standardise and systemise the processes of <strong>selection, training, support and sustenance</strong> of potential and existing entrepreneurs</li>
+        <li>Support and motivate institutions/organisations in carrying out training and entrepreneurship development activities</li>
+        <li>Serve as apex national level resource institute — accelerate and enhance the process of <strong>entrepreneurship development</strong> and measure its impact within different strata of society</li>
+        <li>Provide vital information and support to trainers, promoters and entrepreneurs through <strong>research and documentation activities</strong></li>
+        <li>Create a holistic environment to <strong>train the trainers, promoters and consultants</strong> in diverse areas of entrepreneurship and skill development</li>
+        <li>Offer <strong>consultancy nationally/internationally</strong> for promotion of entrepreneurship and small business development</li>
+        <li>Provide national/international forums for interaction and exchange of ideas for <strong>policy formulation</strong></li>
+        <li>Share experience and expertise in entrepreneurship development across national frontiers — create awareness at national level</li>
+        <li>Interchange international experience and expertise in entrepreneurship development for mapping its development at international levels</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Major Activities</div>
+      <ul class="pts">
+        <li>Training programmes: <strong>TTPs</strong> (Trainers Training Programmes), <strong>MDPs</strong> (Management Development Programmes), Orientation Programmes for HoDs and Senior Executives, <strong>EDPs</strong> (Entrepreneurship Development Programmes), <strong>ESDPs</strong> (Entrepreneurship-cum-Skill Development Programmes) and specially designed programmes for different target groups</li>
+        <li>Besides primary/basic research — undertaking review/evaluation of different government schemes/programmes, <strong>training need assessment, Skill Gap studies, industrial potential survey</strong></li>
+        <li>Designing, developing and standardising <strong>Course Curriculum</strong> for Entrepreneurship and Skill Training Programmes</li>
+        <li>Running <strong>5 Training-cum-Incubation Centres (Livelihood Business Incubations)</strong> in: Fashion Designing, Beauty & Wellness, Mobile Repair, Food Processing, and Electrical and Home Appliances</li>
+        <li>Consultancy services in area of entrepreneurship especially for <strong>MSMEs</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 13 NIEPA ══ -->
+<div class="inst-block ac-blue" id="niepa">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(77,166,255,0.12)">🏛️</div>
+    <div class="inst-meta">
+      <div class="inst-num">13 · Educational Planning & Administration</div>
+      <div class="inst-title">National Institute of Educational Planning and Administration
+        <span class="inst-abbr" style="background:rgba(77,166,255,0.2);color:var(--blue)">NIEPA</span>
+      </div>
+      <div class="inst-full-name">Research-Focused University | Deemed University (2006) | New Delhi</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-blue">📅 Established: 1962</span>
+      <span class="chip ch-gold">Deemed University: 2006</span>
+      <span class="chip ch-green">📍 New Delhi</span>
+      <span class="chip ch-fire">Established by MHRD</span>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Name Change Timeline</div>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-year">1962</div><div class="tl-text">Established as <strong>UNESCO Asian Centre for Educational Planners, Administrators and Supervisors</strong></div></div>
+        <div class="tl-item"><div class="tl-year">1965</div><div class="tl-text">Became <strong>Asian Institute of Educational Planning and Administration</strong></div></div>
+        <div class="tl-item"><div class="tl-year">1973</div><div class="tl-text">Converted into <strong>National Staff College for Educational Planners and Administrators</strong></div></div>
+        <div class="tl-item"><div class="tl-year">1979</div><div class="tl-text">Rechristened as <strong>National Institute of Educational Planning and Administration (NIEPA)</strong></div></div>
+        <div class="tl-item"><div class="tl-year">2006</div><div class="tl-text">Given status of <strong>Deemed to be University</strong></div></div>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Functions of NIEPA</div>
+      <ul class="pts">
+        <li>Organise <strong>training programmes for educational functionaries</strong> — develop capacities of educational planning and administration</li>
+        <li>Strengthen capacities for <strong>training and research</strong> in the field of educational planning and administration</li>
+        <li>Provide <strong>consultancy services</strong> in the sphere of educational planning and administration to Central/State Governments, Universities, Boards and international organisations</li>
+        <li>Disseminate information on <strong>innovative experiences and new advancements</strong> in educational planning and administration</li>
+        <li>Establish contacts and advance <strong>academic collaboration</strong> with sister-institutions in India and abroad</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 14 TITI ══ -->
+<div class="inst-block ac-gold" id="titi">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(245,166,35,0.12)">👨‍🏫</div>
+    <div class="inst-meta">
+      <div class="inst-num">14 · Instructor Training</div>
+      <div class="inst-title">Training Institute of Technical Instructors
+        <span class="inst-abbr" style="background:rgba(245,166,35,0.2);color:var(--gold-light)">TITI</span>
+      </div>
+      <div class="inst-full-name">Category of Institutes under DGE&T (now DGT), Government of India</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="vio-box">
+      <div class="hl-label">Important Note</div>
+      <div class="hl-text"><strong>TITI is a category of institutes, not a single autonomous apex body.</strong> Established under DGE&T (now DGT), Government of India. ATI Mumbai is treated as the TITI-equivalent institute in Maharashtra.</div>
+    </div>
+    <ul class="pts">
+      <li>Institutes meant for <strong>training and upgrading ITI instructors and technical teachers</strong></li>
+      <li>Focus on: <strong>Pedagogical skills, Technical skills, Curriculum implementation, and Industrial exposure to instructors</strong></li>
+      <li>First institute meant for training technical/vocational instructors in India — established as <strong>Technical Teachers' Training Institute (TTTI)</strong>, established in <strong>1964 at Madras (now Chennai)</strong> — with assistance of <strong>UNDP and UNESCO</strong>; later renamed as <strong>NITTTR, Chennai</strong></li>
+      <li>TTTI (1964, Chennai) is treated as the <strong>first TITI-type institution in India</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══ 15 AICTE ══ -->
+<div class="inst-block ac-fire" id="aicte">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">🔧</div>
+    <div class="inst-meta">
+      <div class="inst-num">15 · Technical Education Regulator</div>
+      <div class="inst-title">All India Council for Technical Education
+        <span class="inst-abbr" style="background:rgba(255,60,31,0.2);color:var(--fire-light)">AICTE</span>
+      </div>
+      <div class="inst-full-name">Statutory Body | Department of Higher Education, Ministry of Education | HQ: New Delhi</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">📅 Est. November 1945 — Advisory Body</span>
+      <span class="chip ch-gold">Statutory Status: Act of Parliament 1987</span>
+      <span class="chip ch-teal">📍 HQ: New Delhi</span>
+      <span class="chip ch-violet">Dept of Higher Education, MoE</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Core Mandate</div>
+      <div class="hl-text">Set up in November 1945 as a national-level apex advisory body to <strong>conduct a survey on facilities available for technical education</strong> and to promote development in a coordinated and integrated manner. Responsible for proper planning and coordinated development of <strong>technical education and management education</strong> system in India.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Objectives of AICTE</div>
+      <ul class="pts">
+        <li>Create, implement and maintain the <strong>norms and standards</strong> by acting as a statutory authority</li>
+        <li>Offer <strong>quality assurance through accreditation</strong> in institutes</li>
+        <li>Understand the need and <strong>provide funding</strong> for priority areas</li>
+        <li>Maintain parity of <strong>certification and awards</strong> in institutes</li>
+        <li>Implement and develop the <strong>technical education system</strong> of India</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">AICTE — 10 Boards of Studies</div>
+      <div class="fn-grid">
+        <div class="fn-card"><div class="fn-dot"></div>1. Technician</div>
+        <div class="fn-card"><div class="fn-dot"></div>2. Management</div>
+        <div class="fn-card"><div class="fn-dot"></div>3. Applied Arts and Crafts</div>
+        <div class="fn-card"><div class="fn-dot"></div>4. Hotel Management and Catering Technology Education</div>
+        <div class="fn-card"><div class="fn-dot"></div>5. Undergraduate Engineering</div>
+        <div class="fn-card"><div class="fn-dot"></div>6. Vocational</div>
+        <div class="fn-card"><div class="fn-dot"></div>7. Postgraduate Engineering and Research</div>
+        <div class="fn-card"><div class="fn-dot"></div>8. Town and Country Planning</div>
+        <div class="fn-card"><div class="fn-dot"></div>9. Architecture</div>
+        <div class="fn-card"><div class="fn-dot"></div>10. Pharmacy</div>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Functions of AICTE</div>
+      <ul class="pts">
+        <li>Undertake survey in various fields of technical education; collect data on all related matters</li>
+        <li>Coordinate the development of technical education in the country at all levels</li>
+        <li>Allocate and disburse grants from the Fund of the Council to technical institutions and Universities imparting technical education</li>
+        <li>Formulate schemes for promoting technical education for <strong>women, handicapped and weaker sections</strong></li>
+        <li>Evolve suitable <strong>performance appraisal systems</strong> for technical institutions and Universities; norms for accountability</li>
+        <li>Lay down norms and standards for courses, curricula, physical and instructional facilities, staff pattern, qualifications, quality instructions, assessment and examinations</li>
+        <li>Fix <strong>norms and guidelines for charging tuition and other fees</strong></li>
+        <li>Grant approval for starting new technical institutions and introduction of new courses/programmes</li>
+        <li>Lay down norms for granting <strong>autonomy to technical institutions</strong></li>
+        <li>Take all necessary steps to <strong>prevent commercialisation</strong> of technical education</li>
+        <li>Set up a <strong>National Board of Accreditation</strong> to periodically conduct evaluation of technical institutions/programmes</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">National Board of Accreditation (NBA)</div>
+      <ul class="pts">
+        <li>One of the two major bodies responsible for accreditation of higher education institutions in India — along with <strong>NAAC</strong></li>
+        <li>NBA accredits <strong>technical programmes</strong> (engineering, management); NAAC accredits general colleges and universities</li>
+        <li>Established by AICTE in <strong>1994</strong>; HQ: New Delhi</li>
+        <li><strong>NBA accredits programmes, NOT institutes</strong></li>
+        <li>Accredited programmes include: diplomas, UG and PG programmes</li>
+        <li>Accredited fields: Engineering & Technology, Management, Pharmacy, Architecture, Applied Arts and Crafts, Computer Applications, Hospitality and Tourism Management</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">National Assessment and Accreditation Council (NAAC)</div>
+      <ul class="pts">
+        <li>Government organisation that <strong>assesses and accredits Higher Education Institutions (HEIs)</strong></li>
+        <li><strong>Autonomous body funded by UGC</strong></li>
+        <li>Established in <strong>1994</strong>; HQ: <strong>Bangalore</strong></li>
+      </ul>
+      <div class="naac-row">
+        <div class="naac-cell top"><div class="naac-grade">A++</div><div class="naac-range">3.51–4.00</div></div>
+        <div class="naac-cell top"><div class="naac-grade">A+</div><div class="naac-range">3.26–3.50</div></div>
+        <div class="naac-cell top"><div class="naac-grade">A</div><div class="naac-range">3.01–3.25</div></div>
+        <div class="naac-cell"><div class="naac-grade">B++</div><div class="naac-range">2.76–3.00</div></div>
+        <div class="naac-cell"><div class="naac-grade">B+</div><div class="naac-range">2.51–2.75</div></div>
+        <div class="naac-cell"><div class="naac-grade">B</div><div class="naac-range">2.01–2.50</div></div>
+        <div class="naac-cell"><div class="naac-grade">C</div><div class="naac-range">1.51–2.00</div></div>
+        <div class="naac-cell fail"><div class="naac-grade">D</div><div class="naac-range">≤1.50 · Not Acc.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 16 UGC ══ -->
+<div class="inst-block ac-teal" id="ugc">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(0,212,180,0.1)">🎓</div>
+    <div class="inst-meta">
+      <div class="inst-num">16 · Higher Education Standards</div>
+      <div class="inst-title">University Grants Commission
+        <span class="inst-abbr" style="background:rgba(0,212,180,0.15);color:var(--teal)">UGC</span>
+      </div>
+      <div class="inst-full-name">Statutory Body | Department of Higher Education, Ministry of Education | HQ: New Delhi</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-teal">📅 Established: 1956 (UGC Act 1956)</span>
+      <span class="chip ch-gold">📍 HQ: New Delhi</span>
+      <span class="chip ch-fire">Statutory Body — Dept of Higher Education, MoE</span>
+    </div>
+    <div class="info-box">
+      <div class="hl-label">Core Mandate</div>
+      <div class="hl-text">Charged with <strong>coordination, determination and maintenance of standards of higher education</strong> in India. Provides recognition to universities and disburses funds to recognised universities and colleges.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Functions of UGC</div>
+      <ul class="pts">
+        <li>Promoting and coordinating <strong>university education</strong></li>
+        <li>Determining and maintaining standards of <strong>teaching, examination and research</strong> in universities</li>
+        <li>Framing regulations on <strong>minimum standards of education</strong></li>
+        <li>Monitoring developments in the field of collegiate and university education; <strong>disbursing grants</strong> to universities and colleges</li>
+        <li>Serving as a vital link between the <strong>Union and State governments</strong> and institutions of higher learning</li>
+        <li>Advising Central and State Governments on measures necessary for improvement of university education</li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">NIOS — National Institute of Open Schooling</div>
+      <ul class="pts">
+        <li>Formerly known as <strong>National Open School (NOS)</strong></li>
+        <li>Established by <strong>Ministry of Education in 1999</strong></li>
+        <li>HQ: <strong>Noida, Uttar Pradesh</strong></li>
+        <li>Provides Vocational, Life Enrichment and community oriented courses besides General and Academic Courses at Secondary and Senior Secondary level</li>
+        <li>Also offers <strong>Elementary level Courses through Open Basic Education Programmes (OBE)</strong></li>
+        <li>Objectives: Provide professional advice to Government regarding Open and Distance Learning; Develop need-based Academic and Vocational Education Programmes for lifelong learning up to pre-degree level; Develop quality Open and Distance Curricula and courseware; Strengthen ODL System through R&D; Promote open schooling at national and global level through networking, capacity building and quality assurance</li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Distance Education Bureau (DEB)</div>
+      <ul class="pts">
+        <li>Bureau of the <strong>University Grants Commission (UGC)</strong> based in New Delhi</li>
+        <li>In charge of <strong>regulating distance education</strong> in India</li>
+        <li>Established in <strong>2012</strong></li>
+        <li>Replaced the <strong>Distance Education Council (DEC)</strong> — responsible for open learning and distance education since 1985 (created under IGNOU Act, 1985)</li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">SWAYAM</div>
+      <ul class="pts">
+        <li>Full form: <strong>Study Webs of Active-Learning for Young Aspiring Minds</strong></li>
+        <li>Launched in <strong>2017</strong> by MHRD (now Ministry of Education) under Digital India</li>
+        <li>Purpose: coordinated stage and free entry to web courses covering all advanced education, High School, and skill sector courses</li>
+        <li>Developed jointly by <strong>MHRD + AICTE</strong> with help of <strong>Microsoft</strong></li>
+        <li>Operates <strong>Massive Open Online Courses (MOOCs)</strong> — online courses aimed at unlimited participation and open access via the Web</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 17 IIT ══ -->
+<div class="inst-block ac-blue" id="iit">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(77,166,255,0.12)">🔬</div>
+    <div class="inst-meta">
+      <div class="inst-num">17 · Institutes of National Importance</div>
+      <div class="inst-title">Indian Institutes of Technology
+        <span class="inst-abbr" style="background:rgba(77,166,255,0.2);color:var(--blue)">IIT</span>
+      </div>
+      <div class="inst-full-name">Network of Engineering & Technology Institutions | Ministry of Education | Institutes of Technology Act, 1961</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-blue">📅 First IIT: May 1950, Kharagpur, West Bengal</span>
+      <span class="chip ch-gold">Formally Inaugurated: 18 Aug 1951 by Maulana Abul Kalam Azad</span>
+      <span class="chip ch-green">Total IITs: 23</span>
+      <span class="chip ch-fire">Declared: Institutes of National Importance</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Key Governance</div>
+      <div class="hl-text">All IITs have <strong>autonomy</strong> and are linked through a common council — the <strong>IIT Council</strong> which oversees administration. The <strong>Minister of Education of India</strong> is the <strong>ex officio chairperson</strong> of the IIT Council. Governed by the <strong>Institutes of Technology Act, 1961</strong>. Declared as <strong>Institutes of National Importance</strong>.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Sarkar Committee Recommendations → New IITs</div>
+      <table class="dtable">
+        <tr><th>IIT</th><th>Year Est.</th></tr>
+        <tr><td class="td-key">IIT Kharagpur (First IIT)</td><td class="td-teal">1950</td></tr>
+        <tr><td class="td-key">IIT Bombay</td><td class="td-teal">1958</td></tr>
+        <tr><td class="td-key">IIT Madras</td><td class="td-teal">1959</td></tr>
+        <tr><td class="td-key">IIT Kanpur</td><td class="td-teal">1959</td></tr>
+        <tr><td class="td-key">IIT Delhi</td><td class="td-teal">1961</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Most Recent IITs (All Founded in 2016)</div>
+      <div class="chips">
+        <span class="chip ch-blue">IIT Bhilai — Chhattisgarh</span>
+        <span class="chip ch-blue">IIT Dharwad — Karnataka</span>
+        <span class="chip ch-blue">IIT Jammu — Jammu & Kashmir</span>
+        <span class="chip ch-blue">IIT Goa — Goa</span>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">NPTEL — National Programme on Technology Enhanced Learning</div>
+      <ul class="pts">
+        <li>Indian e-learning platform for university-level <strong>STEM subjects</strong></li>
+        <li>Jointly developed by <strong>Indian Institutes of Technology (IITs) and Indian Institute of Science (IISc)</strong></li>
+        <li>Central idea: put recorded lectures taught by member institutes online for <strong>open access</strong></li>
+        <li>HQ inside <strong>IIT Madras</strong></li>
+        <li>Launched in <strong>2003</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 18 SSC ══ -->
+<div class="inst-block ac-violet" id="ssc">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(155,93,229,0.12)">🏭</div>
+    <div class="inst-meta">
+      <div class="inst-num">18 · Industry-Led Bodies</div>
+      <div class="inst-title">Sector Skill Councils
+        <span class="inst-abbr" style="background:rgba(155,93,229,0.2);color:var(--violet)">SSC</span>
+      </div>
+      <div class="inst-full-name">Autonomous Bodies (Section 8 Company or Society) | NSDC provides Seed Funding</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-violet">Autonomous Body — Section 8 Company or Society</span>
+      <span class="chip ch-gold">NSDC: Initial Seed Funding + Incubation</span>
+      <span class="chip ch-teal">Bridge Industry Demand ↔ Skilling Requirements</span>
+    </div>
+    <div class="vio-box">
+      <div class="hl-label">Core Role</div>
+      <div class="hl-text">SSCs play a vital role in <strong>bridging the gap between what industry demands and what skilling requirements should be</strong>. Operate as autonomous bodies. NSDC is mandated to initiate and incubate SSCs with initial seed funding to facilitate their growth and enable them to achieve self-sustainability in a time-bound manner.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Mandate / Functions of SSC</div>
+      <ul class="pts">
+        <li><strong>Identification of skill development needs</strong> — prepare catalogue of types of skills, range and depth of skills to facilitate individual choice</li>
+        <li>Development of a <strong>sector skill development plan</strong> and maintaining skill inventory</li>
+        <li>Determine <strong>skills/competency standards and qualifications</strong> and get them notified as per NSQF</li>
+        <li>Standardisation of <strong>affiliation, accreditation, examination and certification</strong> process in accordance with NSQF as determined by NSQC</li>
+        <li>May also conduct <strong>skill-based assessment and certification</strong> for QP/NOS aligned training programmes</li>
+        <li>Participation in the setting up of affiliation, accreditation, examination and certification norms for their respective sectors</li>
+        <li>Plan and facilitate execution of <strong>Training of Trainers</strong> along with NSDC and states</li>
+        <li>Promotion of <strong>academies of excellence</strong></li>
+        <li>Paying particular attention to the skilling needs of <strong>ST/SC, differently-abled and minority groups</strong></li>
+        <li>Ensuring that persons trained and skilled as per norms are <strong>assured of employment at decent wages</strong></li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Examples of Sector Skill Councils</div>
+      <div class="chips">
+        <span class="chip ch-violet">Aerospace and Aviation SSC</span>
+        <span class="chip ch-violet">Agriculture Skill Council of India</span>
+        <span class="chip ch-violet">Automotive Skill Development Council</span>
+        <span class="chip ch-violet">Beauty and Wellness SSC</span>
+        <span class="chip ch-violet">Electronics SSC of India</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 19 ICSE ══ -->
+<div class="inst-block ac-fire" id="icse">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">📝</div>
+    <div class="inst-meta">
+      <div class="inst-num">19 · Board of Examinations</div>
+      <div class="inst-title">Indian School Certificate Examinations
+        <span class="inst-abbr" style="background:rgba(255,60,31,0.2);color:var(--fire-light)">ICSE / ISC</span>
+      </div>
+      <div class="inst-full-name">Council for the Indian School Certificate Examinations | HQ: New Delhi</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">📅 Council Est.: 3 November 1958</span>
+      <span class="chip ch-gold">📍 HQ: New Delhi</span>
+      <span class="chip ch-teal">Founder Chairman: Mr. Frank Anthony (1908–1993)</span>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Name Change Timeline</div>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-year">1958</div><div class="tl-text">Council for ISCE established on <strong>3 November 1958</strong></div></div>
+        <div class="tl-item"><div class="tl-year">Nov 1963</div><div class="tl-text">Nomenclature changed from <strong>Overseas Certificate Examination → Indian School Certificate Examinations (ISCE)</strong></div></div>
+        <div class="tl-item"><div class="tl-year">Nov/Dec 1970</div><div class="tl-text">First <strong>Indian Certificate of Secondary Examination (ICSE Class X)</strong> held</div></div>
+        <div class="tl-item"><div class="tl-year">1999</div><div class="tl-text"><strong>Derozio Award</strong> instituted — annual prize awarded to top Indian educationists; in memory of <strong>Henry Louis Vivian Derozio</strong> (poet and educator from West Bengal); highest award conferred by the Council</div></div>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">3 Examinations Conducted by the Council</div>
+      <table class="dtable">
+        <tr><th>Examination</th><th>Class</th><th>Medium</th><th>Key Features</th></tr>
+        <tr><td class="td-fire">ICSE</td><td>X</td><td>English</td><td>General education; 6 subjects; English Compulsory + SUPW (Socially Useful Productive Work and Community Service — Compulsory)</td></tr>
+        <tr><td class="td-fire">ISC</td><td>XII</td><td>English</td><td>Two-year course beyond ICSE; English Compulsory + 3–5 elective subjects + SUPW (Compulsory)</td></tr>
+        <tr><td class="td-fire">CVE — Certificate of Vocational Education</td><td>Year 12</td><td>English</td><td>Per recommendations of MHRD through Joint Council of Vocational Education (JCVE) under NPE 1986; two-year course beyond ICSE (Year 10)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 20 NITTTR ══ -->
+<div class="inst-block ac-gold" id="nitttr">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(245,166,35,0.12)">🧑‍🏫</div>
+    <div class="inst-meta">
+      <div class="inst-num">20 · Technical Teacher Training</div>
+      <div class="inst-title">National Institute of Technical Teachers' Training and Research
+        <span class="inst-abbr" style="background:rgba(245,166,35,0.2);color:var(--gold-light)">NITTTR</span>
+      </div>
+      <div class="inst-full-name">Autonomous Educational Institution | Ministry of Education | Fully Centrally Funded</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-gold">📅 First: Kolkata (1965)</span>
+      <span class="chip ch-fire">4 Institutes: Kolkata, Chandigarh, Bhopal, Chennai</span>
+      <span class="chip ch-teal">National Status: 2003</span>
+      <span class="chip ch-violet">Motto: Providing Excellence in Technical Education</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Origin</div>
+      <div class="hl-text">Established in the country as <strong>Technical Teachers' Training Institute (TTTI)</strong>. First established in <strong>Kolkata (1965)</strong> (others at Chandigarh, Bhopal & Chennai). Established by Dept of Education, MHRD, Govt of India as fully centrally funded autonomous institutions. In <strong>2003</strong>, Govt of India accorded <strong>national status</strong> in recognition of contribution for overall quality improvement of Technical Education System.</div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Mandate</div>
+      <ul class="pts">
+        <li>Providing <strong>pre & in-service training</strong> to teachers and staff of Degree and Diploma level training institutions</li>
+        <li>Conducting activities related to <strong>quality improvement of the technical education system</strong> of the country</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">5 Focal Activities</div>
+      <div class="fn-grid">
+        <div class="fn-card"><div class="fn-dot"></div><strong>Education & Short-term Training</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>Curriculum Development</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>Learning Resources Development</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>Research & Development</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>Extension Services & Consultancy</strong></div>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Objectives of NITTTR</div>
+      <ul class="pts">
+        <li>Provide professional education and training for teachers of <strong>engineering and technology disciplines</strong> in technical institutions</li>
+        <li>Strive for continuous improvement in instruction and research in engineering and technology disciplines and research in <strong>management of technical education</strong></li>
+        <li>Actively support growth and quality improvement of technical education through involvement at national and state levels</li>
+        <li>Act as a centre for offering quality training programs — covering the entire gamut: polytechnics, engineering colleges, vocational and management education at national level</li>
+        <li>Arrange for <strong>practical training of technical teachers in industries</strong></li>
+        <li>Design new instructional system and strategies for production of <strong>online learning materials</strong></li>
+        <li>Develop and disseminate learning resources: Textbooks, Laboratory Manuals, Video Programs, Computer Assisted Instructional Multimedia Packages</li>
+        <li>Undertake <strong>consultancy and extension work</strong> for industry and technical institutions</li>
+        <li>Provide support services to Government of India schemes related to technical and vocational education as entrusted by MHRD</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 21 NITIE ══ -->
+<div class="inst-block ac-teal" id="nitie">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(0,212,180,0.1)">🏗️</div>
+    <div class="inst-meta">
+      <div class="inst-num">21 · Industrial Engineering → IIM Mumbai</div>
+      <div class="inst-title">National Institute of Industrial Engineering
+        <span class="inst-abbr" style="background:rgba(0,212,180,0.15);color:var(--teal)">NITIE</span>
+      </div>
+      <div class="inst-full-name">Now converted to IIM Mumbai (2023) | Mumbai, Maharashtra</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-teal">📍 Mumbai, Maharashtra</span>
+      <span class="chip ch-gold">📅 Established: 1963</span>
+      <span class="chip ch-fire">Assistance: UNDP + ILO (International Labour Organization)</span>
+      <span class="chip ch-violet">Converted to IIM Mumbai: 2023 (IIM Amendment Bill 2023)</span>
+    </div>
+    <div class="info-box">
+      <div class="hl-label">About NITIE</div>
+      <div class="hl-text">Committed to <strong>HR, Information Technology, and Sustainability Management</strong>. In 2023, NITIE was converted into <strong>IIM Mumbai</strong> by Indian Institutes of Management (Amendment) Bill 2023.</div>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">Role of NITIE</div>
+      <ul class="pts">
+        <li>Develops <strong>high-level managerial and technical manpower</strong> for industry</li>
+        <li>Creating skilled professionals in diverse functional areas: <strong>Operations Management, Analytics, Finance, Marketing, Project Management</strong></li>
+        <li>Acts as a <strong>centre of excellence for Industry–academia collaboration, Research and consultancy</strong></li>
+      </ul>
+    </div>
+    <div class="sub-sec">
+      <div class="sub-title">NEERI — National Environmental Engineering Research Institute</div>
+      <ul class="pts">
+        <li>Established in <strong>1958</strong></li>
+        <li>Located at <strong>Nagpur, Maharashtra</strong></li>
+        <li>Parent body: <strong>Council of Scientific and Industrial Research (CSIR)</strong></li>
+        <li>Conducts applied and basic research in environmental engineering and sciences</li>
+        <li>Develops technologies for pollution prevention and control; Monitors air, water, soil, and noise pollution</li>
+        <li>Provides consultancy services; Organises training programmes, workshops, capacity-building courses</li>
+        <li>Operates advanced laboratories for environmental analysis; Collaborates with universities, IITs, NITs, and international organisations</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 22 MINISTRY OF EDUCATION ══ -->
+<div class="inst-block ac-fire" id="moe">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(255,60,31,0.12)">🏛️</div>
+    <div class="inst-meta">
+      <div class="inst-num">22 · Apex Ministry</div>
+      <div class="inst-title">Ministry of Education
+        <span class="inst-abbr" style="background:rgba(255,60,31,0.2);color:var(--fire-light)">MoE / MHRD</span>
+      </div>
+      <div class="inst-full-name">Formed: 15 August 1947 | HQ: Shastri Bhavan, New Delhi</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <div class="chips">
+      <span class="chip ch-fire">📅 Formed: 15 August 1947</span>
+      <span class="chip ch-gold">📍 Shastri Bhavan, New Delhi</span>
+      <span class="chip ch-teal">Responsible for implementing National Policy on Education</span>
+    </div>
+    <div class="hl-box">
+      <div class="hl-label">Two Departments</div>
+      <div class="hl-text">
+        <strong>Department of School Education and Literacy</strong> — Primary, Secondary, Higher Secondary education; Adult education and literacy<br><br>
+        <strong>Department of Higher Education</strong> — University level education, Technical education, Scholarships
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Bodies under Department of School Education</div>
+      <div class="fn-grid">
+        <div class="fn-card"><div class="fn-dot"></div><strong>Central Board of Secondary Education (CBSE)</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>Kendriya Vidyalaya Sangathan (KVS)</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>National Council for Teacher Education (NCTE)</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>Jawahar Navodaya Vidyalaya (JNV)</strong></div>
+        <div class="fn-card"><div class="fn-dot"></div><strong>National Institute of Open Schooling (NIOS)</strong></div>
+      </div>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">NTA — National Testing Agency</div>
+      <ul class="pts">
+        <li>Autonomous and self-sustained testing organisation to conduct <strong>entrance examinations for admission/fellowship</strong> in higher educational institutions</li>
+        <li>Established as a Society under the Indian Societies Registration Act, 1860</li>
+        <li>Established in <strong>2017</strong></li>
+        <li>Objective: Conduct efficient, transparent and international standards tests to assess competency of candidates for admission and recruitment purposes</li>
+        <li>Functions: Identify partner institutions for online examinations; Create question bank using modern techniques; Establish R&D culture and pool of testing experts; Provide training and advisory services; Collaborate with international organisations; Undertake examinations entrusted by Ministries/Departments/State Governments; Undertake reforms and training of school boards</li>
+        <li>Examinations conducted: <strong>IIT JEE, NEET, GPAT, CSIR NET, JNU entrance, Delhi University entrance, IGNOU PhD entrance</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 23 CBSE & UNDER MoE BODIES ══ -->
+<div class="inst-block ac-green" id="cbse">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(34,211,122,0.1)">📋</div>
+    <div class="inst-meta">
+      <div class="inst-num">23 · School Boards & Education Bodies</div>
+      <div class="inst-title">CBSE, KVS, NCTE, JNV, NIOS, Maharashtra SIVE
+        <span class="inst-abbr" style="background:rgba(34,211,122,0.15);color:var(--green)">CBSE</span>
+      </div>
+      <div class="inst-full-name">Under Department of School Education and Literacy, Ministry of Education</div>
+    </div>
+  </div>
+  <div class="inst-body">
+
+    <div class="sub-sec" style="margin-top:0;padding-top:0;border-top:none">
+      <div class="sub-title">CBSE — Central Board of Secondary Education</div>
+      <ul class="pts">
+        <li>National level board of education for public and private schools, <strong>controlled and managed by Government of India</strong></li>
+        <li>Established in <strong>1929 by a Government Resolution</strong></li>
+        <li>HQ: <strong>New Delhi</strong></li>
+        <li>CBSE affiliates all <strong>Kendriya Vidyalayas, all Jawahar Navodaya Vidyalayas</strong>, private schools, and most schools approved by the Central Government</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">KVS — Kendriya Vidyalaya Sangathan</div>
+      <ul class="pts">
+        <li>System of <strong>central government schools</strong> under the Ministry of Education</li>
+        <li>Established in <strong>1963</strong></li>
+        <li>As of April 2023: <strong>1,253 schools in India + 3 abroad</strong> (Kathmandu, Moscow and Tehran)</li>
+        <li><strong>Non-profit organisation</strong></li>
+        <li>All schools affiliated to <strong>CBSE</strong></li>
+        <li>Original objective: educate children of <strong>Indian Defence Services personnel</strong> posted to remote locations; later extended to all central government employees</li>
+        <li>HQ: New Delhi</li>
+        <li><strong>Chairman:</strong> Minister in Charge of Ministry of Education | <strong>Deputy Chairman:</strong> Minister of State, Ministry of Education</li>
+        <li>Salient Features: Common textbooks and bilingual medium of instruction; All KVs co-educational and composite; Sanskrit taught in Class VI–VIII; No tuition fee for boys (up to Class VIII), girls (up to Class XII), SC/ST students and children of KVS employees</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">NCTE — National Council for Teacher Education</div>
+      <ul class="pts">
+        <li><strong>Statutory body</strong> set up under the National Council for Teacher Education Act, <strong>1993</strong></li>
+        <li>Established in <strong>1995</strong></li>
+        <li>HQ: New Delhi | Under Department of Higher Education, Ministry of Education</li>
+        <li>Mandate: achieve planned and coordinated development of teacher education throughout the country; govern regulation and maintenance of norms and standards for teacher education</li>
+        <li>Functions: Undertake surveys and studies on teacher education; Make recommendations to Central/State Governments and UGC; Co-ordinate and monitor teacher education development; Lay down guidelines for minimum qualifications for teachers; Lay down norms for teacher education courses (eligibility criteria, duration, course contents, mode of curriculum); Evolve performance appraisal system for recognised institutions; Take steps to prevent <strong>commercialisation of teacher education</strong></li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">NEP 2020 — Teacher-Related Provisions</div>
+      <ul class="pts">
+        <li>Promulgates that <strong>teacher is at the centre of all fundamental reforms</strong> in education</li>
+        <li>Recommends <strong>50 hours of Continuous Professional Development (CPD)</strong> for teachers, Principals and teacher-educators</li>
+        <li>Aims at making optimum use of latest pedagogy; provides autonomy to choose offline or online activities/trainings as per need</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">National Foundation for Teachers' Welfare</div>
+      <ul class="pts">
+        <li>Charitable foundation established by the Government of India</li>
+        <li>Established in <strong>1962</strong></li>
+        <li>Responsible for providing <em>"relief to teachers and their dependants who may be in indigent circumstances"</em></li>
+        <li>HQ: <strong>Hyderabad</strong></li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">JNV — Jawahar Navodaya Vidyalaya</div>
+      <ul class="pts">
+        <li>System of central schools for <strong>talented students predominantly from rural areas</strong> in India</li>
+        <li>Run by <strong>Navodaya Vidyalaya Samiti</strong> — autonomous organisation under the Department of School Education and Literacy, Ministry of Education</li>
+        <li>Established in <strong>1986</strong></li>
+        <li><strong>Fully residential and co-educational schools</strong> affiliated to CBSE — Classes VI to XII</li>
+        <li><strong>Chairman of the Samiti = Minister of Education</strong></li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">DJSS — Directorate of Jan Shikshan Sansthan</div>
+      <ul class="pts">
+        <li>Sub-ordinate office of <strong>MSDE</strong> — responsible for monitoring and supervision of Jan Shikshan Sansthan (JSS) Scheme</li>
+        <li>JSS formerly known as <strong>Shramik Vidyapeeth</strong></li>
+        <li>Implemented since <strong>1967</strong>; renamed Jan Shikshan Sansthan in <strong>2000</strong></li>
+        <li>JSS transferred from Ministry of Education to MSDE in <strong>July 2018</strong></li>
+        <li>Implemented through <strong>NGOs with 100% grants from Government of India</strong></li>
+        <li>Mandate: provide vocational skills in non-formal mode to <strong>non-literate, neo-literates, persons with education up to 8th, school drop-outs up to 12th</strong> in age group 15–45 years</li>
+        <li>Priority groups: <strong>Women, SC, ST, minorities, other backward sections</strong></li>
+        <li>Registered under Societies Registration Act, 1860</li>
+        <li>DJSS Roles: Approval of Annual Action Plan; Release of Grants; Technical support; Supervision & monitoring; Periodic visits; Guidance to Board of Management; Curriculum Development</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Maharashtra State Board of Skill, Vocational Education and Training (SIVE Equivalent)</div>
+      <ul class="pts">
+        <li>Government of Maharashtra established <strong>Maharashtra State Technical Education Examination Board (MSBTEE) in 1956</strong> under Directorate of Technical Education — this is the SIVE-like institution in Maharashtra</li>
+        <li>Due to growth, Government of Maharashtra bifurcated DTE and established <strong>Directorate of Vocational Education and Training in 1986</strong></li>
+        <li>MSBTEE also bifurcated — <strong>Maharashtra State Vocational Education Examination Board (MSBVEE) established in 1986</strong></li>
+        <li>MSBVEE renamed and established as <strong>Maharashtra State Board of Skill, Vocational Education and Training</strong> from <strong>2022</strong> — to regulate matters pertaining to Skill, Vocational Education and Training and Entrepreneurship Education as per NSQF</li>
+        <li>Functions: Design and Approval of Course; Affiliation of Vocational Training Institutes; Assessment and Certification; Training Management, Research and Development</li>
+      </ul>
+    </div>
+
+    <div class="sub-sec">
+      <div class="sub-title">Viksit Bharat Shiksha Adhikshan Bill — Higher Education Reform</div>
+      <ul class="pts">
+        <li>Union Cabinet approved this bill proposing a <strong>unified regulator for higher education</strong> — replacing existing statutory bodies UGC, AICTE, and NCTE</li>
+        <li>Earlier known as the <strong>Higher Education Commission of India (HECI) Bill</strong></li>
+        <li>Follows recommendations of <strong>National Education Policy (NEP) 2020</strong> for a single regulatory authority to streamline governance of higher education</li>
+        <li><strong>Medical</strong> (National Medical Commission) and <strong>Legal education</strong> (Bar Council of India) continue to be regulated by their respective councils — remaining outside HECI's regulatory purview</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUICK REFERENCE TABLE ══ -->
+<div class="sec-divider">── <span>QUICK REFERENCE TABLE</span> ──</div>
+
+<div class="inst-block ac-gold" id="ref">
+  <div class="inst-header">
+    <div class="inst-icon" style="background:rgba(245,166,35,0.12)">⚡</div>
+    <div class="inst-meta">
+      <div class="inst-num">Quick Revision</div>
+      <div class="inst-title">At-a-Glance: All Institutes — Key Facts</div>
+    </div>
+  </div>
+  <div class="inst-body">
+    <table class="dtable">
+      <tr><th>Institute</th><th>Year</th><th>Location</th><th>Ministry / Parent Body</th><th>Type</th></tr>
+      <tr><td class="td-fire">DGT</td><td>1945 (as DGRE)</td><td>—</td><td class="td-gold">MSDE</td><td>Govt Directorate</td></tr>
+      <tr><td class="td-fire">NCVET</td><td>2018 (op. 2020)</td><td>—</td><td class="td-gold">MSDE</td><td>Statutory Regulator</td></tr>
+      <tr><td class="td-fire">NSDA</td><td>2013</td><td>—</td><td class="td-gold">MSDE</td><td>Autonomous (Society)</td></tr>
+      <tr><td class="td-fire">NSDC</td><td>2008</td><td>New Delhi</td><td class="td-gold">MSDE (49%)</td><td>Not-for-Profit Co. (PPP)</td></tr>
+      <tr><td class="td-fire">CSTARI</td><td>1968</td><td>Kolkata</td><td class="td-gold">DGT/MSDE</td><td>Training Institute</td></tr>
+      <tr><td class="td-fire">NIMI</td><td>1986</td><td>Chennai</td><td class="td-gold">DGT/MSDE</td><td>Autonomous Institute</td></tr>
+      <tr><td class="td-fire">ATI</td><td>1981</td><td>—</td><td class="td-gold">DGT/MSDE</td><td>Govt Technical Institute</td></tr>
+      <tr><td class="td-teal">NCERT</td><td>1961</td><td>New Delhi</td><td class="td-gold">MoE</td><td>Autonomous Org.</td></tr>
+      <tr><td class="td-teal">PSSCIVE</td><td>—</td><td>Bhopal</td><td class="td-gold">NCERT/MoE</td><td>NCERT Constituent Unit</td></tr>
+      <tr><td class="td-teal">RIE (×4)</td><td>—</td><td>Ajmer/Bhopal/Bhubaneswar/Mysore</td><td class="td-gold">NCERT/MoE</td><td>NCERT Constituent Unit</td></tr>
+      <tr><td class="td-teal">NERIE</td><td>1992</td><td>Shillong</td><td class="td-gold">NCERT/MoE</td><td>NCERT Constituent Unit</td></tr>
+      <tr><td class="td-teal">NIESBUD</td><td>—</td><td>Noida, UP</td><td class="td-gold">MSDE</td><td>Premier Training Org.</td></tr>
+      <tr><td class="td-teal">NIEPA</td><td>1962</td><td>New Delhi</td><td class="td-gold">MoE</td><td>Deemed University (2006)</td></tr>
+      <tr><td class="td-teal">TTTI/NITTTR</td><td>1964/1965</td><td>4 cities</td><td class="td-gold">MoE</td><td>Autonomous Institution</td></tr>
+      <tr><td class="td-teal">AICTE</td><td>1945 (stat.1987)</td><td>New Delhi</td><td class="td-gold">Dept Higher Edu, MoE</td><td>Statutory Body</td></tr>
+      <tr><td class="td-teal">NBA</td><td>1994</td><td>New Delhi</td><td class="td-gold">AICTE</td><td>Accreditation Body</td></tr>
+      <tr><td class="td-teal">NAAC</td><td>1994</td><td>Bangalore</td><td class="td-gold">UGC</td><td>Autonomous (UGC funded)</td></tr>
+      <tr><td class="td-teal">UGC</td><td>1956</td><td>New Delhi</td><td class="td-gold">Dept Higher Edu, MoE</td><td>Statutory Body</td></tr>
+      <tr><td class="td-teal">IIT Kharagpur (1st)</td><td>1950</td><td>Kharagpur, WB</td><td class="td-gold">MoE</td><td>Institute of Natl Importance</td></tr>
+      <tr><td class="td-teal">NITIE → IIM Mumbai</td><td>1963 → 2023</td><td>Mumbai</td><td class="td-gold">MoE</td><td>IIM (from 2023)</td></tr>
+      <tr><td class="td-teal">NEERI</td><td>1958</td><td>Nagpur</td><td class="td-gold">CSIR</td><td>Research Institute</td></tr>
+      <tr><td class="td-teal">CBSE</td><td>1929</td><td>New Delhi</td><td class="td-gold">Govt of India</td><td>National Board</td></tr>
+      <tr><td class="td-teal">KVS</td><td>1963</td><td>New Delhi</td><td class="td-gold">MoE</td><td>Autonomous (Non-Profit)</td></tr>
+      <tr><td class="td-teal">NCTE</td><td>1995</td><td>New Delhi</td><td class="td-gold">Dept Higher Edu, MoE</td><td>Statutory Body</td></tr>
+      <tr><td class="td-teal">JNV</td><td>1986</td><td>—</td><td class="td-gold">MoE</td><td>Autonomous (NVS)</td></tr>
+      <tr><td class="td-teal">NIOS</td><td>1999</td><td>Noida</td><td class="td-gold">MoE</td><td>Autonomous Org.</td></tr>
+      <tr><td class="td-teal">NTA</td><td>2017</td><td>—</td><td class="td-gold">MoE</td><td>Autonomous (Society)</td></tr>
+      <tr><td class="td-teal">Seacom Skills Univ (1st Skill Univ)</td><td>2014</td><td>Bolpur, WB</td><td class="td-gold">Private</td><td>Private Skill University</td></tr>
+      <tr><td class="td-teal">UNESCO-UNEVOC</td><td>2002</td><td>Bonn, Germany</td><td class="td-gold">UNESCO + German Govt</td><td>International Centre</td></tr>
+      <tr><td class="td-teal">Maharashtra MSBSVET</td><td>1956(MSBTEE)→2022</td><td>—</td><td class="td-gold">Govt of Maharashtra</td><td>State Board</td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  Built for warriors. <span>DHRUV</span> — stay fixed, stay unstoppable. &nbsp;·&nbsp; Ignite Academy · 8888256117 / 8888996116
+</footer>
+
+</body>
+</html>
